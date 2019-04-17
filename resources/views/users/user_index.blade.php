@@ -26,6 +26,9 @@
                 <thead>
                 <tr>
 	                  <th>Nombre</th>
+	                  <th>Apellido</th>
+	                  <th>DNI</th>
+	                  <th>Celular</th>
 	                  <th>Email</th>
 	                  <th>Rol</th>
 	            </tr>
@@ -34,6 +37,9 @@
                 <?php foreach ($users as $user): ?>
 	                  <tr>  
 	                  <td><?=$user->name?></td>
+	                  <td><?=$user->last_name?></td>
+	                  <td><?=$user->dni?></td>
+	                  <td><?=$user->cellphone?></td>
 	                  <td><?=$user->email?></td>
 	                  <td><?=$user->role?></td>
 	                  <td> <a href="#"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
