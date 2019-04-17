@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -52,7 +53,20 @@ class UserController extends Controller
         }else{
             $url_image = "/images/uploads/".Auth:: user()->avatar;
         }
-        return view('users.user_profile')->with(compact('user','url_image')); 
+        $s_user = NULL;
+        if($user->role == 1 ){
+            $s_user = DB::table('doctors')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+            //dd($s_user);
+            //exit();
+        } 
+        if($user->role == 2 ){
+            $s_user = DB::table('triages')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+        } 
+        return view('users.user_profile')->with(compact('user','url_image','s_user')); 
     }
  
  
