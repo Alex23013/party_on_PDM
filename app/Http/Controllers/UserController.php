@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -19,6 +20,17 @@ class UserController extends Controller
     public function add(){
         return view('users.new_user');   
     }
+
+    public function profile(){
+        $user = User::find(Auth:: user()->id);
+        if(Auth:: user()->avatar == "default.png"){
+            $url_image = "/images/".Auth:: user()->avatar;
+        }else{
+            $url_image = "/images/uploads/".Auth:: user()->avatar;
+        }
+        return view('users.user_profile')->with(compact('user','url_image')); 
+    }
+ 
  
     public function show($id)
     {

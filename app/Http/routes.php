@@ -15,6 +15,8 @@ Route::auth();
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/profile', 'UserController@profile');
+
 Route::get('/users', 'UserController@index');
 Route::get('/users/add', 'UserController@add');
 //Route::get('users/{id}', 'UserController@show');
