@@ -20,6 +20,7 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/users', 'UserController@index');
+Route::get('/users/add', 'UserController@add');
 Route::get('users/{id}', 'UserController@show');
 Route::post('users', 'UserController@store');
 Route::put('users/{id}', 'UserController@update');

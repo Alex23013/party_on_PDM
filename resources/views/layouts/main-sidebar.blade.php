@@ -18,7 +18,7 @@
             <li><a href="/users">
               <i class="glyphicon glyphicon-user"></i> <span>Miembros</span>
               </a></li>
-            <li><a href="#">
+            <li><a href="/users/add">
               <i class="glyphicon glyphicon-plus"></i> <span>Añadir miembro</span>
               </a></li>
           @endif
