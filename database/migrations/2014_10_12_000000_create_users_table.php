@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->char('dni', 8)->unique();
             $table->string('email')->unique();
-            $table->string('cellphone');
             $table->string('password');
-            $table->string('avatar');
+            $table->string('cellphone');            
+            $table->string('avatar')->default('default.png');
             $table->boolean('validated')->default(0);
             $table->integer('role');
             $table->rememberToken();
