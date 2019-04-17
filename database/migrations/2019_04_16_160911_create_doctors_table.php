@@ -16,9 +16,9 @@ class CreateDoctorsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->date('birth_at');
-            $table->string('college');
+            $table->string('college')->nullable();
             $table->string('address');
-            $table->boolean('available');
+            $table->boolean('available')->default(1);
             $table->string('specialty');
             //ec: emergency_contact
             $table->string('ec_name')->nullable();

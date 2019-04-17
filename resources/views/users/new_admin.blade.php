@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Registrar un Miembro</div>
+                <div class="panel-heading">Registrar un Administrador</div>
                 <div class="panel-body">
                 @if (count($errors) > 0)
                       <div class="alert alert-danger">
@@ -67,19 +67,8 @@
                             </div>
                         </div>
 
-                        
-                        <div class="form-group">
-                            <label for="role" class="col-md-4 control-label">Rol</label>
-
-                            <div class="col-md-6">
-                               <select id="role" type="text" class="form-control" name="role">
-                                    <option value="2"> Triaje </option>
-                                    <option value="1"> Doctor </option>
-                                    <option value="0"> Administrador </option>
-                               </select> 
-                            </div>
-                        </div>
-
+                        <input id="input-role" type="hidden" name="role" value = 0>
+                        <input id="input-name_role" type="hidden" name="name_role" value = Administrador>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

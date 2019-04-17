@@ -18,7 +18,9 @@ Route::get('/', 'HomeController@index');
 Route::get('/profile', 'UserController@profile');
 
 Route::get('/users', 'UserController@index');
-Route::get('/users/add', 'UserController@add');
+Route::get('/users/add/{role}', 'UserController@add');
+Route::get('/users/{id}/active', 'UserController@active');
+Route::get('/users/{id}/deactive', 'UserController@deactive');
 //Route::get('users/{id}', 'UserController@show');
 Route::post('users', 'UserController@store');
 //Route::put('users/{id}', 'UserController@update');

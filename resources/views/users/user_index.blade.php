@@ -31,6 +31,7 @@
 	                  <th>Celular</th>
 	                  <th>Email</th>
 	                  <th>Rol</th>
+	                  <th>Estado</th>
 	            </tr>
                 </thead>
                 <tbody>
@@ -41,11 +42,23 @@
 	                  <td><?=$user->dni?></td>
 	                  <td><?=$user->cellphone?></td>
 	                  <td><?=$user->email?></td>
-	                  <td><?=$user->role?></td>
+	                  <td><?=$user->name_role?></td>
+	                  @if ($user->validated)
+	                  	<td>Activo</td>
+	                  @else
+	                  	<td>Desactivo </td>
+	                  @endif
+	                  
 	                  <td> <a href="#"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
 	                  @if($user->role == 0)
+	                  	<a href="#"> <button  type="button" class="btn btn-success disabled btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	<a href="#"> <button  type="button" class="btn btn-danger btn-flat disabled buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-remove"></i></button></a>
 	                  @else
+	                  	@if ($user->validated)
+	                  		<a href="/users/{{$user->id}}/deactive"> <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  	@else
+	                  		<a href="/users/{{$user->id}}/active"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  	@endif
 	                  	<a href="/users/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-remove"></i></button><a>
 	                  @endif
 	                  </td>

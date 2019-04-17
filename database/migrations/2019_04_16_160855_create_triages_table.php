@@ -16,7 +16,7 @@ class CreateTriagesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->boolean('is_a_doctor');
-            $table->string('college');
+            $table->string('college')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
