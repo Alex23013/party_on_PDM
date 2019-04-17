@@ -18,13 +18,13 @@
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/images/user.png" class="img-circle" alt="User Image" width="20" height="20">
+              <img src="{{$url_image}}" class="img-circle" alt="User Image" width="20" height="20">
               <span class="hidden-xs"><b>{{ Auth::user()->name }}</b> </span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                 <img src="/images/user.png" class="img-circle" alt="User Image">
+                 <img src="{{$url_image}}" class="img-circle" alt="User Image">
                 <p>
                   <b>{{ Auth::user()->name }}</b> 
                   <small>{{ Auth::user()->name_role }} </small>

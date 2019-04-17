@@ -61,8 +61,14 @@
     <script src="{{ asset('js/thingsAppears.js') }}"></script>
   
 </head>
+@if(Auth:: user()->avatar == "default.png")
+   <?php  $url_image = "/images/".Auth:: user()->avatar?>
+@else
+    <?php $url_image = "/images/uploads/".Auth:: user()->avatar?>
+@endif 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">     
+    
     
     @include('layouts.header')
     @include('layouts.main-sidebar')
