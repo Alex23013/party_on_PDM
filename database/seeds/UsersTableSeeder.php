@@ -20,7 +20,8 @@ class UsersTableSeeder extends Seeder
 	               'password' => bcrypt('123456'),
 	               'avatar' => 'default.png',
 	               'validated'=>'1',
-	               'role'=>0,	               
+	               'role'=>0,
+	               'name_role'=>'administrador',      
 	           ]);
 
 	    DB::table('users')->insert([
@@ -32,7 +33,8 @@ class UsersTableSeeder extends Seeder
 	               'password' => bcrypt('123456'),
 	               'avatar' => 'default.png',
 	               'validated'=>'1',
-	               'role'=>1,	               
+	               'role'=>1,
+	               'name_role' => 'doctor',	               
 	           ]);
 
 	    DB::table('users')->insert([
@@ -44,7 +46,8 @@ class UsersTableSeeder extends Seeder
 	               'password' => bcrypt('123456'),
 	               'avatar' => 'default.png',
 	               'validated'=>'1',
-	               'role'=>2,	               
+	               'role'=>2,
+	               'name_role'=>'triaje',	               
 	           ]);
 
 	    DB::table('users')->insert([
@@ -56,7 +59,8 @@ class UsersTableSeeder extends Seeder
 	               'password' => bcrypt('123456'),
 	               'avatar' => 'default.png',
 	               'validated'=>'1',
-	               'role'=>3,	               
+	               'role'=>3,	 
+	               'name_role'=>'paciente',              
 	           ]);
     }
 }

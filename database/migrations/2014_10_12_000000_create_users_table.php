@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->default('default.png');
             $table->boolean('validated')->default(0);
             $table->integer('role');
+            $table->string('name_role');
             $table->rememberToken();
             $table->timestamps();
         });
