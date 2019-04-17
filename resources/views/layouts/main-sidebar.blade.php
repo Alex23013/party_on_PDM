@@ -14,18 +14,14 @@
       
       <div>
         <ul class="sidebar-menu" data-widget="tree">
-            <li><a href="#">
-              <i class="glyphicon glyphicon-plus"></i> <span>Añadir miembro</span>
-              </a></li>
-            <li><a href="#">
+          @if( Auth::user()->role == 0)
+            <li><a href="/users">
               <i class="glyphicon glyphicon-user"></i> <span>Miembros</span>
               </a></li>
             <li><a href="#">
-              <i class="fa fa-calendar"></i> <span>Calendario general</span>
+              <i class="glyphicon glyphicon-plus"></i> <span>Añadir miembro</span>
               </a></li>
-             <li><a href="#">
-              <i class="fa fa-group "></i> <span>Grupos</span>
-              </a></li> 
+          @endif
         </ul>      
       </div>
     </section>
