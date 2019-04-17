@@ -9,10 +9,11 @@ use App\User;
 
 class UserController extends Controller
 {
-    //
 	public function index()
     {
-        return User::all();
+        $users = User::all();
+        $newUser = NULL;   
+        return view('users.user_index')->with(compact('users','newUser'));
     }
  
     public function show($id)
