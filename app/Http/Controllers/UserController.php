@@ -89,9 +89,7 @@ class UserController extends Controller
         use ($data) {
         $message->to($data['email'], $data['name'])->subject('Por favor confirma tu correo');
         });*/
-        $users = User::all();
-        $newUser = $user;
-        return view('users.user_index')->with(compact('users','newUser'));
+        return redirect('/users');
     }
 
 
@@ -102,10 +100,9 @@ class UserController extends Controller
         return $user;
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return 204;
+        User::destroy($id);
+        return redirect('/users');
     }
 }
