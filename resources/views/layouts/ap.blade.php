@@ -24,7 +24,8 @@
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
      <style type="text/css">
       body {
-        background-color: #c2f0f0;
+        background-color:  #006080;
+        background: url(/images/doc.jpg) no-repeat center top;
       }
 
      </style>
@@ -32,8 +33,21 @@
 
   <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-    
-    @include('layouts.header')
+    <header class="main-header">
+    <!-- Logo -->
+    <div class="logo">
+      
+      <span class="logo-mini"><b>Doc</b>D</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Doc</b>Door</span>
+
+    </div>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <span class="sr-only">Toggle navigation</span>
+
+    </nav>
+  </header>
 <section class="content">
       @yield('content')  
     </section>
