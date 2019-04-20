@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('main');
+        if(Auth:: user()->validated){
+            return view('main');
+        }else{
+            return redirect('/logout');
+        }
+            
     }
 }
