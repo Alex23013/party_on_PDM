@@ -75,7 +75,7 @@
               </b></li>
               @endif
             </ul>
-              <a href="#">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Usuario</button></a>
+              <a href="/users/profile/edit">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Usuario</button></a>
               </div>
               <div class="col-md-4 ">
                   <img src="{{$url_image}}" class= "imgAvatar">

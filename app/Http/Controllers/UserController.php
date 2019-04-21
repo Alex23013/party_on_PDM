@@ -161,12 +161,28 @@ class UserController extends Controller
         return redirect('/users');
     }
 
+    public function update(){
+        $user = User::find(Auth:: user()->id);
+        if(Auth:: user()->avatar == "default.png"){
+            $url_image = "/images/".Auth:: user()->avatar;
+        }else{
+            $url_image = "/images/uploads/".Auth:: user()->avatar;
+        }
+        return view('users.user_edit')
+            ->with(compact('user','url_image')); 
+    }    
 
-    public function update(Request $request, $id)
+    public function store_update(Request $request)
     {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
-        return $user;
+        $user = User::findOrFail(Auth:: user()->id);
+        $data = $request->all();
+        foreach ($data as $key => $value) {
+           if( $value == ''){
+            $data[$key]=$user->$key ;
+           }
+        }
+        $user->update($data);
+        return redirect('/profile');
     }
 
     public function delete($id)

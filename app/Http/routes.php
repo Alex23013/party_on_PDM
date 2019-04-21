@@ -23,5 +23,6 @@ Route::get('/users/{id}/active', 'UserController@active');
 Route::get('/users/{id}/deactive', 'UserController@deactive');
 //Route::get('users/{id}', 'UserController@show');
 Route::post('users', 'UserController@store');
-//Route::put('users/{id}', 'UserController@update');
+Route::get('users/profile/edit', 'UserController@update');
+Route::post('users/profile/edit', 'UserController@store_update');
 Route::get('/users/remove/{id}', 'UserController@delete');
