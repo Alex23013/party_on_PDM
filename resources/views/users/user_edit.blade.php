@@ -90,6 +90,7 @@
 		                
 		                <div class="col-md-8 p-top"> 
 		                <button type="submit" class="btn  btn-flat btn-success m-left">  <i class="fa fa-save"></i>  Guardar cambios</button>
+		                <a href="/profile"> <button class="btn  btn-flat btn-danger m-left">  <i class="fa fa-close"></i> Descartar cambios</button> </a>
 		                </div>
 		                </form>	
 	            	</div>

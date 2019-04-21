@@ -199,6 +199,61 @@ class UserController extends Controller
         }
         return redirect('/profile');  
     }
+
+    public function especific_edit(){
+        $user = User::find(Auth:: user()->id);
+        $s_user = NULL;
+        if($user->role == 1 ){
+            $s_user = DB::table('doctors')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+        } 
+        if($user->role == 2 ){
+            $s_user = DB::table('triages')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+        } 
+        return view('users.especific_info_edit')
+            ->with(compact('user','s_user')); 
+    }
+
+    public function store_especific_edit(Request $request){
+        $user = User::findOrFail(Auth:: user()->id);
+        $s_user = NULL;
+        if($user->role == 1 ){
+            $s_user = DB::table('doctors')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+            $doctor = Doctor::find($s_user->id);
+            $data = $request->all();
+            unset($data['_token']);
+            foreach ($data as $key => $value) {
+               if( $value == ''){
+                $data[$key]=$doctor->$key ;
+               }else{
+                $doctor->$key =$data[$key]; 
+               }
+            }
+            $doctor->save();
+        } 
+        if($user->role == 2 ){
+            $s_user = DB::table('triages')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+            $triage = Triage::find($s_user->id);
+            $data = $request->all();
+            //TODO: cambiar esto a un for
+            if($request->is_a_doctor != $triage->is_a_doctor){
+                $triage->is_a_doctor = $request->is_a_doctor;
+            }
+            if($request->college != $triage->college && $request->college != ''){
+                $triage->college = $request->college;
+            }
+            $triage->save();
+        }
+        return redirect('/profile');
+    }
+
     public function delete($id)
     {
         User::destroy($id);

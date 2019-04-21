@@ -76,6 +76,9 @@
               @endif
             </ul>
               <a href="/users/profile/edit">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Usuario</button></a>
+              @if ($s_user)
+              <a href="/users/especific/edit"> <button class="btn  btn-flat bg-olive m-left">  <i class="fa fa-edit"></i> Editar información de <?=$user['name_role']?> </button> </a>
+              @endif
               </div>
               <div class="col-md-4 ">
                   <img src="{{$url_image}}" class= "imgAvatar">

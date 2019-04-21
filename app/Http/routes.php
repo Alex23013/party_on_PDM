@@ -26,5 +26,6 @@ Route::post('users', 'UserController@store');
 Route::get('users/profile/edit', 'UserController@update');
 Route::post('users/profile/edit', 'UserController@store_update');
 Route::post('users/image_profile/edit', 'UserController@storeImageProfile');
-
+Route::get('users/especific/edit', 'UserController@especific_edit');
+Route::post('users/especific/edit', 'UserController@store_especific_edit');
 Route::get('/users/remove/{id}', 'UserController@delete');
