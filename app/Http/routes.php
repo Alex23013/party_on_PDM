@@ -25,4 +25,6 @@ Route::get('/users/{id}/deactive', 'UserController@deactive');
 Route::post('users', 'UserController@store');
 Route::get('users/profile/edit', 'UserController@update');
 Route::post('users/profile/edit', 'UserController@store_update');
+Route::post('users/image_profile/edit', 'UserController@storeImageProfile');
+
 Route::get('/users/remove/{id}', 'UserController@delete');

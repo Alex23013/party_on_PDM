@@ -10,6 +10,7 @@ use App\User;
 use App\Doctor;
 use App\Triage;
 use Auth;
+use Image;
 
 class UserController extends Controller
 {
@@ -185,6 +186,19 @@ class UserController extends Controller
         return redirect('/profile');
     }
 
+    //Actualiza la imagen de Perfil
+    public function storeImageProfile(Request $request){
+        $user = User::find(Auth:: user()->id);
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = 'avatar'.time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save( public_path('/images/uploads/' . $filename ) );
+
+            $user->avatar = $filename;
+            $user->save();
+        }
+        return redirect('/profile');  
+    }
     public function delete($id)
     {
         User::destroy($id);

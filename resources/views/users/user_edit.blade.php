@@ -101,7 +101,7 @@
 			            @if (Auth::user()->id == $user['id'])
 			            <a onClick="submitImageAppears();" ><i class="fa fa-edit"></i> Actualizar Imagen de Perfil</a> 
 
-			            <form enctype="multipart/form-data" action="/users/{{Auth::user()->id }}/edit" method="POST" id = "submitImageButtom" >
+			            <form enctype="multipart/form-data" action="/users/image_profile/edit" method="POST" id = "submitImageButtom" >
 			                {{ csrf_field() }}	
 			                <input type="file" name="avatar">
 			                <br> 
