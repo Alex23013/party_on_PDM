@@ -49,8 +49,9 @@
 	                  	<td>Desactivo </td>
 	                  @endif
 	                  
-	                  <td> <a href="#"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  <td> 
 	                  @if($user->role == 0)
+	                  	<a href="#"> <button  type="button" class="btn btn-info btn-flat disabled buttonSpace"><i class="fa fa-edit"></i></button></a>
 	                  	@if ($user->validated)
 	                  		<a href="#"> <button  type="button" class="btn btn-success disabled btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@else
@@ -59,6 +60,8 @@
 
 	                  	<a href="#"> <button  type="button" class="btn btn-danger btn-flat disabled buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-remove"></i></button></a>
 	                  @else
+	                  	<a href="#"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+
 	                  	@if ($user->validated)
 	                  		<a href="/users/{{$user->id}}/deactive"> <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@else

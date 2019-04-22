@@ -15,9 +15,14 @@
       <div>
         <ul class="sidebar-menu" data-widget="tree">
           @if( Auth::user()->role == 0)
+            <li><a href="/techs">
+              <i class="glyphicon glyphicon-user"></i> <span>Técnicos</span>
+            </a></li>
+
             <li><a href="/users">
               <i class="glyphicon glyphicon-user"></i> <span>Miembros</span>
               </a></li>
+
             <li class="treeview active">
               <a href="#">
                 <i class="glyphicon glyphicon-plus"></i> <span>Añadir miembro</span> <span class="pull-right-container">
@@ -28,7 +33,7 @@
               <li><a href="/users/add/1"><i class="fa fa-circle-o"></i> Doctor</a></li>
               <li><a href="/users/add/2"><i class="fa fa-circle-o"></i> Triaje </a></li>
               <li><a href="/users/add/0"><i class="fa fa-circle-o"></i> Administrador</a></li>
-            </li>
+            </li>            
           @endif
         </ul>      
       </div>
