@@ -19,7 +19,7 @@
 			  <div class="alert alert-success alert-dismissible pTop" role="alert">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			    <h3><b>Nuevo miembro añadido </b></h3>
-			    <h5><b><?=$newUser['name']?> </b> en el rol de </h5>
+			    <h5><b><?=$newUser['name']?> </b> en el rol de <?=$newUser['name_role']?></h5>
 			  </div>
 			@endif
 			 <table class="table table-bordered table-striped">
@@ -51,7 +51,12 @@
 	                  
 	                  <td> <a href="#"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
 	                  @if($user->role == 0)
-	                  	<a href="#"> <button  type="button" class="btn btn-success disabled btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  	@if ($user->validated)
+	                  		<a href="#"> <button  type="button" class="btn btn-success disabled btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  	@else
+	                  		<a href="#"> <button  type="button" class="btn btn-warning disabled btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  	@endif
+
 	                  	<a href="#"> <button  type="button" class="btn btn-danger btn-flat disabled buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-remove"></i></button></a>
 	                  @else
 	                  	@if ($user->validated)

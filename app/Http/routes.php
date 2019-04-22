@@ -16,6 +16,9 @@ Route::auth();
 Route::get('/', 'HomeController@index');
 
 Route::get('/profile', 'UserController@profile');
+// E-mail verification
+Route::get('/register/verify/{id}/{code}', 'UserController@verify');
+
 
 Route::get('/users', 'UserController@index');
 Route::get('/users/add/{role}', 'UserController@add');

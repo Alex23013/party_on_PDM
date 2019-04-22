@@ -11,6 +11,7 @@ use App\Doctor;
 use App\Triage;
 use Auth;
 use Image;
+use Mail;
 
 class UserController extends Controller
 {
@@ -125,41 +126,73 @@ class UserController extends Controller
         $user->password =bcrypt($request->password);
         $user->cellphone =  $request->cellphone;
         $user->role =  $request->role;
-        if($request->role == 0){
-            $user->validated = 1;
-        }
         $user->name_role =  $request->name_role;
+        if($request->role == 0){
+            $confirmation_code = str_random(25);
+            $user->confirmation_code = $confirmation_code;    
+        }        
+        
         $user->save();
-
+        if($request->role == 0){
+            $data = [
+            'confirmation_code' => $confirmation_code,
+            'id'=>$user->id,
+            'name' => $user->name,
+            'email'=> $user->email,
+            'password'=>$request->password,
+        ];
+        Mail::send('emails.confirmation_code', $data, function($message)
+         use ($data) {
+        $message->to($data['email'], $data['name'])->subject('Por favor confirma tu correo');
+         });
+        }
+        
         if($request->role == 1){
-        $doctor = New Doctor;
-        $doctor->user_id = $user->id; 
-        $doctor->birth_at = $request->birth_at;
-        $doctor->college = $request->college;
-        $doctor->address= $request->address;
+            $doctor = New Doctor;
+            $doctor->user_id = $user->id; 
+            $doctor->birth_at = $request->birth_at;
+            $doctor->college = $request->college;
+            $doctor->address= $request->address;
             if($request->specialty == ''){
                 $doctor->specialty = "médico general";
             }else{
                 $doctor->specialty= $request->specialty;
             }            
-        $doctor->ec_name = $request->ec_name;
-        $doctor->ec_last_name = $request->ec_last_name;
-        $doctor->ec_cellphone =  $request->ec_cellphone;
-        $doctor->save();
+            $doctor->ec_name = $request->ec_name;
+            $doctor->ec_last_name = $request->ec_last_name;
+            $doctor->ec_cellphone =  $request->ec_cellphone;
+            $doctor->save();
         }
 
         if($request->role == 2){
-        $triage = New Triage;
-        $triage->user_id = $user->id; 
-        $triage->is_a_doctor = $request->is_a_doctor; 
-        if($request->is_a_doctor){
-            $triage->college = $request->college;    
-        }
-        $triage->save();        
+            $triage = New Triage;
+            $triage->user_id = $user->id; 
+            $triage->is_a_doctor = $request->is_a_doctor; 
+            if($request->is_a_doctor){
+                $triage->college = $request->college;    
+            }
+            $triage->save();        
         }
     
+        $users = User::all();
+        $newUser = $user;   
+        return view('users.user_index')->with(compact('users','newUser'));
+    }
+
+    //verifica si el codigo de verificacion es el mismo que el de la base de datos y activa al usuario
+    public function verify($id,$code){    
+        $userVerified = User::find($id);
+        if($userVerified->confirmation_code == $code){
+            $userVerified->validated = True;
+            $userVerified->confirmation_code = NULL;
+            $userVerified->save();
+        }
+        if(Auth:: user()->id != $id){
+            return redirect('/logout');    
+        }else{
+            return redirect('/');    
+        }
         
-        return redirect('/users');
     }
 
     public function update(){

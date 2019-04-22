@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('cellphone');            
             $table->string('avatar')->default('default.png');
+            $table->string('confirmation_code')->nullable();
             $table->boolean('validated')->default(0);
             $table->integer('role');
             $table->string('name_role');
