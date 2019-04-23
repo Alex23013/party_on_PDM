@@ -12,6 +12,11 @@
     	<div class="box">
 	        <div class="box-header mm-left ">
 	          <h3 class="box-title ">Lista de Miembros</h3>
+	          <a href="/techs/add">  
+                <button type="button" class="btn  bg-olive margin">
+                 <h5 ><i class="fa fa-plus"></i>  Añadir un Técnico</h5>
+                </button>
+              </a>
 	        </div>
 	        <!-- /.box-header -->
 	        <div class="box-body mm-left"> 
@@ -45,14 +50,14 @@
 	                  @endif
 	                  
 	                  <td> 
-	                  	<a href="#"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  	<a href="/techs/edit/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
 
 	                  	@if ($user->active)
-	                  		<a href="#"> <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  		<a href="/techs/{{$user->id}}/deactive"> <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@else
-	                  		<a href="#"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  		<a href="/techs/{{$user->id}}/active"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@endif
-	                  	<a href="#"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este técnico?');"><i class="fa fa-remove"></i></button><a>
+	                  	<a href="/techs/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este técnico?');"><i class="fa fa-remove"></i></button><a>
 	                  
 	                  </td>
 	                  </tr>  
