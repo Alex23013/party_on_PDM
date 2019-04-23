@@ -50,6 +50,7 @@ class UserController extends Controller
 
     public function profile(){
         $user = User::find(Auth:: user()->id);
+        //dd($user);
         if(Auth:: user()->avatar == "default.png"){
             $url_image = "/images/".Auth:: user()->avatar;
         }else{
@@ -66,8 +67,7 @@ class UserController extends Controller
                     ->where('user_id', $user->id)
                     ->first(); 
         } 
-        return view('users.user_profile')
-            ->with(compact('user','url_image','s_user')); 
+        return view('users.user_profile')  ->with(compact('user','url_image','s_user')); 
     }
  
  

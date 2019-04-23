@@ -60,15 +60,15 @@
               <br>
               <b>Información adicional por ser de <?=$user['name_role']?> </b>
               <li> Es médico: <b> 
-                @if($s_user->is_a_doctor)
+                @if($s_user['is_a_doctor'])
                 Si
                 @else
                 No
                 @endif 
               </b></li>
               <li> Colegiatura: <b> 
-                @if($s_user->college)
-                {{$s_user->college}}  
+                @if($s_user['college'])
+                {{$s_user['college']}}  
                 @else
                 No tiene
                 @endif 
