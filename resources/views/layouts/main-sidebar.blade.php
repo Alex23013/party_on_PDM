@@ -14,6 +14,7 @@
       
       <div>
         <ul class="sidebar-menu" data-widget="tree">
+          <!--menu Administrador-->
           @if( Auth::user()->role == 0)
             <li><a href="/techs">
               <i class="glyphicon glyphicon-user"></i> <span>Técnicos</span>
@@ -34,6 +35,12 @@
               <li><a href="/users/add/2"><i class="fa fa-circle-o"></i> Triaje </a></li>
               <li><a href="/users/add/0"><i class="fa fa-circle-o"></i> Administrador</a></li>
             </li>            
+          @endif
+          <!--menu triaje-->
+          @if( Auth::user()->role == 2)
+          <li><a href="/techs">
+              <i class="glyphicon glyphicon-user"></i> <span>Técnicos</span>
+            </a></li>
           @endif
         </ul>      
       </div>
