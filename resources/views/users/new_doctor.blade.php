@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="birth" class="col-md-4 control-label">Colegiaturas </label>
+                            <label for="college" class="col-md-4 control-label">Colegiaturas </label>
 
                             <div class="col-md-6">
                                 <input id="college" type="text" class="form-control" name="college" >
@@ -93,7 +93,7 @@
                         </div>
                         
                          <div class="form-group">
-                            <label for="birth" class="col-md-4 control-label">Dirección </label>
+                            <label for="address" class="col-md-4 control-label">Dirección </label>
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control" name="address" >
@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="birth" class="col-md-4 control-label">Especialidad </label>
+                            <label for="specialty" class="col-md-4 control-label">Especialidad </label>
 
                             <div class="col-md-6">
                                 <input id="specialty" type="text" class="form-control" name="specialty" >

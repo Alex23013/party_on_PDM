@@ -116,7 +116,19 @@ class UserController extends Controller
             'password.min' => 'Ingrese como mínimo 6 caracteres en el campo "Contraseña".'
         ];
 
-        $this->validate($request, $rules, $messages);       
+        $this->validate($request, $rules, $messages);      
+        $rules1 = [
+            'birth' => 'required',
+            'address' => 'required|max:255',
+        ];
+        $messages1 = [
+            'birth.required' => 'Es necesario ingresar una fecha de nacimiento para registrar a un doctor',
+            'address.required' => 'Es necesario ingresar una dirección para registrar a un doctor',
+            'address.max' => 'Campo "Dirección" es demasiado extenso.',
+        ];
+        if($request->role == 1){ //new_doctor
+            $this->validate($request, $rules1, $messages1);       
+        }
 
         $user = New User;
         $user->name = $request->name;
