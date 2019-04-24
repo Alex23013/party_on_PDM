@@ -19,7 +19,7 @@
                     <form class="form-horizontal" role="form" method="POST" action="/users">
                          {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="name" class="col-md-4 control-label">Nombre</label>
+                            <label for="name" class="col-md-4 control-label">Nombre *</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" >
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="last_name" class="col-md-4 control-label">Apellido</label>
+                            <label for="last_name" class="col-md-4 control-label">Apellido *</label>
 
                             <div class="col-md-6">
                                 <input id="last_name" type="text" class="form-control" name="last_name" >
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="col-md-4 control-label">E-Mail </label>
+                            <label for="email" class="col-md-4 control-label">E-Mail *</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" >
@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="col-md-4 control-label">Contraseña</label>
+                            <label for="password" class="col-md-4 control-label">Contraseña *</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password">
@@ -60,10 +60,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="cellphone" class="col-md-4 control-label">Celular </label>
+                            <label for="cellphone" class="col-md-4 control-label">Celular *</label>
 
                             <div class="col-md-6">
                                 <input id="cellphone" type="text" class="form-control" name="cellphone" >
+                                <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
 
