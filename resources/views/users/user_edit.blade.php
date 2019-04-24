@@ -56,7 +56,7 @@
 		                  Celular:  	                  
 		                  <input type="text" class="form-control " name="cellphone" placeholder="<?=$user['cellphone']?>">
 		                </div>
-		                @if (Auth::user()->role == "0")
+		                @if (Auth::user()->role == "0" && $user['id'] != Auth::user()->id)
 		                <div class="col-md-8 p-top"> 
 		                  Rol: <?=$user['name_role']?> <br>
 		                  <a onClick="roleSelectAppears();" ><i class="fa fa-edit"></i> Cambiar de Rol</a>  	                  
