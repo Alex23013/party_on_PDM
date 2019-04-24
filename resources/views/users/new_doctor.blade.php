@@ -106,8 +106,12 @@
                             <label for="specialty" class="col-md-4 control-label">Especialidad </label>
 
                             <div class="col-md-6">
-                                <input id="specialty" type="text" class="form-control" name="specialty" >
-                                Si lo deja en blanco se registrará como médico general
+                                <select class="form-control" name = "specialty" >
+                                    <option value=""> médico general</option>
+                                    @foreach($specialties as $s)
+                                      <option value="<?=$s->name?>"><?=$s->name?></option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

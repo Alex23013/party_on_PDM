@@ -26,7 +26,8 @@ class UserController extends Controller
         if($role == 0){
             return view('users.new_admin');   
         }else if($role == 1){
-            return view('users.new_doctor'); 
+            $specialties = DB::table('specialties')->get(); 
+            return view('users.new_doctor')->with(compact('specialties'));
         }else{
             return view('users.new_triage'); 
         }
@@ -118,14 +119,15 @@ class UserController extends Controller
 
         $this->validate($request, $rules, $messages);      
         $rules1 = [
-            'birth' => 'required',
+            'birth_at' => 'required',
             'address' => 'required|max:255',
         ];
         $messages1 = [
-            'birth.required' => 'Es necesario ingresar una fecha de nacimiento para registrar a un doctor',
+            'birth_at.required' => 'Es necesario ingresar una fecha de nacimiento para registrar a un doctor',
             'address.required' => 'Es necesario ingresar una dirección para registrar a un doctor',
             'address.max' => 'Campo "Dirección" es demasiado extenso.',
         ];
+        //dd($request->all());
         if($request->role == 1){ //new_doctor
             $this->validate($request, $rules1, $messages1);       
         }
