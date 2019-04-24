@@ -20,7 +20,9 @@
                          {{ csrf_field() }}
 
                         <div class="form-group">
-                            <label for="name" class="col-md-4 control-label">Nombre *</label>
+
+                            <label for="name" class="col-md-4 control-label">
+                            Nombre *</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" >
@@ -65,7 +67,7 @@
 
                             <div class="col-md-6">
                                 <input id="cellphone" type="text" class="form-control" name="cellphone" >
-                                <b>Los campos con * son obligatorios</b>
+                                <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
                         <input id="input-role" type="hidden" name="role" value = 1>
@@ -76,7 +78,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="birth" class="col-md-4 control-label">Fecha de Nacimiento </label>
+                            <label for="birth" class="col-md-4 control-label">Fecha de Nacimiento * </label>
 
                             <div class="col-md-6">
                                 <input id="birth_at" type="date" class="form-control" name="birth_at" >
@@ -93,7 +95,7 @@
                         </div>
                         
                          <div class="form-group">
-                            <label for="address" class="col-md-4 control-label">Dirección </label>
+                            <label for="address" class="col-md-4 control-label">Dirección *</label>
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control" name="address" >
@@ -134,6 +136,7 @@
 
                             <div class="col-md-6">
                                 <input id="ec_cellphone" type="text" class="form-control" name="ec_cellphone" >
+
                             </div>
                         </div>
 
