@@ -70,7 +70,28 @@ class UserController extends Controller
         } 
         return view('users.user_profile')  ->with(compact('user','url_image','s_user')); 
     }
- 
+    
+    public function detail($id){
+        $user = User::find($id);
+        //dd($user);
+        if($user->avatar == "default.png"){
+            $url_image = "/images/".Auth:: user()->avatar;
+        }else{
+            $url_image = "/images/uploads/".Auth:: user()->avatar;
+        }
+        $s_user = NULL;
+        if($user->role == 1 ){
+            $s_user = DB::table('doctors')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+        } 
+        if($user->role == 2 ){
+            $s_user = DB::table('triages')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+        } 
+        return view('users.user_profile')  ->with(compact('user','url_image','s_user')); 
+    }
  
     public function show($id)
     {
@@ -299,6 +320,43 @@ class UserController extends Controller
             $triage->save();
         }
         return redirect('/profile');
+    }
+
+    public function user_update($id){
+        $user = User::find($id);
+        if($user->avatar == "default.png"){
+            $url_image = "/images/".$user->avatar;
+        }else{
+            $url_image = "/images/uploads/".$user->avatar;
+        }
+        return view('users.user_edit')
+            ->with(compact('user','url_image')); 
+    } 
+
+    public function store_user_update(Request $request)
+    {
+        $user = User::findOrFail($request->idUser);
+        $data = $request->all();
+        unset($data['idUser']);
+        unset($data['_token']);
+        unset($data['new_role']);
+        if ($request->roleChange){
+            unset($data['roleChange']);
+            $role_parts= explode(',',$request->role_parts); 
+            if($role_parts[0] != $user->role){
+                $user->role =$role_parts[0];
+                $user->name_role=$role_parts[1];
+            }
+            unset($data['role_parts']);
+        }
+        //TODO: revisar creacion de tablas extras si cambias de rol??
+        foreach ($data as $key => $value) {
+           if( $value != ''){
+            $user->$key =$data[$key];
+           }
+        }
+        $user->save();
+        return redirect('/users');
     }
 
     public function delete($id)

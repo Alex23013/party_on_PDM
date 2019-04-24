@@ -50,6 +50,7 @@
 	                  @endif
 	                  
 	                  <td> 
+	                  <a href="/users/see/{{$user->id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
 	                  @if($user->role == 0)
 	                  	<a href="#"> <button  type="button" class="btn btn-info btn-flat disabled buttonSpace"><i class="fa fa-edit"></i></button></a>
 	                  	@if ($user->validated)
@@ -60,8 +61,11 @@
 
 	                  	<a href="#"> <button  type="button" class="btn btn-danger btn-flat disabled buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-remove"></i></button></a>
 	                  @else
-	                  	<a href="#"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
-
+	                  	@if ($user->role == 1 || $user->role == 2 ) 
+	                  		<a href="/users/edit/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  	@else
+	                  		<a href="#"> <button  type="button" class="btn btn-info btn-flat disabled buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  	@endif
 	                  	@if ($user->validated)
 	                  		<a href="/users/{{$user->id}}/deactive"> <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@else

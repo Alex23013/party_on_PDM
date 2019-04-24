@@ -33,37 +33,41 @@
 	            	  	@if (Auth::user()->id == $user['id'])
 	            		<form class="form-horizontal" role="form" method="POST" action="/users/profile/edit">
 	            		@else
-	            		<form class="form-horizontal" role="form" method="POST" action="/users/">
+	            		<form class="form-horizontal" role="form" method="POST" action="/users/edit">
 	            		@endif
 		                {{ csrf_field() }}	              
 		                <div class="col-md-8 "> 
 		                  Nombre:  	                  
 		                  <input type="text" class="form-control " name="name" placeholder="<?=$user['name']?>">
 		                </div>
-		                <div class="col-md-8 "> 
+		                <div class="col-md-8 p-top "> 
 		                  Apellido:  	                  
 		                  <input type="text" class="form-control " name="last_name" placeholder="<?=$user['last_name']?>">
 		                </div>
-		                <div class="col-md-8 "> 
-		                  DNI:  	                  
-		                  <input type="text" class="form-control " name="dni" placeholder="<?=$user['dni']?>">
-		                </div>
+		                @if($user['id'] == Auth::user()->id)
+			                <div class="col-md-8 "> 
+			                  DNI:  	                  
+			                  <input type="text" class="form-control " name="dni" placeholder="<?=$user['dni']?>">
+			                </div>
+		                @endif
 		                <div class="col-md-8 p-top"> 
 		                  Email:  	                  
 		                  <input type="text" class="form-control " name="email" placeholder="<?=$user['email']?>">
 		                </div>
-		                <div class="col-md-8 p-top"> 
-		                  Celular:  	                  
-		                  <input type="text" class="form-control " name="cellphone" placeholder="<?=$user['cellphone']?>">
-		                </div>
+		                @if($user['id'] == Auth::user()->id)
+			                <div class="col-md-8 p-top"> 
+			                  Celular:  	                  
+			                  <input type="text" class="form-control " name="cellphone" placeholder="<?=$user['cellphone']?>">
+			                </div>
+		                @endif
 		                @if (Auth::user()->role == "0" && $user['id'] != Auth::user()->id)
 		                <div class="col-md-8 p-top"> 
 		                  Rol: <?=$user['name_role']?> <br>
 		                  <a onClick="roleSelectAppears();" ><i class="fa fa-edit"></i> Cambiar de Rol</a>  	                  
-		                  <select id="roleSelect" type="text" class="form-control" name="new_role">
-                                    <option value=2> Triaje</option>
-                                    <option value=1> Doctor </option>
-                                    <option value=0> Administrador </option>
+		                  <select id="roleSelect" type="text" class="form-control" name="role_parts">
+                                    <option value="2,triaje"> Triaje</option>
+                                    <option value="1,doctor"> Doctor</option>
+                                    <option value="0,administrador" > Administrador </option>
                        		</select> 
                        		<input type="hidden" name="roleChange" id = "roleInput">
 		                <br>
@@ -90,7 +94,11 @@
 		                <button type="submit" class="btn  btn-flat btn-success m-left">  <i class="fa fa-save"></i>  Guardar cambios</button>
 		                </form>
 		                <br>
-			            <a href="/profile"> <button class="btn  btn-flat btn-danger m-left">  <i class="fa fa-close"></i> Descartar cambios</button></a>
+		                @if($user['id'] == Auth::user()->id)
+			            	<a href="/profile"> <button class="btn  btn-flat btn-danger m-left">  <i class="fa fa-close"></i> Descartar cambios</button></a>
+			            @else
+			            	<a href="/users"> <button class="btn  btn-flat btn-danger m-left">  <i class="fa fa-close"></i> Descartar cambios</button></a>
+			            @endif
 	            	</div>
 	            	
 	            	
