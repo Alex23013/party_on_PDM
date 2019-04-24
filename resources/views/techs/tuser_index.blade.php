@@ -48,7 +48,7 @@
 	                  @else
 	                  	<td>Desactivo </td>
 	                  @endif
-	                  
+	                  @if (Auth::user()->role == 0)
 	                  <td> 
 	                  	<a href="/techs/edit/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
 
@@ -58,7 +58,7 @@
 	                  		<a href="/techs/{{$user->id}}/active"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@endif
 	                  	<a href="/techs/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este técnico?');"><i class="fa fa-remove"></i></button><a>
-	                  
+	                  @endif
 	                  </td>
 	                  </tr>  
 	                  <?php endforeach ?>  
