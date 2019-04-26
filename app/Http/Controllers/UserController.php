@@ -73,7 +73,6 @@ class UserController extends Controller
     
     public function detail($id){
         $user = User::find($id);
-        //dd($user);
         if($user->avatar == "default.png"){
             $url_image = "/images/".Auth:: user()->avatar;
         }else{
@@ -83,7 +82,7 @@ class UserController extends Controller
         if($user->role == 1 ){
             $s_user = DB::table('doctors')
                     ->where('user_id', $user->id)
-                    ->first(); 
+                    ->first();       
         } 
         if($user->role == 2 ){
             $s_user = DB::table('triages')
@@ -100,113 +99,139 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-       // User::create($request->all());
-        $rules = [
-            'name' => 'required|min:2|max:255',
-            'last_name' => 'required|min:2|max:255',
-            'dni' => 'required|size:8|unique:users',
-            'cellphone' => 'required|size:9',
-            'role' => 'required',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6'
-        ];
-        
-        $messages = [
-            'name.required' => 'Es necesario ingresar un nombre para registrar a un usuario',
-            'name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
-            'name.max' => 'Campo "Nombre" es demasiado extenso.',
-
-            'last_name.required' => 'Es necesario ingresar un apellido para registrar a un usuario',
-            'last_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Apellido".',
-            'last_name.max' => 'Campo "Apellido" es demasiado extenso.',
+        if($request->upgrade != 1){ 
+           // User::create($request->all());
+            $rules = [
+                'name' => 'required|min:2|max:255',
+                'last_name' => 'required|min:2|max:255',
+                'dni' => 'required|size:8|unique:users',
+                'cellphone' => 'required|size:9',
+                'role' => 'required',
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|min:6'
+            ];
             
-            'dni.required' => 'Es necesario ingresar un DNI para registrar a un usuario',
-            'dni.size' => 'El DNI debe tener 8 digitos',
-            'dni.unique' => 'Ya existe un usuario registrado con este DNI',
+            $messages = [
+                'name.required' => 'Es necesario ingresar un nombre para registrar a un usuario',
+                'name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
+                'name.max' => 'Campo "Nombre" es demasiado extenso.',
 
-            'cellphone.required' => 'Es necesario ingresar un número de celular para registrar a un usuario',
-            'cellphone.size' => 'El número de celular debe tener 9 digitos',
+                'last_name.required' => 'Es necesario ingresar un apellido para registrar a un usuario',
+                'last_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Apellido".',
+                'last_name.max' => 'Campo "Apellido" es demasiado extenso.',
+                
+                'dni.required' => 'Es necesario ingresar un DNI para registrar a un usuario',
+                'dni.size' => 'El DNI debe tener 8 digitos',
+                'dni.unique' => 'Ya existe un usuario registrado con este DNI',
 
-            'role.required' => 'Es necesario ingresar un rol para registrar a un usuario',
-            
-            'email.required' => 'Es necesario ingresar un email para registrar a un usuario.',
-            'email.email' => 'Ingrese un email válido.',
-            'email.max' => 'Campo "E-mail" es demasiado extenso.',
-            'email.unique' => 'Este email ya está en uso',
-            
-            'password.required' => 'Es necesario ingresar una contraseña para registrar a un usuario.',
-            'password.min' => 'Ingrese como mínimo 6 caracteres en el campo "Contraseña".'
-        ];
+                'cellphone.required' => 'Es necesario ingresar un número de celular para registrar a un usuario',
+                'cellphone.size' => 'El número de celular debe tener 9 digitos',
 
-        $this->validate($request, $rules, $messages);      
-        $rules1 = [
-            'birth_at' => 'required',
-            'address' => 'required|max:255',
-        ];
-        $messages1 = [
-            'birth_at.required' => 'Es necesario ingresar una fecha de nacimiento para registrar a un doctor',
-            'address.required' => 'Es necesario ingresar una dirección para registrar a un doctor',
-            'address.max' => 'Campo "Dirección" es demasiado extenso.',
-        ];
-        //dd($request->all());
-        if($request->role == 1){ //new_doctor
-            $this->validate($request, $rules1, $messages1);       
-        }
+                'role.required' => 'Es necesario ingresar un rol para registrar a un usuario',
+                
+                'email.required' => 'Es necesario ingresar un email para registrar a un usuario.',
+                'email.email' => 'Ingrese un email válido.',
+                'email.max' => 'Campo "E-mail" es demasiado extenso.',
+                'email.unique' => 'Este email ya está en uso',
+                
+                'password.required' => 'Es necesario ingresar una contraseña para registrar a un usuario.',
+                'password.min' => 'Ingrese como mínimo 6 caracteres en el campo "Contraseña".'
+            ];
 
-        $user = New User;
-        $user->name = $request->name;
-        $user->last_name = $request->last_name;
-        $user->dni =  $request->dni;
-        $user->email = $request->email;
-        $user->password =bcrypt($request->password);
-        $user->cellphone =  $request->cellphone;
-        $user->role =  $request->role;
-        $user->name_role =  $request->name_role;
-        if($request->role == 0){
-            $confirmation_code = str_random(25);
-            $user->confirmation_code = $confirmation_code;    
-        }        
-        
-        $user->save();
-        if($request->role == 0){
-            $data = [
-            'confirmation_code' => $confirmation_code,
-            'id'=>$user->id,
-            'name' => $user->name,
-            'email'=> $user->email,
-            'password'=>$request->password,
-        ];
-        Mail::send('emails.confirmation_code', $data, function($message)
-         use ($data) {
-        $message->to($data['email'], $data['name'])->subject('Por favor confirma tu correo');
-         });
-        }
-        
-        if($request->role == 1){
-            $doctor = New Doctor;
-            $doctor->user_id = $user->id; 
-            $doctor->birth_at = $request->birth_at;
-            $doctor->college = $request->college;
-            $doctor->address= $request->address;
-            if($request->specialty == ''){
-                $doctor->specialty = "médico general";
-            }else{
-                $doctor->specialty= $request->specialty;
-            }            
-            $doctor->ec_name = $request->ec_name;
-            $doctor->ec_last_name = $request->ec_last_name;
-            $doctor->ec_cellphone =  $request->ec_cellphone;
-            $doctor->save();
-        }
-
-        if($request->role == 2){
-            $triage = New Triage;
-            $triage->user_id = $user->id; 
-            $triage->is_a_doctor = $request->is_a_doctor; 
-            if($request->is_a_doctor){
-                $triage->college = $request->college;    
+            $this->validate($request, $rules, $messages);      
+            $rules1 = [
+                'birth_at' => 'required',
+                'address' => 'required|max:255',
+            ];
+            $messages1 = [
+                'birth_at.required' => 'Es necesario ingresar una fecha de nacimiento para registrar a un doctor',
+                'address.required' => 'Es necesario ingresar una dirección para registrar a un doctor',
+                'address.max' => 'Campo "Dirección" es demasiado extenso.',
+            ];
+            //dd($request->all());
+            if($request->role == 1){ //new_doctor
+                $this->validate($request, $rules1, $messages1);       
             }
-            $triage->save();        
+
+            $user = New User;
+            $user->name = $request->name;
+            $user->last_name = $request->last_name;
+            $user->dni =  $request->dni;
+            $user->email = $request->email;
+            $user->password =bcrypt($request->password);
+            $user->cellphone =  $request->cellphone;
+            $user->role =  $request->role;
+            $user->name_role =  $request->name_role;
+            if($request->role == 0){
+                $confirmation_code = str_random(25);
+                $user->confirmation_code = $confirmation_code;    
+            }        
+            
+            $user->save();
+            if($request->role == 0){
+                $data = [
+                'confirmation_code' => $confirmation_code,
+                'id'=>$user->id,
+                'name' => $user->name,
+                'email'=> $user->email,
+                'password'=>$request->password,
+            ];
+            Mail::send('emails.confirmation_code', $data, function($message)
+             use ($data) {
+            $message->to($data['email'], $data['name'])->subject('Por favor confirma tu correo');
+             });
+            }
+        
+            if($request->role == 1){
+                $doctor = New Doctor;
+                $doctor->user_id = $user->id; 
+                $doctor->birth_at = $request->birth_at;
+                $doctor->college = $request->college;
+                $doctor->address= $request->address;
+                if($request->specialty == ''){
+                    $doctor->specialty = "médico general";
+                }else{
+                    $doctor->specialty= $request->specialty;
+                }            
+                $doctor->ec_name = $request->ec_name;
+                $doctor->ec_last_name = $request->ec_last_name;
+                $doctor->ec_cellphone =  $request->ec_cellphone;
+                $doctor->save();
+            }
+
+            if($request->role == 2){
+                $triage = New Triage;
+                $triage->user_id = $user->id; 
+                $triage->is_a_doctor = $request->is_a_doctor; 
+                if($request->is_a_doctor){
+                    $triage->college = $request->college;    
+                }
+                $triage->save();        
+            }
+        }else{
+            $user = User::find($request->userId);
+            $s_user = DB::table('doctors')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+            if($s_user){
+                $doctor = Doctor::find( $s_user->id) ;
+            }else{
+                $doctor = New Doctor;
+            }
+                $doctor->user_id = $request->userId; 
+                $doctor->birth_at = $request->birth_at;
+                $doctor->college = $request->college;
+                $doctor->address= $request->address;
+                if($request->specialty == ''){
+                    $doctor->specialty = "médico general";
+                }else{
+                    $doctor->specialty= $request->specialty;
+                }            
+                $doctor->ec_name = $request->ec_name;
+                $doctor->ec_last_name = $request->ec_last_name;
+                $doctor->ec_cellphone =  $request->ec_cellphone;
+                $doctor->save();
+            
         }
     
         $users = User::all();
@@ -336,12 +361,19 @@ class UserController extends Controller
     public function store_user_update(Request $request)
     {
         $user = User::findOrFail($request->idUser);
+        $antique_role = $user->role;
+        if($antique_role == 1){
+            $s_user = DB::table('doctors')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+            $s_user = Doctor::find($s_user->id);        
+            $a_college = $s_user->college;
+        }
         $data = $request->all();
         unset($data['idUser']);
         unset($data['_token']);
-        unset($data['new_role']);
         if ($request->roleChange){
-            unset($data['roleChange']);
+            unset($data['roleChange']);            
             $role_parts= explode(',',$request->role_parts); 
             if($role_parts[0] != $user->role){
                 $user->role =$role_parts[0];
@@ -349,14 +381,47 @@ class UserController extends Controller
             }
             unset($data['role_parts']);
         }
-        //TODO: revisar creacion de tablas extras si cambias de rol??
         foreach ($data as $key => $value) {
            if( $value != ''){
             $user->$key =$data[$key];
            }
         }
         $user->save();
-        return redirect('/users');
+
+        if($antique_role == 2 && $user->role == 1){
+            $s_user = DB::table('doctors')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+            if($s_user){
+               return redirect('/users');
+            }else{
+                $specialties = DB::table('specialties')->get();
+            return view('users.upgrade_to_doctor')->with(compact('user','specialties'));
+            }
+               
+
+        }else if($antique_role == 1 && $user->role == 2){
+            $s_user = DB::table('triages')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+            if($s_user){
+                $s_user = Triage::find($s_user->id);
+                $s_user->is_a_doctor = 1;
+                $s_user->college =$a_college; 
+                $s_user->save();
+            } else{
+                $triage = New Triage;    
+                $triage->user_id = $user->id; 
+                $triage->is_a_doctor = 1; 
+                $triage->college =$a_college; 
+                $triage->save();
+            }
+               return redirect('/users');
+        }
+        else{
+            return redirect('/users');    
+        }
+        
     }
 
     public function delete($id)

@@ -20,61 +20,7 @@
                          {{ csrf_field() }}
 
                         <div class="form-group">
-
-                            <label for="name" class="col-md-4 control-label">
-                            Nombre *</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" >
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="last_name" class="col-md-4 control-label">Apellido *</label>
-
-                            <div class="col-md-6">
-                                <input id="last_name" type="text" class="form-control" name="last_name" >
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dni" class="col-md-4 control-label">DNI*</label>
-
-                            <div class="col-md-6">
-                                <input id="dni" type="text" class="form-control" name="dni" >
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-4 control-label">E-Mail * </label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" >
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="col-md-4 control-label">Contraseña *</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="cellphone" class="col-md-4 control-label">Celular *</label>
-
-                            <div class="col-md-6">
-                                <input id="cellphone" type="text" class="form-control" name="cellphone" >
-                                <b>Nota: Los campos con * son obligatorios</b>
-                            </div>
-                        </div>
-                        <input id="input-role" type="hidden" name="role" value = 1>
-                        <input id="input-name_role" type="hidden" name="name_role" value = doctor>
-
-                        <div class="form-group">
-                            <label class="col-md-8 control-label">Información Adicional </label>
+                            <label class="col-md-8 control-label">Información Adicional  para cambiar de rol a Doctor</label>
                         </div>
 
                         <div class="form-group">
@@ -89,7 +35,7 @@
                             <label for="college" class="col-md-4 control-label">Colegiaturas </label>
 
                             <div class="col-md-6">
-                                <input id="college" type="text" class="form-control" name="college" >
+                                <input id="college" type="text" class="form-control" name="college" placeholder="{{$user->college}}">
                                 separadas por '/ ' si tiene más de una
                             </div>
                         </div>
@@ -99,6 +45,7 @@
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control" name="address" >
+                                <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
 
@@ -114,7 +61,8 @@
                                 </select>
                             </div>
                         </div>
-
+                        <input id="upgrade" type="hidden" name="upgrade" value = 1 >
+                        <input id="userId" type="hidden" name="userId" value ={{$user->id}}>
                         <div class="form-group">
                             <label class="col-md-8 control-label">Información de contacto de Emergencia (opcional) </label>
                         </div>

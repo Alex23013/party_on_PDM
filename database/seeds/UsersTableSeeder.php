@@ -36,6 +36,13 @@ class UsersTableSeeder extends Seeder
 	               'role'=>1,
 	               'name_role' => 'doctor',	               
 	           ]);
+	    
+	    DB::table('doctors')->insert([
+	    		'user_id'=> 2,
+	    		'birth_at'=>"2019-04-16",
+	    		'address'=>"su casita",
+	    		'specialty'=> "pulmonar",
+	    	]);
 
 	    DB::table('users')->insert([
 	               'name' => "Test",
@@ -49,6 +56,10 @@ class UsersTableSeeder extends Seeder
 	               'role'=>2,
 	               'name_role'=>'triaje',	               
 	           ]);
+	    DB::table('triages')->insert([
+	    		'user_id'=> 3,
+	    		'is_a_doctor'=>0,
+	    	]);
 
 	    DB::table('users')->insert([
 	               'name' => "Test",
