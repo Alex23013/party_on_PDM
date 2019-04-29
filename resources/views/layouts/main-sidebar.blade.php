@@ -20,6 +20,12 @@
               <i class="glyphicon glyphicon-user"></i> <span>Técnicos</span>
             </a></li>
 
+            <li>
+            <a href="/partners">
+              <i class="fa fa-users"></i> <span>Asociados</span>
+            </a>
+            </li>
+
             <li><a href="/users">
               <i class="glyphicon glyphicon-user"></i> <span>Miembros</span>
               </a></li>
@@ -38,9 +44,16 @@
           @endif
           <!--menu triaje-->
           @if( Auth::user()->role == 2)
-          <li><a href="/techs">
+          <li>
+            <a href="/techs">
               <i class="glyphicon glyphicon-user"></i> <span>Técnicos</span>
-            </a></li>
+            </a>
+          </li>
+          <li>
+            <a href="/partners">
+              <i class="fa fa-users"></i> <span>Asociados</span>
+            </a>
+          </li>
           @endif
         </ul>      
       </div>

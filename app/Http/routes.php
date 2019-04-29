@@ -30,6 +30,9 @@ Route::post('/techs', 'TuserController@store');
 Route::get('/techs/edit/{id}', 'TuserController@update');
 Route::post('/techs/edit', 'TuserController@store_update');
 
+//Partners
+Route::get('/partners', 'PartnerController@index');
+
 //admin
 Route::get('/users', 'UserController@index');
 Route::get('/users/add/{role}', 'UserController@add');
