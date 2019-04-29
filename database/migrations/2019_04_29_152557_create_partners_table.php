@@ -17,9 +17,9 @@ class CreatePartnersTable extends Migration
             $table->string('name');
             $table->string('sector');
             $table->string('social_reason');
-            $table->char('RUC', 11)->unique();
-            $table->string('cell1'); 
-            $table->string('cell2')->nullable();
+            $table->char('ruc', 11)->unique();
+            $table->string('cell_1'); 
+            $table->string('cell_2')->nullable();
             $table->string('address');
             $table->string('hours_of_operation')->nullable(); 
             //# de cuenta corriente

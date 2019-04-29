@@ -15,9 +15,9 @@ class PatnerTableSeeder extends Seeder
     	 	'name'=> "farmacia_1",
     	 	'sector'=> 'health',
     	 	'social_reason' => 'SAC',
-    	 	'RUC'=>'12345678911',
-    	 	'cell1' => '986756453',
-    	 	'cell2' => '996756453',
+    	 	'ruc'=>'12345678911',
+    	 	'cell_1' => '986756453',
+    	 	'cell_2' => '996756453',
     	 	'address' => 'la empresa',
     	 	'hours_of_operation'=>'7:00 am -1:00pm',
     	 	'current_acount'=>'191-0111111-0-33',
@@ -30,8 +30,8 @@ class PatnerTableSeeder extends Seeder
     	 	'name'=> "laboratorio_1",
     	 	'sector'=> 'health',
     	 	'social_reason' => 'SRL',
-    	 	'RUC'=>'12345671911',
-    	 	'cell1' => '986756453',
+    	 	'ruc'=>'12345671911',
+    	 	'cell_1' => '986756453',
     	 	'address' => 'el laboratorio_1',
     	 	]);
     }
