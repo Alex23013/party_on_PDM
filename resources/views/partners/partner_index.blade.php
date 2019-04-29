@@ -13,7 +13,7 @@
 	        <div class="box-header mm-left ">
 	          <h3 class="box-title ">Lista de Asociados</h3>
 	          @if (Auth::user()->role == 0)
-	          <a href="/techs/add">  
+	          <a href="/partners/add">  
                 <button type="button" class="btn  bg-olive margin">
                  <h5 ><i class="fa fa-user-plus"></i>  Añadir un Asociado</h5>
                 </button>
@@ -51,7 +51,7 @@
 	                  	<a href="#"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-info"></i></button></a>
 
 	                  @if (Auth::user()->role == 0)
-	                  	<a href="#"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este asociado?');"><i class="fa fa-remove"></i></button><a>
+	                  	<a href="/partners/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este asociado?');"><i class="fa fa-remove"></i></button><a>
 	                  @endif
 	                  </td>
 	                  </tr>  

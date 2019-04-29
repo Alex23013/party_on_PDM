@@ -32,6 +32,9 @@ Route::post('/techs/edit', 'TuserController@store_update');
 
 //Partners
 Route::get('/partners', 'PartnerController@index');
+Route::get('/partners/add', 'PartnerController@add');
+Route::post('/partners', 'PartnerController@store');
+Route::get('/partners/remove/{id}', 'PartnerController@delete');
 
 //admin
 Route::get('/users', 'UserController@index');

@@ -28,6 +28,7 @@ class CreatePartnersTable extends Migration
             $table->string('number_acount')->nullable(); 
             $table->string('web_page')->nullable();
             $table->string('email')->nullable();
+            $table->timestamps();
         });
     }
 
