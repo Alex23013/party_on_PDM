@@ -22,11 +22,11 @@ Route::get('/register/verify/{id}/{code}', 'UserController@verify');
 
 //Techs 
 Route::get('/techs', 'TuserController@index');
+Route::get('/techs/add', 'TuserController@add');
+Route::post('/techs', 'TuserController@store');
 Route::get('/techs/remove/{id}', 'TuserController@delete');
 Route::get('/techs/{id}/active', 'TuserController@active');
 Route::get('/techs/{id}/deactive', 'TuserController@deactive');
-Route::get('/techs/add', 'TuserController@add');
-Route::post('/techs', 'TuserController@store');
 Route::get('/techs/edit/{id}', 'TuserController@update');
 Route::post('/techs/edit', 'TuserController@store_update');
 
