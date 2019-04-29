@@ -64,6 +64,17 @@ class PartnerController extends Controller
         $user = Partner::find($id);
         return view('partners.partner_detail')  ->with(compact('user')); 
     }
+
+    public function update($id){
+        $user = Partner::find($id);
+        return view('partners.partner_edit')
+            ->with(compact('user')); 
+    }   
+
+    public function store_update(){
+
+    }
+
     public function delete($id)
     {
         Partner::destroy($id);

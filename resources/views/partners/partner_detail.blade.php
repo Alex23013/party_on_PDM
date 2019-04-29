@@ -30,7 +30,7 @@
         
       </ul>
 
-        <a href="#">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Asociado</button></a>
+        <a href="/partners/edit/{{$user->id}}">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Asociado</button></a>
         <a href="#"> <button class="btn  btn-flat bg-olive m-left">  <i class="fa fa-edit"></i> Editar Servicios </button> </a>
         
         </div>
