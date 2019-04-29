@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Partner;
+use App\Partner_service;
 use App\Http\Requests;
 
 class PartnerController extends Controller
@@ -62,7 +64,10 @@ class PartnerController extends Controller
 
     public function detail($id){
         $user = Partner::find($id);
-        return view('partners.partner_detail')  ->with(compact('user')); 
+        $services = DB::table('partners_services')
+                    ->where('partner_id', $user->id)
+                    ->get();
+        return view('partners.partner_detail')  ->with(compact('user','services')); 
     }
 
     public function update($id){
@@ -72,7 +77,7 @@ class PartnerController extends Controller
     }   
 
     public function store_update(){
-
+    	//TODO
     }
 
     public function delete($id)

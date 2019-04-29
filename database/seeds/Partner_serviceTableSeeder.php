@@ -11,14 +11,14 @@ class Partner_serviceTableSeeder extends Seeder
      */
     public function run()
     {
-    	DB::table('partners_services')->insert([
+    	DB::table('partner_services')->insert([
     		'name'=> "delivery",
     		'partner_id'=>1,
     		'service_cost'=>20,
     		'docdoor_cost'=>5,
         ]);
 
-        DB::table('partners_services')->insert([
+        DB::table('partner_services')->insert([
     		'name'=> "diagnostico",
     		'partner_id'=>1,
     		'service_cost'=>35,

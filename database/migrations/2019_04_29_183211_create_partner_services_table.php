@@ -12,7 +12,7 @@ class CreatePartnerServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('partners_services', function (Blueprint $table) {
+        Schema::create('partner_services', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('partner_id')->unsigned();
             $table->string('name');
@@ -31,6 +31,6 @@ class CreatePartnerServicesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('partners_services');
+        Schema::drop('partner_services');
     }
 }
