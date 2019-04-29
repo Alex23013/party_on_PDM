@@ -48,7 +48,7 @@
 	                  <td><?=$user->ruc?></td>
 	                  <td><?=$user->cell_1?></td>
 	                  <td>
-	                  	<a href="#"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-info"></i></button></a>
+	                  	<a href="/partners/detail/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-info"></i></button></a>
 
 	                  @if (Auth::user()->role == 0)
 	                  	<a href="/partners/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este asociado?');"><i class="fa fa-remove"></i></button><a>

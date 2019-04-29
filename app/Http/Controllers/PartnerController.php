@@ -60,6 +60,10 @@ class PartnerController extends Controller
         return redirect('/partners');
     }
 
+    public function detail($id){
+        $user = Partner::find($id);
+        return view('partners.partner_detail')  ->with(compact('user')); 
+    }
     public function delete($id)
     {
         Partner::destroy($id);
