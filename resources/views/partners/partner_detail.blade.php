@@ -16,7 +16,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-body p-left">
-      <h3> Datos del Asociado<br></h3>
+      <h3> Información del Asociado<br></h3>
       <div class="col-md-8 p-top">
       <ul>
         <li> Nombre: <b>{{$user->name}}</b></li>
@@ -45,8 +45,9 @@
         <a href="/p_services/{{$user->id}}"> <button class="btn  btn-flat bg-olive m-left">  <i class="fa fa-edit"></i> Editar Servicios </button> </a>
         
         </div>
+        <!--TODO: logo de la empresa a futuro -->
         <div class="col-md-4 ">
-            <img src="/images/triaje.png" class= "imgAvatar">
+            <img src="/images/asociado.png" class= "imgAvatar">
         </div>    
       </div>
         <!-- /.box-body -->
