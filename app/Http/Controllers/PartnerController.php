@@ -64,7 +64,7 @@ class PartnerController extends Controller
 
     public function detail($id){
         $user = Partner::find($id);
-        $services = DB::table('partners_services')
+        $services = DB::table('partner_services')
                     ->where('partner_id', $user->id)
                     ->get();
         return view('partners.partner_detail')  ->with(compact('user','services')); 
