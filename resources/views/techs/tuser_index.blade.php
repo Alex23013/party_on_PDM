@@ -57,7 +57,7 @@
 	                  	@else
 	                  		<a href="/techs/{{$user->id}}/active"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@endif
-	                  	<a href="/techs/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este técnico?');"><i class="fa fa-remove"></i></button><a>
+	                  	<a href="/techs/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este técnico?');"><i class="fa fa-trash"></i></button><a>
 	                  @endif
 	                  </td>
 	                  </tr>  

@@ -58,7 +58,7 @@
               </table>
             <a href="/techs/add">  
                 <button type="button" class="btn  bg-olive margin">
-                 <h5 ><i class="fa fa-user-plus"></i>  Añadir un Servicio</h5>
+                 <h5 ><i class="fa fa-plus"></i>  Añadir un Servicio</h5>
                 </button>
               </a>
 	        </div>

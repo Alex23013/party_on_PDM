@@ -59,7 +59,7 @@
 	                  		<a href="#"> <button  type="button" class="btn btn-warning disabled btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@endif
 
-	                  	<a href="#"> <button  type="button" class="btn btn-danger btn-flat disabled buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-remove"></i></button></a>
+	                  	<a href="#"> <button  type="button" class="btn btn-danger btn-flat disabled buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-trash"></i></button></a>
 	                  @else
 	                  	@if ($user->role == 1 || $user->role == 2 ) 
 	                  		<a href="/users/edit/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
@@ -71,7 +71,7 @@
 	                  	@else
 	                  		<a href="/users/{{$user->id}}/active"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@endif
-	                  	<a href="/users/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-remove"></i></button><a>
+	                  	<a href="/users/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-trash"></i></button><a>
 	                  @endif
 	                  </td>
 	                  </tr>  
