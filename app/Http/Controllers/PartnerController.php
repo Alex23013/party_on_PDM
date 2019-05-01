@@ -76,8 +76,22 @@ class PartnerController extends Controller
             ->with(compact('user')); 
     }   
 
-    public function store_update(){
-    	//TODO
+    public function store_update(Request $request){
+    	$user = Partner::find($request->id);
+        $data = $request->all();
+        
+        unset($data['_token']);
+        unset($data['id']);
+        foreach ($data as $key => $value) {
+           if( $value == '' || $value == ' ' ){
+           }else{
+            if($user->$key != $data[$key] ){
+                $user->$key=$data[$key];    
+            }
+           }
+        }
+        $user->save();
+        return redirect('/partners/detail/'.$request->id);
     }
 
     public function delete($id)

@@ -37,7 +37,7 @@ Route::get('/partners/add', 'PartnerController@add');
 Route::post('/partners', 'PartnerController@store');
 Route::get('/partners/remove/{id}', 'PartnerController@delete');
 Route::get('/partners/edit/{id}', 'PartnerController@update');
-#Route::post('/partners/edit', 'PartnerController@store_update');
+Route::post('/partners/edit', 'PartnerController@store_update');
 
 //P_services
 Route::get('/p_services/{idPartner}', 'Partner_serviceController@index');
