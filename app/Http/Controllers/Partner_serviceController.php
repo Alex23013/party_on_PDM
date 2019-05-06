@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Partner;
+use App\Service;
 use App\Partner_service;
 use App\Http\Requests;
 
@@ -12,8 +13,9 @@ class Partner_serviceController extends Controller
 {
     public function index($idPartner)
  	{
- 		$services = DB::table('partner_services')
-                    ->where('partner_id',$idPartner)
+        $services =  DB::table('partner_services')
+                    ->join('services','partner_services.service_id','=','services.id')
+                    ->where('partner_id', $idPartner)
                     ->get();
         $new = NULL;   
         $id_P = $idPartner;
@@ -42,56 +44,67 @@ class Partner_serviceController extends Controller
         ];
 
         $this->validate($request, $rules, $messages);   
+        $service = New Service;
+        $service->name = $request->name;
+        $service->save();
 
-        $user = New Partner_service;
+        $p_service = New Partner_service;
         $data = $request->all();
         unset($data['_token']);
+        unset($data['name']);
         foreach ($data as $key => $value) {
-            $user->$key = $data[$key] ;
+            $p_service->$key = $data[$key] ;
         }   
-        $user->partner_id = $id_P;
-        $user->save();
+        $p_service->partner_id = $id_P;
+        $p_service->service_id = $service->id;
+        $p_service->save();
         return redirect('/p_services/'.$id_P);
     }
 
    	public function active($id_P,$id)
     {
-        $user = Partner_service::find($id);
-        $user->active = 1;
-        $user->save();
+        $p_service = Partner_service::find($id);
+        $p_service->active = 1;
+        $p_service->save();
         return redirect('/p_services/'.$id_P);
     }
 
     public function deactive($id_P,$id)
     {
-        $user = Partner_service::find($id);
-        $user->active = 0;
-        $user->save();
+        $p_service = Partner_service::find($id);
+        $p_service->active = 0;
+        $p_service->save();
         return redirect('/p_services/'.$id_P); 
     }
     
     public function update($id_P,$id){
-        $user = Partner_service::find($id); 
+        $p_service = Partner_service::find($id); 
+        $name = DB::table('services')
+                ->where('id', $p_service->id)
+                ->select('name')
+                ->get(); 
+        $name = $name[0]->name;
+        $p_service->name=$name;
         return view('partner_services.p_service_edit')
-            ->with(compact('user','id_P')); 
+            ->with(compact('p_service','id_P')); 
     }   
 
     public function store_update($id_P,Request $request){
-        $user = Partner_service::find($request->id);   
+        $p_service = Partner_service::find($request->id);   
         $data = $request->all();
         
         unset($data['_token']);
         unset($data['id']);
-        
+
         foreach ($data as $key => $value) {
            if( $value == '' || $value == ' ' ){
            }else{
-            if($user->$key != $data[$key] ){
-                $user->$key=$data[$key];    
-            }
+                if($p_service->$key != $data[$key] ){
+                $p_service->$key=$data[$key];    
+                }    
            }
         }
-        $user->save();
+        $p_service->save();
         return redirect('/p_services/'.$id_P); 
     }
 

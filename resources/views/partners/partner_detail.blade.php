@@ -35,8 +35,8 @@
       <div>
         <h3><span>Servicios ofrecidos</span></h3>
         <ul>
-          <?php foreach ($services as $service): ?>
-            <li> {{$service->name}}</li>
+          <?php foreach ($name_services_arr as $name): ?>
+            <li> {{$name}}</li>
           <?php endforeach ?>  
         </ul>
       </div>

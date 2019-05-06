@@ -47,7 +47,7 @@ Route::get('/p_services/{id_P}/edit/{id}', 'Partner_serviceController@update');
 Route::post('/p_services/{id_P}/edit', 'Partner_serviceController@store_update');
 Route::get('/p_services/{id_P}/{id}/active', 'Partner_serviceController@active');
 Route::get('/p_services/{id_P}/{id}/deactive', 'Partner_serviceController@deactive');
-Route::get('/_service/remove/{id_P}/{id}', 'Partner_serviceController@delete');
+Route::get('/p_services/remove/{id_P}/{id}', 'Partner_serviceController@delete');
 
 //admin
 Route::get('/users', 'UserController@index');

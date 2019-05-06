@@ -64,10 +64,16 @@ class PartnerController extends Controller
 
     public function detail($id){
         $user = Partner::find($id);
-        $services = DB::table('partner_services')
+        $name_services= DB::table('partner_services')
+                    ->join('services','partner_services.service_id','=','services.id')
                     ->where('partner_id', $user->id)
+                    ->select('name')
                     ->get();
-        return view('partners.partner_detail')  ->with(compact('user','services')); 
+        $name_services_arr = array();
+        foreach ($name_services as $temp) {
+           $name_services_arr[] = $temp->name;
+        }
+        return view('partners.partner_detail')  ->with(compact('user','name_services_arr')); 
     }
 
     public function update($id){
