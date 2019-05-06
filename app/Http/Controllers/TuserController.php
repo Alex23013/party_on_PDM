@@ -53,7 +53,10 @@ class TuserController extends Controller
             $user->$key = $data[$key] ;
         }   
         $user->save();
-        return redirect('/techs');
+        
+        $users = Tuser::all();
+        $new_tech = $user;   
+        return view('techs.tuser_index')->with(compact('users','new_tech'));
     }
 
     public function active($id)
