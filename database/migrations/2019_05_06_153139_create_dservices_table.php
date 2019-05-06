@@ -19,10 +19,8 @@ class CreateDservicesTable extends Migration
             $table->integer('partner_id')->unsigned();
             $table->string('address_from');
             $table->string('address_to');
-            $table->date('request_d');
-            $table->time('request_t');
-            $table->date('delivery_d');
-            $table->time('delivery_t');
+            $table->dateTime('request');
+            $table->dateTime('delivery');
             $table->timestamps();            
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');

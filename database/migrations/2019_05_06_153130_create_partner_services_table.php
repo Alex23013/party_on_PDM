@@ -17,8 +17,8 @@ class CreatePartnerServicesTable extends Migration
             $table->integer('partner_id')->unsigned();
             $table->integer('service_id')->unsigned();
             $table->boolean('active')->default(1);
-            $table->integer('service_cost');
-            $table->integer('docdoor_cost');
+            $table->float('service_cost');
+            $table->float('docdoor_cost');
             $table->timestamps();
             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
