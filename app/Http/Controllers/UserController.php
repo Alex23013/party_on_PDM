@@ -100,7 +100,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if($request->upgrade != 1){ 
-           // User::create($request->all());
+            
             $rules = [
                 'name' => 'required|min:2|max:255',
                 'last_name' => 'required|min:2|max:255',

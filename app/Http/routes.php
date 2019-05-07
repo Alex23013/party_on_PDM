@@ -20,6 +20,12 @@ Route::get('/profile', 'UserController@profile');
 // E-mail verification
 Route::get('/register/verify/{id}/{code}', 'UserController@verify');
 
+// -------- END_POINTS
+Route::post('/Pregister', 'RestPatientsController@register');
+Route::post('/Plogin', 'RestPatientsController@login');
+Route::post('/Precoverpsswd', 'RestPatientsController@recover');
+// -------- END_POINTS
+
 //Techs 
 Route::get('/techs', 'TuserController@index');
 Route::get('/techs/add', 'TuserController@add');
