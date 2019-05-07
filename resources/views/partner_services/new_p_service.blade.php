@@ -19,7 +19,7 @@
                     <form class="form-horizontal" role="form" method="POST" action="/p_services/{{$id_P}}">
                          {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="name" class="col-md-4 control-label">Nombre </label>
+                            <label for="name" class="col-md-4 control-label">Nombre *</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" >
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="service_cost" class="col-md-4 control-label">Costo del servicio </label>
+                            <label for="service_cost" class="col-md-4 control-label">Costo del servicio *</label>
 
                             <div class="col-md-6">
                                 <input id="service_cost" type="text" class="form-control" name="service_cost" >
@@ -35,10 +35,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="docdoor_cost" class="col-md-4 control-label">Costo DocDoor </label>
+                            <label for="docdoor_cost" class="col-md-4 control-label">Costo DocDoor *</label>
 
                             <div class="col-md-6">
                                 <input id="docdoor_cost" type="text" class="form-control" name="docdoor_cost" >
+                                <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
 
