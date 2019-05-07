@@ -14,7 +14,7 @@ class TuserController extends Controller
         $new_tech = NULL;   
         return view('techs.tuser_index')->with(compact('users','new_tech'));
     }
-
+    
     public function add(){
     	return view('techs.new_tuser');	
     }
