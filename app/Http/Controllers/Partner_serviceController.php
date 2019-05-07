@@ -28,7 +28,7 @@ class Partner_serviceController extends Controller
 
     public function store($id_P,Request $request){
         $rules = [
-            'name' => 'required|min:2|max:25',
+            'name' => 'required|min:2|max:25|unique:services',
             'service_cost' => 'required',
             'docdoor_cost' => 'required',
         ];
@@ -37,6 +37,7 @@ class Partner_serviceController extends Controller
             'name.required' => 'Es necesario ingresar un nombre para registrar a un asociado',
             'name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
             'name.max' => 'Campo "Nombre" es demasiado extenso.',
+            'name.unique' => 'Ya existe un servicio registrado con este Nombre',
 
             'service_cost.required' => 'Es necesario ingresar un costo para el servicio para registrar a un asociado',
 
