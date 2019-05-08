@@ -10,25 +10,10 @@ use App\Http\Requests;
 
 class RestPatientsController extends Controller
 {
-    
-	protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|min:2|max:255',
-            'last_name' => 'required|min:2|max:255',
-            'dni' => 'required|size:8|unique:users',
-            'cellphone' => 'required|size:9',
-            'role' => 'required',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6'
-        ]);
-    }
-
     public function register(Request $request){
     	$email_exists = DB::table('users')
                     ->where('email',$request->email)
                     ->first();
-        //dd($request->email);
         $dni_exists = DB::table('users')
                     ->where('dni',$request->dni)
                     ->first();
