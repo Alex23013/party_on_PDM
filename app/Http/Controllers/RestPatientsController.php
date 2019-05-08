@@ -25,25 +25,35 @@ class RestPatientsController extends Controller
     }
 
     public function register(Request $request){
-    	$data = array();
-    	foreach ($request as $key) {
-    		$data[]=$request->key;
-    	}
-    	if(validator($data)){
+    	$email_exists = DB::table('users')
+                    ->where('email',$request->email)
+                    ->first();
+        //dd($request->email);
+        $dni_exists = DB::table('users')
+                    ->where('dni',$request->dni)
+                    ->first();
+		if($dni_exists){
+		return response()
+				->json(['status' => '406', 
+						'message' => 'ERROR: Este numero DNI ya ha sido registrado']);                           
+		}else if ($email_exists){
+			return response()
+				->json(['status' => '406',
+						'message' => 'ERROR: Este email ya ha sido registrado']);  
+	    }else{
 	        $user = New User;
 	        $user->name = $request->name;
 	        $user->last_name = $request->last_name;
 	        $user->dni =  $request->dni;
 	        $user->email = $request->email;
-	        $user->password =bcrypt($request->password);
+	        $user->password = bcrypt($request->password);
 	        $user->cellphone =  $request->cellphone;
 	        $user->role =  $request->role;
 	        $user->name_role =  "paciente";
 	        $user->save();
-
-	        return response()->json($user, 201);
-    	}else{
-    		return response()->json(null, 204);
+	        return response()
+				->json(['status' => '201',
+						'message' => 'Ok']); 
     	}
     }
 
@@ -52,9 +62,13 @@ class RestPatientsController extends Controller
                     ->where('email',$request->email)
                     ->first(); 
     	if($user != null && Hash::check($request->password, $user->password)){
-    		return response()->json('usuario valido', 201);
+    		return response()
+				->json(['status' => '200',
+						'message' => 'Ok']); 
     	}else{
-    		return response()->json(null, 204);
+    		return response()
+				->json(['status' => '401',
+						'message' => 'credenciales no validas']); 
     	}
     }
 
@@ -66,9 +80,13 @@ class RestPatientsController extends Controller
     		$user = User::find($user->id);   
     		$user->password = $request->password;
     		$user->save();
-    		return response()->json('password actualizada', 201);
+    		return response()
+				->json(['status' => '200',
+						'message' => 'Ok']);
     	}else{
-    		return response()->json(null, 204);
+    		return response()
+				->json(['status' => '406',
+						'message' => 'ERROR: No existe un usuario registrado para ese correo']);
     	}	
     }
 }
