@@ -45,7 +45,7 @@ Route::get('/partners/remove/{id}', 'PartnerController@delete');
 Route::get('/partners/edit/{id}', 'PartnerController@update');
 Route::post('/partners/edit', 'PartnerController@store_update');
 
-//P_services
+//p_services
 Route::get('/p_services/{id_P}', 'Partner_serviceController@index')->where(['id_P' => '[0-9]+']);
 Route::get('/p_services/{id_P}/add', 'Partner_serviceController@add');
 Route::post('/p_services/{id_P}', 'Partner_serviceController@store');
@@ -54,6 +54,9 @@ Route::post('/p_services/{id_P}/edit', 'Partner_serviceController@store_update')
 Route::get('/p_services/{id_P}/{id}/active', 'Partner_serviceController@active');
 Route::get('/p_services/{id_P}/{id}/deactive', 'Partner_serviceController@deactive');
 Route::get('/p_services/remove/{id_P}/{id}', 'Partner_serviceController@delete');
+
+//d_services
+Route::get('/d_services', 'DocDoor_serviceController@index');
 
 //admin
 Route::get('/users', 'UserController@index');
