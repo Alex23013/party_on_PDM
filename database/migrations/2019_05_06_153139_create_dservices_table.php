@@ -19,9 +19,9 @@ class CreateDservicesTable extends Migration
             $table->integer('partner_id')->unsigned();
             $table->string('address_from');
             $table->string('address_to');
-            $table->dateTime('request');
-            $table->dateTime('delivery');
-            $table->timestamps();            
+            $table->dateTime('delivery')->nullable();
+            $table->dateTime('execution')->nullable();
+            $table->timestamps(); //request = created_at           
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');

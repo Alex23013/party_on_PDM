@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceTableSeeder::class);
         $this->call(PatnerTableSeeder::class);
         $this->call(Partner_serviceTableSeeder::class);
+        $this->call(DServiceTableSeeder::class);
        // $this->call(RoleTableSeeder::class);
     }
 }

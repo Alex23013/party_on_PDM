@@ -73,5 +73,9 @@ class UsersTableSeeder extends Seeder
 	               'role'=>3,	 
 	               'name_role'=>'paciente',              
 	           ]);
+	    DB::table('patients')->insert([
+	    		'user_id'=> 4,
+	    		'birth_at'=>"2019-04-16",
+	    	]);
     }
 }

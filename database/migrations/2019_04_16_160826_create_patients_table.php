@@ -16,7 +16,6 @@ class CreatePatientsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->date('birth_at');
-            $table->string('telephone');
             //ec: emergency_contact
             $table->string('ec_name')->nullable();
             $table->string('ec_last_name')->nullable();
