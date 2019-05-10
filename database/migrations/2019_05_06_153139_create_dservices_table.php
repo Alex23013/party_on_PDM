@@ -14,7 +14,7 @@ class CreateDservicesTable extends Migration
     {
         Schema::create('dservices', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('patient_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('service_id')->unsigned();
             $table->integer('partner_id')->unsigned();
             $table->string('address_from');
@@ -23,7 +23,7 @@ class CreateDservicesTable extends Migration
             $table->dateTime('execution')->nullable();
             $table->timestamps(); //request = created_at           
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');
         });
     }

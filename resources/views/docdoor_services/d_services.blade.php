@@ -35,7 +35,7 @@
                 <tbody>
           		<?php foreach ($services as $d_service): ?>
 	                  <tr>  
-	                  <td><?=$d_service->patient_id?></td>
+	                  <td><?=$d_service->user_id?></td>
 	                  <td><?=$d_service->service_id?></td>
 	                  <td><?=$d_service->partner_id?></td>
 	                  <td><?=$d_service->address_from?></td>
@@ -49,9 +49,9 @@
 	                  	<a href="/d_services/detail/{{$d_service->id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
 
 	                  	@if ($d_service->execution)
-	                  		<button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-check-square-o"></i></button>
+	                  		<button  type="button" class="btn btn-success btn-flat buttonSpace disabled"><i class="fa fa-check-square-o"></i></button>
 	                  	@else
-	                  		<a href="/d_services/{{$d_service->id}}/execution"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa  fa-square-o"></i></button></a>
+	                  		<a href="/d_services/{{$d_service->id}}/complete"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa  fa-square-o"></i></button></a>
 	                  	@endif
 	                  	<a href="/d_services/remove/{{$d_service->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio Docdoor?');"><i class="fa fa-trash"></i></button><a>
 	                  </td>

@@ -58,7 +58,9 @@ Route::get('/p_services/remove/{id_P}/{id}', 'Partner_serviceController@delete')
 
 //d_services
 Route::get('/d_services', 'DocDoor_serviceController@index');
-
+Route::get('/d_services/{id}/complete', 'DocDoor_serviceController@complete');
+Route::get('/d_services/detail/{id}', 'DocDoor_serviceController@detail');
+Route::get('/d_services/remove/{id}', 'DocDoor_serviceController@delete');
 //admin
 Route::get('/users', 'UserController@index');
 Route::get('/users/add/{role}', 'UserController@add');
