@@ -13,10 +13,10 @@ class Partner_serviceController extends Controller
 {
     public function index($idPartner)
  	{
-        $services =  DB::table('partner_services')
-                    ->join('services','partner_services.service_id','=','services.id')
+        $services =  DB::table('services')
+                    ->join('partner_services','services.id','=','partner_services.service_id')
                     ->where('partner_id', $idPartner)
-                    ->get();
+                    ->get();   
         $new = NULL;   
         $id_P = $idPartner;
         return view('partner_services.p_services')->with(compact('services','new','id_P'));
@@ -79,6 +79,7 @@ class Partner_serviceController extends Controller
     }
     
     public function update($id_P,$id){
+
         $p_service = Partner_service::find($id); 
         $name = DB::table('services')
                 ->where('id', $p_service->id)
