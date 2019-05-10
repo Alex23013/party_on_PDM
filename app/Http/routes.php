@@ -22,6 +22,7 @@ Route::get('/register/verify/{id}/{code}', 'UserController@verify');
 
 // -------- END_POINTS
 Route::post('/api/v1/patient_register', 'RestPatientsController@register');
+Route::post('/api/v1/patient_edit_profile', 'RestPatientsController@profile');
 Route::post('/api/v1/user_login', 'RestUserController@login');
 Route::post('/api/v1/recover_password', 'RestUserController@recover');
 // -------- END_POINTS

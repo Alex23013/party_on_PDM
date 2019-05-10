@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\User;
+use Hash;
 use App\Http\Requests;
 
 class RestUserController extends Controller
@@ -40,4 +42,5 @@ class RestUserController extends Controller
 						'message' => 'No existe un usuario registrado para ese correo']);
     	}	
     }
+
 }
