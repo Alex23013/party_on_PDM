@@ -20,11 +20,11 @@ class RestPatientsController extends Controller
 		if($dni_exists){
 		return response()
 				->json(['status' => '406', 
-						'message' => 'ERROR: Este numero DNI ya ha sido registrado']);                           
+						'message' => 'Este numero DNI ya ha sido registrado']);                           
 		}else if ($email_exists){
 			return response()
 				->json(['status' => '406',
-						'message' => 'ERROR: Este email ya ha sido registrado']);  
+						'message' => 'Este email ya ha sido registrado']);  
 	    }else{
 	        $user = New User;
 	        $user->name = $request->name;
@@ -33,45 +33,28 @@ class RestPatientsController extends Controller
 	        $user->email = $request->email;
 	        $user->password = bcrypt($request->password);
 	        $user->cellphone =  $request->cellphone;
-	        $user->role =  $request->role;
+	        $user->role =  3;
 	        $user->name_role =  "paciente";
 	        $user->save();
+
+            $patient = New Patient;
+            $patient->user_id = $user->id;
+            $patient->birth_at = $request->birth_at;
+            if($request->ec_name != ''){
+                $patient->ec_name = $request->ec_name;
+            }
+            if($request->ec_last_name != ''){
+                $patient->ec_last_name = $request->ec_last_name;
+            }
+            if($request->ec_cellphone != ''){
+                $patient->ec_cellphone = $request->ec_cellphone;
+            }
+            $patient->save();
 	        return response()
 				->json(['status' => '201',
 						'message' => 'Ok']); 
     	}
     }
 
-    public function login(Request $request){
-    	$user = DB::table('users')
-                    ->where('email',$request->email)
-                    ->first(); 
-    	if($user != null && Hash::check($request->password, $user->password)){
-    		return response()
-				->json(['status' => '200',
-						'message' => 'Ok']); 
-    	}else{
-    		return response()
-				->json(['status' => '401',
-						'message' => 'credenciales no validas']); 
-    	}
-    }
-
-    public function recover(Request $request){
-    	$user = DB::table('users')
-                    ->where('email',$request->email)
-                    ->first(); 
-    	if($user != null ){
-    		$user = User::find($user->id);   
-    		$user->password = $request->password;
-    		$user->save();
-    		return response()
-				->json(['status' => '200',
-						'message' => 'Ok']);
-    	}else{
-    		return response()
-				->json(['status' => '406',
-						'message' => 'ERROR: No existe un usuario registrado para ese correo']);
-    	}	
-    }
+    
 }

@@ -21,9 +21,9 @@ Route::get('/profile', 'UserController@profile');
 Route::get('/register/verify/{id}/{code}', 'UserController@verify');
 
 // -------- END_POINTS
-Route::post('/Pregister', 'RestPatientsController@register');
-Route::post('/Plogin', 'RestPatientsController@login');
-Route::post('/Precoverpsswd', 'RestPatientsController@recover');
+Route::post('/api/v1/patient_register', 'RestPatientsController@register');
+Route::post('/api/v1/user_login', 'RestUserController@login');
+Route::post('/api/v1/recover_password', 'RestUserController@recover');
 // -------- END_POINTS
 
 //Techs 
