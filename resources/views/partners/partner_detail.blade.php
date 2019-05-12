@@ -40,10 +40,10 @@
           <?php endforeach ?>  
         </ul>
       </div>
-
+        @if (Auth::user()->role == 0)
         <a href="/partners/edit/{{$user->id}}">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Asociado</button></a>
         <a href="/p_services/{{$user->id}}"> <button class="btn  btn-flat bg-olive m-left">  <i class="fa fa-edit"></i> Editar Servicios </button> </a>
-        
+        @endif
         </div>
         <!--TODO: logo de la empresa a futuro -->
         <div class="col-md-4 ">
