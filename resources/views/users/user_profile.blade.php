@@ -1,4 +1,4 @@
-@extends('layouts.template')
+  @extends('layouts.template')
 
 @section('content')
 <style type="text/css">
@@ -19,7 +19,11 @@
   <div class="col-xs-12">
     <div class="box">
             <div class="box-body p-left">
+            @if (Auth::user()->id == $user['id'])
             <h2> Mi Perfil<br></h2>
+            @else
+            <h2> Información de usuario {{$user['name_role']}} <br></h2>
+            @endif
             <div class="col-md-8 p-top">
             <ul>
               <li> Nombre: <b><?=$user['name']?></b></li>
@@ -73,6 +77,18 @@
                 No tiene
                 @endif 
               </b></li>
+              @endif
+              @if ($user['role']==3)
+              <br>
+              <b>Información adicional por ser <?=$user['name_role']?> </b>
+              <li> Fecha de nacimiento: <b> 
+                {{$s_user->birth_at}}
+              </b></li>
+              <br>
+                <b>Información adicional del contacto de emergencia </b>
+                <li> Nombre del contacto: <b><?=$s_user->ec_name?></b></li>
+                <li> Apellido del contacto: <b><?=$s_user->ec_last_name?></b></li>
+                <li> Celular del contacto: <b> {{$s_user->ec_cellphone}}</b></li>
               @endif
             </ul>
 

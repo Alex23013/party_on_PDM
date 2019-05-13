@@ -46,6 +46,16 @@ Route::get('/partners/remove/{id}', 'PartnerController@delete');
 Route::get('/partners/edit/{id}', 'PartnerController@update');
 Route::post('/partners/edit', 'PartnerController@store_update');
 
+//Patients
+Route::get('/patients', 'PatientController@index');
+Route::get('/patients/detail/{id}', 'PatientController@detail');
+Route::get('/patients/add', 'PatientController@add');
+Route::post('/patients', 'PatientController@store');
+Route::get('/patients/remove/{id}', 'PatientController@delete');
+Route::get('/patients/edit/{id}', 'PatientController@update');
+Route::post('/patients/edit', 'PatientController@store_update');
+
+
 //p_services
 Route::get('/p_services/{id_P}', 'Partner_serviceController@index')->where(['id_P' => '[0-9]+']);
 Route::get('/p_services/{id_P}/add', 'Partner_serviceController@add');
