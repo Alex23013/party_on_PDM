@@ -42,13 +42,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="dni" class="col-md-2 control-label">DNI</label>
-
-                            <div class="col-md-6">
-                                <input id="dni" type="text" class="form-control" name="dni" placeholder="{{$user->dni}}">
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <label for="cellphone" class="col-md-2 control-label">Celular </label>
