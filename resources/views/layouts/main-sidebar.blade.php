@@ -60,6 +60,12 @@
             </a>
           </li>
           <li>
+            <a href="/doctors/schedule">
+              <i class="fa fa-calendar"></i> <span>Horarios</span>
+            </a>
+          </li>
+          
+          <li>
             <a href="/d_services">
               <i class="fa fa-suitcase"></i> <span>Solicitudes DocDoor</span>
             </a>

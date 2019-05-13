@@ -89,6 +89,11 @@ class UserController extends Controller
                     ->where('user_id', $user->id)
                     ->first(); 
         } 
+        if($user->role == 3 ){
+            $s_user = DB::table('patients')
+                    ->where('user_id', $user->id)
+                    ->first(); 
+        } 
         return view('users.user_profile')  ->with(compact('user','url_image','s_user')); 
     }
  
