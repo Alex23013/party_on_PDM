@@ -25,6 +25,11 @@
               <i class="fa fa-users"></i> <span>Asociados</span>
             </a>
             </li>
+            <li>
+            <a href="/d_services">
+              <i class="fa fa-suitcase"></i> <span>Solicitudes DocDoor</span>
+            </a>
+          </li>
 
             <li><a href="/users">
               <i class="glyphicon glyphicon-user"></i> <span>Miembros</span>
