@@ -63,6 +63,8 @@ Route::post('/d_services', 'DocDoor_serviceController@store');
 Route::get('/d_services/{id}/complete', 'DocDoor_serviceController@complete');
 Route::get('/d_services/detail/{id}', 'DocDoor_serviceController@detail');
 Route::get('/d_services/remove/{id}', 'DocDoor_serviceController@delete');
+Route::get('/d_services/edit/{id}', 'DocDoor_serviceController@update');
+Route::post('/d_services/edit/{id}', 'DocDoor_serviceController@store_update');
 
 //admin
 Route::get('/users', 'UserController@index');

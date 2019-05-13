@@ -42,7 +42,7 @@
         </li>        
       </ul>
 
-        <a href="#">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Solicitud</button></a>
+        <a href="/d_services/edit/{{$data->id}}">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Solicitud</button></a>
         
         </div>
         <div class="col-md-4 ">

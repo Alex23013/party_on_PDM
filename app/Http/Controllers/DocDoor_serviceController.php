@@ -14,6 +14,7 @@ class DocDoor_serviceController extends Controller
 {
     public function index()
  	{
+        //TODO: optimizar esto
         $services =  DB::table('dservices')
                     ->join('partners','dservices.partner_id','=','partners.id')
                     ->join('users','dservices.user_id','=','users.id')
@@ -101,6 +102,15 @@ class DocDoor_serviceController extends Controller
                     ->get();
         $new = $d_service;   
         return view('docdoor_services.d_services')->with(compact('services','new'));
+    }
+
+    public function update($id){
+        $d_service = Dservice::find($id);
+        return view('docdoor_services.d_service_edit')->with(compact('d_service'));
+    }
+
+    public function store_update(){
+        
     }
 
     public function delete($id){
