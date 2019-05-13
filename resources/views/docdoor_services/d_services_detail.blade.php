@@ -25,7 +25,11 @@
         <li> Dirección de salida: <b>{{$data->address_from}}</b></li>
         <li> Dirección de llegada: <b>{{$data->address_to}}</b></li>
         <li> Fecha de solicitud: <b>{{$data->created_at }}</b></li>
-        <li> Fecha de ejecución: <b>{{$data->execution}}</b></li>
+        <li> Fecha de ejecución: @if($data->execution)
+          <b>{{$data->execution}}</b>
+        @else
+          <b>Aun no se realizó</b>
+        @endif</li>
         <li> Fecha de entrega de resultados:
          @if($data->delivery)
           <b>{{$data->delivery}}</b>
@@ -35,9 +39,9 @@
          </li>
         <li> Estado: 
         @if($data->execution)
-          <b>Realizado</b>
+          <b>Completado</b>
         @else
-          <b>Aun no se realizó</b>
+          <b>Incompleto</b>
         @endif
         </li>        
       </ul>
