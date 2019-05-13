@@ -15,10 +15,20 @@ class DocDoor_serviceController extends Controller
     public function index()
  	{
         $services =  DB::table('dservices')
-                    ->join('services','dservices.service_id','=','services.id')
-                    ->join('users','dservices.user_id','=','users.id')
                     ->join('partners','dservices.partner_id','=','partners.id')
+                    ->join('users','dservices.user_id','=','users.id')
+                    ->join('services','dservices.service_id','=','services.id') 
                     ->get();
+        $servicesB =  DB::table('dservices')
+                    ->join('partners','dservices.partner_id','=','partners.id')
+                    ->join('users','dservices.user_id','=','users.id')
+                    ->join('services','dservices.service_id','=','services.id') 
+                    ->pluck('dservices.id');
+        $i = 0;
+        foreach ($services as $temp) {
+           $temp->d_service_name=$servicesB[$i];
+           $i= $i+1;
+        }
         $new = NULL;   
         return view('docdoor_services.d_services')->with(compact('services','new'));
     }

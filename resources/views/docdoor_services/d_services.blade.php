@@ -46,7 +46,7 @@
 	                  	<td>Pendiente </td>
 	                  @endif
 	                  <td> 
-	                  	<a href="/d_services/detail/{{$d_service->id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
+	                  	<a href="/d_services/detail/{{$d_service->d_service_name}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
 
 	                  	@if ($d_service->execution)
 	                  		<button  type="button" class="btn btn-success btn-flat buttonSpace disabled"><i class="fa fa-check-square-o"></i></button>
