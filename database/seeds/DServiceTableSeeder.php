@@ -24,8 +24,8 @@ class DServiceTableSeeder extends Seeder
 
         DB::table('dservices')->insert([
         	'user_id'=> 4,
-    		'service_id'=> 1,
-    		'partner_id'=>1,
+    		'service_id'=> 2,
+    		'partner_id'=>2,
     		'address_from'=>'la clinica asociada',
     		'address_to'=>'la casa del paciente',
     		'created_at'=>'2019-02-02 14:52:16',

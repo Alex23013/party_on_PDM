@@ -12,13 +12,13 @@ class ServiceTableSeeder extends Seeder
     public function run()
     {
         DB::table('services')->insert([
-    		'name'=> "delivery",
+    		'service_name'=> "delivery",
         ]);
         DB::table('services')->insert([
-    		'name'=> "diagnostico",
+    		'service_name'=> "diagnostico",
         ]);
         DB::table('services')->insert([
-    		'name'=> "analisis de sangre",
+    		'service_name'=> "analisis de sangre",
         ]);
     }
 }

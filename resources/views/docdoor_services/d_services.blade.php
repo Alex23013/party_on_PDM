@@ -35,9 +35,9 @@
                 <tbody>
           		<?php foreach ($services as $d_service): ?>
 	                  <tr>  
-	                  <td><?=$d_service->user_id?></td>
-	                  <td><?=$d_service->service_id?></td>
-	                  <td><?=$d_service->partner_id?></td>
+	                  <td><?=$d_service->name?></td>
+	                  <td><?=$d_service->service_name?></td>
+	                  <td><?=$d_service->partner_name?></td>
 	                  <td><?=$d_service->address_from?></td>
 	                  <td><?=$d_service->address_to?></td>
 	                  @if ($d_service->execution)

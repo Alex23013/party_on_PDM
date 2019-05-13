@@ -42,7 +42,7 @@
                 <tbody>
                 <?php foreach ($users as $user): ?>
 	                  <tr>  
-	                  <td><?=$user->name?></td>
+	                  <td><?=$user->partner_name?></td>
 	                  <td><?=$user->sector?></td>
 	                  <td><?=$user->social_reason?></td>
 	                  <td><?=$user->ruc?></td>

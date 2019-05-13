@@ -22,7 +22,7 @@
                             <label for="name" class="col-md-4 control-label">Nombre *</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" >
+                                <input id="name" type="text" class="form-control" name="partner_name" >
                             </div>
                         </div>
 

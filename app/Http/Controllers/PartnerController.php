@@ -22,7 +22,7 @@ class PartnerController extends Controller
     }
     public function store(Request $request){
     	$rules = [
-            'name' => 'required|min:2|max:25',
+            'partner_name' => 'required|min:2|max:25',
             'sector' => 'required',
             'social_reason'=> 'required',
             'ruc' => 'required|size:11|unique:partners',
@@ -31,9 +31,9 @@ class PartnerController extends Controller
         ];
 
         $messages = [
-            'name.required' => 'Es necesario ingresar un nombre para registrar a un asociado',
-            'name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
-            'name.max' => 'Campo "Nombre" es demasiado extenso.',
+            'partner_name.required' => 'Es necesario ingresar un nombre para registrar a un asociado',
+            'partner_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
+            'partner_name.max' => 'Campo "Nombre" es demasiado extenso.',
 
             'sector.required' => 'Es necesario ingresar un "Rubro" para registrar a un asociado',
 
@@ -67,11 +67,11 @@ class PartnerController extends Controller
         $name_services= DB::table('partner_services')
                     ->join('services','partner_services.service_id','=','services.id')
                     ->where('partner_id', $user->id)
-                    ->select('name')
+                    ->select('service_name')
                     ->get();
         $name_services_arr = array();
         foreach ($name_services as $temp) {
-           $name_services_arr[] = $temp->name;
+           $name_services_arr[] = $temp->service_name;
         }
         return view('partners.partner_detail')  ->with(compact('user','name_services_arr')); 
     }

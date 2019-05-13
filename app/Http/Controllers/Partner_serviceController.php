@@ -28,16 +28,16 @@ class Partner_serviceController extends Controller
 
     public function store($id_P,Request $request){
         $rules = [
-            'name' => 'required|min:2|max:25|unique:services',
+            'service_name' => 'required|min:2|max:25|unique:services',
             'service_cost' => 'required',
             'docdoor_cost' => 'required',
         ];
 
         $messages = [
-            'name.required' => 'Es necesario ingresar un nombre para registrar a un asociado',
-            'name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
-            'name.max' => 'Campo "Nombre" es demasiado extenso.',
-            'name.unique' => 'Ya existe un servicio registrado con este Nombre',
+            'service_name.required' => 'Es necesario ingresar un nombre para registrar a un asociado',
+            'service_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
+            'service_name.max' => 'Campo "Nombre" es demasiado extenso.',
+            'service_name.unique' => 'Ya existe un servicio registrado con este Nombre',
 
             'service_cost.required' => 'Es necesario ingresar un costo para el servicio para registrar a un asociado',
 
@@ -46,13 +46,13 @@ class Partner_serviceController extends Controller
 
         $this->validate($request, $rules, $messages);   
         $service = New Service;
-        $service->name = $request->name;
+        $service->service_name = $request->service_name;
         $service->save();
 
         $p_service = New Partner_service;
         $data = $request->all();
         unset($data['_token']);
-        unset($data['name']);
+        unset($data['service_name']);
         foreach ($data as $key => $value) {
             $p_service->$key = $data[$key] ;
         }   
@@ -83,9 +83,9 @@ class Partner_serviceController extends Controller
         $p_service = Partner_service::find($id); 
         $name = DB::table('services')
                 ->where('id', $p_service->id)
-                ->select('name')
+                ->select('service_name')
                 ->get(); 
-        $name = $name[0]->name;
+        $name = $name[0]->service_name;
         $p_service->name=$name;
         return view('partner_services.p_service_edit')
             ->with(compact('p_service','id_P')); 

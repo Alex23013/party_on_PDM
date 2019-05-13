@@ -33,7 +33,7 @@
                 <tbody>
           		<?php foreach ($services as $p_service): ?>
 	                  <tr>  
-	                  <td><?=$p_service->name?></td>
+	                  <td><?=$p_service->service_name?></td>
 	                  <td><?=$p_service->service_cost?></td>
 	                  <td><?=$p_service->docdoor_cost?></td>
 	                  @if ($p_service->active)

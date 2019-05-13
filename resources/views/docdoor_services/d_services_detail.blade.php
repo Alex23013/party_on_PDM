@@ -20,8 +20,8 @@
       <div class="col-md-8 p-top">
       <ul>
         <li> Paciente: <b>{{$user->name}}</b></li>
-        <li> Servicio: <b>{{$service->name}}</b></li>
-        <li> Asociado: <b>{{$partner->name}}</b></li>
+        <li> Servicio: <b>{{$service->service_name}}</b></li>
+        <li> Asociado: <b>{{$partner->partner_name}}</b></li>
         <li> Dirección de salida: <b>{{$data->address_from}}</b></li>
         <li> Dirección de llegada: <b>{{$data->address_to}}</b></li>
         <li> Fecha de solicitud: <b>{{$data->created_at }}</b></li>

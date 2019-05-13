@@ -19,7 +19,7 @@
       <h3> Información del Asociado<br></h3>
       <div class="col-md-8 p-top">
       <ul>
-        <li> Nombre: <b>{{$user->name}}</b></li>
+        <li> Nombre: <b>{{$user->partner_name}}</b></li>
         <li> Rubro: <b>{{$user->sector}}</b></li>
         <li> Razón Social: <b>{{$user->social_reason}}</b></li>
         <li> RUC: <b>{{$user->ruc}}</b></li>
