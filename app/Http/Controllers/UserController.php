@@ -197,7 +197,18 @@ class UserController extends Controller
                     $doctor->specialty = "médico general";
                 }else{
                     $doctor->specialty= $request->specialty;
-                }            
+                }           
+                $doctor_schedule = [];
+                $days=["lunes","martes","miercoles","jueves","viernes","sabado"];
+                for ($i=0; $i < 6; $i++) { 
+                    $doctor_schedule[] = [
+                    'day'=> $days[$i],
+                    'schedule_start'=>'',
+                    'schedule_end'=>'',
+                    ];
+                }
+                $doctor_schedule =json_encode($doctor_schedule);
+                $doctor->schedule =  $doctor_schedule; 
                 $doctor->ec_name = $request->ec_name;
                 $doctor->ec_last_name = $request->ec_last_name;
                 $doctor->ec_cellphone =  $request->ec_cellphone;

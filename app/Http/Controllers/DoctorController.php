@@ -6,22 +6,69 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 
+use App\Doctor;
+
 class DoctorController extends Controller
 {
     public function index(){
-    	$users = DB::table('doctors')
-                    ->join('users','doctors.user_id','=','users.id')
+        $users = DB::table('users')
+                    ->join('doctors','users.id','=','doctors.user_id')
                     ->get();
         return view('doctors.doctors_schedule_index')->with(compact('users'));
     }
 
-    //registro de horario
-    //https://stackoverflow.com/questions/46364906/laravel-5-4-save-json-to-database
-    /*
-    $teamMembers = [];
-	$teamMembers['1'] = 7;
-	$teamMembers['2'] = 14;
-	$salesTeam->team_members = $teamMembers;
-	$salesTeam->save();
-    */
+    public function detail($id){
+        $doctor = Doctor::find($id);
+        $doctor_name = DB::table('users')
+                    ->where('id',$doctor->user_id)
+                    ->first();
+        $name = $doctor_name->name;           
+        $schedules = json_decode($doctor->schedule);
+        return view('doctors.doctors_schedule_detail')->with(compact('schedules','name','doctor'));
+    }
+
+    public function update($id){
+        $doctor = Doctor::find($id);
+        $doctor_name = DB::table('users')
+                    ->where('id',$doctor->user_id)
+                    ->first();
+        $name = $doctor_name->name;           
+        $schedules = json_decode($doctor->schedule);
+        return view('doctors.doctors_schedule_edit')->with(compact('schedules','name','doctor'));
+    }
+
+    public function store_update(Request $request){
+        $doctor = Doctor::find($request->doctor_id);
+        //dd($request->all());
+        $days=["lunes","martes","miercoles","jueves","viernes","sabado"];
+        $doctor_schedule = [];
+        for ($i=0; $i < 6; $i++) { 
+            if(in_array($days[$i], $request->days)){
+                if($request->starts[$i]!= '' && $request->ends[$i]!= ''){
+                   $doctor_schedule[] = [
+                    'day'=> $days[$i],
+                    'schedule_start'=>$request->starts[$i],
+                    'schedule_end'=>$request->ends[$i],
+                ]; 
+                }else{
+                    $doctor_schedule[] = [
+                    'day'=> $days[$i],
+                    'schedule_start'=>$request->real_starts[$i],
+                    'schedule_end'=>$request->real_ends[$i],
+                ]; 
+                }                
+            }
+            else{
+               $doctor_schedule[] = [
+                'day'=> $days[$i],
+                'schedule_start'=>'',
+                'schedule_end'=>'',
+                ]; 
+            }               
+        }
+        $doctor_schedule =json_encode($doctor_schedule);
+        $doctor->schedule =  $doctor_schedule; 
+        $doctor->save();
+        return redirect('/doctors/schedule/detail/'.$request->doctor_id);
+    }
 }

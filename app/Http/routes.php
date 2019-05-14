@@ -58,9 +58,10 @@ Route::post('/patients/edit', 'PatientController@store_update');
 
 //Doctors_schedule
 Route::get('/doctors/schedule', 'DoctorController@index');
-Route::get('/doctors/schedule', 'DoctorController@index');
-// /doctors/schedule/detail/{id}
-// /doctors/schedule/edit/{id}
+Route::get('/doctors/schedule/detail/{id}', 'DoctorController@detail');
+Route::get('/doctors/schedule/edit/{id}', 'DoctorController@update');
+Route::post('/doctors/schedule/edit', 'DoctorController@store_update');
+
 //p_services
 Route::get('/p_services/{id_P}', 'Partner_serviceController@index')->where(['id_P' => '[0-9]+']);
 Route::get('/p_services/{id_P}/add', 'Partner_serviceController@add');

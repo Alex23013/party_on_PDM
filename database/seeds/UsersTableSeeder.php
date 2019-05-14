@@ -36,12 +36,21 @@ class UsersTableSeeder extends Seeder
 	               'role'=>1,
 	               'name_role' => 'doctor',	               
 	           ]);
-	    
+	    $doctor_schedule = [];
+                $days=["lunes","martes","miercoles","jueves","viernes","sabado"];
+                for ($i=0; $i < 6; $i++) { 
+                    $doctor_schedule[] = [
+                    'day'=> $days[$i],
+                    'schedule_start'=>'',
+                    'schedule_end'=>'',
+                    ];
+                }
 	    DB::table('doctors')->insert([
 	    		'user_id'=> 2,
 	    		'birth_at'=>"2019-04-16",
 	    		'address'=>"su casita",
 	    		'specialty'=> "pulmonar",
+	    		'schedule'=>json_encode($doctor_schedule),
 	    	]);
 
 	    DB::table('users')->insert([

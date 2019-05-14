@@ -20,7 +20,7 @@ class CreateDoctorsTable extends Migration
             $table->string('address');
             $table->boolean('available')->default(1);
             $table->json('schedule')->nullable();
-            $table->json('all_day')->default(1);
+            $table->boolean('all_day')->default(1);
             $table->string('specialty');
             //ec: emergency_contact
             $table->string('ec_name')->nullable();
