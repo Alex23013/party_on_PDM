@@ -53,14 +53,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="address_from" class="col-md-4 control-label">Dirección de salida*</label>
-
-                            <div class="col-md-6">
-                                <input id="address_from" type="text" class="form-control" name="address_from" >
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <label for="address_to" class="col-md-4 control-label">Direccion de llegada *</label>
 
                             <div class="col-md-6">

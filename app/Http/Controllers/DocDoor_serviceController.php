@@ -27,17 +27,18 @@ class DocDoor_serviceController extends Controller
                     ->pluck('dservices.id');
         $i = 0;
         foreach ($services as $temp) {
-           $temp->d_service_name=$servicesB[$i];
+           $temp->d_service_id=$servicesB[$i];
            $i= $i+1;
         }
+        //dd($services);
         $new = NULL;   
         return view('docdoor_services.d_services')->with(compact('services','new'));
     }
-
+    
     public function complete($id)
     {
         $d_service = Dservice::find($id);
-        $d_service->execution = date('Y-m-d H:i:s');
+        $d_service->complete = 1;
         $d_service->save();
         return redirect('/d_services');
     }
@@ -61,7 +62,6 @@ class DocDoor_serviceController extends Controller
             'partner_id' => 'required',
             'service_id' => 'required',
             'dni' => 'required|size:8',
-            'address_from'=>'required|max:40',
             'address_to'=>'required|max:40',
         ];
 
@@ -71,9 +71,6 @@ class DocDoor_serviceController extends Controller
 
             'dni.required' => 'Es necesario ingresar un DNI para registrar una solicitud',
             'dni.size' => 'El DNI debe tener 8 digitos',
-
-            'address_from.required' => 'Es necesario ingresar una "dirección de salida" para registrar una solicitud',
-            'address_from.max' => 'Campo "Dirección de salida" es demasiado extenso.',
 
             'address_to.required' => 'Es necesario ingresar una "dirección de llegada" para registrar una solicitud',
             'address_to.max' => 'Campo "Dirección de llegada" es demasiado extenso.',
@@ -89,27 +86,59 @@ class DocDoor_serviceController extends Controller
         $d_service->user_id = $id;
         
         $data = $request->all();
+        //dd($data);
         unset($data['_token']);
         unset($data['dni']);
         foreach ($data as $key => $value) {
             $d_service->$key = $data[$key] ;
         }   
+        $partner = Partner::find($data['partner_id']);
+        $d_service->address_from= $partner->address;
         $d_service->save();
         $services =  DB::table('dservices')
                     ->join('services','dservices.service_id','=','services.id')
                     ->join('users','dservices.user_id','=','users.id')
                     ->join('partners','dservices.partner_id','=','partners.id')
                     ->get();
-        $new = $d_service;   
+        $new = $d_service; 
+        $servicesB =  DB::table('dservices')
+                    ->join('partners','dservices.partner_id','=','partners.id')
+                    ->join('users','dservices.user_id','=','users.id')
+                    ->join('services','dservices.service_id','=','services.id') 
+                    ->pluck('dservices.id');
+        $i = 0;
+        foreach ($services as $temp) {
+           $temp->d_service_name=$servicesB[$i];
+           $i= $i+1;
+        }  
         return view('docdoor_services.d_services')->with(compact('services','new'));
     }
 
     public function update($id){
+        
         $d_service = Dservice::find($id);
-        return view('docdoor_services.d_service_edit')->with(compact('d_service'));
+        $partners = Partner::all();
+        $partner_name = Partner::find($d_service->partner_id);
+        $partner_name = $partner_name->partner_name;
+        return view('docdoor_services.d_service_edit')->with(compact('d_service','partners','partner_name'));
     }
 
-    public function store_update(){
+    public function store_update(Request $request){
+        $d_service = Dservice::find($request->id);
+        $data = $request->all();
+        
+        unset($data['_token']);
+        unset($data['id']);
+        foreach ($data as $key => $value) {
+           if( $value == '' || $value == ' ' ){
+           }else{
+            if($d_service->$key != $data[$key] ){
+                $d_service->$key=$data[$key];    
+            }
+           }
+        }
+        $d_service->save();
+        return redirect('/d_services');
         
     }
 

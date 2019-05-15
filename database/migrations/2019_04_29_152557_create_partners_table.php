@@ -21,6 +21,8 @@ class CreatePartnersTable extends Migration
             $table->string('cell_1'); 
             $table->string('cell_2')->nullable();
             $table->string('address');
+            $table->string('address_latitude')->nullable();
+            $table->string('address_longitude')->nullable();
             $table->string('hours_of_operation')->nullable(); 
             //# de cuenta corriente
             $table->string('current_acount')->nullable();

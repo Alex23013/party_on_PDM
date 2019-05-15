@@ -7,24 +7,20 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Editar una Solicitud de Servicio DocDoor</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="/d_services">
+                    <form class="form-horizontal" role="form" method="POST" action="/d_services/edit">
                          {{ csrf_field() }}
 
 
                         <div class="form-group">
-                            <label for="address_from" class="col-md-4 control-label">Dirección de salida*</label>
+                            <label for="partner_id" class="col-md-4 control-label">Asociado *</label>
 
                             <div class="col-md-6">
-                                <input id="address_from" type="text" class="form-control" name="address_from" placeholder="{{$d_service->address_from}}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address_to" class="col-md-4 control-label">Direccion de llegada *</label>
-
-                            <div class="col-md-6">
-                                <input id="address_to" type="text" class="form-control" name="address_to" placeholder="{{$d_service->address_to}}">
-                                
+                                <select class="form-control" name = "partner_id" >
+                                <option value=""> {{$partner_name}} (actual) </option>
+                                @foreach($partners as $partner)
+                              <option value="<?=$partner->id?>"><?=$partner->partner_name?></option>
+                            @endforeach
+                            </select>
                             </div>
                         </div>
 
@@ -32,7 +28,7 @@
                             <label for="address_to" class="col-md-4 control-label">Delivery *</label>
 
                             <div class="col-md-6">
-                                <input id="address_to" type="text" class="form-control" name="address_to" placeholder="{{$d_service->address_to}}">
+                                <input id="address_to" type="text" class="form-control" name="address_to" placeholder="{{$d_service->delivery}}">
                             </div>
                         </div>
 
@@ -40,10 +36,13 @@
                             <label for="address_to" class="col-md-4 control-label">Ejecución *</label>
 
                             <div class="col-md-6">
-                                <input id="address_to" type="text" class="form-control" name="address_to" placeholder="{{$d_service->address_to}}">
+                                <input id="address_to" type="text" class="form-control" name="address_to" placeholder="{{$d_service->execution}}">
                                 <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
+
+                        <input id="id" type="hidden" name="id" value = 
+                         {{$d_service->id}}> 
 
 
                         <div class="form-group">
