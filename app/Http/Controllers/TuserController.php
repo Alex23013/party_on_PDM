@@ -24,7 +24,7 @@ class TuserController extends Controller
             'name' => 'required|min:2|max:255',
             'last_name' => 'required|min:2|max:255',
             'dni' => 'required|size:8|unique:tusers',
-            'cellphone' => 'required|size:9'
+            'cellphone' => 'required'
         ];
 
         $messages = [
@@ -40,8 +40,7 @@ class TuserController extends Controller
             'dni.size' => 'El DNI debe tener 8 digitos',
             'dni.unique' => 'Ya existe un usuario registrado con este DNI',
 
-            'cellphone.required' => 'Es necesario ingresar un número de celular para registrar a un usuario',
-            'cellphone.size' => 'El número de celular debe tener 9 digitos'
+            'cellphone.required' => 'Es necesario ingresar un número de celular para registrar a un usuario'
         ];
 
         $this->validate($request, $rules, $messages);   

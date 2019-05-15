@@ -27,7 +27,7 @@ class PartnerController extends Controller
             'social_reason'=> 'required',
             'ruc' => 'required|size:11|unique:partners',
             'address'=>'required|max:40',
-            'cell_1' => 'required|size:9',
+            'cell_1' => 'required',
         ];
 
         $messages = [
@@ -46,8 +46,7 @@ class PartnerController extends Controller
             'address.required' => 'Es necesario ingresar una dirección para registrar a un doctor',
             'address.max' => 'Campo "Dirección" es demasiado extenso.',
 
-            'cell_1.required' => 'Es necesario ingresar un número de celular para registrar a un asociado',
-            'cell_1.size' => 'El número de celular debe tener 9 digitos'
+            'cell_1.required' => 'Es necesario ingresar un número de celular para registrar a un asociado'
         ];
 
         $this->validate($request, $rules, $messages);   

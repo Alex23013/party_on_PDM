@@ -110,7 +110,7 @@ class UserController extends Controller
                 'name' => 'required|min:2|max:255',
                 'last_name' => 'required|min:2|max:255',
                 'dni' => 'required|size:8|unique:users',
-                'cellphone' => 'required|size:9',
+                'cellphone' => 'required',
                 'role' => 'required',
                 'email' => 'required|email|max:255|unique:users',
                 'password' => 'required|min:6'
@@ -130,7 +130,6 @@ class UserController extends Controller
                 'dni.unique' => 'Ya existe un usuario registrado con este DNI',
 
                 'cellphone.required' => 'Es necesario ingresar un número de celular para registrar a un usuario',
-                'cellphone.size' => 'El número de celular debe tener 9 digitos',
 
                 'role.required' => 'Es necesario ingresar un rol para registrar a un usuario',
                 
