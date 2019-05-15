@@ -26,6 +26,7 @@ class CreateDservicesTable extends Migration
             $table->dateTime('delivery')->nullable();
             $table->dateTime('execution')->nullable();
             $table->boolean('complete')->default(0);
+            $table->boolean('cancel')->default(0);
             $table->timestamps(); //request = created_at           
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
