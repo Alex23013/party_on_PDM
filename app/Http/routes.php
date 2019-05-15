@@ -61,6 +61,7 @@ Route::get('/doctors/schedule', 'DoctorController@index');
 Route::get('/doctors/schedule/detail/{id}', 'DoctorController@detail');
 Route::get('/doctors/schedule/edit/{id}', 'DoctorController@update');
 Route::post('/doctors/schedule/edit', 'DoctorController@store_update');
+Route::get('/doctors/schedule/assign/{id}', 'DoctorController@assign');
 
 //p_services
 Route::get('/p_services/{id_P}', 'Partner_serviceController@index')->where(['id_P' => '[0-9]+']);

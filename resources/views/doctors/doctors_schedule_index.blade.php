@@ -35,9 +35,13 @@
 	                  <td> Activo por horas</td>
 	                  @endif
 	                  <td> 
-	                  <a href="/doctors/schedule/detail/{{$user->id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
-	                  
-	                  <a href="/doctors/schedule/edit/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  @if($user->schedule_id)
+		                  <a href="/doctors/schedule/detail/{{$user->id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
+		                  
+		                  <a href="/doctors/schedule/edit/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  @else
+	                  	  <a href="/doctors/schedule/assign/{{$user->id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa  fa-calendar-plus-o"></i> Asignar horario</button></a>
+	                  @endif
 	                  </td>
 	                  </tr>  
 	                  <?php endforeach ?>  

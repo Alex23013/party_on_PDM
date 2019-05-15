@@ -42,7 +42,7 @@
                 </thead>
                 <tbody>
                 
-                <?php foreach ($schedules as $user): ?>
+                <?php foreach ($content_schedule as $user): ?>
                 <tr>                
 	                <td><?=$user->day?>
 	                @if($user->schedule_start != '')
@@ -53,8 +53,13 @@
 	                </td>
 	                <td>
 	                <div class="bootstrap-timepicker">
-                        <div class="form-group">
+                      <div class="form-group">
+                        <div class="col-md-1">
+                            <i class="fa fa-clock-o"></i>
+                          </div>
+                         <div class="col-md-6">
                             <input id="address_from" type="text" class="form-control" name="starts[]" placeholder="{{$user->schedule_start}}">
+                            </div>
                         </div>
                         @if($user->schedule_start!='')
                         <input type="hidden" name="real_starts[]" value = "{{$user->schedule_start}}">
@@ -67,7 +72,12 @@
 	                <td>
 	                <div class="bootstrap-timepicker">
                         <div class="form-group">
+                          <div class="col-md-1">
+                            <i class="fa fa-clock-o"></i>
+                          </div>
+                         <div class="col-md-6">
                             <input id="address_from" type="text" class="form-control" name="ends[]" placeholder="{{$user->schedule_end}}">
+                          </div>
                         </div>
                      </div>
                      @if($user->schedule_end!='')
