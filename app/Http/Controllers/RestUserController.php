@@ -31,7 +31,7 @@ class RestUserController extends Controller
                     ->first(); 
     	if($user != null ){
     		$user = User::find($user->id);   
-    		$user->password = $request->password;
+    		$user->password =  bcrypt($request->password);
     		$user->save();
     		return response()
 				->json(['status' => '200',
