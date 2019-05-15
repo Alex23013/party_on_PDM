@@ -40,10 +40,12 @@ class DoctorController extends Controller
     public function store_update(Request $request){
         $doctor = Doctor::find($request->doctor_id);
         //dd($request->all());
+        $doctor->all_day = $request->all_day;
+                
         $days=["lunes","martes","miercoles","jueves","viernes","sabado"];
         $doctor_schedule = [];
         for ($i=0; $i < 6; $i++) { 
-            if(in_array($days[$i], $request->days)){
+            if($request->days && in_array($days[$i], $request->days)){
                 if($request->starts[$i]!= '' && $request->ends[$i]!= ''){
                    $doctor_schedule[] = [
                     'day'=> $days[$i],
