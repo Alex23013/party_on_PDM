@@ -38,7 +38,7 @@
         @endif
          </li>
         <li> Estado: 
-        @if($data->execution)
+        @if($data->complete)
           <b>Completado</b>
         @else
           <b>Incompleto</b>
