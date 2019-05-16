@@ -11,11 +11,11 @@
   	<div class="col-xs-12">
     	<div class="box ">
         <div class="box-header mm-left ">
-          <h3 class="box-title ">Información del horario de {{$name}}</h3>
+          <h3 class="box-title ">Información del horario de {{$doctor_name}}</h3>
         </div>
 	      <div class="box-body mm-left"> 
         <h4> Tipo de jornada</h4>
-        <h5 class="mm-left">{{$name}} es un doctor   
+        <h5 class="mm-left">{{$doctor_name}} es un doctor   
             @if($doctor->all_day)
               a <b> tiempo completo </b>
             @else

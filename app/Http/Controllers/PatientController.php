@@ -26,9 +26,7 @@ class PatientController extends Controller
         }else{
             $url_image = "/images/uploads/".Auth:: user()->avatar;
         }
-    	$s_user = DB::table('patients')
-                    ->where('user_id', $user->id)
-                    ->first(); 
+        $s_user = $user->patient;         
         return view('users.user_profile')  ->with(compact('user','url_image','s_user'));
     }
 
@@ -88,9 +86,10 @@ class PatientController extends Controller
         $user->dni =  $request->dni;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->cellphone =  $request->cellphone;
+        $user->cellphone = $request->cellphone;
         $user->role =  3;
-        $user->name_role =  "paciente";
+        $user->name_role = "paciente";
+        $user->validated = 1;
         $user->save();
 
         $patient = New Patient;
@@ -116,9 +115,7 @@ class PatientController extends Controller
 
     public function update($id){
     	$user = User::find($id);
-    	$patient = DB::table('patients')
-                    ->where('user_id', $user->id)
-                    ->first(); 
+    	$patient = $user->patient;  
     	return view('patients.patient_edit')->with(compact('user','patient'));
     }
 
@@ -145,10 +142,7 @@ class PatientController extends Controller
                 		$user->$key=$data[$key];
                 	}
 	           	}else{
-	           		$patient = DB::table('patients')
-			                    ->where('user_id',$user->id)
-			                    ->first(); 
-			        $patient = Patient::find($patient->id);
+	           		$patient = $user->patient;  
 	           		if($patient->$key != $data[$key] ){
                 	$patient->$key=$data[$key];}
                 	$patient->save();
@@ -160,9 +154,8 @@ class PatientController extends Controller
     }
     public function delete($id)
     {
-    	$patient = DB::table('patients')
-                    ->where('user_id', $id)
-                    ->first();
+    	$user = User::find($id);
+        $patient = $user->patient;  
      	Patient::destroy($patient->id);
         User::destroy($id);
         return redirect('/patients');

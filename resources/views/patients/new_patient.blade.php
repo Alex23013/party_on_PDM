@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="cellphone" class="col-md-4 control-label">Email </label>
+                            <label for="cellphone" class="col-md-4 control-label">Email *</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="text" class="form-control" name="email" >

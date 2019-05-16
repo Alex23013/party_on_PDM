@@ -24,8 +24,8 @@
     <link href="{{ asset('css/_all-skins.min.css') }}" rel="stylesheet">
 
 
-    <!-- DataTables 
-    <link href="{{ asset('css/dataTables.bootstrap.min.css') }}"  rel="stylesheet" >-->
+    <!-- DataTables -->
+    <link href="{{ asset('css/dataTables.bootstrap.min.css') }}"  rel="stylesheet" >
 
     <!-- font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -50,9 +50,10 @@
     
     <script src="{{ asset('js/calendar/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('js/calendar/es.js') }}"></script>
-    <!-- DataTables 
+    <!-- DataTables -->
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" ></script>
-    <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>-->
+    <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+
     <!-- datepicker -->
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <!-- bootstrap time picker -->

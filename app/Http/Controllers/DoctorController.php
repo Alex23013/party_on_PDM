@@ -20,21 +20,17 @@ class DoctorController extends Controller
 
     public function detail($id){
         $doctor = Doctor::find($id);
-        $doctor_name = DB::table('users')
-                    ->where('id',$doctor->user_id)
-                    ->first();
-        $name = $doctor_name->name;
+        $doctor_user = Doctor::find(1)->user;
+        $doctor_name = $doctor_user->name;
         $schedule = Schedule::find($doctor->schedule_id);
         $schedules = json_decode($schedule->schedule);
-        return view('doctors.doctors_schedule_detail')->with(compact('schedules','name','doctor'));
+        return view('doctors.doctors_schedule_detail')->with(compact('schedules','doctor_name','doctor'));
     }
 
     public function assign($id){
-        $doctor = Doctor::find($id);
-        $doctor_name = DB::table('users')
-                    ->where('id',$doctor->user_id)
-                    ->first();
-        $name = $doctor_name->name;
+        $doctor = Doctor::find($id);        
+        $doctor_user = Doctor::find(1)->user;
+        $doctor_name = $doctor_user->name;
         $doctor_schedule = [];
                 $days=["lunes","martes","miercoles","jueves","viernes","sabado"];
                 for ($i=0; $i < 6; $i++) { 
@@ -53,18 +49,16 @@ class DoctorController extends Controller
         $doctor->save();
 
         $content_schedule = json_decode($schedule->schedule);
-        return view('doctors.doctors_schedule_edit')->with(compact('content_schedule','name','doctor'));
+        return view('doctors.doctors_schedule_edit')->with(compact('content_schedule','doctor_name','doctor'));
     }
 
     public function update($id){
-        $doctor = Doctor::find($id);
-        $doctor_name = DB::table('users')
-                    ->where('id',$doctor->user_id)
-                    ->first();
-        $name = $doctor_name->name;           
+        $doctor = Doctor::find($id);        
+        $doctor_user = Doctor::find(1)->user;
+        $doctor_name = $doctor_user->name;          
         $schedule = Schedule::find($doctor->schedule_id);
         $content_schedule = json_decode($schedule->schedule);
-        return view('doctors.doctors_schedule_edit')->with(compact('content_schedule','name','doctor'));
+        return view('doctors.doctors_schedule_edit')->with(compact('content_schedule','doctor_name','doctor'));
     }
 
     public function store_update(Request $request){

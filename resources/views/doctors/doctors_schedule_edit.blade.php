@@ -14,12 +14,12 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-          <h3 class="box-title ">Información del horario de {{$name}}</h3>
+          <h3 class="box-title ">Información del horario de {{$doctor_name}}</h3>
         </div>
         <div class="box-body mm-left"> 
         <h4> Tipo de jornada</h4>
         <form class="form-horizontal" role="form" method="POST" action="/doctors/schedule/edit">
-        <h5 class="mm-left">{{$name}} es un doctor 
+        <h5 class="mm-left">{{$doctor_name}} es un doctor 
               a <b> tiempo completo </b> 
             @if($doctor->all_day)
               <input type="radio" id="all_day" name="all_day" value = "1" checked>
