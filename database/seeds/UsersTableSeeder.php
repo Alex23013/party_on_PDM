@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
 	    		'address'=>"su casita",
 	    		'specialty'=> "pulmonar",	    		
 	    	]);
-	    $doctor_schedule = [];
+	   /* $doctor_schedule = [];
                 $days=["lunes","martes","miercoles","jueves","viernes","sabado"];
                 for ($i=0; $i < 6; $i++) { 
                     $doctor_schedule[] = [
@@ -55,7 +55,7 @@ class UsersTableSeeder extends Seeder
         DB::table('schedules')->insert([
         	'doctor_id'=> 1,
         	'schedule'=>json_encode($doctor_schedule),
-        	]);
+        	]);*/
 
 	    DB::table('users')->insert([
 	               'name' => "Test",

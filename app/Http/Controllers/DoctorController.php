@@ -23,8 +23,9 @@ class DoctorController extends Controller
         $doctor_name = DB::table('users')
                     ->where('id',$doctor->user_id)
                     ->first();
-        $name = $doctor_name->name;           
-        $schedules = json_decode($doctor->schedule);
+        $name = $doctor_name->name;
+        $schedule = Schedule::find($doctor->schedule_id);
+        $schedules = json_decode($schedule->schedule);
         return view('doctors.doctors_schedule_detail')->with(compact('schedules','name','doctor'));
     }
 
@@ -61,18 +62,18 @@ class DoctorController extends Controller
                     ->where('id',$doctor->user_id)
                     ->first();
         $name = $doctor_name->name;           
-        //TODO: fix linkeo al horario del doctor
-        //$schedules = json_decode($doctor->schedule);
-       
+        $schedule = Schedule::find($doctor->schedule_id);
+        $content_schedule = json_decode($schedule->schedule);
         return view('doctors.doctors_schedule_edit')->with(compact('content_schedule','name','doctor'));
     }
 
     public function store_update(Request $request){
-        //TODO: fix update del horario del doctor
         $doctor = Doctor::find($request->doctor_id);
         //dd($request->all());
         $doctor->all_day = $request->all_day;
-                
+
+        $schedule = New Schedule;
+        $schedule->doctor_id = $doctor->id;
         $days=["lunes","martes","miercoles","jueves","viernes","sabado"];
         $doctor_schedule = [];
         for ($i=0; $i < 6; $i++) { 
@@ -99,8 +100,10 @@ class DoctorController extends Controller
                 ]; 
             }               
         }
-        $doctor_schedule =json_encode($doctor_schedule);
-        $doctor->schedule =  $doctor_schedule; 
+        $schedule->schedule = json_encode($doctor_schedule);
+        $schedule->save();
+
+        $doctor->schedule_id = $schedule->id;
         $doctor->save();
         return redirect('/doctors/schedule/detail/'.$request->doctor_id);
     }
