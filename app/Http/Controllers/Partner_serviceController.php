@@ -79,8 +79,15 @@ class Partner_serviceController extends Controller
     }
     
     public function update($id_P,$id){
-
-        $p_service = Partner_service::find($id); 
+        $services = Partner::find($id_P)->services;
+        foreach ($services as $service) {
+            if($service->id == $id){
+                $p_service = $service;
+            }
+        }
+        return view('partner_services.p_service_edit')
+            ->with(compact('p_service','id_P')); 
+        /*$p_service = Partner_service::find($id); 
         $name = DB::table('services')
                 ->where('id', $p_service->id)
                 ->select('service_name')
@@ -88,7 +95,7 @@ class Partner_serviceController extends Controller
         $name = $name[0]->service_name;
         $p_service->name=$name;
         return view('partner_services.p_service_edit')
-            ->with(compact('p_service','id_P')); 
+            ->with(compact('p_service','id_P')); */
     }   
 
     public function store_update($id_P,Request $request){

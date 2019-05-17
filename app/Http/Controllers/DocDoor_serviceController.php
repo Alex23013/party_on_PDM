@@ -54,7 +54,33 @@ class DocDoor_serviceController extends Controller
     public function add(){
         $services = Service::all();
         $partners = Partner::all();
-        return view('docdoor_services.new_d_service')->with(compact('services','partners')); 
+        $one = NULL;
+        return view('docdoor_services.new_d_service')->with(compact('services','partners','one')); 
+    }
+
+    public function postAddDocDoorService(Request $request)
+    {
+        //check which submit was clicked on
+        if($request->chosePartner)
+        {
+            $partners = Service::find($request->service_id)->partners;
+            $one = 1;
+            $services = Service::find($request->service_id);
+            return view('docdoor_services.new_d_service')->with(compact('services','partners','one')); 
+        } 
+        elseif($request->registrar) 
+        {
+            $this->store($request);
+        }
+    }
+
+    public function partnerByServices(Request $request){
+        //$data = $request->all();
+        //dd($data);
+        $partners = Service::find($request->service_id)->partners;
+        //dd($partners);
+        $services = Service::find($request->service_id);
+        return view('docdoor_services.new_d_service')->with(compact('services','partners'));
     }
 
     public function store(Request $request){

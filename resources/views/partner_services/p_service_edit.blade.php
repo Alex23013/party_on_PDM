@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Editar costos de {{$p_service->name}}</div>
+                <div class="panel-heading">Editar costos de {{$p_service->service_name}}</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="/p_services/{{$id_P}}/edit">
                          {{ csrf_field() }}

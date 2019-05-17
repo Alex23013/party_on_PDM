@@ -25,21 +25,29 @@
                                 <input id="dni" type="text" class="form-control" name="dni" >
                             </div>
                         </div>
-
                          <div class="form-group">
                             <label for="service_id" class="col-md-4 control-label">Servicio *</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name = "service_id" >
-                                <option value=""> Seleccione un servicio </option>
-                                @foreach($services as $service)
-                              <option value="<?=$service->id?>"><?=$service->service_name?></option>
-                            @endforeach
-                            </select>
+                                @if($one)
+                                   <b> {{$services->service_name}}</b>
+                                @else
+                                    <select class="form-control" name = "service_id" >
+                                    <option value=""> Seleccione un servicio </option>
+                                    @foreach($services as $service)
+                                    <option value="<?=$service->id?>"><?=$service->service_name?></option>
+                                    @endforeach
+                                    </select>
+                                @endif
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary" name="chosePartner" value = "1">
+                                   <i class="glyphicon glyphicon-user"></i> Elegir Asociado
+                                </button>
                             </div>
                         </div>
-
-                        <div class="form-group">
+                        @if($one)
+                        <div class="form-group" id="chosePartner">
                             <label for="partner_id" class="col-md-4 control-label">Asociado *</label>
 
                             <div class="col-md-6">
@@ -51,7 +59,7 @@
                             </select>
                             </div>
                         </div>
-
+                         @endif
                         <div class="form-group">
                             <label for="address_to" class="col-md-4 control-label">Direccion de llegada *</label>
 
@@ -63,7 +71,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" name="registrar" value = "1">
                                     <i class="fa fa-btn fa-user"></i> Registrar
                                 </button>
                             </div>
@@ -74,4 +82,12 @@
         </div>
     </div>
 </div>
+@endsection
+@section('specific scripts')
+<script>
+  $(function () {
+    var par =<?php echo ($partners)?>;
+    console.log(par);
+  })
+</script>
 @endsection
