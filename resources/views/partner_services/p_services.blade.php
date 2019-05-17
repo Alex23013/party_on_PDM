@@ -42,7 +42,7 @@
 	                  	<td>Desactivo </td>
 	                  @endif
 	                  <td> 
-	                  	<a href="/p_services/{{$id_P}}/edit/{{$p_service->id}}/"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  	<a href="/p_services/{{$id_P}}/edit/{{$p_service->service_id}}/"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
 
 	                  	@if ($p_service->active)
 	                  		<a href="/p_services/{{$id_P}}/{{$p_service->id}}/deactive"> <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>

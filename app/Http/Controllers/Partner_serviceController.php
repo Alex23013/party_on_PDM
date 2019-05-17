@@ -16,7 +16,8 @@ class Partner_serviceController extends Controller
         $services =  DB::table('services')
                     ->join('partner_services','services.id','=','partner_services.service_id')
                     ->where('partner_id', $idPartner)
-                    ->get();   
+                    ->get(); 
+        //dd($services);              
         $new = NULL;   
         $id_P = $idPartner;
         return view('partner_services.p_services')->with(compact('services','new','id_P'));
@@ -63,7 +64,7 @@ class Partner_serviceController extends Controller
     }
 
    	public function active($id_P,$id)
-    {
+    {   //TODO: fix this
         $p_service = Partner_service::find($id);
         $p_service->active = 1;
         $p_service->save();
@@ -71,24 +72,38 @@ class Partner_serviceController extends Controller
     }
 
     public function deactive($id_P,$id)
-    {
+    {   //TODO: fix this
+        //$p_service = Partner::find($id_P)->services->first()->pivot;
+        //$p_service=Partner::find($id_P)->services->where('id', $id)->get()->first();
+            //->updateExistingPivot($id, ["active" => 0]);
+            //->newPivotStatement()
+            //->where('id', $id)->update(['active' => 0]);
+        //dd($p_service);
         $p_service = Partner_service::find($id);
-        $p_service->active = 0;
+        $p_service ->active = false;
         $p_service->save();
+        
         return redirect('/p_services/'.$id_P); 
     }
     
     public function update($id_P,$id){
-
-        $p_service = Partner_service::find($id); 
-        $name = DB::table('services')
-                ->where('id', $p_service->id)
-                ->select('service_name')
-                ->get(); 
-        $name = $name[0]->service_name;
-        $p_service->name=$name;
+        $services = Partner::find($id_P)->services;
+        foreach ($services as $service) {
+            if($service->id == $id){
+                $p_service = $service;
+            }
+        }
         return view('partner_services.p_service_edit')
             ->with(compact('p_service','id_P')); 
+        /*$p_service = Partner_service::find($id); 
+           $name = DB::table('services')
+                   ->where('id', $p_service->id)
+                   ->select('service_name')
+                   ->get(); 
+           $name = $name[0]->service_name;
+           $p_service->name=$name;
+           return view('partner_services.p_service_edit')
+               ->with(compact('p_service','id_P')); */
     }   
 
     public function store_update($id_P,Request $request){
