@@ -52,31 +52,32 @@
 	                @endif
 	                </td>
 	                <td>
-	                <div class="bootstrap-timepicker">
+                    <div class="bootstrap-timepicker">
                       <div class="form-group">
-                        <div class="col-md-1">
+                      <div class="col-md-1">
                             <i class="fa fa-clock-o"></i>
                           </div>
                          <div class="col-md-6">
-                            <input id="address_from" type="text" class="form-control" name="starts[]" placeholder="{{$user->schedule_start}}">
+                            <input id="address_from" type="text" class="form-control timepicker" name="starts[]" placeholder="{{$user->schedule_start}}">
                             </div>
                         </div>
+                    </div>
                         @if($user->schedule_start!='')
                         <input type="hidden" name="real_starts[]" value = "{{$user->schedule_start}}">
                         @else
-                      <input type="hidden" name="real_starts[]" value = "">
+                         <input type="hidden" name="real_starts[]" value = "">
                         @endif
 
-                     </div>
 	                </td>
 	                <td>
 	                <div class="bootstrap-timepicker">
                         <div class="form-group">
+                          
+                         <div class="col-md-6">
+                            <input id="address_from" type="text" class="form-control timepicker" name="ends[]" placeholder="{{$user->schedule_end}}">
+                          </div>
                           <div class="col-md-1">
                             <i class="fa fa-clock-o"></i>
-                          </div>
-                         <div class="col-md-6">
-                            <input id="address_from" type="text" class="form-control" name="ends[]" placeholder="{{$user->schedule_end}}">
                           </div>
                         </div>
                      </div>
@@ -104,14 +105,14 @@
 
 @section('specific scripts')
 <script type="text/javascript" >
-    $(function () {
-
+   $(function () {
     //Timepicker
     $('.timepicker').timepicker({
       showInputs: false,
-      showSeconds:true,
+      showSeconds: false,
       showMeridian:false
     })
 
     }); 
 </script>
+@endsection
