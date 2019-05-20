@@ -84,11 +84,15 @@ Route::get('/d_services/edit/{id}', 'DocDoor_serviceController@update');
 Route::post('/d_services/edit', 'DocDoor_serviceController@store_update');
 
 //admin
-Route::get('/users', 'UserController@index');
-Route::get('/users/add/{role}', 'UserController@add');
-Route::get('/users/{id}/active', 'UserController@active');
-Route::get('/users/{id}/deactive', 'UserController@deactive');
-Route::post('/users', 'UserController@store');
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('/users', 'UserController@index');
+    Route::get('/users/add/{role}', 'UserController@add');
+	Route::get('/users/{id}/active', 'UserController@active');
+	Route::get('/users/{id}/deactive', 'UserController@deactive');
+	Route::post('/users', 'UserController@store');
+	Route::get('/users/remove/{id}', 'UserController@delete');
+});
+
 Route::get('/users/profile/edit', 'UserController@update');
 Route::post('/users/profile/edit', 'UserController@store_update');
 Route::post('/users/image_profile/edit', 'UserController@storeImageProfile');
@@ -97,4 +101,3 @@ Route::get('/users/edit/{id}', 'UserController@user_update');
 Route::post('/users/edit/', 'UserController@store_user_update');
 Route::get('/users/especific/edit', 'UserController@especific_edit');
 Route::post('/users/especific/edit', 'UserController@store_especific_edit');
-Route::get('/users/remove/{id}', 'UserController@delete');
