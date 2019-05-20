@@ -12,3 +12,4 @@ class Service extends Model
         return $this->belongsToMany(Partner::class,'partner_services')->withPivot('active');
     }
 }
+	

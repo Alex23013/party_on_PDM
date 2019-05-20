@@ -36,8 +36,8 @@ class DoctorController extends Controller
                 for ($i=0; $i < 6; $i++) { 
                     $doctor_schedule[] = [
                     'day'=> $days[$i],
-                    'schedule_start'=>'00:00',
-                    'schedule_end'=>'00:00',
+                    'schedule_start'=>'',
+                    'schedule_end'=>'',
                     ];
                 }
         $schedule = New Schedule;

@@ -24,5 +24,12 @@ class Partner_serviceTableSeeder extends Seeder
     		'service_cost'=>35,
     		'docdoor_cost'=>10,
         ]);
+
+        DB::table('partner_services')->insert([
+            'service_id'=> 3,
+            'partner_id'=>2,
+            'service_cost'=>52,
+            'docdoor_cost'=>10.5,
+        ]);
     }
 }

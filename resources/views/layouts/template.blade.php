@@ -16,16 +16,18 @@
     <link href="{{ asset('css/bootstrap-timepicker.min.css') }}" rel="stylesheet">
     
 
-    <!-- fullCalendar -->
+    <!-- fullCalendar 
     <link href="{{ asset('css/calendar/fullcalendar.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/calendar/fullcalendar.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/calendar/fullcalendar.min.css') }}" rel="stylesheet">-->
+
+    <!-- DataTables -->
+    <link href="{{ asset('css/dataTables.bootstrap.css') }}"  rel="stylesheet" >
 
     <link href="{{ asset('css/AdminLTE.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/_all-skins.min.css') }}" rel="stylesheet">
 
 
-    <!-- DataTables -->
-    <link href="{{ asset('css/dataTables.bootstrap.min.css') }}"  rel="stylesheet" >
+    
 
     <!-- font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -45,14 +47,14 @@
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('js/demo.js') }}"></script>
-    <!-- fullCalendar -->
+    <!-- fullCalendar 
     <script src="{{ asset('js/calendar/moment.js') }}"></script>
     
     <script src="{{ asset('js/calendar/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('js/calendar/es.js') }}"></script>
+    <script src="{{ asset('js/calendar/es.js') }}"></script>-->
     <!-- DataTables -->
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}" ></script>
-    <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery/jquery.dataTables.js') }}" ></script>
+    <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
 
     <!-- datepicker -->
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
@@ -60,6 +62,9 @@
     <script src="{{ asset('js/bootstrap-timepicker.min.js') }}"></script>
     <!-- My own scripts -->
     <script src="{{ asset('js/thingsAppears.js') }}"></script>
+    <!-- SlimScroll -->
+    <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
+
   
 </head>
 @if(Auth:: user()->avatar == "default.png")
