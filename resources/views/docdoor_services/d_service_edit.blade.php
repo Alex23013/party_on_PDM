@@ -28,15 +28,15 @@
                             <label for="address_to" class="col-md-4 control-label">Delivery *</label>
 
                             <div class="col-md-6">
-                                <input id="address_to" type="text" class="form-control" name="address_to" placeholder="{{$d_service->delivery}}">
+                                <input id="datepicker_delivery" type="text" class="form-control" name="address_to" placeholder="{{$d_service->delivery}}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="address_to" class="col-md-4 control-label">Ejecución *</label>
+                            <label for="address_to"  class="col-md-4 control-label">Ejecución *</label>
 
                             <div class="col-md-6">
-                                <input id="address_to" type="text" class="form-control" name="address_to" placeholder="{{$d_service->execution}}">
+                                <input id="datepicker_execution" type="text" class="form-control" name="address_to" placeholder="{{$d_service->execution}}">
                                 <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
@@ -60,4 +60,17 @@
         </div>
     </div>
 </div>
+@endsection
+@section('specific scripts')
+<script>
+  $('#datepicker_delivery').datepicker({
+      autoclose: true,
+      format: 'yyyy/mm/dd'
+    })
+  $('#datepicker_execution').datepicker({
+      autoclose: true,
+      format: 'yyyy/mm/dd'
+    })
+</script>
+
 @endsection
