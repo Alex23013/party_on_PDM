@@ -8,6 +8,9 @@
 .m-left{
   margin-left: 70%;
 }  
+.m-quarter-left{
+  margin-left: 25%;
+}
 </style>
 
 <div class="row">
@@ -17,21 +20,33 @@
           <h3 class="box-title ">Información del horario de {{$doctor_name}}</h3>
         </div>
         <div class="box-body mm-left"> 
-        <h4> Tipo de jornada</h4>
+        <div class="col-md-12">
+          <h4> Tipo de jornada</h4>
+        </div>
         <form class="form-horizontal" role="form" method="POST" action="/doctors/schedule/edit">
-        <h5 class="mm-left">{{$doctor_name}} es un doctor 
-              a <b> tiempo completo </b> 
-            @if($doctor->all_day)
-              <input type="radio" id="all_day" name="all_day" value = "1" checked>
-                <b> activo por horas </b>            
-                <input type="radio" id="all_day" name="all_day" value = "0">
-            @else
-                <input type="radio" id="all_day" name="all_day" value = "1">
-                <b> activo por horas </b>            
-                <input type="radio" id="all_day" name="all_day" value = "0" checked>
-            @endif
+        <h4 class="mm-left">{{$doctor_name}} es un doctor : </h4>
               
-        <h4> Horario semanal </h4>
+            @if($doctor->all_day)
+              
+              <div class = "col-md-7 m-quarter-left">
+               <input type="radio" id="all_day" name="all_day" value = "1" checked> a <b> tiempo completo </b>
+              </div>
+                   <br>  
+              <div class = "col-md-6 m-quarter-left">     
+                <input type="radio" id="all_day" name="all_day" value = "0">
+                <b> activo por horas </b>
+              </div> 
+            @else
+              <div class = "col-md-6 m-quarter-left"> 
+                <input type="radio" id="all_day" name="all_day" value = "1"> a <b> tiempo completo </b> </div>
+              <div class = "col-md-6 m-quarter-left">          
+                  <input type="radio" id="all_day" name="all_day" value = "0" checked>
+                <div><b> activo por horas </b>  </div> 
+            @endif
+       <div class="col-md-10">
+          <h4> Horario semanal </h4> 
+       </div>       
+        
 			 <table class="table table-striped">
                 <thead>
                 <tr>
@@ -44,12 +59,13 @@
                 
                 <?php foreach ($content_schedule as $user): ?>
                 <tr>                
-	                <td><?=$user->day?>
+	                <td >
 	                @if($user->schedule_start != '')
 	                <input type="checkbox" id="days" name="days[]" value="<?=$user->day?>" checked>
 	                @else
 	                <input type="checkbox" id="days" name="days[]" value="<?=$user->day?>">
 	                @endif
+                  <span ><?=$user->day?></span>
 	                </td>
 	                <td>
                     <div class="bootstrap-timepicker">
