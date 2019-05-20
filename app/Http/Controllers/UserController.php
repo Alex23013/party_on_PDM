@@ -58,9 +58,7 @@ class UserController extends Controller
         }
         $s_user = NULL;
         if($user->role == 1 ){
-            $s_user = DB::table('doctors')
-                    ->where('user_id', $user->id)
-                    ->first(); 
+            $s_user = $user->doctor; 
         } 
         if($user->role == 2 ){
             $s_user = $user->triage; 
@@ -80,9 +78,7 @@ class UserController extends Controller
         }
         $s_user = NULL;
         if($user->role == 1 ){
-            $s_user = DB::table('doctors')
-                    ->where('user_id', $user->id)
-                    ->first();       
+            $s_user = $user->doctor;       
         } 
         if($user->role == 2 ){
             $s_user = $user->triage; 
@@ -225,7 +221,7 @@ class UserController extends Controller
                     ->where('user_id', $user->id)
                     ->first(); 
             if($s_user){
-                $doctor = Doctor::find( $s_user->id) ;
+                $doctor = $user->doctor;
             }else{
                 $doctor = New Doctor;
             }
@@ -315,10 +311,7 @@ class UserController extends Controller
         $user = User::find(Auth:: user()->id);
         $s_user = NULL;
         if($user->role == 1 ){
-            $s_user = DB::table('doctors')
-                    ->where('user_id', $user->id)
-                    ->first(); 
-        } 
+            $s_user = $user->doctor; }
         if($user->role == 2 ){
             $s_user = $user->triage;
         } 
@@ -333,10 +326,7 @@ class UserController extends Controller
         $user = User::findOrFail(Auth:: user()->id);
         $s_user = NULL;
         if($user->role == 1 ){
-            $s_user = DB::table('doctors')
-                    ->where('user_id', $user->id)
-                    ->first(); 
-            $doctor = Doctor::find($s_user->id);
+            $doctor = $user->doctor; 
             $data = $request->all();
             unset($data['_token']);
             foreach ($data as $key => $value) {
@@ -392,10 +382,7 @@ class UserController extends Controller
         $antique_role = $user->role;
 
         if($antique_role == 1){
-            $s_user = DB::table('doctors')
-                    ->where('user_id', $user->id)
-                    ->first(); 
-            $s_user = Doctor::find($s_user->id);        
+            $s_user = $user->doctor;         
             $a_college = $s_user->college;
         }
         $data = $request->all();
@@ -418,9 +405,7 @@ class UserController extends Controller
         $user->save();
 
         if($antique_role == 2 && $user->role == 1){
-            $s_user = DB::table('doctors')
-                    ->where('user_id', $user->id)
-                    ->first(); 
+            $s_user = $user->doctor;  
             if($s_user){
                return redirect('/users');
             }else{
