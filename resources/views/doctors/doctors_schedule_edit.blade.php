@@ -58,7 +58,11 @@
                             <i class="fa fa-clock-o"></i>
                           </div>
                          <div class="col-md-6">
-                            <input id="address_from" type="text" class="form-control timepicker" name="starts[]" placeholder="{{$user->schedule_start}}">
+                         @if($user->schedule_start!='')
+                            <input id="schedule_start" type="text" class="form-control " name="starts[]" placeholder="{{$user->schedule_start}}">
+                        @else
+                         <input id="schedule_start" type="text" class="form-control timepicker" name="starts[]" placeholder="{{$user->schedule_start}}">
+                        @endif
                             </div>
                         </div>
                     </div>
@@ -74,7 +78,12 @@
                         <div class="form-group">
                           
                          <div class="col-md-6">
-                            <input id="address_from" type="text" class="form-control timepicker" name="ends[]" placeholder="{{$user->schedule_end}}">
+                            @if($user->schedule_end!='')
+                            <input id="schedule_end" type="text" class="
+                            form-control " name="ends[]" placeholder="{{$user->schedule_end}}">
+                            @else
+                             <input id="schedule_end" type="text" class="form-control timepicker" name="ends[]" placeholder="{{$user->schedule_end}}">
+                            @endif
                           </div>
                           <div class="col-md-1">
                             <i class="fa fa-clock-o"></i>
