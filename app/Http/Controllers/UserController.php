@@ -51,7 +51,6 @@ class UserController extends Controller
 
     public function profile(){
         $user = User::find(Auth:: user()->id);
-        //dd($user);
         if(Auth:: user()->avatar == "default.png"){
             $url_image = "/images/".Auth:: user()->avatar;
         }else{
@@ -64,9 +63,7 @@ class UserController extends Controller
                     ->first(); 
         } 
         if($user->role == 2 ){
-            $s_user = DB::table('triages')
-                    ->where('user_id', $user->id)
-                    ->first(); 
+            $s_user = $user->triage; 
         } 
         if($user->role == 3 ){
             $s_user =  $user->patient;
@@ -88,9 +85,7 @@ class UserController extends Controller
                     ->first();       
         } 
         if($user->role == 2 ){
-            $s_user = DB::table('triages')
-                    ->where('user_id', $user->id)
-                    ->first(); 
+            $s_user = $user->triage; 
         } 
         if($user->role == 3 ){
             $s_user =  $user->patient;
@@ -282,6 +277,7 @@ class UserController extends Controller
             ->with(compact('user','url_image')); 
     }    
 
+    //store my profile user info
     public function store_update(Request $request)
     {
         $user = User::findOrFail(Auth:: user()->id);
@@ -295,7 +291,6 @@ class UserController extends Controller
             }else{
                 $user->$key =$data[$key] ;    
             }
-            
            }
         }
         $user->save();
@@ -325,9 +320,7 @@ class UserController extends Controller
                     ->first(); 
         } 
         if($user->role == 2 ){
-            $s_user = DB::table('triages')
-                    ->where('user_id', $user->id)
-                    ->first(); 
+            $s_user = $user->triage;
         } 
         if($user->role == 3 ){
             $s_user =  $user->patient;
@@ -356,10 +349,7 @@ class UserController extends Controller
             $doctor->save();
         } 
         if($user->role == 2 ){
-            $s_user = DB::table('triages')
-                    ->where('user_id', $user->id)
-                    ->first(); 
-            $triage = Triage::find($s_user->id);
+            $triage = $user->triage;
             $data = $request->all();
             //TODO: cambiar esto a un for
             if($request->is_a_doctor != $triage->is_a_doctor){
@@ -440,11 +430,8 @@ class UserController extends Controller
                
 
         }else if($antique_role == 1 && $user->role == 2){
-            $s_user = DB::table('triages')
-                    ->where('user_id', $user->id)
-                    ->first(); 
+            $s_user = $user->triage;
             if($s_user){
-                $s_user = Triage::find($s_user->id);
                 $s_user->is_a_doctor = 1;
                 $s_user->college =$a_college; 
                 $s_user->save();

@@ -32,7 +32,7 @@ class User extends Authenticatable
       return $this->hasOne('App\Doctor');
     }
 
-    public function r_triage() {
+    public function triage() {
       return $this->hasOne('App\Triage');
     }
 }
