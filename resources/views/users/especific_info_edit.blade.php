@@ -42,15 +42,16 @@
                             </div>
                         </div>
                         @else
-                        <!--$s_user is a Doctor -->
+                        <!--$s_user can't modify is birthday date 
                         <div class="form-group">
                             <label for="birth" class="col-md-4 control-label">Fecha de Nacimiento : {{$s_user->birth_at}} </label>
 
                             <div class="col-md-6">
-                                <input id="birth_at" type="date" class="form-control" name="birth_at" >
+                                <input id="datepicker" type="text" class="form-control" name="birth_at" >
                             </div>
-                        </div>
-
+                        </div>-->
+                        @if ($user -> role == 1)
+                        <!--$s_user is a Doctor -->
                         <div class="form-group">
                             <label for="college" class="col-md-4 control-label">Colegiaturas </label>
 
@@ -87,7 +88,7 @@
                                 >
                             </div>
                         </div>
-
+                        @endif
                         <div class="form-group">
                             <label class="col-md-8 control-label">Información de contacto de Emergencia (opcional) </label>
                         </div>
@@ -134,4 +135,13 @@
     </div>
   </div>
 </div> 
+@endsection
+@section('specific scripts')
+<script>
+  $('#datepicker').datepicker({
+      autoclose: true,
+      format: 'yyyy/mm/dd'
+    })
+</script>
+
 @endsection

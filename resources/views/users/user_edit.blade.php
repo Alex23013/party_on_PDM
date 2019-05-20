@@ -44,12 +44,7 @@
 		                  Apellido:  	                  
 		                  <input type="text" class="form-control " name="last_name" placeholder="<?=$user['last_name']?>">
 		                </div>
-		                @if($user['id'] == Auth::user()->id)
-			                <div class="col-md-8 "> 
-			                  DNI:  	                  
-			                  <input type="text" class="form-control " name="dni" placeholder="<?=$user['dni']?>">
-			                </div>
-		                @endif
+		                
 		                <div class="col-md-8 p-top"> 
 		                  Email:  	                  
 		                  <input type="text" class="form-control " name="email" placeholder="<?=$user['email']?>">
@@ -84,7 +79,7 @@
 		                </div>
 		                <div class="col-md-8 p-top " id = "closeButton"> 
 		                  Nueva contraseña:  	                  
-		                  <input type="text" class="form-control " name="new_psswd">
+		                  <input type="text" class="form-control " name="password">
 		                </div>
 
 		                <br>

@@ -68,6 +68,9 @@ class UserController extends Controller
                     ->where('user_id', $user->id)
                     ->first(); 
         } 
+        if($user->role == 3 ){
+            $s_user =  $user->patient;
+        } 
         return view('users.user_profile')  ->with(compact('user','url_image','s_user')); 
     }
     
@@ -90,9 +93,7 @@ class UserController extends Controller
                     ->first(); 
         } 
         if($user->role == 3 ){
-            $s_user = DB::table('patients')
-                    ->where('user_id', $user->id)
-                    ->first(); 
+            $s_user =  $user->patient;
         } 
         return view('users.user_profile')  ->with(compact('user','url_image','s_user')); 
     }
@@ -285,12 +286,19 @@ class UserController extends Controller
     {
         $user = User::findOrFail(Auth:: user()->id);
         $data = $request->all();
+        unset($data['_token']);
+        unset($data['idUser']);
         foreach ($data as $key => $value) {
-           if( $value == ''){
-            $data[$key]=$user->$key ;
+           if( $value != '' && $data[$key]!= $user->$key){
+            if($key == 'password'){
+                $user->$key =bcrypt($data[$key]) ;
+            }else{
+                $user->$key =$data[$key] ;    
+            }
+            
            }
         }
-        $user->update($data);
+        $user->save();
         return redirect('/profile');
     }
 
@@ -320,6 +328,9 @@ class UserController extends Controller
             $s_user = DB::table('triages')
                     ->where('user_id', $user->id)
                     ->first(); 
+        } 
+        if($user->role == 3 ){
+            $s_user =  $user->patient;
         } 
         return view('users.especific_info_edit')
             ->with(compact('user','s_user')); 
@@ -359,6 +370,18 @@ class UserController extends Controller
             }
             $triage->save();
         }
+        if($user->role == 3){
+            $patient =  $user->patient;
+            $data = $request->all();
+            unset($data['_token']);
+            foreach ($data as $key => $value) {
+               if( $value != ''  && $patient->$key != $data[$key]){
+                $patient->$key =$data[$key];
+               }
+            }
+            $patient->save();
+
+        }
         return redirect('/profile');
     }
 
@@ -377,6 +400,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($request->idUser);
         $antique_role = $user->role;
+
         if($antique_role == 1){
             $s_user = DB::table('doctors')
                     ->where('user_id', $user->id)
@@ -431,7 +455,7 @@ class UserController extends Controller
                 $triage->college =$a_college; 
                 $triage->save();
             }
-               return redirect('/users');
+            return redirect('/users');
         }
         else{
             return redirect('/users');    
