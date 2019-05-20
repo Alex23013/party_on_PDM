@@ -81,7 +81,7 @@
                             <label for="birth" class="col-md-4 control-label">Fecha de Nacimiento * </label>
 
                             <div class="col-md-6">
-                                <input id="birth_at" type="date" class="form-control" name="birth_at" >
+                                <input id="datepicker" type="text" class="form-control" name="birth_at" >
                             </div>
                         </div>
 
@@ -157,4 +157,15 @@
         </div>
     </div>
 </div>
+@endsection
+
+
+@section('specific scripts')
+<script>
+  $('#datepicker').datepicker({
+      autoclose: true,
+      format: 'yyyy/mm/dd'
+    })
+</script>
+
 @endsection
