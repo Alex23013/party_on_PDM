@@ -16,8 +16,7 @@ class Partner_serviceController extends Controller
         $services =  DB::table('services')
                     ->join('partner_services','services.id','=','partner_services.service_id')
                     ->where('partner_id', $idPartner)
-                    ->get(); 
-        //dd($services);              
+                    ->get();     
         $new = NULL;   
         $id_P = $idPartner;
         return view('partner_services.p_services')->with(compact('services','new','id_P'));
@@ -60,7 +59,13 @@ class Partner_serviceController extends Controller
         $p_service->partner_id = $id_P;
         $p_service->service_id = $service->id;
         $p_service->save();
-        return redirect('/p_services/'.$id_P);
+
+        $services =  DB::table('services')
+                    ->join('partner_services','services.id','=','partner_services.service_id')
+                    ->where('partner_id', $id_P)
+                    ->get();     
+        $new = $p_service;   
+        return view('partner_services.p_services')->with(compact('services','new','id_P'));
     }
 
    	public function active($id_P,$id)

@@ -11,10 +11,10 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-	          <h3 class="box-title ">Módulo de horarios de Médicos</h3>
+	          <h2>Módulo de horarios de Médicos</h2>
 	        </div>
-	        <div class="box-body mm-left"> 
-			 <table class="table table-bordered table-striped">
+	        <div class="box-body"> 
+			 <table class="table table-bordered table-striped  mm-left">
                 <thead>
                 <tr>
 	                  <th>Nombre</th>

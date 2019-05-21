@@ -11,22 +11,23 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-	          <h3 class="box-title ">Lista de Pacientes</h3>
+	          <h2>Lista de Pacientes</h2>
+	          <br>
 	          <a href="/patients/add">  
                 <button type="button" class="btn  bg-olive margin">
                  <h5 ><i class="fa fa-user-plus"></i>  Añadir un Paciente</h5>
                 </button>
               </a>
 	        </div>
-	        <div class="box-body mm-left"> 
+	        <div class="box-body "> 
 			@if ($new)
 			  <div class="alert alert-success alert-dismissible pTop" role="alert">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    <h3><b>Nuevo paciente añadido </b></h3>
-			    <h5><b><?=$new['name']?> </b></h5>
+			    <h4>Nuevo paciente añadido</h4>
+			    <h4><b><?=$new['name']?> </b></h4>
 			  </div>
 			@endif
-			 <table class="table table-bordered table-striped">
+			 <table class="table table-bordered table-striped mm-left">
                 <thead>
                 <tr>
 	                  <th>Nombre</th>

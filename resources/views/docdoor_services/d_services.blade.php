@@ -12,7 +12,7 @@
          
           <div class="box">
             <div class="box-header mm-left ">
-            <h3 class="box-title ">Lista de Solicitudes de Servicios Docdoor</h3>
+            <h2>Lista de Solicitudes de Servicios Docdoor</h2>
             <br>
             <a href="/d_services/add">  
                 <button type="button" class="btn  bg-olive margin">
@@ -21,14 +21,14 @@
               </a>
           </div>
             <!-- /.box-header -->
-            <div class="box-body mm-left">
+            <div class="box-body ">
             @if ($new)
             <div class="alert alert-success alert-dismissible pTop" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h3><b>Nueva solicitud </b></h3>
+              <h4>Nueva solicitud</h4>
             </div>
           @endif
-              <table id="example1" class="table table-bordered table-striped ">
+              <table id="example1" class="table table-bordered table-striped mm-left">
                 <thead>
                 <tr>
                   <th>Paciente</th>

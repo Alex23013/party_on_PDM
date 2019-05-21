@@ -11,18 +11,18 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-	          <h3 class="box-title ">Lista de Miembros</h3>
+	          <h2>Lista de Miembros</h2>
 	        </div>
 	        <!-- /.box-header -->
-	        <div class="box-body mm-left"> 
+	        <div class="box-body "> 
 			@if ($newUser)
 			  <div class="alert alert-success alert-dismissible pTop" role="alert">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    <h3><b>Nuevo miembro añadido </b></h3>
-			    <h5><b><?=$newUser['name']?> </b> en el rol de <?=$newUser['name_role']?></h5>
+			    <h4>Nuevo miembro añadido</h3>
+			    <h4><b><?=$newUser['name']?> </b> en el rol de <?=$newUser['name_role']?></h4>
 			  </div>
 			@endif
-			 <table class="table table-bordered table-striped">
+			 <table class="table table-bordered table-striped mm-left">
                 <thead>
                 <tr>
 	                  <th>Nombre</th>

@@ -11,7 +11,8 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-	          <h3 class="box-title ">Lista de Asociados</h3>
+	          <h2>Lista de Asociados</h2>
+	          <br>
 	          @if (Auth::user()->role == 0)
 	          <a href="/partners/add">  
                 <button type="button" class="btn  bg-olive margin">
@@ -21,14 +22,14 @@
               @endif
 	        </div>
 	        <!-- /.box-header -->
-	        <div class="box-body mm-left"> 
+	        <div class="box-body "> 
 			@if ($new)
 			  <div class="alert alert-success alert-dismissible pTop" role="alert">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    <h3><b>Nuevo asociado añadido </b></h3>
+			    <h4>Nuevo asociado añadido </h4>
 			  </div>
 			@endif
-			 <table class="table table-bordered table-striped">
+			 <table class="table table-bordered table-striped mm-left">
                 <thead>
                 <tr>
 	                  <th>Nombre</th>

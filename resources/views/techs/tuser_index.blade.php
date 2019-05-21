@@ -11,7 +11,8 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-	          <h3 class="box-title ">Lista de Miembros</h3>
+	          <h2>Lista de Técnicos</h2>
+	          <br>
 	          <a href="/techs/add">  
                 <button type="button" class="btn  bg-olive margin">
                  <h5 ><i class="fa fa-user-plus"></i>  Añadir un Técnico</h5>
@@ -19,14 +20,14 @@
               </a>
 	        </div>
 	        <!-- /.box-header -->
-	        <div class="box-body mm-left"> 
+	        <div class="box-body "> 
 			@if ($new_tech)
 			  <div class="alert alert-success alert-dismissible pTop" role="alert">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    <h3><b>Nuevo técnico añadido </b></h3>
+			    <h4>Nuevo técnico añadido </h4>
 			  </div>
 			@endif
-			 <table class="table table-bordered table-striped">
+			 <table class="table table-bordered table-striped mm-left">
                 <thead>
                 <tr>
 	                  <th>Nombre</th>
