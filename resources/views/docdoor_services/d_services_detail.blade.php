@@ -17,41 +17,65 @@
     <div class="box">
       <div class="box-body p-left">
       <h3> Información de la Solicitud<br></h3>
-      <div class="col-md-8 p-top">
-      <ul>
-        <li> Paciente: <b>{{$user->name}}</b></li>
-        <li> Servicio: <b>{{$service->service_name}}</b></li>
-        <li> Asociado: <b>{{$partner->partner_name}}</b></li>
-        <li> Dirección de salida: <b>{{$data->address_from}}</b></li>
-        <li> Dirección de llegada: <b>{{$data->address_to}}</b></li>
-        <li> Fecha de solicitud: <b>{{$data->created_at }}</b></li>
-        <li> Fecha de ejecución: @if($data->execution)
-          <b>{{$data->execution}}</b>
-        @else
-          <b>Aun no se realizó</b>
-        @endif</li>
-        <li> Fecha de entrega de resultados:
-         @if($data->delivery)
-          <b>{{$data->delivery}}</b>
-        @else
-         <b> Aun no se entregó resultados </b>
-        @endif
-         </li>
-        <li> Estado: 
-        @if($data->complete)
-          <b>Completado</b>
-        @else
-          <b>Incompleto</b>
-        @endif
-        </li>        
-      </ul>
-
-        <a href="/d_services/edit/{{$data->id}}">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Solicitud</button></a>
-        
+      <div class="col-md-8">
+        <div class="col-md-12" >
+          <span class="col-md-4"> Paciente: </span>
+          <label  class="col-md-8">{{$user->name}} </label>
         </div>
-        <div class="col-md-4 ">
+        <div class="col-md-12" >
+          <span class="col-md-4"> Servicio: </span>
+          <label  class="col-md-8">{{$service->service_name}} </label>
+        </div>
+        <div class="col-md-12" >
+          <span class="col-md-4"> Asociado: </span>
+          <label  class="col-md-8">{{$partner->partner_name}} </label>
+        </div>
+        <div class="col-md-12" >
+          <span class="col-md-4"> Dirección de salida: </span>
+          <label  class="col-md-8">{{$data->address_from}} </label>
+        </div>
+        <div class="col-md-12" >
+          <span class="col-md-4"> Dirección de llegada:: </span>
+          <label  class="col-md-8">{{$data->address_to}} </label>
+        </div>
+        <div class="col-md-12" >
+          <span class="col-md-4"> Fecha de solicitud: </span>
+          <label  class="col-md-8">{{$data->created_at }} </label>
+        </div>
+        <div class="col-md-12" >
+          <span class="col-md-4"> Fecha de ejecución: </span>
+          @if($data->execution)
+            <label  class="col-md-8">{{$data->execution}} </label>
+          @else
+            <label  class="col-md-8"> Aun no se realizó </label>
+          @endif
+        </div>
+        <div class="col-md-12" >
+          <span class="col-md-4"> Fecha de entrega de resultados: </span>
+          @if($data->delivery)
+            <label  class="col-md-8">{{$data->delivery}} </label>
+          @else
+            <label  class="col-md-8"> Aun no se entregó resultados </label>
+          @endif
+        </div>
+        <div class="col-md-12" >
+          <span class="col-md-4"> Estado: </span>
+          @if($data->complete)
+           <label  class="col-md-8">Completado </label>
+          @else
+            <label  class="col-md-8">Incompleto </label>
+          @endif
+        </div>
+       </div>
+      <div class="col-md-4 ">
             <img src="/images/solicitud.svg" class= "imgAvatar">
-        </div>    
+      </div>  
+        <div class="col-md-12 ">
+          <div class="col-md-4 "></div>
+          <div class="col-md-8 ">
+            <a href="/d_services/edit/{{$data->id}}">  <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Solicitud</button></a>
+          </div>
+        </div>      
       </div>
         <!-- /.box-body -->
     </div>
