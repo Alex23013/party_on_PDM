@@ -74,7 +74,8 @@ class UserController extends Controller
         if($user->avatar == "default.png"){
             $url_image = "/images/".Auth:: user()->avatar;
         }else{
-            $url_image = "/images/uploads/".Auth:: user()->avatar;
+            $url_image = "/images/uploads/".$user->avatar;
+
         }
         $s_user = NULL;
         if($user->role == 1 ){
