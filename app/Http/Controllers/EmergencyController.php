@@ -14,7 +14,7 @@ class EmergencyController extends Controller
     public function index(){	
     	$emergencies = DB::table('attentions')
                     ->join('emergencies','attentions.id','=','emergencies.attention_id')
-                    ->join('patients','attentions.patient_id','=','patients.id')
+                    ->join('users','attentions.user_id','=','users.id')
                     ->get();
     	$new = NULL;   
         return view('emergencies.emergency_index')->with(compact('emergencies','new'));
@@ -38,6 +38,6 @@ class EmergencyController extends Controller
     }
 
     public function update($id){}
-    
+
     public function store_update(Request $request){}
 }

@@ -41,7 +41,7 @@
                 <?php foreach ($emergencies as $emergency): ?>
                     <tr>  
                     <td>{{$emergency->attention_code}}</td>
-                    <td>{{$emergency->patient_code}}</td>
+                    <td>{{$emergency->name}}</td>
                     
                     <td> 
                       <a href="/emergency/detail/{{$emergency->attention_id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>

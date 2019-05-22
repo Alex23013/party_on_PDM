@@ -13,7 +13,7 @@ class AttentionsTableSeeder extends Seeder
     {
         DB::table('attentions')->insert([
     		'attention_code'=>"ATT001",
-            'patient_id'=>1,
+            'user_id'=>4,
             'motive'=> "solo es una consulta de prueba",
             'address'=> "la casa del paciente 1",
             'reference'=>"cerca de su casa hay un parque",
@@ -22,7 +22,7 @@ class AttentionsTableSeeder extends Seeder
 
         DB::table('attentions')->insert([
     		'attention_code'=>"ATT002",
-            'patient_id'=>1,
+            'user_id'=>4,
             'motive'=> "emergencia de prueba",
             'address'=> "la universidad paciente 1",
             'reference'=>"en el pasillo del primer piso",

@@ -15,7 +15,7 @@ class AttentionsTable extends Migration
         Schema::create('attentions', function (Blueprint $table) {
             $table->increments('id');
             $table->char('attention_code', 6)->unique();
-            $table->integer('patient_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->text('motive');
             $table->string('address')->nullable();
             $table->string('reference')->nullable();
@@ -23,7 +23,7 @@ class AttentionsTable extends Migration
             $table->string('att_longitude')->nullable();
             $table->integer('type');
             $table->timestamps();
-            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
