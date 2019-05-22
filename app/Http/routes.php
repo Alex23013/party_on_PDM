@@ -105,11 +105,19 @@ Route::post('/users/especific/edit', 'UserController@store_especific_edit');
 //attentions
 Route::get('/emergency', 'EmergencyController@index');
 Route::get('/emergency/detail/{id}', 'EmergencyController@detail');
+Route::get('/emergency/add', 'EmergencyController@add');
+Route::post('/emergency', 'EmergencyController@store');
+Route::get('/emergency/edit/{id}', 'EmergencyController@update');
+Route::post('/emergency/edit/{id}', 'EmergencyController@store_update');
 Route::get('/emergency/remove/{id}', 'EmergencyController@delete');
 
 //appointments
 Route::get('/appointments', 'AppointmentController@index');
 Route::get('/appointments/detail/{id}', 'AppointmentController@detail');
+Route::get('/appointments/add', 'AppointmentController@add');
+Route::post('/appointments', 'AppointmentController@store');
+Route::get('/appointments/edit/{id}', 'AppointmentController@update');
+Route::post('/appointments/edit/{id}', 'AppointmentController@store_update');
 Route::get('/appointments/remove/{id}', 'AppointmentController@delete');
 
 
