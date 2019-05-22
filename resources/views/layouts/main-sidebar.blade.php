@@ -89,7 +89,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/emergency">
               <i class="fa fa-ambulance"></i> <b><span>Emergencias</span></b>
             </a>
           </li>

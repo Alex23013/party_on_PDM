@@ -103,4 +103,9 @@ Route::get('/users/especific/edit', 'UserController@especific_edit');
 Route::post('/users/especific/edit', 'UserController@store_especific_edit');
 
 //attentions
+Route::get('/emergency', 'EmergencyController@index');
+Route::get('/emergency/detail/{id}', 'EmergencyController@detail');
+Route::get('/emergency/remove/{id}', 'EmergencyController@delete');
+
+
 Route::get('/att', 'EmergencyController@index');

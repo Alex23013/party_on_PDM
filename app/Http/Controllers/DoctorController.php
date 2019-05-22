@@ -18,6 +18,7 @@ class DoctorController extends Controller
         return view('doctors.doctors_schedule_index')->with(compact('users'));
     }
 
+    //schedules_detail
     public function detail($id){
         $doctor = Doctor::find($id);
         $doctor_user = Doctor::find(1)->user;

@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attention extends Model
 {
-    //
+    public function emergency() {
+      return $this->hasOne('App\Emergency');
+    }
+
+    
 }
