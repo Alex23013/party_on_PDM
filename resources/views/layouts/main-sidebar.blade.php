@@ -84,7 +84,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/appointments">
               <i class="fa fa-stethoscope"></i> <span>Citas médicas</span>
             </a>
           </li>

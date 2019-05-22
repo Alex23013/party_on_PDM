@@ -107,5 +107,10 @@ Route::get('/emergency', 'EmergencyController@index');
 Route::get('/emergency/detail/{id}', 'EmergencyController@detail');
 Route::get('/emergency/remove/{id}', 'EmergencyController@delete');
 
+//appointments
+Route::get('/appointments', 'AppointmentController@index');
+Route::get('/appointments/detail/{id}', 'AppointmentController@detail');
+Route::get('/appointments/remove/{id}', 'AppointmentController@delete');
+
 
 Route::get('/att', 'EmergencyController@index');

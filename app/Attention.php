@@ -10,5 +10,7 @@ class Attention extends Model
       return $this->hasOne('App\Emergency');
     }
 
-    
+	public function appointment() {
+      return $this->hasOne('App\Appointment');
+    }    
 }
