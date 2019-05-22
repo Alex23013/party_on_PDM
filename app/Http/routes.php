@@ -101,3 +101,6 @@ Route::get('/users/edit/{id}', 'UserController@user_update');
 Route::post('/users/edit/', 'UserController@store_user_update');
 Route::get('/users/especific/edit', 'UserController@especific_edit');
 Route::post('/users/especific/edit', 'UserController@store_especific_edit');
+
+//attentions
+Route::get('/att', 'EmergencyController@index');
