@@ -37,6 +37,11 @@
               </a>
           </li>
 
+           <li>
+            <a href="#">
+              <i class="fa fa-hospital-o"></i> <span> Historias clínicas </span>
+            </a>
+          </li>
             <li class="treeview active">
               <a href="#">
                 <i class="glyphicon glyphicon-plus"></i> <span>Añadir miembro</span> <span class="pull-right-container">
@@ -48,6 +53,7 @@
               <li><a href="/users/add/2"><i class="fa fa-circle-o"></i> Triaje </a></li>
               <li><a href="/users/add/0"><i class="fa fa-circle-o"></i> Administrador</a></li>
             </li>            
+           
           @endif
           <!--menu triaje-->
           @if( Auth::user()->role == 2)
@@ -68,7 +74,7 @@
           </li>
           <li>
             <a href="/doctors/schedule">
-              <i class="fa fa-calendar"></i> <span>Horarios</span>
+              <i class="fa fa-calendar"></i> <span>Horarios de médicos</span>
             </a>
           </li>
           
@@ -77,11 +83,23 @@
               <i class="fa fa-suitcase"></i> <span>Solicitudes DocDoor</span>
             </a>
           </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-stethoscope"></i> <span>Citas médicas</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-ambulance"></i> <b><span>Emergencias</span></b>
+            </a>
+          </li>
+          
           @endif
+          <!--menu paciente-->
           @if( Auth::user()->role == 3)
           <li>
             <a href="#">
-              <i class="fa fa-bell"></i> <span>Llamada de Emergencia</span>
+              <i class="fa fa-ambulance"></i> <span>Llamada de Emergencia</span>
             </a>
           </li>
           <li>
@@ -96,7 +114,7 @@
           </li>
           <li>
             <a href="#">
-              <i class="fa fa-suitcase"></i> <span>Historial de citas</span>
+              <i class="fa fa-stethoscope"></i> <span>Historial de citas</span>
             </a>
           </li>
           @endif
