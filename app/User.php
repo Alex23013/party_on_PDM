@@ -35,4 +35,9 @@ class User extends Authenticatable
     public function triage() {
       return $this->hasOne('App\Triage');
     }
+
+    public function attentions()
+    {
+      return $this->hasMany('App\Attention');
+    }
 }

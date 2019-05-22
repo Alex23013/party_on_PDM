@@ -102,7 +102,7 @@ Route::post('/users/edit/', 'UserController@store_user_update');
 Route::get('/users/especific/edit', 'UserController@especific_edit');
 Route::post('/users/especific/edit', 'UserController@store_especific_edit');
 
-//attentions
+//emergencies
 Route::get('/emergency', 'EmergencyController@index');
 Route::get('/emergency/detail/{id}', 'EmergencyController@detail');
 Route::get('/emergency/add', 'EmergencyController@add');
@@ -119,6 +119,3 @@ Route::post('/appointments', 'AppointmentController@store');
 Route::get('/appointments/edit/{id}', 'AppointmentController@update');
 Route::post('/appointments/edit/{id}', 'AppointmentController@store_update');
 Route::get('/appointments/remove/{id}', 'AppointmentController@delete');
-
-
-Route::get('/att', 'EmergencyController@index');

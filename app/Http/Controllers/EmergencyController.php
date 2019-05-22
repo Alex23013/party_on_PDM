@@ -23,7 +23,8 @@ class EmergencyController extends Controller
     public function detail($id){
     	$attention = Attention::find($id);
     	$emergency = $attention->emergency;
-    	//dd($emergency);
+        $user = $attention->user;
+    	return view('emergencies.attention_detail')->with(compact('emergency','attention','user'));
     }
     public function add(){}
 

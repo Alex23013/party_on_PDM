@@ -12,5 +12,9 @@ class Attention extends Model
 
 	public function appointment() {
       return $this->hasOne('App\Appointment');
-    }    
+    }  
+
+    public function user() {
+      return $this->belongsTo('App\User');
+    }  
 }
