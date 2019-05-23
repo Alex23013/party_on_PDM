@@ -11,20 +11,20 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-body p-left">
-      @if($attention ->type == 2)
-        <h3> Información de la Emergencia</h3>
-      @else
+      @if($attention ->type == 1)
         <h3> Información de la Cita médica</h3>
+      @else
+        <h3> Información de la Emergencia</h3>
       @endif
       <br>
       <div class="col-md-8">
         <div class="col-md-12" >
-          <span class="col-md-4"> Código: </span>
+          <span class="col-md-4"> Código de la atención: </span>
           <label  class="col-md-8">{{$attention -> attention_code}} </label>
         </div>
         <div class="col-md-12" >
           <span class="col-md-4"> Paciente: </span>
-          <label  class="col-md-8">{{$user->name}} </label>
+          <label  class="col-md-8">{{$user_patient->name}} </label>
         </div>
         <div class="col-md-12" >
           <span class="col-md-4"> Motivo: </span>
@@ -38,12 +38,47 @@
 
         <div class="col-md-12" >
           <span class="col-md-4"> Referencia: </span>
-          <label  class="col-md-8">{{$attention->reference}} </label>
+          @if($attention->reference)
+            <label  class="col-md-8">{{$attention->reference}} </label>
+          @else
+            <label  class="col-md-8"> - </label>
+          @endif
+          
         </div>
 
         
-        @if($attention ->type == 2)
+        @if($attention ->type == 1)
+        <div class="col-md-12" >
+            <h4>
+              <label class="col-md-11 subtitle">Detalles de la cita médica</label>
+            </h4>
+          </div>
+
           <div class="col-md-12" >
+            <span class="col-md-4"> Especialidad: </span>
+            <label  class="col-md-8">{{$specialty->name}} </label>
+          </div>
+          <div class="col-md-12" >
+            <span class="col-md-4"> Doctor: </span>
+            <label  class="col-md-8">{{$user_doctor->name}} </label>
+          </div>
+
+          <div class="col-md-12" >
+            <span class="col-md-4"> Fecha de la cita: </span>
+            <label  class="col-md-8">{{$s_attention->date_time}} </label>
+          </div>
+
+          <div class="col-md-12" >
+            <span class="col-md-4"> Estado: </span>
+            @if($s_attention->status== 0)
+            <label  class="col-md-8"> Aun no atendido </label>
+            @else
+              <label  class="col-md-8"> Atendido </label>
+            @endif
+          </div>
+          
+        @else
+           <div class="col-md-12" >
             <h4>
               <label class="col-md-11 subtitle">Información de la persona que llamó </label>
             </h4>
@@ -51,17 +86,17 @@
 
           <div class="col-md-12" >
             <span class="col-md-4"> Nombre: </span>
-            <label  class="col-md-8">{{$emergency->caller_name}} </label>
+            <label  class="col-md-8">{{$s_attention->caller_name}} </label>
           </div>
 
           <div class="col-md-12" >
             <span class="col-md-4"> DNI: </span>
-            <label  class="col-md-8">{{$emergency->caller_dni}} </label>
+            <label  class="col-md-8">{{$s_attention->caller_dni}} </label>
           </div>
 
           <div class="col-md-12" >
             <span class="col-md-4"> Celular: </span>
-            <label  class="col-md-8">{{$emergency->caller_cell}} </label>
+            <label  class="col-md-8">{{$s_attention->caller_cell}} </label>
           </div>
 
           <div class="col-md-12" >
@@ -72,41 +107,39 @@
 
           <div class="col-md-12" >
             <span class="col-md-4"> Nombre: </span>
-            <label  class="col-md-8">{{$emergency->oc_name}} </label>
+            <label  class="col-md-8">{{$s_attention->oc_name}} </label>
           </div>
 
           <div class="col-md-12" >
             <span class="col-md-4"> DNI: </span>
-            <label  class="col-md-8">{{$emergency->oc_dni}} </label>
+            <label  class="col-md-8">{{$s_attention->oc_dni}} </label>
           </div>
 
           <div class="col-md-12" >
             <span class="col-md-4"> Celular: </span>
-            <label  class="col-md-8">{{$emergency->oc_cell}} </label>
+            <label  class="col-md-8">{{$s_attention->oc_cell}} </label>
           </div>
-        @else
-           
         @endif
       </div>
 
       <div class="col-md-4 ">
-        @if($attention ->type == 2)
-          <img src="/images/ambulance.png" style="width:100%;">
-        @else
+        @if($attention ->type == 1)
           <img src="/images/medic_date.png" style="width:100%;">  
+        @else
+          <img src="/images/ambulance.png" style="width:100%;">
         @endif
             
       </div>  
         <div class="col-md-12 ">
           <div class="col-md-4 "></div>
           <div class="col-md-8 ">
-          @if($attention ->type == 2)
-            <a href="/emergency/edit/{{$attention->id}}"> 
-             <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Emergencia</button>
-            </a>
-          @else
+          @if($attention ->type == 1)
             <a href="/appointment/edit/{{$attention->id}}"> 
              <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Cita Médica</button>
+            </a>
+          @else
+            <a href="/emergency/edit/{{$attention->id}}"> 
+             <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Emergencia</button>
             </a>
           @endif  
           </div>

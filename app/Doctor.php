@@ -10,4 +10,9 @@ class Doctor extends Model
 	{
 	  return $this->belongsTo('App\User');
 	}
+
+	 public function appointment()
+	{
+	  return $this->hasMany('App\Appointment');
+	}
 }

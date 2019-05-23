@@ -14,7 +14,7 @@ class Attention extends Model
       return $this->hasOne('App\Appointment');
     }  
 
-    public function user() {
-      return $this->belongsTo('App\User');
+    public function patient() {
+      return $this->belongsTo('App\Patient');
     }  
 }
