@@ -40,7 +40,14 @@ class AppointmentController extends Controller
         return redirect('/appointments');
     }
 
-    public function update($id){}
+    public function update($id){
+        $attention = Attention::find($id);
+        $s_attention = $attention->appointment;
+        $user_doctor =$s_attention->doctor->user;
+        return view('attentions.attention_edit')->with(compact('s_attention','attention','specialty','user_doctor'));
+    }
 
-    public function store_update(Request $request){}
+    public function store_update(Request $request){
+        dd($request->all());
+    }
 }

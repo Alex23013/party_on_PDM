@@ -36,7 +36,7 @@
                             <label for="motive" class="col-md-4 control-label">Motivo  *</label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" name = "motive"rows="3" placeholder="Describa el problema"></textarea>
+                                <textarea class="form-control" name = "motive" rows="3" placeholder="Describa el problema"></textarea>
                             </div>
                         </div>
 

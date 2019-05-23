@@ -115,5 +115,5 @@ Route::get('/appointments/detail/{id}', 'AppointmentController@detail');
 Route::get('/appointments/add', 'AppointmentController@add');
 Route::post('/appointments', 'AppointmentController@store');
 Route::get('/appointments/edit/{id}', 'AppointmentController@update');
-Route::post('/appointments/edit/{id}', 'AppointmentController@store_update');
+Route::post('/appointments/edit', 'AppointmentController@store_update');
 Route::get('/appointments/remove/{id}', 'AppointmentController@delete');

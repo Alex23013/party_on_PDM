@@ -5,40 +5,40 @@
   .p-left{
     padding-left: 5%;
   }
+  .p-top{
+    margin-top: 1%;
+  }
 </style>
 
 <div class="row">
   <div class="col-xs-12">
     <div class="box">
       <div class="box-body p-left">
-      @if($attention ->type == 1)
         <h3> Información de la Cita médica</h3>
         <form class="form-horizontal" role="form" method="POST" action="/appointments/edit">
-      @endif
       <br>
       <div class="col-md-8">
         <div class="col-md-12" >
-          <span class="col-md-4"> Motivo: </span>
-          <label  class="col-md-8">{{$attention->motive}} </label>
+          <label class="col-md-2"> Motivo: </label>
+          <div  class="col-md-8">
+              <textarea class="form-control" name = "motive" rows="2" placeholder="Describa el problema"></textarea>
+          </div>
         </div>
 
-        <div class="col-md-12" >
-          <span class="col-md-4"> Dirección: </span>
-          <label  class="col-md-8">{{$attention->address}} </label>
+        <div class="col-md-12 p-top" >
+          <label class="col-md-2"> Dirección: </label>
+          <div class="col-md-8">
+              <input id="address" type="text" class="form-control" name="address" placeholder="{{$attention->address}}">
+          </div>
         </div>
 
-        <div class="col-md-12" >
-          <span class="col-md-4"> Referencia: </span>
-          @if($attention->reference)
-            <label  class="col-md-8">{{$attention->reference}} </label>
-          @else
-            <label  class="col-md-8"> - </label>
-          @endif
-          
+        <div class="col-md-12 p-top" >
+          <label class="col-md-2"> Referencia: </label>
+          <div class="col-md-8">
+              <input id="reference" type="text" class="form-control" name="reference" placeholder="{{$attention->reference}}">
+          </div>
         </div>
 
-        
-        @if($attention ->type == 1)
         <div class="col-md-12" >
             <h4>
               <label class="col-md-11 subtitle">Detalles de la cita médica</label>
@@ -46,90 +46,31 @@
           </div>
 
           <div class="col-md-12" >
-            <span class="col-md-4"> Especialidad: </span>
-            <label  class="col-md-8">{{$specialty->name}} </label>
-          </div>
-          <div class="col-md-12" >
-            <span class="col-md-4"> Doctor: </span>
-            <label  class="col-md-8">{{$user_doctor->name}} </label>
+            <label class="col-md-3"> Doctor: </label>
+            <div class="col-md-8">
+            </div>
           </div>
 
           <div class="col-md-12" >
-            <span class="col-md-4"> Fecha de la cita: </span>
-            <label  class="col-md-8">{{$s_attention->date_time}} </label>
+            <label class="col-md-3"> Fecha de la cita: </label>
           </div>
 
           <div class="col-md-12" >
-            <span class="col-md-4"> Estado: </span>
-            @if($s_attention->status== 0)
-            <label  class="col-md-8"> Aun no atendido </label>
-            @else
-              <label  class="col-md-8"> Atendido </label>
-            @endif
+            <label class="col-md-3"> Estado: </label>
           </div>
-          
-        @else
-           <div class="col-md-12" >
-            <h4>
-              <label class="col-md-11 subtitle">Información de la persona que llamó </label>
-            </h4>
-          </div>
-
-          <div class="col-md-12" >
-            <span class="col-md-4"> Nombre: </span>
-            <label  class="col-md-8">{{$s_attention->caller_name}} </label>
-          </div>
-
-          <div class="col-md-12" >
-            <span class="col-md-4"> DNI: </span>
-            <label  class="col-md-8">{{$s_attention->caller_dni}} </label>
-          </div>
-
-          <div class="col-md-12" >
-            <span class="col-md-4"> Celular: </span>
-            <label  class="col-md-8">{{$s_attention->caller_cell}} </label>
-          </div>
-
-          <div class="col-md-12" >
-            <h4>
-              <label class="col-md-11 subtitle">Contacto adicional </label>
-            </h4>
-          </div>
-
-          <div class="col-md-12" >
-            <span class="col-md-4"> Nombre: </span>
-            <label  class="col-md-8">{{$s_attention->oc_name}} </label>
-          </div>
-
-          <div class="col-md-12" >
-            <span class="col-md-4"> Celular: </span>
-            <label  class="col-md-8">{{$s_attention->oc_cell}} </label>
-          </div>
-
-          <div class="col-md-12" >
-            <span class="col-md-4"> Relación con el paciente: </span>
-            <label  class="col-md-8">{{$s_attention->oc_relationship}} </label>
-          </div>
-        @endif
       </div>
 
       <div class="col-md-4 ">
-        @if($attention ->type == 1)
           <img src="/images/medic_date.png" style="width:100%;">  
-        @else
-          <img src="/images/ambulance.png" style="width:100%;">
-        @endif
-            
       </div>  
         <div class="col-md-12 ">
           <div class="col-md-4 "></div>
-          <div class="col-md-8 ">
-          @if($attention ->type == 1)
-          @else
+          <div class="col-md-4 ">
             <button type="submit" class="btn  btn-flat btn-success m-left">  <i class="fa fa-save"></i>    Guardar cambios  </button>   
-          </form>
-          <a href="/emergency"> <button class="btn  btn-flat btn-danger m-left">  <i class="fa fa-close"></i> Descartar cambios</button></a>
-          @endif  
+          </div>
+          </fo  rm>
+          <div class="col-md-4 ">
+          <a href="/appointments"> <button class="btn  btn-flat btn-danger m-left">  <i class="fa fa-close"></i> Descartar cambios</button></a>
           </div>
         </div>      
       </div>
