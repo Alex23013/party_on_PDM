@@ -96,7 +96,12 @@ class EmergencyController extends Controller
         return redirect('/emergency');
     }
 
-    public function update($id){}
+    /*public function update($id){
+        $attention = Attention::find($id);
+        $s_attention = $attention->emergency;
+        $user_patient = $attention->patient->user;
+        return view('attentions.attention_edit')->with(compact('s_attention','attention','user_patient'));
+    }
 
-    public function store_update(Request $request){}
+    public function store_update(Request $request){}*/
 }

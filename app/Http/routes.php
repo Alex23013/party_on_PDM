@@ -107,8 +107,6 @@ Route::get('/emergency', 'EmergencyController@index');
 Route::get('/emergency/detail/{id}', 'EmergencyController@detail');
 Route::get('/emergency/add', 'EmergencyController@add');
 Route::post('/emergency', 'EmergencyController@store');
-Route::get('/emergency/edit/{id}', 'EmergencyController@update');
-Route::post('/emergency/edit/{id}', 'EmergencyController@store_update');
 Route::get('/emergency/remove/{id}', 'EmergencyController@delete');
 
 //appointments
