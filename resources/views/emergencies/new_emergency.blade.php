@@ -37,15 +37,15 @@
 
                             <div class="col-md-6">
                                 <textarea class="form-control" name = "motive"rows="3" placeholder="Describa el problema"></textarea>
-                                <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="address" class="col-md-4 control-label">Dirección </label>
+                            <label for="address" class="col-md-4 control-label">Dirección *</label>
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control" name="address" >
+                                 <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
 

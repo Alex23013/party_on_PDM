@@ -111,13 +111,13 @@
           </div>
 
           <div class="col-md-12" >
-            <span class="col-md-4"> DNI: </span>
-            <label  class="col-md-8">{{$s_attention->oc_dni}} </label>
+            <span class="col-md-4"> Celular: </span>
+            <label  class="col-md-8">{{$s_attention->oc_cell}} </label>
           </div>
 
           <div class="col-md-12" >
-            <span class="col-md-4"> Celular: </span>
-            <label  class="col-md-8">{{$s_attention->oc_cell}} </label>
+            <span class="col-md-4"> Relación con el paciente: </span>
+            <label  class="col-md-8">{{$s_attention->oc_relationship}} </label>
           </div>
         @endif
       </div>
