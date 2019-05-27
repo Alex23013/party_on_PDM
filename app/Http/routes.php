@@ -106,6 +106,7 @@ Route::post('/users/especific/edit', 'UserController@store_especific_edit');
 Route::get('/emergency', 'EmergencyController@index');
 Route::get('/emergency/detail/{id}', 'EmergencyController@detail');
 Route::get('/emergency/add', 'EmergencyController@add');
+Route::get('/u/emergency/add', 'EmergencyController@add_unregisted_emergency');
 Route::post('/emergency', 'EmergencyController@store');
 Route::get('/emergency/remove/{id}', 'EmergencyController@delete');
 

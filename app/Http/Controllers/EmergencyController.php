@@ -28,6 +28,11 @@ class EmergencyController extends Controller
         $user_patient = $attention->patient->user;
     	return view('attentions.attention_detail')->with(compact('s_attention','attention','user_patient'));
     }
+
+    public function add_unregisted_emergency(){
+        return view('emergencies.new_unregisted_emergency');   
+    }
+
     public function add(){
         $patients = Patient::all();
         foreach ($patients as $patient) {
