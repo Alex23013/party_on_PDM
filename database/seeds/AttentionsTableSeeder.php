@@ -11,8 +11,9 @@ class AttentionsTableSeeder extends Seeder
      */
     public function run()
     {
+        // -------- Attentions ----------- //
         DB::table('attentions')->insert([
-    		'attention_code'=>"ATT001",
+    		'attention_code'=>"AT-001",
             'patient_id'=>1,
             'motive'=> "solo es una consulta de prueba",
             'address'=> "la casa del paciente 1",
@@ -21,7 +22,7 @@ class AttentionsTableSeeder extends Seeder
         ]);
 
         DB::table('attentions')->insert([
-    		'attention_code'=>"ATT002",
+    		'attention_code'=>"AT-002",
             'patient_id'=>1,
             'motive'=> "emergencia de prueba",
             'address'=> "la universidad paciente 1",
@@ -30,7 +31,7 @@ class AttentionsTableSeeder extends Seeder
         ]);
 
          DB::table('attentions')->insert([
-            'attention_code'=>"ATT003",
+            'attention_code'=>"AT-003",
             'patient_id'=>1,
             'motive'=> "otra cita medica de prueba",
             'address'=> "la ucasa del doctor",
@@ -38,6 +39,9 @@ class AttentionsTableSeeder extends Seeder
             'type'=>1,
         ]);
 
+        // -------- emergencies  ----------- //
+        // --------     and      ----------- //
+        // -------- appointments ----------- //
 
         DB::table('appointments')->insert([
             'attention_id'=>1,
@@ -49,7 +53,8 @@ class AttentionsTableSeeder extends Seeder
 
         DB::table('emergencies')->insert([
             'attention_id'=>2,
-            'caller_name'=>"la tia de Juan",
+            'caller_name'=>"Juan",
+            'caller_last_name'=>"Perez",
             'caller_dni'=>"87654321",
             'caller_cell'=>"987654321",
         ]);
@@ -61,5 +66,46 @@ class AttentionsTableSeeder extends Seeder
             'date_time'=>'2019-02-02 14:52:16',
         ]);
 
+        // -------- unregisted  ----------- //
+        //--------- emergencies ----------- //
+
+        DB::table('uemergencies')->insert([
+            'p_name'=>"Julia",
+            'p_last_name'=>"cornejo",
+            'p_dni'=>"12356784",
+            'p_cell'=>"987678987",
+            'motive'=> "emergencia de usuario 1 no registrado",
+            'address'=> "la universidad paciente 1",
+            'reference'=>"en el pasillo del primer piso"
+        ]);
+
+        DB::table('uemergencies')->insert([
+            'p_name'=>"Julio",
+            'p_last_name'=>"Ramirez",
+            'p_dni'=>"12356782",
+            'p_cell'=>"987611117",
+            'motive'=> "emergencia de usuario 2 no registrado",
+            'address'=> "la universidad",
+            'reference'=>"en el primer piso"
+        ]);
+
+        //--------- tcalls ----------- //
+
+        DB::table('tcalls')->insert([
+            'patient_id'=>1,
+            'patient_cell'=>"987111765",
+            'message'=>"Esta es una prueba",
+        ]);
+
+        DB::table('tcalls')->insert([
+            'patient_cell'=>"987898765",
+            'message'=>"Estoy atrapado en el atico",
+        ]);
+
+        DB::table('tcalls')->insert([
+            'patient_id'=>1,
+            'patient_cell'=>"987111765",
+            'message'=>"Me gusta hacer pruebas",
+        ]);
     }
 }

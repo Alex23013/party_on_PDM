@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EmergenciesTable extends Migration
+class CreateUemergenciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,17 @@ class EmergenciesTable extends Migration
      */
     public function up()
     {
-        Schema::create('emergencies', function (Blueprint $table) {
+        Schema::create('uemergencies', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('attention_id')->unsigned();
+            $table->string('p_name');
+            $table->string('p_last_name');
+            $table->char('p_dni',8);
+            $table->string('p_cell');
+            $table->text('motive');
+            $table->string('address')->nullable();
+            $table->string('reference')->nullable();
+            $table->string('att_latitude')->nullable();
+            $table->string('att_longitude')->nullable();
             $table->string('caller_name')->nullable();
             $table->string('caller_last_name')->nullable();
             $table->char('caller_dni',8)->nullable();
@@ -24,7 +32,6 @@ class EmergenciesTable extends Migration
             $table->string('oc_cell')->nullable();
             $table->string('oc_relationship')->nullable();
             $table->timestamps();
-            $table->foreign('attention_id')->references('id')->on('attentions')->onDelete('cascade');
         });
     }
 
@@ -35,6 +42,6 @@ class EmergenciesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('emergencies');
+        Schema::drop('uemergencies');
     }
 }
