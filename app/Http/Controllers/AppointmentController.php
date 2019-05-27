@@ -75,6 +75,25 @@ class AppointmentController extends Controller
 
             return view('appointments.new_appointment')->with(compact('patients', 'doctors', 'specialties','one'));
         }else{ //store an appointment
+
+            $rules1 = [
+                'patient_user_id' => 'required',
+                'doctor_user_id' => 'required',
+                'motive' => 'required',
+                'address' => 'required',
+                'date' => 'required',
+                'time' => 'required',
+                ];
+            $messages1 = [
+                    'patient_user_id.required' => 'Es necesario ingresar un paciente para registrar una cita médica',
+                    'doctor_user_id.required' => 'Es necesario ingresar un doctor para registrar una cita médica',
+                    'motive.required' => 'Es necesario ingresar la descripcion del problema del paciente para registrar una cita médica',
+                    'address.required' => 'Es necesario ingresar una dirección para registrar una cita médica',
+                    'date.required' => 'Es necesario ingresar una fecha para registrar una cita médica',
+                    'time.required' => 'Es necesario ingresar una hora para registrar una cita médica',
+                ];  
+            $this->validate($request, $rules1, $messages1);
+
             $attention = new Attention;
             $patient = User::find($request->patient_user_id)->patient;
             $attention->patient_id = $patient->id;
