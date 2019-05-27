@@ -25,7 +25,11 @@
      <style type="text/css">
       body {
         background-color:  #006080;
-        background: url(/images/doc.jpg) no-repeat center top;
+        background: url(/images/doc.jpg) no-repeat center center fixed;
+        background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
       }
 
      </style>
