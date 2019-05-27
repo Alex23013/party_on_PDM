@@ -94,6 +94,7 @@ class PatientController extends Controller
 
         $patient = New Patient;
         $patient->user_id = $user->id;
+        $patient->patient_code = "P-".$user->id."-".str_random(4);
         $patient->birth_at = $request->birth_at;
         if($request->ec_name != ''){
             $patient->ec_name = $request->ec_name;

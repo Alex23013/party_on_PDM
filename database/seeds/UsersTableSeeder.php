@@ -42,20 +42,6 @@ class UsersTableSeeder extends Seeder
 	    		'address'=>"su casita",
 	    		'specialty'=> "pulmonar",	    		
 	    	]);
-	   /* $doctor_schedule = [];
-                $days=["lunes","martes","miercoles","jueves","viernes","sabado"];
-                for ($i=0; $i < 6; $i++) { 
-                    $doctor_schedule[] = [
-                    'day'=> $days[$i],
-                    'schedule_start'=>'00:00',
-                    'schedule_end'=>'00:00',
-                    ];
-                }
-
-        DB::table('schedules')->insert([
-        	'doctor_id'=> 1,
-        	'schedule'=>json_encode($doctor_schedule),
-        	]);*/
 
 	    DB::table('users')->insert([
 	               'name' => "Test",
@@ -88,6 +74,7 @@ class UsersTableSeeder extends Seeder
 	           ]);
 	    DB::table('patients')->insert([
 	    		'user_id'=> 4,
+	    		'patient_code'=>"P-4-1n4d",
 	    		'birth_at'=>"2019-04-16",
 	    	]);
     }

@@ -76,6 +76,12 @@
                 <span class="col-md-4"> Fecha de Nacimiento: </span>
                 <label  class="col-md-8">{{$s_user->birth_at}} </label>
               </div>
+              @if ($user['role']==3)
+              <div class="col-md-12" >
+                <span class="col-md-4"> Código del Paciente: </span>
+                <label  class="col-md-8">{{$s_user->patient_code}} </label>
+              </div>
+              @endif
               @if ($user['role']==1)
                 <div class="col-md-12" >
                   <span class="col-md-4"> Dirección: </span>
