@@ -30,7 +30,13 @@ class EmergencyController extends Controller
     }
     public function add(){
         $patients = Patient::all();
-        return view('emergencies.new_emergency')->with(compact('patients'));   
+        foreach ($patients as $patient) {
+            $users[] =array(
+                        "name" => $patient->user->name,
+                        "id" => $patient->user->id,
+                    ); 
+        }
+        return view('emergencies.new_emergency')->with(compact('users'));   
     }
 
     public function store(Request $request){

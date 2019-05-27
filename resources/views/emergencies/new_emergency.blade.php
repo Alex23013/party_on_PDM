@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Registrar una Emergencia</div>
+                <div class="panel-heading">Registrar una Emergencia de un usuario registrado</div>
                 <div class="panel-body">
                 @if (count($errors) > 0)
                       <div class="alert alert-danger">
@@ -19,17 +19,16 @@
                     <form class="form-horizontal" role="form" method="POST" action="/emergency">
                          {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="patient_id" class="col-md-4 control-label">ID del paciente *</label>
+                            <label for="patient_id" class="col-md-4 control-label">Nombre del paciente *</label>
 
                             <div class="col-md-6">
-                                <input id="patient_id" type="text" class="form-control" name="patient_id" >
-                            </div>
-                           <!-- <select class="form-control" name = "patient_id" >
+                                <select class="form-control" name = "patient_id" >
                                     <option value=""> Seleccione un paciente </option>
-                                    @foreach($patients as $patient)
-                                    <option value="<?=$patient->id?>"><?=$patient->patient_code?></option>
+                                    @foreach($users as $patient)
+                                    <option value="<?=$patient['id']?>"><?=$patient['name']?></option>
                                     @endforeach
-                            </select>-->
+                            </select>
+                            </div>
                         </div>
 
                         <div class="form-group">

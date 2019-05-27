@@ -16,7 +16,7 @@
             <br>
             <a href="/emergency/add">  
                 <button type="button" class="btn  bg-olive margin">
-                 <h5 ><i class="fa fa-plus"></i>  Añadir una Emergencia</h5>
+                 <h5 ><i class="fa fa-plus"></i>  Añadir una Emergencia de usuario registrado</h5>
                 </button>
               </a>
           </div>
