@@ -69,11 +69,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-8 control-label">Información de la persona que está llamando </label>
+                            <label class="col-md-8 control-label">Información de la persona que está llamando (opcional)</label>
                         </div>
 
                         <div class="form-group">
-                            <label for="caller_name" class="col-md-4 control-label">Nombre * </label>
+                            <label for="caller_name" class="col-md-4 control-label">Nombre  </label>
 
                             <div class="col-md-6">
                                 <input id="caller_name" type="text" class="form-control" name="caller_name" >
@@ -81,7 +81,15 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="caller_dni" class="col-md-4 control-label">DNI *</label>
+                            <label for="caller_last_name" class="col-md-4 control-label">Apellido </label>
+
+                            <div class="col-md-6">
+                                <input id="caller_last_name" type="text" class="form-control" name="caller_last_name" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="caller_dni" class="col-md-4 control-label">DNI </label>
 
                             <div class="col-md-6">
                                 <input id="caller_dni" type="text" class="form-control" name="caller_dni" >
@@ -89,11 +97,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="caller_cell" class="col-md-4 control-label">Celular * </label>
+                            <label for="caller_cell" class="col-md-4 control-label">Celular  </label>
 
                             <div class="col-md-6">
                                 <input id="caller_cell" type="text" class="form-control" name="caller_cell" >
-                                <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
 
