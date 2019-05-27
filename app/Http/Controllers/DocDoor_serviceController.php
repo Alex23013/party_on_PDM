@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\User;
 use App\Service;
 use App\Partner;
+use App\Patient;
 
 class DocDoor_serviceController extends Controller
 {
@@ -63,7 +64,7 @@ class DocDoor_serviceController extends Controller
         if($request->chosePartner)
         {
             $rules = [
-            'service_id' => 'required',
+                'service_id' => 'required',
             ];
             $messages = [
             'service_id.required' => 'Es necesario "seleccionar un servicio" para registrar una solicitud'
@@ -71,16 +72,13 @@ class DocDoor_serviceController extends Controller
 
             $this->validate($request, $rules, $messages);
             $partners = Service::find($request->service_id)->partners;
-            $one = 1;
-            $users = User::all();
-            $patients =  [];
-            foreach ($users as $user ) {
-                if($user->role == 3){
-                    $patients[]=array(
-                        "name" => $user->name,
-                        "id" => $user->id,
-                    );
-                }
+            $one = 1; 
+            $u_patients = Patient::all();
+            foreach ($u_patients as $patient) {
+                $patients[] =array(
+                            "name" => $patient->user->name,
+                            "id" => $patient->user->id,
+                        ); 
             }
             $services = Service::find($request->service_id);
             return view('docdoor_services.new_d_service')->with(compact('services','partners','one','patients')); 
