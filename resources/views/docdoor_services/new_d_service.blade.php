@@ -55,10 +55,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="dni" class="col-md-4 control-label"> DNI del paciente *</label>
+                            <label for="patient_id" class="col-md-4 control-label">Nombre del paciente *</label>
 
                             <div class="col-md-6">
-                                <input id="dni" type="text" class="form-control" name="dni" >
+                                <select class="form-control" name = "patient_user_id" >
+                                <option value=""> Seleccione un paciente </option>
+                                @foreach($patients as $patient)
+                                  <option value="<?=$patient['id']?>"><?=$patient['name']?></option>
+                                @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

@@ -53,9 +53,8 @@ class DocDoor_serviceController extends Controller
 
     public function add(){
         $services = Service::all();
-        $partners = Partner::all();
         $one = NULL;
-        return view('docdoor_services.new_d_service')->with(compact('services','partners','one')); 
+        return view('docdoor_services.new_d_service')->with(compact('services','one')); 
     }
 
     public function postAddDocDoorService(Request $request)
@@ -73,8 +72,18 @@ class DocDoor_serviceController extends Controller
             $this->validate($request, $rules, $messages);
             $partners = Service::find($request->service_id)->partners;
             $one = 1;
+            $users = User::all();
+            $patients =  [];
+            foreach ($users as $user ) {
+                if($user->role == 3){
+                    $patients[]=array(
+                        "name" => $user->name,
+                        "id" => $user->id,
+                    );
+                }
+            }
             $services = Service::find($request->service_id);
-            return view('docdoor_services.new_d_service')->with(compact('services','partners','one')); 
+            return view('docdoor_services.new_d_service')->with(compact('services','partners','one','patients')); 
         } 
         else//if($request->registrar) 
         {
@@ -82,7 +91,7 @@ class DocDoor_serviceController extends Controller
             $rules1 = [
             'partner_id' => 'required',
             'service_id' => 'required',
-            'dni' => 'required|size:8',
+            'patient_user_id' => 'required',
             'address_to'=>'required|max:40',
         ];
 
@@ -90,28 +99,20 @@ class DocDoor_serviceController extends Controller
             'partner_id.required' => 'Es necesario "seleccionar un asociado" para registrar una solicitud',
             'service_id.required' => 'Es necesario "seleccionar un servicio" para registrar una solicitud',
 
-            'dni.required' => 'Es necesario ingresar un DNI para registrar una solicitud',
-            'dni.size' => 'El DNI debe tener 8 digitos',
-
+            'patient_user_id.required' => 'Es necesario ingresar un usuario receptor del servicio para registrar una solicitud',
             'address_to.required' => 'Es necesario ingresar una "dirección de llegada" para registrar una solicitud',
             'address_to.max' => 'Campo "Dirección de llegada" es demasiado extenso.',
         ];
 
         $this->validate($request, $rules1, $messages1);   
         $data = $request->all();
-        //dd($data);
         $d_service = New Dservice;
-        $id = DB::table('users')
-                 ->where('dni', $request->dni)
-                 ->pluck('id');
-        $id = $id[0];  
-        $d_service->user_id = $id;
         
-        
+        $d_service->user_id =$request->patient_user_id;     
         unset($data['_token']);
         unset($data['registrar']);
         unset($data['chosePartner']);
-        unset($data['dni']);
+        unset($data['patient_user_id']);
         foreach ($data as $key => $value) {
             $d_service->$key = $data[$key] ;
         }   
@@ -136,63 +137,6 @@ class DocDoor_serviceController extends Controller
         }
         return view('docdoor_services.d_services')->with(compact('services','new'));
         }
-    }
-
-    public function store(Request $request){
-        $rules = [
-            'partner_id' => 'required',
-            'service_id' => 'required',
-            'dni' => 'required|size:8',
-            'address_to'=>'required|max:40',
-        ];
-
-        $messages = [
-            'partner_id.required' => 'Es necesario "seleccionar un asociado" para registrar una solicitud',
-            'service_id.required' => 'Es necesario "seleccionar un servicio" para registrar una solicitud',
-
-            'dni.required' => 'Es necesario ingresar un DNI para registrar una solicitud',
-            'dni.size' => 'El DNI debe tener 8 digitos',
-
-            'address_to.required' => 'Es necesario ingresar una "dirección de llegada" para registrar una solicitud',
-            'address_to.max' => 'Campo "Dirección de llegada" es demasiado extenso.',
-        ];
-
-        $this->validate($request, $rules, $messages);   
-
-        $d_service = New Dservice;
-        $id = DB::table('users')
-                 ->where('dni', $request->dni)
-                 ->pluck('id');
-        $id = $id[0];  
-        $d_service->user_id = $id;
-        
-        $data = $request->all();
-        //dd($data);
-        unset($data['_token']);
-        unset($data['dni']);
-        foreach ($data as $key => $value) {
-            $d_service->$key = $data[$key] ;
-        }   
-        $partner = Partner::find($data['partner_id']);
-        $d_service->address_from= $partner->address;
-        $d_service->save();
-        $services =  DB::table('dservices')
-                    ->join('services','dservices.service_id','=','services.id')
-                    ->join('users','dservices.user_id','=','users.id')
-                    ->join('partners','dservices.partner_id','=','partners.id')
-                    ->get();
-        $new = $d_service; 
-        $servicesB =  DB::table('dservices')
-                    ->join('partners','dservices.partner_id','=','partners.id')
-                    ->join('users','dservices.user_id','=','users.id')
-                    ->join('services','dservices.service_id','=','services.id') 
-                    ->pluck('dservices.id');
-        $i = 0;
-        foreach ($services as $temp) {
-           $temp->d_service_name=$servicesB[$i];
-           $i= $i+1;
-        }  
-        return view('docdoor_services.d_services')->with(compact('services','new'));
     }
 
     public function update($id){
