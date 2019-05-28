@@ -50,30 +50,26 @@ class AppointmentController extends Controller
 
             $this->validate($request, $rules, $messages);
             
-            $specialties = Specialty::find($request->specialty_id);
+            $specialty = Specialty::find($request->specialty_id);
+            $specialties = Specialty::all();
             $one = 1;
-            $users = User::all();
-            $doctors =[];
-            $patients =  [];
-            foreach ($users as $user ) {
-                if($user->role == 1 ){
-                    if($user->doctor->specialty == $specialties->name){
-                        $doctors[]=array(
-                        "name" => $user->name,
-                        "id" => $user->id,
-                    );    
-                    }
-                }
-                if($user->role == 3){
-                    $patients[]=array(
-                        "dni" => $user->dni,
-                        "name" => $user->name,
-                        "id" => $user->id,
-                    );
+            $u_doctors = Doctor::all();
+            $u_patients = Patient::all();
+            foreach ($u_patients as $patient) {
+                $patients[] =array(
+                            "name" => $patient->user->name,
+                            "id" => $patient->user->id,
+                        ); 
+            }
+            foreach ($u_doctors as $doctor) {
+                if($doctor->specialty_id = $specialty->id){
+                    $doctors[] =array(
+                            "name" => $doctor->user->name,
+                            "id" => $doctor->user->id,
+                        );     
                 }
             }
-
-            return view('appointments.new_appointment')->with(compact('patients', 'doctors', 'specialties','one'));
+            return view('appointments.new_appointment')->with(compact('patients', 'doctors','specialty' ,'specialties','one'));
         }else{ //store an appointment
 
             $rules1 = [
@@ -98,13 +94,13 @@ class AppointmentController extends Controller
             $patient = User::find($request->patient_user_id)->patient;
             $attention->patient_id = $patient->id;
             $attention->motive = $request->motive;
-            $attention->attention_code = "AT-".str_random(3);
-            //cambiar al tamaño a 9? eso hay que preguntar
+            $attention->attention_code = "AT-".date("ymd");
             $attention->address = $request->address;
             $attention->reference = $request->reference;
             $attention->type = 1;
             $attention->save();
-
+            $attention->attention_code = $attention->attention_code.$attention->id;
+            $attention->save();
             $appointment = New Appointment;
             $appointment->attention_id = $attention->id;
             $appointment->specialty_id = $request->specialty_id;

@@ -63,11 +63,12 @@ class EmergencyController extends Controller
         $patient = User::find($request->patient_id)->patient;
         $attention->patient_id = $patient->id;
         $attention->motive = $request->motive;
-        $attention->attention_code = "AT-".str_random(3);
-        //cambiar al tamaño a 9? eso hay que preguntar
+        $attention->attention_code = "AT-".date("ymd");
         $attention->address = $request->address;
         $attention->reference = $request->reference;
         $attention->type = 2;
+        $attention->save();
+        $attention->attention_code = $attention->attention_code.$attention->id;
         $attention->save();
 
         $emergency = New Emergency;

@@ -21,7 +21,7 @@ class CreateDoctorsTable extends Migration
             $table->boolean('available')->default(1);
             $table->integer('schedule_id')->unsigned()->nullable();
             $table->boolean('all_day')->default(1);
-            $table->string('specialty');
+            $table->integer('specialty_id')->unsigned();
             //ec: emergency_contact
             $table->string('ec_name')->nullable();
             $table->string('ec_last_name')->nullable();
@@ -29,6 +29,7 @@ class CreateDoctorsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
+            $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('cascade');
 
         });
     }

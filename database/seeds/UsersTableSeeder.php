@@ -40,7 +40,7 @@ class UsersTableSeeder extends Seeder
 	    		'user_id'=> 2,
 	    		'birth_at'=>"2019-04-16",
 	    		'address'=>"su casita",
-	    		'specialty'=> "pulmonar",	    		
+	    		'specialty_id'=> 1,	    		
 	    	]);
 
 	    DB::table('users')->insert([

@@ -22,18 +22,19 @@
                          <div class="form-group">
                             <label for="specialty" class="col-md-4 control-label">Especialidad *</label>
 
-                            <div class="col-md-6">
-                                @if($one)
-                                   <b> {{$specialties->name}}</b>
-                                   <input id="specialty_id" type="hidden" name="specialty_id" value ="{{$specialties->id}}">
-                                @else
+                            <div class="col-md-6">                      
                                 <select class="form-control" name = "specialty_id" >
+                                
+                                @if($one)
+                                <option value="{{$specialty->id}}"> {{$specialty->name}} </option>
+                                @else
                                 <option value=""> Seleccione una especialidad </option>
+                                @endif
                                 @foreach($specialties as $specialty)
                                   <option value="<?=$specialty->id?>"><?=$specialty->name?></option>
                                 @endforeach
                                 </select>
-                                @endif
+                                
                             </div>
                         </div>
 

@@ -14,7 +14,7 @@ class AttentionsTable extends Migration
     {
         Schema::create('attentions', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('attention_code', 6)->unique();
+            $table->char('attention_code', 20)->unique();
             $table->integer('patient_id')->unsigned();
             $table->text('motive');
             $table->string('address')->nullable();
