@@ -107,7 +107,6 @@
 
                             <div class="col-md-6">
                                 <select class="form-control" name = "specialty" >
-                                    <option value=""> médico general</option>
                                     @foreach($specialties as $s)
                                       <option value="<?=$s->name?>"><?=$s->name?></option>
                                     @endforeach
