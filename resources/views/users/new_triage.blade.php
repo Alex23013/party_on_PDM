@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <input id="input-role" type="hidden" name="role" value = 2>
-                        <input id="input-name_role" type="hidden" name="name_role" value = Triaje>
+                        <input id="input-name_role" type="hidden" name="name_role" value = "Triaje">
 
                         <div class="form-group">
                             <label class="col-md-8 control-label">Información Adicional </label>

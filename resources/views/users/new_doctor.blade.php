@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <input id="input-role" type="hidden" name="role" value = 1>
-                        <input id="input-name_role" type="hidden" name="name_role" value = doctor>
+                        <input id="input-name_role" type="hidden" name="name_role" value = "Doctor">
 
                         <div class="form-group">
                             <label class="col-md-8 control-label">Información Adicional </label>

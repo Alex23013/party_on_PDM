@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
 	               'avatar' => 'default.png',
 	               'validated'=>'1',
 	               'role'=>0,
-	               'name_role'=>'administrador',      
+	               'name_role'=>'Administrador',      
 	           ]);
 
 	    DB::table('users')->insert([
@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
 	               'avatar' => 'default.png',
 	               'validated'=>'1',
 	               'role'=>1,
-	               'name_role' => 'doctor',	               
+	               'name_role' => 'Doctor',	               
 	           ]);
 	   	DB::table('doctors')->insert([
 	    		'user_id'=> 2,
@@ -53,7 +53,7 @@ class UsersTableSeeder extends Seeder
 	               'avatar' => 'default.png',
 	               'validated'=>'1',
 	               'role'=>2,
-	               'name_role'=>'triaje',	               
+	               'name_role'=>'Triaje',	               
 	           ]);
 	    DB::table('triages')->insert([
 	    		'user_id'=> 3,
@@ -70,7 +70,7 @@ class UsersTableSeeder extends Seeder
 	               'avatar' => 'default.png',
 	               'validated'=>'1',
 	               'role'=>3,	 
-	               'name_role'=>'paciente',              
+	               'name_role'=>'Paciente',              
 	           ]);
 	    DB::table('patients')->insert([
 	    		'user_id'=> 4,
