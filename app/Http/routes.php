@@ -25,6 +25,11 @@ Route::post('/api/v1/patient_register', 'RestPatientsController@register');
 Route::post('/api/v1/patient_edit_profile', 'RestPatientsController@profile');
 Route::post('/api/v1/user_login', 'RestUserController@login');
 Route::post('/api/v1/recover_password', 'RestUserController@recover');
+
+Route::get('/api/v1/doctor_update_data', 'RestDoctorController@update_data');
+Route::get('/api/v1/doctor_get_data/{doctor_id}', 'RestDoctorController@get_data');
+Route::get('/api/v1/appointments_confirmed/{doctor_id}', 'RestDoctorController@appointments_confirmed');
+
 // -------- END_POINTS
 
 //Techs 
