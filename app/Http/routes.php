@@ -49,7 +49,7 @@ Route::post('/partners/edit', 'PartnerController@store_update');
 //Patients
 Route::get('/patients', 'PatientController@index');
 Route::get('/patients/detail/{id}', 'PatientController@detail');
-Route::get('/patients/add', 'PatientController@add');
+Route::get('/patients/add/{type}', 'PatientController@add');
 Route::post('/patients', 'PatientController@store');
 Route::get('/patients/remove/{id}', 'PatientController@delete');
 Route::get('/patients/edit/{id}', 'PatientController@update');
@@ -114,7 +114,7 @@ Route::get('/emergency/remove/{id}', 'EmergencyController@delete');
 Route::get('/appointments', 'AppointmentController@index');
 Route::get('/appointments/detail/{id}', 'AppointmentController@detail');
 Route::get('/appointments/add', 'AppointmentController@add');
-Route::post('/appointments', 'AppointmentController@store');
+Route::post('/appointments', 'AppointmentController@store_real_time');
 Route::get('/appointments/edit/{id}', 'AppointmentController@update');
 Route::post('/appointments/edit', 'AppointmentController@store_update');
 Route::get('/appointments/remove/{id}', 'AppointmentController@delete');

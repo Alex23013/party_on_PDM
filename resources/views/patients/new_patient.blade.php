@@ -100,9 +100,13 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Registrar
-                                </button>
+                            @if ($type)
+                            <button type="submit" class="btn btn-primary" name = "Registrar" value="1">
+                            @else
+                            <button type="submit" class="btn btn-primary" name = "Registrar" value="0">
+                            @endif
+                            <i class="fa fa-btn fa-user"></i> Registrar
+                            </button>                                   
                             </div>
                         </div>
                     </form>

@@ -19,7 +19,7 @@
                  <h5 ><i class="fa fa-plus"></i>  Añadir una Cita médica</h5>
                 </button>
               </a>
-            <a href="/patients/add">  
+            <a href="/patients/add/0">  
                 <button type="button" class="btn  bg-purple margin">
                  <h5 ><i class="fa fa-user-plus"></i>  Registrar a  un Paciente</h5>
                 </button>

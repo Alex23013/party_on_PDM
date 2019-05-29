@@ -13,7 +13,7 @@
 	        <div class="box-header mm-left ">
 	          <h2>Lista de Pacientes</h2>
 	          <br>
-	          <a href="/patients/add">  
+	          <a href="/patients/add/0">  
                 <button type="button" class="btn  bg-olive margin">
                  <h5 ><i class="fa fa-user-plus"></i>  Añadir un Paciente</h5>
                 </button>

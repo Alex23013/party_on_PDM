@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Patient;
 use App\User;
+use App\Doctor;
+use App\Specialty;
 use App\Http\Requests;
 use Auth;
 
@@ -30,8 +32,8 @@ class PatientController extends Controller
         return view('users.user_profile')  ->with(compact('user','url_image','s_user'));
     }
 
-    public function add(){
-    	return view('patients.new_patient');	
+    public function add($type){
+        return view('patients.new_patient')->with(compact('type'));
     }
 
     public function store(Request $request){
@@ -43,7 +45,6 @@ class PatientController extends Controller
                 'email' => 'required|email|max:255|unique:users',
                 'password' => 'required|min:6'
             ];
-            
             $messages = [
                 'name.required' => 'Es necesario ingresar un nombre para registrar a un usuario',
                 'name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
@@ -109,8 +110,26 @@ class PatientController extends Controller
         $users = DB::table('patients')
                     ->join('users','patients.user_id','=','users.id')
                     ->get();
-        $new = $user;   
-        return view('patients.patient_index')->with(compact('users','new'));
+        $new = $user; 
+        if($request->Registrar){
+            $specialties = Specialty::all();
+            $u_doctors = Doctor::all();
+            foreach ($u_doctors as $doctor) {
+                $doctors[] =array(
+                        "name" => $doctor->user->name,
+                        "id" => $doctor->user->id,
+                    );     
+            }
+            $patients[] = array(
+                        "name" => $patient->user->name,
+                        "id" => $patient->user->id,
+                    ); 
+            $one=1;
+            return view('appointments.new_appointment')->with(compact('patients', 'doctors','specialties','one'));
+        }  else{
+            return view('patients.patient_index')->with(compact('users','new'));    
+        }
+        
 
     }
 

@@ -25,11 +25,7 @@
                             <div class="col-md-6">                      
                                 <select class="form-control" name = "specialty_id" >
                                 
-                                @if($one)
-                                <option value="{{$specialty->id}}"> {{$specialty->name}} </option>
-                                @else
                                 <option value=""> Seleccione una especialidad </option>
-                                @endif
                                 @foreach($specialties as $specialty)
                                   <option value="<?=$specialty->id?>"><?=$specialty->name?></option>
                                 @endforeach
@@ -37,23 +33,24 @@
                                 
                             </div>
                         </div>
-
-                         <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary " style="margin-left: 35%; margin-bottom: 1%;" name="choseSpecialty" value = "1">
-                                <i class="fa fa-stethoscope"></i> Elegir Especialidad
-                                </button>
-                            </div>
-                        @if ($one) 
                         <div class="form-group">
                             <label for="patient_id" class="col-md-4 control-label">Nombre del paciente *</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name = "patient_user_id" >
+                                @if($one)
+                                @else
                                 <option value=""> Seleccione un paciente </option>
+                                @endif
                                 @foreach($patients as $patient)
                                   <option value="<?=$patient['id']?>"><?=$patient['name']?></option>
                                 @endforeach
                                 </select>
+                                <a href="/patients/add/1">  
+                                <button type="button" class="btn  bg-purple margin">
+                                <i class="fa fa-user-plus"></i>
+                                </button>
+                              </a>
                             </div>
                         </div>
 
@@ -133,7 +130,6 @@
                                 </button>
                             </div>
                         </div>
-                        @endif
                     </form>
                 </div>
             </div>
