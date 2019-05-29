@@ -18,6 +18,12 @@ class AppointmentsTable extends Migration
             $table->integer('specialty_id')->unsigned();
             $table->integer('doctor_id')->unsigned();
             $table->integer('status')->default(0);
+            /*
+            0: en espera
+            1: confirmado
+            2: atendido
+            3: cancelado
+            */
             $table->dateTime('date_time');
             $table->timestamps();
             $table->foreign('attention_id')->references('id')->on('attentions')->onDelete('cascade');
