@@ -47,6 +47,7 @@ class AppointmentController extends Controller
                 $doctors[] =array(
                         "name" => $doctor->user->name,
                         "id" => $doctor->user->id,
+                        "specialty"=>$doctor->specialty_id,
                     );     
           //  }
         }
