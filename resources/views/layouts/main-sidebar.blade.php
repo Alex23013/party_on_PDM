@@ -42,7 +42,7 @@
               <i class="fa fa-hospital-o"></i> <span> Historias clínicas </span>
             </a>
           </li>
-            <li class="treeview active">
+            <li class="treeview">
               <a href="#">
                 <i class="glyphicon glyphicon-plus"></i> <span>Añadir miembro</span> <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
