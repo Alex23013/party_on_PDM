@@ -14,7 +14,7 @@
 			      	<div class="col-md-4">
 			      		<a href="/emergency/add">  
 		                <button type="button" class="btn  bg-olive margin">
-		                 <h2 ><i class="fa fa-plus"></i>  Añadir una Emergencia</h2>
+		                 <h2 ><i class="fa fa-plus"></i>  Emergencia</h2>
 		                </button>
 		              </a>
 		              <br>
@@ -23,7 +23,7 @@
 			      	<div class="col-md-4">
 			      		<a href="/appointments/add"> 
 		                 <button type="button" class="btn  bg-purple margin">
-		                 <h2><i class="fa fa-plus"></i>  Añadir una Cita </h2>
+		                 <h2><i class="fa fa-plus"></i>  Cita Médica </h2>
 		                </button>
 		              </a>
 		              <br>
