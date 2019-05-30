@@ -20,16 +20,22 @@ Route::get('/profile', 'UserController@profile');
 // E-mail verification
 Route::get('/register/verify/{id}/{code}', 'UserController@verify');
 
-// -------- END_POINTS
+// ----  END_POINTS
+// ----- patients ----------- //
 Route::post('/api/v1/patient_register', 'RestPatientsController@register');
 Route::post('/api/v1/patient_edit_profile', 'RestPatientsController@profile');
+// Inbox Emergencia/Urgencia
+// Inbox Solicitud de citas 
+// Lista de solicitudes de citas
+Route::post('/api/v1/patient_confirm_appointment','RestPatientsController@confirm_appointment');
+
+// ----- users ----------- //
 Route::post('/api/v1/user_login', 'RestUserController@login');
 Route::post('/api/v1/recover_password', 'RestUserController@recover');
-
-Route::get('/api/v1/doctor_update_data', 'RestDoctorController@update_data');
+// ----- doctors ----------- //
+Route::post('/api/v1/doctor_update_data', 'RestDoctorController@update_data');
 Route::get('/api/v1/doctor_get_data/{doctor_id}', 'RestDoctorController@get_data');
 Route::get('/api/v1/appointments_confirmed/{doctor_id}', 'RestDoctorController@appointments_confirmed');
-
 // -------- END_POINTS
 
 //Techs 
