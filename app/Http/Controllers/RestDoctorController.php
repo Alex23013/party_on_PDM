@@ -35,24 +35,24 @@ class RestDoctorController extends Controller
         $user = User::find($doctor->user_id);
         $data = $request->all();
 		unset($data['doctor_id']);
+        $i = 0;
         foreach ($data as $key => $value) {
            if( $value == '' || $value == ' ' ){
            }else{
-           	$pos_coincidence = strpos($key, 'octor_');
-           	if($pos_coincidence == 0){
+           	if($i< 5){
            		if($user->$key != $data[$key] ){
                 	$user->$key=$data[$key];    
             	}
            	}else{
-           		dd($key);
-           		//quitar el 'doctor_'
            		if($doctor->$key != $data[$key] ){
                 	$doctor->$key=$data[$key];    
             	}
            	}
            }
+           $i = $i +1 ;
         }
         $user->save();
+        $doctor->save();
         return response()
 				->json(['status' => '201', 
 						'message' => 'Ok']);
