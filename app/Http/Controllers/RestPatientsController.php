@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Patient;
 use App\Http\Requests;
+use App\Appointment;
+use App\Tcall;
+use App\Attention;
+use App\Doctor;
+use App\Specialty;
+
 
 class RestPatientsController extends Controller
 {
@@ -55,7 +61,6 @@ class RestPatientsController extends Controller
     	}
     }
 
-
     public function profile(Request $request){
     	$user = DB::table('users')
                     ->where('id',$request->id)
@@ -104,5 +109,70 @@ class RestPatientsController extends Controller
     	}	
     }
 
-    
+    public function update_status_appointment(Request $request){
+    	
+    	$app = Appointment::find($request->app_id);
+    	if(!$app){
+    		return response()
+				->json(['status' => '404', 
+						'message' => 'No se encontro la cita solicitada']);	
+    	}
+    	$app->status = $request->new_status;
+    	$app->save();
+    	return response()
+				->json(['status' => '200', 
+						'message' => 'Ok']);
+    }
+
+	public function inbox(Request $request){
+		$inbox = New Tcall;
+		$data = $request->all();
+        foreach ($data as $key => $value) {
+           if( $value == '' || $value == ' ' ){
+           }else{
+           		if($key == "patient_id"){
+           			$patient = Patient::find($data[$key]);
+           			if(!$patient){
+			    		return response()
+							->json(['status' => '404', 
+									'message' => 'No se encontro la data del paciente solicitado']);	
+			    	}
+           		}
+                $inbox->$key=$data[$key];   
+           	}
+           }
+        $inbox->save();
+        return response()
+				->json(['status' => '200', 
+						'message' => 'Ok',
+						'inbox' =>$inbox]);
+	}
+
+	public function appointments(Request $request){
+		$atts = Attention::where('patient_id', $request->patient_id)->
+		where('type', 1)->get();
+		$matched_apps=[];
+		foreach ($atts as $att) {
+			$app = Appointment::where('attention_id',$att->id)->first();
+			if($app->status == $request->app_status){
+				if($app->specialty_id == 1){
+					$specialty_name = "medico general";
+				}else{
+					$specialty = Specialty::find($app->specialty_id);
+					$specialty_name =$specialty->name; 
+				}		
+				$doctor = doctor::find($app->doctor_id);
+				$matched_apps[]=[
+				'specialty' => $specialty_name, 
+				'doctor_name' =>$doctor->user->name,
+				'date_time' =>$app->date_time,
+				]; 
+			}
+		}
+		return response()
+				->json(['status' => '200', 
+						'message' => 'Ok',
+						'content' => $matched_apps]);
+	}
+
 }

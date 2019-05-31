@@ -17,6 +17,7 @@ class CreateTcallsTable extends Migration
             $table->integer('patient_id')->unsigned()->nullable();
             $table->string('patient_cell');
             $table->text('message');
+            $table->integer('type');
             $table->timestamps();
         });
     }

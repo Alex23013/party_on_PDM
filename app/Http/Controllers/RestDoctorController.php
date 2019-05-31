@@ -9,11 +9,13 @@ use App\Appointment;
 use App\Doctor;
 use App\Patient;
 use App\User;
+use App\Schedule;
 
 class RestDoctorController extends Controller
 {
 	public function get_data($doctor_id){
 		$doctor = Doctor::find($doctor_id);
+    $user_doctor = $doctor->user;
 		if(!$doctor){
     		return response()
 				->json(['status' => '404', 
@@ -22,8 +24,22 @@ class RestDoctorController extends Controller
     	return response()
 				->json(['status' => '200', 
 						'message' => 'Ok',
-						'content' => $doctor]);
+						'content-doctor' => $doctor]);
 	}
+
+  public function get_schedule($doctor_id){
+    $doctor = Doctor::find($doctor_id);
+    if(!$doctor){
+        return response()
+        ->json(['status' => '404', 
+            'message' => 'No se encontro el doctor solicitado']); 
+      }
+    $schedule = Schedule::find($doctor->schedule_id);
+      return response()
+        ->json(['status' => '200', 
+            'message' => 'Ok',
+            'content' => $schedule]);
+  }
 
 	public function update_data(Request $request){
 		$doctor = Doctor::find($request->doctor_id);

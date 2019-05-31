@@ -10,8 +10,8 @@ class Patient extends Model
 	{
 	  return $this->belongsTo('App\User');
 	}
-	public function appointment()
+	public function attention()
 	{
-	  return $this->hasMany('App\Appointment');
+	  return $this->hasMany('App\Attention');
 	}
 }
