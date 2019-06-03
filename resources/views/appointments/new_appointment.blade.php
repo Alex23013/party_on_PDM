@@ -102,6 +102,29 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group" >
+                            <label class="col-md-4 control-label">Horario semanal</label>
+                            <div class="col-md-6">
+                                <table class="table table-striped ">
+                                <thead>
+                                <tr>
+                                      <th>Dia</th>
+                                      <th>Inicio</th>
+                                      <th>Fin</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($content_schedule as $day): ?>
+                                <tr>                
+                                    <td><?=$day->day?></td>
+                                    <td><?=$day->schedule_start?></td>
+                                    <td><?=$day->schedule_end?></td>
+                                 <?php endforeach ?>
+                                </tr>
+                                </tbody>
+                          </table>
+                          </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="birth" class="col-md-4 control-label">Fecha de la cita * </label>
