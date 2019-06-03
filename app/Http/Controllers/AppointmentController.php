@@ -11,9 +11,13 @@ use App\Patient;
 use App\Doctor;
 use App\Appointment;
 use App\Specialty;
+use App\Schedule;
 
 class AppointmentController extends Controller
 {
+    public function ajax(){    
+        return view('appointments.prueba_ajax');
+    }
     public function index(){	
     	$appointments = DB::table('attentions')
                     ->join('appointments','attentions.id','=','appointments.attention_id')
@@ -48,11 +52,16 @@ class AppointmentController extends Controller
                         "name" => $doctor->user->name,
                         "id" => $doctor->user->id,
                         "specialty"=>$doctor->specialty_id,
+                        "schedule_id"=>$doctor->schedule_id,
                     );     
           //  }
         }
+       // 
+        $schedules = Schedule::find($doctors[0]['schedule_id']);
+        //$schedules=$schedules->schedule;
+        $content_schedule = json_decode($schedules->schedule);
         $one = NULL;
-        return view('appointments.new_appointment')->with(compact('patients', 'doctors','specialties','one'));  
+        return view('appointments.new_appointment')->with(compact('patients', 'doctors','specialties','content_schedule','one'));  
     }
 
     public function store_real_time(Request $request){
@@ -198,10 +207,56 @@ class AppointmentController extends Controller
         $attention = Attention::find($id);
         $s_attention = $attention->appointment;
         $user_doctor =$s_attention->doctor->user;
-        return view('attentions.attention_edit')->with(compact('s_attention','attention','specialty','user_doctor'));
+        $intervals = explode(' ',$s_attention->date_time);
+        $u_doctors = Doctor::all();
+        foreach ($u_doctors as $doctor) {
+                if($doctor->specialty_id = $s_attention->specialty_id){
+                    $doctors[] =array(
+                            "name" => $doctor->user->name,
+                            "id" => $doctor->user->id,
+                        );     
+                }
+            }
+        return view('attentions.attention_edit')->with(compact('s_attention','attention','specialty','user_doctor', 'doctors','intervals'));
     }
 
     public function store_update(Request $request){
-        dd($request->all());
+        //dd($request->all());
+        $data = $request->all();
+        $attention = Attention::find($request->attention_id);
+        unset($data['attention_id']);
+        $s_attention = Appointment::find($request->app_id);
+        $intervals = explode(' ',$s_attention->date_time);   
+        unset($data['app_id']);
+        if($request->date == ""){
+            $date_time=$intervals[0].' '.$request->time.':00';
+        }else{
+            $date_time=$request->date.' '.$request->time.':00';    
+        }
+        
+        unset($data['date']);
+        unset($data['time']);
+        if($s_attention->date_time != $date_time){
+            $s_attention->date_time = $date_time;
+        }
+        $i = 0;
+        foreach ($data as $key => $value) {
+           if( $value == '' || $value == ' ' ){
+           }else{
+            if($i< 3){
+                if($attention->$key != $data[$key] ){
+                    $attention->$key=$data[$key];    
+                }
+            }else{
+                if($s_attention ->$key != $data[$key] ){
+                    $s_attention ->$key=$data[$key];    
+                }
+            }
+           }
+           $i = $i +1 ;
+        }
+        $s_attention->save();
+        $attention->save();
+        return redirect('/appointments/detail/'.$attention->id);
     }
 }
