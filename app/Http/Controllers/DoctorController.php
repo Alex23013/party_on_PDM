@@ -66,6 +66,9 @@ class DoctorController extends Controller
         $doctor = Doctor::find($request->doctor_id);
         //dd($request->all());
         $doctor->all_day = $request->all_day;
+        $old_schedule = Schedule::find( $doctor->schedule_id );
+        $old_schedule->active=0;
+        $old_schedule->save();
 
         $schedule = New Schedule;
         $schedule->doctor_id = $doctor->id;
