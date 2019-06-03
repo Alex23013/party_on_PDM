@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\User;
 use Hash;
 use App\Http\Requests;
@@ -11,13 +10,20 @@ use App\Http\Requests;
 class RestUserController extends Controller
 {
    public function login(Request $request){
-    	$user = DB::table('users')
-                    ->where('email',$request->email)
-                    ->first(); 
+    	$user = User::where('email', $request->email)
+               ->first();
     	if($user != null && Hash::check($request->password, $user->password)){
+            $user_obj = User::find($user->id);
+            if($user_obj->role == 1){
+                $doctor_info =  $user_obj->doctor;
+            }
+            if($user_obj->role == 3){
+                $patient_info =  $user_obj->patient;
+            }
     		return response()
 				->json(['status' => '200',
-						'message' => 'Ok']); 
+						'message' => 'Ok',
+                        'user'=>$user_obj]); 
     	}else{
     		return response()
 				->json(['status' => '401',
@@ -26,9 +32,8 @@ class RestUserController extends Controller
     }
 
     public function recover(Request $request){
-    	$user = DB::table('users')
-                    ->where('email',$request->email)
-                    ->first(); 
+    	$user = User::where('email', $request->email)
+               ->first();
     	if($user != null ){
     		$user = User::find($user->id);   
     		$user->password =  bcrypt($request->password);

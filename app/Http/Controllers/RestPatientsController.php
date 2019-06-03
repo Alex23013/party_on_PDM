@@ -61,6 +61,20 @@ class RestPatientsController extends Controller
     	}
     }
 
+    public function get_data($patient_id){
+    	$patient = Patient::find($patient_id);
+		if(!$patient){
+    		return response()
+				->json(['status' => '404', 
+						'message' => 'No se encontro el paciente solicitado']);	
+    	}
+    	$user_patient = $patient->user;
+    	return response()
+				->json(['status' => '200', 
+						'message' => 'Ok',
+						'content-patient' => $patient]);
+    }
+
     public function profile(Request $request){
     	$user = DB::table('users')
                     ->where('id',$request->id)

@@ -23,6 +23,7 @@ Route::get('/register/verify/{id}/{code}', 'UserController@verify');
 // ----  END_POINTS
 // ----- patients ----------- //
 Route::post('/api/v1/patient_register', 'RestPatientsController@register');
+Route::get('/api/v1/patient_get_data/{patient_id}', 'RestPatientsController@get_data');
 Route::post('/api/v1/patient_edit_profile', 'RestPatientsController@profile');
 Route::post('/api/v1/patient_inbox/','RestPatientsController@inbox');
 Route::post('/api/v1/patient_appointments/','RestPatientsController@appointments');
@@ -39,6 +40,8 @@ Route::get('/api/v1/doctor_get_schedule/{doctor_id}', 'RestDoctorController@get_
 Route::get('/api/v1/appointments_confirmed/{doctor_id}', 'RestDoctorController@appointments_confirmed');
 // -------- END_POINTS
 
+Route::get('ajax', 'AppointmentController@ajax');
+Route::post('ajax', 'AppointmentController@ajax');
 //Techs 
 Route::get('/techs', 'TuserController@index');
 Route::get('/techs/add', 'TuserController@add');
