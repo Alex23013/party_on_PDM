@@ -30,7 +30,7 @@
             @if ($new)
             <div class="alert alert-success alert-dismissible pTop" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4>Nueva emergencia</h4>
+              <h4>Nueva emergencia registrada </h4>
             </div>
           @endif
               <table id="example1" class="table table-bordered table-striped mm-left">

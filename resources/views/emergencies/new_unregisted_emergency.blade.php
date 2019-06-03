@@ -16,28 +16,28 @@
                           </ul>
                       </div>
                 @endif
-                    <form class="form-horizontal" role="form" method="POST" action="/emergency">
+                    <form class="form-horizontal" role="form" method="POST" action="/u/emergency">
                          {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="p_name" class="col-md-4 control-label">Nombre del paciente </label>
+                            <label for="p_name" class="col-md-4 control-label">Nombre del paciente * </label>
                             <div class="col-md-6">
                                 <input id="p_name" type="text" class="form-control" name="p_name" >
                             </div>                            
                         </div>
                         <div class="form-group">
-                            <label for="p_last_name" class="col-md-4 control-label">Apellido del paciente </label>
+                            <label for="p_last_name" class="col-md-4 control-label">Apellido del paciente * </label>
                             <div class="col-md-6">
                                 <input id="p_last_name" type="text" class="form-control" name="p_last_name" >
                             </div>                            
                         </div>
                         <div class="form-group">
-                            <label for="p_dni" class="col-md-4 control-label">DNI del paciente </label>
+                            <label for="p_dni" class="col-md-4 control-label">DNI del paciente *</label>
                             <div class="col-md-6">
                                 <input id="p_dni" type="text" class="form-control" name="p_dni" >
                             </div>                            
                         </div>
                         <div class="form-group">
-                            <label for="p_cell" class="col-md-4 control-label">Celular del paciente </label>
+                            <label for="p_cell" class="col-md-4 control-label">Celular del paciente *</label>
                             <div class="col-md-6">
                                 <input id="p_cell" type="text" class="form-control" name="p_cell" >
                             </div>                            

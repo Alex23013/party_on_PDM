@@ -10,6 +10,7 @@ use App\Attention;
 use App\Emergency;
 use App\Patient;
 use App\User;
+use App\Uemergency;
 
 class EmergencyController extends Controller
 {
@@ -33,6 +34,46 @@ class EmergencyController extends Controller
     public function add_unregisted_emergency(){
         return view('emergencies.new_unregisted_emergency');   
     }
+    public function store_unregisted_emergency(Request $request){
+        $rules = [
+            'p_name' => 'required|min:2|max:255',
+            'p_last_name' => 'required|min:2|max:255',
+            'p_dni' => 'required|size:8',
+            'p_cell' => 'required',
+            'motive' => 'required',
+            'address' => 'required'
+        ];
+        $messages = [
+            'p_name.required' => 'Es necesario ingresar un nombre para registrar una emergencia',
+            'p_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
+            'p_name.max' => 'Campo "Nombre" es demasiado extenso.',
+
+            'p_last_name.required' => 'Es necesario ingresar un apellido para registrar una emergencia',
+            'p_last_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Apellido".',
+            'p_last_name.max' => 'Campo "Apellido" es demasiado extenso.',
+            
+            'p_dni.required' => 'Es necesario ingresar un DNI para registrar una emergencia',
+            'p_dni.size' => 'El DNI debe tener 8 digitos',
+
+            'p_cell.required' => 'Es necesario ingresar un número de celular para registrar una emergencia',
+            'motive.required' => 'Es necesario ingresar la descripcion del problema del paciente para registrar una emergencia',
+            'address.required' => 'Es necesario ingresar una dirección para registrar una emergencia'
+            ];  
+        $this->validate($request, $rules, $messages);
+        $uemergency= New Uemergency;
+        $data = $request->all();
+        unset($data['_token']);
+        foreach ($data as $key => $value) {
+           if( $value == '' || $value == ' ' ){
+           }else{
+                if($uemergency->$key != $data[$key] ){
+                    $uemergency->$key=$data[$key];    
+                }
+           }
+        }
+        $uemergency->save();
+        return redirect('/emergency');
+    }
 
     public function add(){
         $patients = Patient::all();
@@ -42,16 +83,15 @@ class EmergencyController extends Controller
                         "id" => $patient->user->id,
                     ); 
         }
-        return view('emergencies.new_emergency')->with(compact('users'));   
+        return view('emergencies.new_emergency')->with(compact('users'));
     }
 
     public function store(Request $request){
-        //dd($request->all());
         $rules = [
-                'patient_id' => 'required',
-                'motive' => 'required',
-                'address' => 'required'
-            ];
+            'patient_id' => 'required',
+            'motive' => 'required',
+            'address' => 'required'
+        ];
         $messages = [
                 'patient_id.required' => 'Es necesario ingresar un id de paciente para registrar una emergencia',
                 'motive.required' => 'Es necesario ingresar la descripcion del problema del paciente para registrar una emergencia',
@@ -90,7 +130,7 @@ class EmergencyController extends Controller
                     ->join('patients','attentions.patient_id','=','patients.id')
                     ->join('users','patients.user_id','=','users.id')
                     ->get();
-        $new = NULL;   
+        $new = $emergency;   
         return view('emergencies.emergency_index')->with(compact('emergencies','new'));
     }
 
