@@ -122,6 +122,7 @@ Route::get('/emergency', 'EmergencyController@index');
 Route::get('/emergency/detail/{id}', 'EmergencyController@detail');
 Route::get('/emergency/add', 'EmergencyController@add');
 Route::get('/u/emergency/add', 'EmergencyController@add_unregisted_emergency');
+Route::post('/u/emergency', 'EmergencyController@store_unregisted_emergency');
 Route::post('/emergency', 'EmergencyController@store');
 Route::get('/emergency/remove/{id}', 'EmergencyController@delete');
 
@@ -133,3 +134,5 @@ Route::post('/appointments', 'AppointmentController@store_real_time');
 Route::get('/appointments/edit/{id}', 'AppointmentController@update');
 Route::post('/appointments/edit', 'AppointmentController@store_update');
 Route::get('/appointments/remove/{id}', 'AppointmentController@delete');
+
+Route::post('/ajax_get_doctors_per_specialty','AppointmentController@ajax_get_doctors');

@@ -23,14 +23,13 @@
                             <label for="specialty" class="col-md-4 control-label">Especialidad *</label>
 
                             <div class="col-md-6">                      
-                                <select class="form-control" name = "specialty_id" >
+                                <select class="form-control" name = "specialty_id" id="specialty_selector" >
                                 
-                                <option value=""> Seleccione una especialidad </option>
+                                <option value="" selected="selected"> Seleccione una especialidad </option>
                                 @foreach($specialties as $specialty)
-                                  <option value="<?=$specialty->id?>"><?=$specialty->name?></option>
+                                  <option value="{{$specialty->id}}" onclick="chooseSpecialty();return false;"><?=$specialty->name?></option>
                                 @endforeach
                                 </select>
-                                
                             </div>
                         </div>
                         <div class="form-group">
@@ -38,10 +37,7 @@
 
                             <div class="col-md-6">
                                 <select class="form-control" name = "patient_user_id" >
-                                @if($one)
-                                @else
                                 <option value=""> Seleccione un paciente </option>
-                                @endif
                                 @foreach($patients as $patient)
                                   <option value="<?=$patient['id']?>"><?=$patient['name']?></option>
                                 @endforeach
@@ -87,19 +83,12 @@
 
                             <label for="doctor_id" class="col-md-4 control-label">Doctor *</label>
 
-                            <div class="col-md-6">
-                                
-                                
-                                @if($doctors)
-                                <select class="form-control" name = "doctor_user_id" >
-                                <option value=""> Seleccione un doctor </option>
-                                @foreach($doctors as $doctor)
-                                  <option value="<?=$doctor['id']?>"><?=$doctor['name']?></option>
-                                @endforeach
+                            <div class="col-md-6">     
+                                <select
+                                 id = "chooseDoctor"
+                                class="form-control"
+                                  name="doctor_user_id">
                                 </select>
-                                @else
-                                <option value=""> No hay doctores para esta especialidad </option>
-                                @endif
                             </div>
                         </div>
                         <div class="form-group" >
@@ -113,14 +102,7 @@
                                       <th>Fin</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <?php foreach ($content_schedule as $day): ?>
-                                <tr>                
-                                    <td><?=$day->day?></td>
-                                    <td><?=$day->schedule_start?></td>
-                                    <td><?=$day->schedule_end?></td>
-                                 <?php endforeach ?>
-                                </tr>
+                                <tbody id= "location">
                                 </tbody>
                           </table>
                           </div>
@@ -177,4 +159,54 @@
 
     }); 
 </script>
+<script>
+    
+    function chooseSpecialty(){
+        var parametros={
+            "valor1":$('#specialty_selector').find(':selected').val(),
+        };
+        console.log(parametros);
+        $.ajax({
+            data: parametros,
+            url: '/ajax_get_doctors_per_specialty',
+            type: 'post',
+            beforeSend: function(){
+                $("#resultado").html("Procesando,espere..");
+            },
+            success: function(response){
+                console.log(response);
+                $("#resultado").html(response); 
+                 var chooseDoctor= document.getElementById('chooseDoctor');
+                $(chooseDoctor).empty();
+                $(chooseDoctor).append('<option value=""> Seleccione un doctor</option>')
+                for (var i = 0; i < response.length; i++) {
+                    $(chooseDoctor).append('<option data-horario=\''+response[i].schedule+'\' value="' + response[i].id + '" onclick="chooseDoctor();return false;" >' + response[i].name + '</option>');
+                }                
+            }
+       });
+    }
+
+    function chooseDoctor(){
+        var parametros1={
+            "valor1":$('#chooseDoctor').find(':selected').val(),
+            };
+        console.log(parametros1);
+    }
+
+    $('#chooseDoctor').change(function(){
+        console.log($("#chooseDoctor option:selected").data('horario'));
+        var horario= $("#chooseDoctor option:selected").data('horario');
+
+        for (var i = 0; i < horario.length; i++) {
+            $("#location").append(
+                    "<tr>"
+                        +"<td>"+horario[i].day+"</td>"
+                        +"<td>"+horario[i].schedule_start+"</td>"
+                        +"<td>"+horario[i].schedule_end+"</td>"
+                    +"</tr>" )
+                }
+    })
+</script>
+
 @endsection
+    

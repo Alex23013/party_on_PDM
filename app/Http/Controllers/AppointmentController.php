@@ -18,6 +18,30 @@ class AppointmentController extends Controller
     public function ajax(){    
         return view('appointments.prueba_ajax');
     }
+    
+    public function ajax_php(){
+        $resultado = $_POST['valor1'];
+        return $resultado;
+    }
+
+    public function ajax_get_doctors(){
+        $u_doctors = Doctor::all();
+        $doctors=[];
+        foreach ($u_doctors as $doctor) {
+            if($doctor->specialty_id == $_POST['valor1']){
+                $schedule = Schedule::find($doctor->schedule_id);
+
+                $doctors[] =array(
+                        "name" => $doctor->user->name,
+                        "id" => $doctor->user->id,
+                        "specialty"=>$doctor->specialty_id,
+                        "schedule"=>$schedule->schedule,
+                    );     
+            }
+        }
+        return $doctors;
+    }
+
     public function index(){	
     	$appointments = DB::table('attentions')
                     ->join('appointments','attentions.id','=','appointments.attention_id')
@@ -38,7 +62,6 @@ class AppointmentController extends Controller
     }
     public function add(){
         $specialties = Specialty::all();
-        $u_doctors = Doctor::all();
         $u_patients = Patient::all();
         foreach ($u_patients as $patient) {
             $patients[] =array(
@@ -46,26 +69,10 @@ class AppointmentController extends Controller
                         "id" => $patient->user->id,
                     ); 
         }
-        foreach ($u_doctors as $doctor) {
-            //if($doctor->specialty_id = $specialty->id){
-                $doctors[] =array(
-                        "name" => $doctor->user->name,
-                        "id" => $doctor->user->id,
-                        "specialty"=>$doctor->specialty_id,
-                        "schedule_id"=>$doctor->schedule_id,
-                    );     
-          //  }
-        }
-       // 
-        $schedules = Schedule::find($doctors[0]['schedule_id']);
-        //$schedules=$schedules->schedule;
-        $content_schedule = json_decode($schedules->schedule);
-        $one = NULL;
-        return view('appointments.new_appointment')->with(compact('patients', 'doctors','specialties','content_schedule','one'));  
+        return view('appointments.new_appointment')->with(compact('patients', 'specialties'));  
     }
 
     public function store_real_time(Request $request){
-        dd($request->all());
         $rules1 = [
             'patient_user_id' => 'required',
             'doctor_user_id' => 'required',
@@ -114,87 +121,6 @@ class AppointmentController extends Controller
         return view('appointments.appointment_index')->with(compact('appointments','new'));
     }
 
-    public function store(Request $request){
-        if($request->choseSpecialty){
-            
-            $rules = [
-            'specialty_id' => 'required',
-            ];
-            $messages = [
-            'specialty_id.required' => 'Es necesario seleccionar una "especialidad"  para registrar una cita médica'
-            ];
-
-            $this->validate($request, $rules, $messages);
-            
-            $specialty = Specialty::find($request->specialty_id);
-            $specialties = Specialty::all();
-            $one = 1;
-            $u_doctors = Doctor::all();
-            $u_patients = Patient::all();
-            foreach ($u_patients as $patient) {
-                $patients[] =array(
-                            "name" => $patient->user->name,
-                            "id" => $patient->user->id,
-                        ); 
-            }
-            foreach ($u_doctors as $doctor) {
-                if($doctor->specialty_id = $specialty->id){
-                    $doctors[] =array(
-                            "name" => $doctor->user->name,
-                            "id" => $doctor->user->id,
-                        );     
-                }
-            }
-            return view('appointments.new_appointment')->with(compact('patients', 'doctors','specialty' ,'specialties','one'));
-        }else{ //store an appointment
-
-            $rules1 = [
-                'patient_user_id' => 'required',
-                'doctor_user_id' => 'required',
-                'motive' => 'required',
-                'address' => 'required',
-                'date' => 'required',
-                'time' => 'required',
-                ];
-            $messages1 = [
-                    'patient_user_id.required' => 'Es necesario ingresar un paciente para registrar una cita médica',
-                    'doctor_user_id.required' => 'Es necesario ingresar un doctor para registrar una cita médica',
-                    'motive.required' => 'Es necesario ingresar la descripcion del problema del paciente para registrar una cita médica',
-                    'address.required' => 'Es necesario ingresar una dirección para registrar una cita médica',
-                    'date.required' => 'Es necesario ingresar una fecha para registrar una cita médica',
-                    'time.required' => 'Es necesario ingresar una hora para registrar una cita médica',
-                ];  
-            $this->validate($request, $rules1, $messages1);
-
-            $attention = new Attention;
-            $patient = User::find($request->patient_user_id)->patient;
-            $attention->patient_id = $patient->id;
-            $attention->motive = $request->motive;
-            $attention->attention_code = "AT-".date("ymd");
-            $attention->address = $request->address;
-            $attention->reference = $request->reference;
-            $attention->type = 1;
-            $attention->save();
-            $attention->attention_code = $attention->attention_code.$attention->id;
-            $attention->save();
-            $appointment = New Appointment;
-            $appointment->attention_id = $attention->id;
-            $appointment->specialty_id = $request->specialty_id;
-            $doctor = User::find($request->doctor_user_id)->doctor;
-            $appointment->doctor_id = $doctor->id;
-            $appointment->date_time = $request->date." ".$request->time;
-            $appointment->save(); 
-
-            $appointments = DB::table('attentions')
-                    ->join('appointments','attentions.id','=','appointments.attention_id')
-                    ->join('patients','attentions.patient_id','=','patients.id')
-                    ->join('users','patients.user_id','=','users.id')
-                    ->get();
-            $new = $appointment;   
-            return view('appointments.appointment_index')->with(compact('appointments','new'));
-        }
-    }
-
     public function delete($id){
     	$attention = Attention::find($id);
     	$appointment = $attention->appointment;
@@ -221,7 +147,6 @@ class AppointmentController extends Controller
     }
 
     public function store_update(Request $request){
-        //dd($request->all());
         $data = $request->all();
         $attention = Attention::find($request->attention_id);
         unset($data['attention_id']);
