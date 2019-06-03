@@ -51,14 +51,14 @@
 	                  @endif
 	                  @if (Auth::user()->role == 0)
 	                  <td> 
-	                  	<a href="/techs/edit/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  	<a href="/techs/edit/{{$user->id}}" title="Editar"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
 
 	                  	@if ($user->active)
-	                  		<a href="/techs/{{$user->id}}/deactive"> <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  		<a href="/techs/{{$user->id}}/deactive" title="Desactivar" > <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@else
-	                  		<a href="/techs/{{$user->id}}/active"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  		<a href="/techs/{{$user->id}}/active" title="Activar"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@endif
-	                  	<a href="/techs/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este técnico?');"><i class="fa fa-trash"></i></button><a>
+	                  	<a href="/techs/remove/{{$user->id}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este técnico?');"><i class="fa fa-trash"></i></button><a>
 	                  @endif
 	                  </td>
 	                  </tr>  

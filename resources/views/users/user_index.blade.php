@@ -50,7 +50,7 @@
 	                  @endif
 	                  
 	                  <td> 
-	                  <a href="/users/see/{{$user->id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
+	                  <a href="/users/see/{{$user->id}}" title="Ver detalles" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
 	                  @if($user->role == 0)
 	                  	<a href="#"> <button  type="button" class="btn btn-info btn-flat disabled buttonSpace"><i class="fa fa-edit"></i></button></a>
 	                  	@if ($user->validated)
@@ -59,19 +59,19 @@
 	                  		<a href="#"> <button  type="button" class="btn btn-warning disabled btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@endif
 
-	                  	<a href="#"> <button  type="button" class="btn btn-danger btn-flat disabled buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-trash"></i></button></a>
+	                  	<a href="#" > <button  type="button" class="btn btn-danger btn-flat disabled buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-trash"></i></button></a>
 	                  @else
 	                  	@if ($user->role == 1 || $user->role == 2 ) 
-	                  		<a href="/users/edit/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  		<a href="/users/edit/{{$user->id}}" title="Editar"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
 	                  	@else
 	                  		<a href="#"> <button  type="button" class="btn btn-info btn-flat disabled buttonSpace"><i class="fa fa-edit"></i></button></a>
 	                  	@endif
 	                  	@if ($user->validated)
-	                  		<a href="/users/{{$user->id}}/deactive"> <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  		<a href="/users/{{$user->id}}/deactive" title="Desactivar" > <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@else
-	                  		<a href="/users/{{$user->id}}/active"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
+	                  		<a href="/users/{{$user->id}}/active" title="Activar"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa fa-power-off"></i></button></a>
 	                  	@endif
-	                  	<a href="/users/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-trash"></i></button><a>
+	                  	<a href="/users/remove/{{$user->id}}"  title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este usuario?');"><i class="fa fa-trash"></i></button><a>
 	                  @endif
 	                  </td>
 	                  </tr>  

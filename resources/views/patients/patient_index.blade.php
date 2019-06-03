@@ -44,12 +44,12 @@
 	                  <td><?=$user->dni?></td>
 	                  <td><?=$user->cellphone?></td>	                  
 	                  <td> 
-	                  <a href="/patients/detail/{{$user->id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
+	                  <a href="/patients/detail/{{$user->id}}" title="Ver detalles" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
 	                  
-	                  <a href="/patients/edit/{{$user->id}}"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  <a href="/patients/edit/{{$user->id}}" title="Editar"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
 	                  
 	                  @if(Auth::user()->role == 0)
-	                  <a href="/patients/remove/{{$user->id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este paciente?');"><i class="fa fa-trash"></i></button><a>
+	                  <a href="/patients/remove/{{$user->id}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este paciente?');"><i class="fa fa-trash"></i></button><a>
 	                  @endif
 	                  </td>
 	                  </tr>  

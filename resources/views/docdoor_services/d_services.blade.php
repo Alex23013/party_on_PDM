@@ -54,14 +54,14 @@
                       <td>Pendiente </td>
                     @endif
                     <td> 
-                      <a href="/d_services/detail/{{$d_service->d_service_id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
+                      <a href="/d_services/detail/{{$d_service->d_service_id}}" title="Ver detalles" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
 
                       @if ($d_service->complete)
                         <button  type="button" class="btn btn-success btn-flat buttonSpace disabled"><i class="fa fa-check-square-o"></i></button>
                       @else
-                        <a href="/d_services/{{$d_service->d_service_id}}/complete"> <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa  fa-square-o"></i></button></a>
+                        <a href="/d_services/{{$d_service->d_service_id}}/complete" title="Marcar como completado" > <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa  fa-square-o"></i></button></a>
                       @endif
-                      <a href="/d_services/remove/{{$d_service->d_service_id}}"> <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio Docdoor?');"><i class="fa fa-trash"></i></button><a>
+                      <a href="/d_services/remove/{{$d_service->d_service_id}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio Docdoor?');"><i class="fa fa-trash"></i></button><a>
                     </td>
                     </tr>  
                     <?php endforeach ?>  

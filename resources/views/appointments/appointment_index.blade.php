@@ -49,8 +49,8 @@
                     <td>{{$appointment->name}}</td>
                     
                     <td> 
-                      <a href="/appointments/detail/{{$appointment->attention_id}}"> <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
-                      <a href="/appointments/remove/{{$appointment->attention_id}}"><button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio Docdoor?');"><i class="fa fa-trash"></i></button><a>
+                      <a href="/appointments/detail/{{$appointment->attention_id}}" title="Ver detalles" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
+                      <a href="/appointments/remove/{{$appointment->attention_id}}" title="Eliminar"><button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio Docdoor?');"><i class="fa fa-trash"></i></button><a>
                     </td>
                     </tr>  
                     <?php endforeach ?>  

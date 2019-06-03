@@ -33,8 +33,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <!-- //font -->
 
-    <!-- jQuery 3 -->
+    <!-- jQuery 3 js/jquery-1.8.3.min.js -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+
     <!-- Bootstrap 3.3.7 -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -65,7 +66,25 @@
     <!-- SlimScroll -->
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
 
-  
+  <script>
+    function realizaProceso(valor1, valor2){
+        var parametros={
+            "valor1":valor1,
+            "valor2":valor2
+        };
+        $.ajax({
+            data:parametros,
+            url: 'datos.php',
+            type: 'post',
+            beforeSend: function(){
+                $("#resultado").html("Procesando,espere..");
+            },
+            success: function(response){
+                $("#resultado").html(response); 
+            }
+       });
+    }
+</script>
 </head>
 @if(Auth:: user()->avatar == "default.png")
    <?php  $url_image = "/images/".Auth:: user()->avatar?>
