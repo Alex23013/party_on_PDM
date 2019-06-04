@@ -61,18 +61,25 @@ class RestPatientsController extends Controller
     	}
     }
 
-    public function get_data($patient_id){
-    	$patient = Patient::find($patient_id);
-		if(!$patient){
-    		return response()
-				->json(['status' => '404', 
-						'message' => 'No se encontro el paciente solicitado']);	
+    public function get_data($user_id){
+    	$user = User::find($user_id);
+	    if($user->role != 3){
+	        return response()
+	          ->json(['status' => '404', 
+	              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
+	    }else{
+	        $patient = $user->patient;
+			if(!$patient){
+	    		return response()
+					->json(['status' => '404', 
+							'message' => 'No se encontro el paciente solicitado']);	
+	    	}
+	    	$user_patient = $patient->user;
+	    	return response()
+					->json(['status' => '200', 
+							'message' => 'Ok',
+							'content' => $patient]);
     	}
-    	$user_patient = $patient->user;
-    	return response()
-				->json(['status' => '200', 
-						'message' => 'Ok',
-						'content-patient' => $patient]);
     }
 
     public function profile(Request $request){
@@ -163,7 +170,14 @@ class RestPatientsController extends Controller
 	}
 
 	public function appointments(Request $request){
-		$atts = Attention::where('patient_id', $request->patient_id)->
+		$user = User::find($request->user_id);
+	    if($user->role != 3){
+	        return response()
+	          ->json(['status' => '404', 
+	              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
+	    }else{
+	        $patient = $user->patient;
+		$atts = Attention::where('patient_id', $patient->id)->
 		where('type', 1)->get();
 		$matched_apps=[];
 		foreach ($atts as $att) {
@@ -187,6 +201,7 @@ class RestPatientsController extends Controller
 				->json(['status' => '200', 
 						'message' => 'Ok',
 						'content' => $matched_apps]);
+		}
 	}
 
 }

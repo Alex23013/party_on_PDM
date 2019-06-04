@@ -13,32 +13,47 @@ use App\Schedule;
 
 class RestDoctorController extends Controller
 {
-	public function get_data($doctor_id){
-		$doctor = Doctor::find($doctor_id);
-    $user_doctor = $doctor->user;
-		if(!$doctor){
-    		return response()
-				->json(['status' => '404', 
-						'message' => 'No se encontro el doctor solicitado']);	
-    	}
-    	return response()
-				->json(['status' => '200', 
-						'message' => 'Ok',
-						'content-doctor' => $doctor]);
+	public function get_data($user_id){
+    $user = User::find($user_id);
+    if($user->role != 1){
+      return response()
+        ->json(['status' => '404', 
+            'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
+    }else{
+      $doctor = $user->doctor;//Doctor::find($doctor_id);
+      $user_doctor = $doctor->user;
+      if(!$doctor){
+          return response()
+          ->json(['status' => '404', 
+              'message' => 'No se encontro el doctor solicitado']); 
+        }
+        return response()
+          ->json(['status' => '200', 
+              'message' => 'Ok',
+              'content' => $doctor]);
+      }
 	}
 
-  public function get_schedule($doctor_id){
-    $doctor = Doctor::find($doctor_id);
-    if(!$doctor){
-        return response()
+  public function get_schedule($user_id){
+    $user = User::find($user_id);
+    if($user->role != 1){
+      return response()
         ->json(['status' => '404', 
-            'message' => 'No se encontro el doctor solicitado']); 
-      }
-    $schedule = Schedule::find($doctor->schedule_id);
+            'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
+    }else{
+      $doctor = $user->doctor;//Doctor::find($doctor_id);
+      $user_doctor = $doctor->user;
+      if(!$doctor){
+          return response()
+          ->json(['status' => '404', 
+              'message' => 'No se encontro el doctor solicitado']); 
+        }
+      $schedule = Schedule::find($doctor->schedule_id);
       return response()
         ->json(['status' => '200', 
             'message' => 'Ok',
             'content' => $schedule]);
+    }
   }
 
 	public function update_data(Request $request){
@@ -73,27 +88,35 @@ class RestDoctorController extends Controller
 				->json(['status' => '201', 
 						'message' => 'Ok']);
 	}
-    public function appointments_confirmed($doctor_id){
-    	$doctor = Doctor::find($doctor_id);
-    	if(!$doctor){
-    		return response()
-				->json(['status' => '404', 
-						'message' => 'No se encontro el doctor solicitado']);	
-    	}
-    	$appointments = $doctor->appointment;
-    	$appointments_confirmed=[];
-    	foreach ($appointments as $app) {
-            if($app->status == 1){
-            	$patient = Patient::find($app->attention->patient_id);
-					$appointments_confirmed[]= ['id' => $app->attention->id, 
-						"motive" => $app->attention->motive,
-						"name_patient" =>$patient->user->name,
-						"last_name_patient" =>$patient->user->last_name,]; 
-            }
-        }
+    public function appointments_confirmed($user_id){
+      $user = User::find($user_id);
+      if($user->role != 1){
         return response()
-				->json(['status' => '200', 
-						'message' => 'Ok',
-						'content' => $appointments_confirmed]);
+          ->json(['status' => '404', 
+              'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
+      }else{
+        $doctor = $user->doctor;//Doctor::find($doctor_id);
+        $user_doctor = $doctor->user;
+      	if(!$doctor){
+      		return response()
+  				->json(['status' => '404', 
+  						'message' => 'No se encontro el doctor solicitado']);	
+      	}
+      	$appointments = $doctor->appointment;
+      	$appointments_confirmed=[];
+      	foreach ($appointments as $app) {
+              if($app->status == 1){
+              	$patient = Patient::find($app->attention->patient_id);
+  					$appointments_confirmed[]= ['id' => $app->attention->id, 
+  						"motive" => $app->attention->motive,
+  						"name_patient" =>$patient->user->name,
+  						"last_name_patient" =>$patient->user->last_name,]; 
+              }
+          }
+          return response()
+  				->json(['status' => '200', 
+  						'message' => 'Ok',
+  						'content' => $appointments_confirmed]);
     }
+  }
 }
