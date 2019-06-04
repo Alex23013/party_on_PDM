@@ -83,50 +83,51 @@ class RestPatientsController extends Controller
     }
 
     public function profile(Request $request){
-    	$user = DB::table('users')
-                    ->where('id',$request->id)
-                    ->first(); 
-    	if($user != null ){
-    		$user = User::find($user->id);   
-    		$data = $request->all();
-	        unset($data['id']);
-	        foreach ($data as $key => $value) {
-	           if( $value == '' || $value == ' ' ){
-	           }else{ 
-	           		$pos_coincidence = strpos($key, 'c_');
-		           	if($pos_coincidence == false){
-		           		if($user->$key != $data[$key] ){
-		           			if($key == 'email'){
-		           				$user1 = DB::table('users')
-						                    ->where('email',$request->email)
-						                    ->first();
-						        if($user1){
-						        	return response()
-										->json(['status' => '406',
-												'message' => 'No se pudo actualizar los datos , el email ya tiene una cuenta asignada']);
-						        }
-		           			}
-	                		$user->$key=$data[$key];
-	                	}
-		           	}else{
-		           		$patient = DB::table('patients')
-				                    ->where('user_id',$user->id)
-				                    ->first(); 
-				        $patient = Patient::find($patient->id);
-		           		if($patient->$key != $data[$key] ){
-	                	$patient->$key=$data[$key];}
-		           	}	           	
-	           }
-	        }
-    		$user->save();
-    		$patient->save();
-    		return response()
-				->json(['status' => '200',
-						'message' => 'Ok']);
-    	}else{
-    		return response()
-				->json(['status' => '406',
-						'message' => 'No se pudo encontrar los datos del perfil del paciente solicitado']);
+    	$user = User::find($request->id);
+    	if($user->role != 3){
+	        return response()
+	          ->json(['status' => '404', 
+	              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
+	    }else{
+	    	$patient = $user->patient;
+	    	if($user != null ){
+	    		$user = User::find($user->id);   
+	    		$data = $request->all();
+		        unset($data['id']);
+		        foreach ($data as $key => $value) {
+		           if( $value == '' || $value == ' ' ){
+		           }else{ 
+		           		$pos_coincidence = strpos($key, 'c_');
+			           	if($pos_coincidence == false){
+			           		if($user->$key != $data[$key] ){
+			           			if($key == 'email'){
+			           				$user1 = DB::table('users')
+							                    ->where('email',$request->email)
+							                    ->first();
+							        if($user1){
+							        	return response()
+											->json(['status' => '406',
+													'message' => 'No se pudo actualizar los datos , el email ya tiene una cuenta asignada']);
+							        }
+			           			}
+		                		$user->$key=$data[$key];
+		                	}
+			           	}else{
+			           		if($patient->$key != $data[$key] ){
+		                	$patient->$key=$data[$key];}
+			           	}	           	
+		           }
+		        }
+	    		$user->save();
+	    		$patient->save();
+	    		return response()
+					->json(['status' => '200',
+							'message' => 'Ok']);
+	    	}else{
+	    		return response()
+					->json(['status' => '406',
+							'message' => 'No se pudo encontrar los datos del perfil del paciente solicitado']);
+	    	}
     	}	
     }
 
