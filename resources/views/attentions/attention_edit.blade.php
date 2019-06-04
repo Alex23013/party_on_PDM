@@ -141,7 +141,8 @@
     $('.timepicker').timepicker({
       showInputs: false,
       showSeconds: false,
-      showMeridian:false
+      showMeridian:false,
+      defaultTime:false
     })
 
     $('#datepicker').datepicker({

@@ -145,9 +145,14 @@ class AppointmentController extends Controller
         $intervals = explode(' ',$s_attention->date_time);   
         unset($data['app_id']);
         if($request->date == ""){
-            $date_time=$intervals[0].' '.$request->time.':00';
+            $date_time=$intervals[0];
         }else{
-            $date_time=$request->date.' '.$request->time.':00';    
+            $date_time=$request->date;    
+        }
+        if($request->time == ""){
+            $date_time=$date_time." ".$intervals[1];
+        }else{
+            $date_time=$date_time." ".$request->time.":00";    
         }
         
         unset($data['date']);
