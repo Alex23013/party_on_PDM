@@ -12,6 +12,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
 	    DB::table('users')->insert([
+	    			'id'=>1,
 	               'name' => "Test",
 	               'last_name'=>"Master",
 	               'dni'=>"02345678",
@@ -25,6 +26,7 @@ class UsersTableSeeder extends Seeder
 	           ]);
 
 	    DB::table('users')->insert([
+	    			'id'=>2,
 	               'name' => "Test",
 	               'last_name'=>"Doctor",
 	               'dni'=>"12345678",
@@ -37,6 +39,7 @@ class UsersTableSeeder extends Seeder
 	               'name_role' => 'Doctor',	               
 	           ]);
 	   	DB::table('doctors')->insert([
+	   			'id'=>1,
 	    		'user_id'=> 2,
 	    		'birth_at'=>"2019-04-16",
 	    		'address'=>"su casita",
@@ -44,6 +47,7 @@ class UsersTableSeeder extends Seeder
 	    	]);
 
 	    DB::table('users')->insert([
+	    			'id'=>3,
 	               'name' => "Test",
 	               'last_name'=>"Triaje",
 	               'dni'=>"22345678",
@@ -56,11 +60,13 @@ class UsersTableSeeder extends Seeder
 	               'name_role'=>'Triaje',	               
 	           ]);
 	    DB::table('triages')->insert([
+	    		'id'=>1,
 	    		'user_id'=> 3,
 	    		'is_a_doctor'=>0,
 	    	]);
 
 	    DB::table('users')->insert([
+	    			'id'=>4,
 	               'name' => "Test",
 	               'last_name'=>"Paciente",
 	               'dni'=>"32345678",
@@ -73,6 +79,7 @@ class UsersTableSeeder extends Seeder
 	               'name_role'=>'Paciente',              
 	           ]);
 	    DB::table('patients')->insert([
+	    		'id'=>1,
 	    		'user_id'=> 4,
 	    		'patient_code'=>"P-4-1n4d",
 	    		'birth_at'=>"2019-04-16",

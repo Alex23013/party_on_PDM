@@ -13,6 +13,7 @@ class AttentionsTableSeeder extends Seeder
     {
         // -------- Attentions ----------- //
         DB::table('attentions')->insert([
+            'id'=>1,
     		'attention_code'=>"AT-001",
             'patient_id'=>1,
             'motive'=> "solo es una consulta de prueba",
@@ -22,6 +23,7 @@ class AttentionsTableSeeder extends Seeder
         ]);
 
         DB::table('attentions')->insert([
+            'id'=>2,
     		'attention_code'=>"AT-002",
             'patient_id'=>1,
             'motive'=> "emergencia de prueba",
@@ -31,6 +33,7 @@ class AttentionsTableSeeder extends Seeder
         ]);
 
          DB::table('attentions')->insert([
+            'id'=>3,
             'attention_code'=>"AT-003",
             'patient_id'=>1,
             'motive'=> "otra cita medica de prueba",
@@ -44,6 +47,7 @@ class AttentionsTableSeeder extends Seeder
         // -------- appointments ----------- //
 
         DB::table('appointments')->insert([
+            'id'=>1,
             'attention_id'=>1,
             'specialty_id'=>1,
             'doctor_id'=>1,
@@ -52,6 +56,7 @@ class AttentionsTableSeeder extends Seeder
 
 
         DB::table('emergencies')->insert([
+            'id'=>1,
             'attention_id'=>2,
             'caller_name'=>"Juan",
             'caller_last_name'=>"Perez",
@@ -60,6 +65,7 @@ class AttentionsTableSeeder extends Seeder
         ]);
 
         DB::table('appointments')->insert([
+            'id'=>2,
             'attention_id'=>3,
             'specialty_id'=>2,
             'doctor_id'=>1,
@@ -70,6 +76,7 @@ class AttentionsTableSeeder extends Seeder
         //--------- emergencies ----------- //
 
         DB::table('uemergencies')->insert([
+            'id'=>1,
             'p_name'=>"Julia",
             'p_last_name'=>"cornejo",
             'p_dni'=>"12356784",
@@ -80,6 +87,7 @@ class AttentionsTableSeeder extends Seeder
         ]);
 
         DB::table('uemergencies')->insert([
+            'id'=>2,
             'p_name'=>"Julio",
             'p_last_name'=>"Ramirez",
             'p_dni'=>"12356782",

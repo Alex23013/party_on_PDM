@@ -12,6 +12,7 @@ class TechTableSeeder extends Seeder
     public function run()
     {
         DB::table('tusers')->insert([
+                  'id'=>1,
 	               'name' => "Tecnico 1",
 	               'last_name'=>"Test",
 	               'dni'=>"02345678",
@@ -19,6 +20,7 @@ class TechTableSeeder extends Seeder
 	               'active'=>'1',  
 	           ]);
         DB::table('tusers')->insert([
+                  'id'=>2,
                    'name' => "Tecnico 2",
                    'last_name'=>"Test",
                    'dni'=>"12345678",

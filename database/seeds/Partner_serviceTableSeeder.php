@@ -12,6 +12,7 @@ class Partner_serviceTableSeeder extends Seeder
     public function run()
     {
     	DB::table('partner_services')->insert([
+            'id'=>1,
     		'service_id'=> 1,
     		'partner_id'=>1,
     		'service_cost'=>20,
@@ -19,6 +20,7 @@ class Partner_serviceTableSeeder extends Seeder
         ]);
 
         DB::table('partner_services')->insert([
+            'id'=>2,
     		'service_id'=> 2,
     		'partner_id'=>1,
     		'service_cost'=>35,
@@ -26,6 +28,7 @@ class Partner_serviceTableSeeder extends Seeder
         ]);
 
         DB::table('partner_services')->insert([
+            'id'=>3,
             'service_id'=> 3,
             'partner_id'=>2,
             'service_cost'=>52,

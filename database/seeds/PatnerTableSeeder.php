@@ -12,6 +12,7 @@ class PatnerTableSeeder extends Seeder
     public function run()
     {
     	 DB::table('partners')->insert([
+            'id'=>1,
     	 	'partner_name'=> "farmacia_1",
     	 	'sector'=> 'health',
     	 	'social_reason' => 'SAC',
@@ -27,6 +28,7 @@ class PatnerTableSeeder extends Seeder
     	 	]);
 
     	 DB::table('partners')->insert([
+            'id'=>2,
     	 	'partner_name'=> "laboratorio_1",
     	 	'sector'=> 'health',
     	 	'social_reason' => 'SRL',

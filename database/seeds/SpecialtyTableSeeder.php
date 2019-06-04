@@ -12,16 +12,20 @@ class SpecialtyTableSeeder extends Seeder
     public function run()
     {
     	DB::table('specialties')->insert([
-                   'name' => "médico general",
+                    'id'=>1,
+                   'name' => "Médico general",
                ]);
         DB::table('specialties')->insert([
-	               'name' => "cardiologia",
+                    'id'=>2,
+	               'name' => "Cardiologia",
 	           ]);
     	DB::table('specialties')->insert([
-	               'name' => "pediatria",
+                    'id'=>3,
+	               'name' => "Pediatria",
 	           ]);
     	DB::table('specialties')->insert([
-	               'name' => "cirugia",
+                    'id'=>4,
+	               'name' => "Cirugia",
 	           ]);
     }
 }

@@ -12,6 +12,7 @@ class DServiceTableSeeder extends Seeder
     public function run()
     {
         DB::table('dservices')->insert([
+            'id'=>1,
         	'user_id'=> 4,
     		'service_id'=> 1,
     		'partner_id'=>1,
@@ -23,6 +24,7 @@ class DServiceTableSeeder extends Seeder
         ]);
 
         DB::table('dservices')->insert([
+            'id'=>2,
         	'user_id'=> 4,
     		'service_id'=> 2,
     		'partner_id'=>2,
