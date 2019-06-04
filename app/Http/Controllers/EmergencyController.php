@@ -154,14 +154,16 @@ class EmergencyController extends Controller
             $emergencies[]=array(
                         "attention_id"=>$attention->id,
                         "attention_code"=> $attention->attention_code,
-                        "name" => $patient->user->name
+                        "name" => $patient->user->name,
+                        "is_attention"=>1,
                         );
         }
         foreach ($all_uemergencies as $u_em ) {
             $emergencies[]=array(
                         "attention_id"=>$u_em->id,
                         "attention_code"=> "UEM-".$u_em->id,
-                        "name" => $u_em->p_name
+                        "name" => $u_em->p_name,
+                        "is_attention"=>2,
                         );
         }
         $new = $emergency;   
