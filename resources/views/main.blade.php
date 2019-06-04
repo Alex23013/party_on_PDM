@@ -85,17 +85,6 @@
                     </tr>            
                  <?php endforeach ?>  
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>Paciente</th>
-                  <th>Celular</th>
-                  <th>Mensaje</th>
-                  <th>Tipo</th>
-                  <th>Fecha de llamada</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
-                </tr>
-                </tfoot>
               </table>
 		      	</div>
       		</div>

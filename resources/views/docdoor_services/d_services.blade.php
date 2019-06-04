@@ -65,20 +65,7 @@
                     </td>
                     </tr>  
                     <?php endforeach ?>  
-                  
-                
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>Paciente</th>
-                  <th>Servicio</th>
-                  <th>Asociado</th>
-                  <th>Direccion inicio</th>
-                  <th>Direccion fin</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
