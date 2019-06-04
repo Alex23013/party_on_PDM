@@ -23,7 +23,7 @@ Route::get('/register/verify/{id}/{code}', 'UserController@verify');
 // ----  END_POINTS
 // ----- patients ----------- //
 Route::post('/api/v1/patient_register', 'RestPatientsController@register');
-Route::get('/api/v1/patient_get_data/{patient_id}', 'RestPatientsController@get_data');
+Route::get('/api/v1/patient_get_data/{user_id}', 'RestPatientsController@get_data');
 Route::post('/api/v1/patient_edit_profile', 'RestPatientsController@profile');
 Route::post('/api/v1/patient_inbox/','RestPatientsController@inbox');
 Route::post('/api/v1/patient_appointments/','RestPatientsController@appointments');
@@ -33,11 +33,12 @@ Route::post('/api/v1/patient_update_status_appointment/','RestPatientsController
 Route::post('/api/v1/user_login', 'RestUserController@login');
 Route::post('/api/v1/recover_password', 'RestUserController@recover');
 // ----- doctors ----------- //
+Route::get('/api/v1/doctor_specialties/', 'RestDoctorController@specialties');
 Route::post('/api/v1/doctor_update_data', 'RestDoctorController@update_data');
-Route::get('/api/v1/doctor_get_data/{doctor_id}', 'RestDoctorController@get_data');
-Route::get('/api/v1/doctor_get_schedule/{doctor_id}', 'RestDoctorController@get_schedule');
+Route::get('/api/v1/doctor_get_data/{user_id}', 'RestDoctorController@get_data');
+Route::get('/api/v1/doctor_get_schedule/{user_id}', 'RestDoctorController@get_schedule');
 
-Route::get('/api/v1/appointments_confirmed/{doctor_id}', 'RestDoctorController@appointments_confirmed');
+Route::get('/api/v1/appointments_confirmed/{user_id}', 'RestDoctorController@appointments_confirmed');
 // -------- END_POINTS
 
 //Techs 

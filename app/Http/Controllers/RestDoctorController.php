@@ -10,6 +10,7 @@ use App\Doctor;
 use App\Patient;
 use App\User;
 use App\Schedule;
+use App\Specialty;
 
 class RestDoctorController extends Controller
 {
@@ -20,8 +21,9 @@ class RestDoctorController extends Controller
         ->json(['status' => '404', 
             'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
     }else{
-      $doctor = $user->doctor;//Doctor::find($doctor_id);
+      $doctor = $user->doctor;
       $user_doctor = $doctor->user;
+      $specialtyName = Specialty::find($doctor->specialty_id);
       if(!$doctor){
           return response()
           ->json(['status' => '404', 
@@ -30,7 +32,8 @@ class RestDoctorController extends Controller
         return response()
           ->json(['status' => '200', 
               'message' => 'Ok',
-              'content' => $doctor]);
+              'specialtyName'=> $specialtyName->name,
+              'content' => $doctor,]);
       }
 	}
 
@@ -41,7 +44,7 @@ class RestDoctorController extends Controller
         ->json(['status' => '404', 
             'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
     }else{
-      $doctor = $user->doctor;//Doctor::find($doctor_id);
+      $doctor = $user->doctor;  
       $user_doctor = $doctor->user;
       if(!$doctor){
           return response()
@@ -49,11 +52,21 @@ class RestDoctorController extends Controller
               'message' => 'No se encontro el doctor solicitado']); 
         }
       $schedule = Schedule::find($doctor->schedule_id);
+      $scheduleContent = json_decode($schedule->schedule);
       return response()
         ->json(['status' => '200', 
             'message' => 'Ok',
-            'content' => $schedule]);
+            'content' => $scheduleContent]);
     }
+  }
+
+  public function specialties(){
+    $db_specialties = Specialty::all();
+    
+    return response()
+        ->json(['status' => '200', 
+            'message' => 'Ok',
+            'content' => $db_specialties]);
   }
 
 	public function update_data(Request $request){
