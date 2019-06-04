@@ -87,7 +87,7 @@ Route::get('/p_services/{id_P}/{id}/active', 'Partner_serviceController@active')
 Route::get('/p_services/{id_P}/{id}/deactive', 'Partner_serviceController@deactive');
 Route::get('/p_services/remove/{id_P}/{id}', 'Partner_serviceController@delete');
 
-Route::get('/toCapitalLetters', 'Partner_serviceController@toCapital');
+//Route::get('/toCapitalLetters', 'Partner_serviceController@toCapital');
 
 //d_services
 Route::get('/d_services', 'DocDoor_serviceController@index');
