@@ -108,7 +108,7 @@
                             <div class="col-md-6">
                                 <select class="form-control" name = "specialty" >
                                     @foreach($specialties as $s)
-                                      <option value="<?=$s->name?>"><?=$s->name?></option>
+                                      <option value="<?=$s->id?>"><?=$s->name?></option>
                                     @endforeach
                                 </select>
                             </div>
