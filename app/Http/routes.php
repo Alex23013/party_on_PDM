@@ -136,3 +136,8 @@ Route::post('/appointments/edit', 'AppointmentController@store_update');
 Route::get('/appointments/remove/{id}', 'AppointmentController@delete');
 
 Route::post('/ajax_get_doctors_per_specialty','AppointmentController@ajax_get_doctors');
+
+// tcalls of the traige main-menu
+Route::get('/tcalls/complete/{id}', 'TCallController@complete');
+Route::get('/tcalls/remove/{id}', 'TCallController@delete');
+

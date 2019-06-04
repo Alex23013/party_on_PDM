@@ -35,6 +35,7 @@ class HomeController extends Controller
                     if($tc->patient_id){
                         $patient = Patient::find($tc->patient_id);
                         $tcalls[]=array(
+                        "id"=>    $tc->id,
                         "name" => $patient->user->name,
                         "patient_cell" => $tc->patient_cell,
                         "message"=>$tc->message,
@@ -44,6 +45,7 @@ class HomeController extends Controller
                         );   
                     }else{
                         $tcalls[]=array(
+                        "id"=>    $tc->id,
                         "name" =>"",                            
                         "patient_cell" => $tc->patient_cell,
                         "message"=>$tc->message,
