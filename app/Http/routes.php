@@ -40,8 +40,6 @@ Route::get('/api/v1/doctor_get_schedule/{doctor_id}', 'RestDoctorController@get_
 Route::get('/api/v1/appointments_confirmed/{doctor_id}', 'RestDoctorController@appointments_confirmed');
 // -------- END_POINTS
 
-Route::get('ajax', 'AppointmentController@ajax');
-Route::post('ajax', 'AppointmentController@ajax');
 //Techs 
 Route::get('/techs', 'TuserController@index');
 Route::get('/techs/add', 'TuserController@add');
@@ -119,12 +117,13 @@ Route::post('/users/especific/edit', 'UserController@store_especific_edit');
 
 //emergencies
 Route::get('/emergency', 'EmergencyController@index');
-Route::get('/emergency/detail/{id}', 'EmergencyController@detail');
+Route::get('/emergency/detail/{id}/{is_attention}', 'EmergencyController@detail');
 Route::get('/emergency/add', 'EmergencyController@add');
 Route::get('/u/emergency/add', 'EmergencyController@add_unregisted_emergency');
 Route::post('/u/emergency', 'EmergencyController@store_unregisted_emergency');
 Route::post('/emergency', 'EmergencyController@store');
-Route::get('/emergency/remove/{id}', 'EmergencyController@delete');
+Route::get('/emergency/remove/{id}/{is_attention}', 'EmergencyController@delete');
+
 
 //appointments
 Route::get('/appointments', 'AppointmentController@index');

@@ -44,7 +44,7 @@
                                 </select>
                                 <a href="/patients/add/1">  
                                 <button type="button" class="btn  bg-purple margin">
-                                <i class="fa fa-user-plus"></i>
+                                <i class="fa fa-user-plus"></i> Registrar un nuevo paciente
                                 </button>
                               </a>
                             </div>

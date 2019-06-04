@@ -15,15 +15,6 @@ use App\Schedule;
 
 class AppointmentController extends Controller
 {
-    public function ajax(){    
-        return view('appointments.prueba_ajax');
-    }
-    
-    public function ajax_php(){
-        $resultado = $_POST['valor1'];
-        return $resultado;
-    }
-
     public function ajax_get_doctors(){
         $u_doctors = Doctor::all();
         $doctors=[];

@@ -15,20 +15,41 @@ use App\Uemergency;
 class EmergencyController extends Controller
 {
     public function index(){	
-    	$emergencies = DB::table('attentions')
-                    ->join('emergencies','attentions.id','=','emergencies.attention_id')
-                    ->join('patients','attentions.patient_id','=','patients.id')
-                    ->join('users','patients.user_id','=','users.id')
-                    ->get();
+        $all_emergencies = Emergency::all();
+        $all_uemergencies = Uemergency::all();
+        foreach ($all_emergencies as $em ) {
+            $attention = $em->attention;
+            $patient = Patient::find($attention->patient_id);
+            $emergencies[]=array(
+                        "attention_id"=>$attention->id,
+                        "attention_code"=> $attention->attention_code,
+                        "name" => $patient->user->name,
+                        "is_attention"=>1,
+                        );
+        }
+        foreach ($all_uemergencies as $u_em ) {
+            $emergencies[]=array(
+                        "attention_id"=>$u_em->id,
+                        "attention_code"=> "UEM-".$u_em->id,
+                        "name" => $u_em->p_name,
+                        "is_attention"=>0,
+                        );
+        }
     	$new = NULL;   
         return view('emergencies.emergency_index')->with(compact('emergencies','new'));
     }
 
-    public function detail($id){
-    	$attention = Attention::find($id);
-    	$s_attention = $attention->emergency;
-        $user_patient = $attention->patient->user;
-    	return view('attentions.attention_detail')->with(compact('s_attention','attention','user_patient'));
+    public function detail($id,$is_attention){
+        if($is_attention){
+            $attention = Attention::find($id);
+            $s_attention = $attention->emergency;
+            $user_patient = $attention->patient->user;
+            return view('attentions.attention_detail')->with(compact('s_attention','attention','user_patient'));
+        }else{
+            $u_emergency = Uemergency::find($id);
+            return view('attentions.uemergency_detail')->with(compact('u_emergency'));
+        }
+    	
     }
 
     public function add_unregisted_emergency(){
@@ -125,29 +146,38 @@ class EmergencyController extends Controller
         }  
         $emergency->save();
 
-        $emergencies = DB::table('attentions')
-                    ->join('emergencies','attentions.id','=','emergencies.attention_id')
-                    ->join('patients','attentions.patient_id','=','patients.id')
-                    ->join('users','patients.user_id','=','users.id')
-                    ->get();
+        $all_emergencies = Emergency::all();
+        $all_uemergencies = Uemergency::all();
+        foreach ($all_emergencies as $em ) {
+            $attention = $em->attention;
+            $patient = Patient::find($attention->patient_id);
+            $emergencies[]=array(
+                        "attention_id"=>$attention->id,
+                        "attention_code"=> $attention->attention_code,
+                        "name" => $patient->user->name
+                        );
+        }
+        foreach ($all_uemergencies as $u_em ) {
+            $emergencies[]=array(
+                        "attention_id"=>$u_em->id,
+                        "attention_code"=> "UEM-".$u_em->id,
+                        "name" => $u_em->p_name
+                        );
+        }
         $new = $emergency;   
         return view('emergencies.emergency_index')->with(compact('emergencies','new'));
     }
 
-    public function delete($id){
-    	$attention = Attention::find($id);
-    	$emergency = $attention->emergency;
-    	$emergency->delete();
-    	Attention::destroy($id);
+    public function delete($id,$is_attention){
+        if($is_attention){
+            $attention = Attention::find($id);
+            $emergency = $attention->emergency;
+            $emergency->delete();
+            Attention::destroy($id);
+        }else{
+            Uemergency::destroy($id);    
+        }
+    	
         return redirect('/emergency');
     }
-
-    /*public function update($id){
-        $attention = Attention::find($id);
-        $s_attention = $attention->emergency;
-        $user_patient = $attention->patient->user;
-        return view('attentions.attention_edit')->with(compact('s_attention','attention','user_patient'));
-    }
-
-    public function store_update(Request $request){}*/
 }
