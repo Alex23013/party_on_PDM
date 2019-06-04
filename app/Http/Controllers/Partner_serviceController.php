@@ -11,6 +11,24 @@ use App\Http\Requests;
 
 class Partner_serviceController extends Controller
 {
+    public function toCapital(){
+        $s1 = Service::where('service_name', 'delivery')->first();
+        if($s1){
+            $s1->service_name = "Delivery";
+            $s1->save();    
+        }
+        $s2 = Service::where('service_name', 'diagnostico')->first();
+        if($s2){
+        $s2->service_name = "Diagnóstico";
+        $s2->save();
+        }
+        $s3 = Service::where('service_name', 'analisis de sangre')->first();
+        if($s3){
+        $s3->service_name = "Análisis de sangre";
+        $s3->save();
+        }
+        return "services_names to capital letters process finished";
+    }
     public function index($idPartner)
  	{
         $services =  DB::table('services')
