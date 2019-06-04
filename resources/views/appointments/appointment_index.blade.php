@@ -70,15 +70,3 @@
         
 
 @endsection
-
-
-@section('specific scripts')
-<script>
-  $(document).ready(function() {
-    $('#example1').DataTable({
-      "sSearch":"Busqueda"
-    })
-  })
-</script>
-
-@endsection
