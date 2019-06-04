@@ -57,15 +57,21 @@ class RestDoctorController extends Controller
   }
 
 	public function update_data(Request $request){
-		$doctor = Doctor::find($request->doctor_id);
+    $user = User::find($request->user_id);
+    if($user->role != 1){
+      return response()
+        ->json(['status' => '404', 
+            'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
+    }else{
+      $doctor = $user->doctor;//Doctor::find($doctor_id);
+      $user_doctor = $doctor->user;
 		if(!$doctor){
     		return response()
 				->json(['status' => '404', 
 						'message' => 'No se encontro el doctor solicitado']);	
     	}
-        $user = User::find($doctor->user_id);
         $data = $request->all();
-		unset($data['doctor_id']);
+		unset($data['user_id']);
         $i = 0;
         foreach ($data as $key => $value) {
            if( $value == '' || $value == ' ' ){
@@ -87,7 +93,8 @@ class RestDoctorController extends Controller
         return response()
 				->json(['status' => '201', 
 						'message' => 'Ok']);
-	}
+  	}
+  }
     public function appointments_confirmed($user_id){
       $user = User::find($user_id);
       if($user->role != 1){
