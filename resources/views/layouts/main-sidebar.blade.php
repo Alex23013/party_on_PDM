@@ -58,6 +58,11 @@
           <!--menu triaje-->
           @if( Auth::user()->role == 2)
           <li>
+            <a href="/">
+               <span>MENU PRINCIPAL</span>
+            </a>
+          </li>
+          <li>
             <a href="/techs">
               <i class="glyphicon glyphicon-user"></i> <span>Técnicos</span>
             </a>
