@@ -29,8 +29,8 @@ class Partner_serviceController extends Controller
     public function store($id_P,Request $request){
         $rules = [
             'service_name' => 'required|min:2|max:25|unique:services',
-            'service_cost' => 'required',
-            'docdoor_cost' => 'required',
+            'service_cost' => 'required|numeric',
+            'docdoor_cost' => 'required|numeric',
         ];
 
         $messages = [
@@ -40,8 +40,10 @@ class Partner_serviceController extends Controller
             'service_name.unique' => 'Ya existe un servicio registrado con este Nombre',
 
             'service_cost.required' => 'Es necesario ingresar un costo para el servicio para registrar a un asociado',
+            'service_cost.numeric' => 'El costo para el servicio debe ser un número',
 
             'docdoor_cost.required' => 'Es necesario ingresar un costo de ganancia para DocDoor para registrar a un asociado',
+            'docdoor_cost.numeric' => 'El costo de ganancia para DocDoor debe ser un número',
         ];
 
         $this->validate($request, $rules, $messages);   
