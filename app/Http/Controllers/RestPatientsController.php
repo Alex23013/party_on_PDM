@@ -83,7 +83,7 @@ class RestPatientsController extends Controller
     }
 
     public function profile(Request $request){
-    	$user = User::find($request->user_id);
+    	$user = User::find($request->id);
     	if($user->role != 3){
 	        return response()
 	          ->json(['status' => '404', 
