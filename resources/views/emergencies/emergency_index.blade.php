@@ -14,6 +14,7 @@
             <div class="box-header mm-left ">
             <h2>Lista de Emergencias de Docdoor</h2>
             <br>
+            <div class="col-xs-12">
             <a href="/emergency/add">  
                 <button type="button" class="btn  bg-olive margin">
                  <h5 ><i class="fa fa-plus"></i>  Añadir una Emergencia de usuario REGISTRADO </h5>
@@ -24,6 +25,7 @@
                  <h5 ><i class="fa fa-plus"></i>  Añadir una Emergencia de usuario <b>SIN REGISTRAR</b></h5>
                 </button>
               </a>
+            </div>  
           </div>
             <!-- /.box-header -->
             <div class="box-body ">
@@ -33,7 +35,8 @@
               <h4>Nueva emergencia registrada </h4>
             </div>
           @endif
-              <table id="example1" class="table table-bordered table-striped mm-left">
+          <div class="col-xs-12">
+              <table class="table table-bordered table-striped mm-left DataTable">
                 <thead>
                 <tr>
                   <th>Código de Atención</th>
@@ -54,17 +57,9 @@
                     </td>
                     </tr>  
                     <?php endforeach ?>  
-                  
-                
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>Paciente</th>
-                  <th>Servicio</th>
-                  <th>Asociado</th>
-                </tr>
-                </tfoot>
               </table>
+              </div>
             </div>
             <!-- /.box-body -->
           </div>

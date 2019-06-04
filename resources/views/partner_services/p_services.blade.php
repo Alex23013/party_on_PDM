@@ -21,7 +21,8 @@
 			    <h4>Nuevo servicio agregado</h4>
 			  </div>
 			@endif
-			 <table class="table table-bordered table-striped mm-left">
+			<div class="col-xs-12">
+			 <table class="table table-bordered table-striped mm-left DataTable">
                 <thead>
                 <tr>
 	                  <th>Nombre</th>
@@ -56,6 +57,7 @@
                   
                 </tbody>
               </table>
+              </div>
             <a href="/p_services/{{$id_P}}/add">  
                 <button type="button" class="btn  bg-olive margin">
                  <h5 ><i class="fa fa-plus"></i>  Añadir un Servicio</h5>

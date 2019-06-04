@@ -40,7 +40,7 @@
 			      	<img src="/images/medic_date.png" style="width: 100%;"></div>
 		      	</div>
 		      	<div>
-		      		<table id="example1" class="table table-bordered table-striped mm-left ">
+		      		<table  class="table table-bordered table-striped mm-left DataTable">
                 <thead>
                 <tr>
                   <th>Paciente</th>

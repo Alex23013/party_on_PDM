@@ -28,7 +28,7 @@
               <h4>Nueva solicitud</h4>
             </div>
           @endif
-              <table id="example1" class="table table-bordered table-striped mm-left">
+              <table class="table table-bordered table-striped mm-left DataTable">
                 <thead>
                 <tr>
                   <th>Paciente</th>
@@ -75,25 +75,5 @@
         <!-- /.col -->
       </div>
         
-
-@endsection
-
-
-@section('specific scripts')
-<script>
-  $(document).ready(function() {
-    $('#example1').DataTable({
-      "sSearch":"Busqueda"
-    })
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
 
 @endsection

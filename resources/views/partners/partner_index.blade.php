@@ -29,7 +29,8 @@
 			    <h4>Nuevo asociado añadido </h4>
 			  </div>
 			@endif
-			 <table class="table table-bordered table-striped mm-left">
+			<div class="col-xs-12">
+			 <table class="table table-bordered table-striped mm-left DataTable">
                 <thead>
                 <tr>
 	                  <th>Nombre</th>
@@ -60,6 +61,7 @@
                   
                 </tbody>
               </table>
+              </div>
 	        </div>
             <!-- /.box-body -->
         </div>

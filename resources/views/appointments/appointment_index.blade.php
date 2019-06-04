@@ -33,7 +33,8 @@
               <h4>Nueva cita añadida </h4>
             </div>
           @endif
-              <table id="example1" class="table table-bordered table-striped mm-left">
+          <div class="col-xs-12">
+              <table  class="table table-bordered table-striped mm-left DataTable">
                 <thead>
                 <tr>
                   <th>Código de Atención</th>
@@ -57,14 +58,8 @@
                   
                 
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>Paciente</th>
-                  <th>Servicio</th>
-                  <th>Asociado</th>
-                </tr>
-                </tfoot>
               </table>
+              </div>
             </div>
             <!-- /.box-body -->
           </div>

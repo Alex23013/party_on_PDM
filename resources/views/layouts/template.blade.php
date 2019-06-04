@@ -109,6 +109,26 @@
 
 @yield('specific scripts')  
 
+<script>
+    $(function () {
+        $('.DataTable').DataTable({
+        'paging' : true,
+        'lengthChange': false,
+        'searching' : true,
+        'ordering' : true,
+        'info' : false,
+        'autoWidth' : false,
+        'responsive': true,
+        "language": {
+            "search": "Buscar",
+            "paginate": {
+            "previous": "Anterior",
+            "next": "Siguiente",
+            }
+            }
+        })
+    })
+</script> 
 
 </body>
 </html>
