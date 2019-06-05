@@ -34,7 +34,7 @@ class DoctorController extends Controller
         $doctor_name = $doctor_user->name;
         $doctor_schedule = [];
                 $days=["lunes","martes","miercoles","jueves","viernes","sabado","domingo"];
-                for ($i=0; $i < 6; $i++) { 
+                for ($i=0; $i < 7; $i++) { 
                     $doctor_schedule[] = [
                     'day'=> $days[$i],
                     'schedule_start'=>'',
@@ -74,7 +74,7 @@ class DoctorController extends Controller
         $schedule->doctor_id = $doctor->id;
         $days=["lunes","martes","miercoles","jueves","viernes","sabado","domingo"];
         $doctor_schedule = [];
-        for ($i=0; $i < 6; $i++) { 
+        for ($i=0; $i < 7; $i++) { 
             if($request->days && in_array($days[$i], $request->days)){
                 if($request->starts[$i]!= '' && $request->ends[$i]!= ''){
                    $doctor_schedule[] = [

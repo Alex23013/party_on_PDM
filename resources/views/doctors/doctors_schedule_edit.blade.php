@@ -5,9 +5,6 @@
 .mm-left{
     margin-left: 3%;
   }
-.m-left{
-  margin-left: 70%;
-}  
 .m-quarter-left{
   margin-left: 25%;
 }
