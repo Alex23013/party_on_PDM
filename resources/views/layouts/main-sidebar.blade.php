@@ -113,12 +113,17 @@
             </a>
           </li>
           <li>
-            <a href="#">
-              <i class="fa fa-list"></i> <span>Lista de citas reservadas</span>
+            <a href="/patients/appointments/0">
+              <i class="fa fa-list"></i> <span>Lista de citas por confirmar</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/patients/appointments/1">
+              <i class="fa fa-list"></i> <span>Lista de citas confirmadas</span>
+            </a>
+          </li>
+          <li>
+            <a href="/patients/appointments/2">
               <i class="fa fa-stethoscope"></i> <span>Historial de citas</span>
             </a>
           </li>

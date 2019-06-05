@@ -68,6 +68,12 @@ Route::post('/patients', 'PatientController@store');
 Route::get('/patients/remove/{id}', 'PatientController@delete');
 Route::get('/patients/edit/{id}', 'PatientController@update');
 Route::post('/patients/edit', 'PatientController@store_update');
+//future middleware for role patient
+Route::get('/patients/update_status_appointment/{app_id}/{new_status}', 'PatientController@update_status_appointment');
+Route::get('/patients/appointments/{app_status}', 'PatientController@appointments');
+Route::post('/patients/new_inbox', 'PatientController@inbox');
+
+
 
 
 //Doctors_schedule

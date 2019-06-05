@@ -8,6 +8,8 @@ use App\User;
 use App\Doctor;
 use App\Specialty;
 use App\Http\Requests;
+use App\Attention;
+use App\Appointment;
 use Auth;
 
 class PatientController extends Controller
@@ -129,8 +131,6 @@ class PatientController extends Controller
         }  else{
             return view('patients.patient_index')->with(compact('users','new'));    
         }
-        
-
     }
 
     public function update($id){
@@ -172,6 +172,7 @@ class PatientController extends Controller
     	$user->save();
     	return redirect('/patients');
     }
+
     public function delete($id)
     {
     	$user = User::find($id);
@@ -179,5 +180,58 @@ class PatientController extends Controller
      	Patient::destroy($patient->id);
         User::destroy($id);
         return redirect('/patients');
+    }
+
+    public function update_status_appointment($app_id,$new_status){  
+        $app = Appointment::find($app_id);
+        if($app){
+            $app->status = $new_status;
+            $app->save();
+        }
+        return $app;
+    } 
+
+    public function inbox(Request $request){
+        $inbox = New Tcall;
+        $data = $request->all();
+        foreach ($data as $key => $value) {
+           if( $value == '' || $value == ' ' ){
+           }else{
+                if($key == "patient_id"){
+                    $patient = Patient::find($data[$key]);
+                }
+                $inbox->$key=$data[$key];   
+            }
+        }
+        $inbox->save();
+        return $inbox;
+    }  
+
+    public function appointments($app_status){
+        $user = User::find(Auth::user()->id);
+        /*if($user->role != 3){ //TODO: hacer el middleware del paciente
+            return response()
+              ->json(['status' => '404', 
+                  'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
+        }else{*/
+        $patient = $user->patient;
+        $atts = Attention::where('patient_id', $patient->id)->
+        where('type', 1)->get();
+        $matched_apps=[];
+        foreach ($atts as $att) {
+            $app = Appointment::where('attention_id',$att->id)->first();
+            if($app->status == $app_status){
+                $specialty = Specialty::find($app->specialty_id);
+                $specialty_name =$specialty->name; 
+                $doctor = Doctor::find($app->doctor_id);
+                $matched_apps[]=[
+                'specialty' => $specialty_name, 
+                'doctor_name' =>$doctor->user->name,
+                'date_time' =>$app->date_time,
+                ]; 
+            }
+        }
+        return $matched_apps;
+        //}
     }
 }
