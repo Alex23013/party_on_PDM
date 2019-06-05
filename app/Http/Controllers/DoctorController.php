@@ -64,7 +64,6 @@ class DoctorController extends Controller
 
     public function store_update(Request $request){
         $doctor = Doctor::find($request->doctor_id);
-        //dd($request->all());
         $doctor->all_day = $request->all_day;
         $old_schedule = Schedule::find( $doctor->schedule_id );
         $old_schedule->active=0;
@@ -76,19 +75,21 @@ class DoctorController extends Controller
         $doctor_schedule = [];
         for ($i=0; $i < 7; $i++) { 
             if($request->days && in_array($days[$i], $request->days)){
-                if($request->starts[$i]!= '' && $request->ends[$i]!= ''){
-                   $doctor_schedule[] = [
-                    'day'=> $days[$i],
-                    'schedule_start'=>$request->starts[$i],
-                    'schedule_end'=>$request->ends[$i],
-                ]; 
+                if($request->starts[$i]!= ''){
+                    $d_start = $request->starts[$i];
                 }else{
-                    $doctor_schedule[] = [
+                    $d_start = $request->real_starts[$i];
+                }
+                if($request->ends[$i]!= ''){
+                    $d_end = $request->ends[$i];
+                }else{
+                    $d_end = $request->real_ends[$i];
+                }
+                $doctor_schedule[] = [
                     'day'=> $days[$i],
-                    'schedule_start'=>$request->real_starts[$i],
-                    'schedule_end'=>$request->real_ends[$i],
-                ]; 
-                }                
+                    'schedule_start'=>$d_start,
+                    'schedule_end'=>$d_end,
+                ];              
             }
             else{
                $doctor_schedule[] = [
