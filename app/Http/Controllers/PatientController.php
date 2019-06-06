@@ -10,6 +10,7 @@ use App\Specialty;
 use App\Http\Requests;
 use App\Attention;
 use App\Appointment;
+use App\Tcall;
 use Auth;
 
 class PatientController extends Controller
@@ -191,9 +192,23 @@ class PatientController extends Controller
         return $app;
     } 
 
+    public function inbox_emergency(){
+        $u_patients = Patient::all();
+        foreach ($u_patients as $patient) {
+            $users[] =array(
+                        "name" => $patient->user->name,
+                        "id" => $patient->user->id,
+                    ); 
+        }
+
+        return view('tcalls.new_inbox_emergency')->with(compact('users'));     
+    }
+
     public function inbox(Request $request){
+
         $inbox = New Tcall;
         $data = $request->all();
+        unset($data['_token']);
         foreach ($data as $key => $value) {
            if( $value == '' || $value == ' ' ){
            }else{

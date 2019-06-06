@@ -103,7 +103,7 @@
           <!--menu paciente-->
           @if( Auth::user()->role == 3)
           <li>
-            <a href="#">
+            <a href="/patients/new_inbox_emergency">
               <i class="fa fa-ambulance"></i> <span>Llamada de Emergencia</span>
             </a>
           </li>

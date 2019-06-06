@@ -71,7 +71,9 @@ Route::post('/patients/edit', 'PatientController@store_update');
 //future middleware for role patient
 Route::get('/patients/update_status_appointment/{app_id}/{new_status}', 'PatientController@update_status_appointment');
 Route::get('/patients/appointments/{app_status}', 'PatientController@appointments');
+Route::get('/patients/new_inbox_emergency', 'PatientController@inbox_emergency');
 Route::post('/patients/new_inbox', 'PatientController@inbox');
+
 
 
 
