@@ -20,7 +20,7 @@ Route::get('/profile', 'UserController@profile');
 // E-mail verification
 Route::get('/register/verify/{id}/{code}', 'UserController@verify');
 
-// ----  END_POINTS
+// ----  END_POINTS V1
 // ----- patients ----------- //
 Route::post('/api/v1/patient_register', 'RestPatientsController@register');
 Route::get('/api/v1/patient_get_data/{user_id}', 'RestPatientsController@get_data');
@@ -39,7 +39,11 @@ Route::get('/api/v1/doctor_get_data/{user_id}', 'RestDoctorController@get_data')
 Route::get('/api/v1/doctor_get_schedule/{user_id}', 'RestDoctorController@get_schedule');
 
 Route::get('/api/v1/appointments_confirmed/{user_id}', 'RestDoctorController@appointments_confirmed');
-// -------- END_POINTS
+// -------- END_POINTS_V1
+
+// ----  END_POINTS V2
+Route::post('/api/v2/user_login', 'RestUserController@login_v2');
+// -------- END_POINTS_V2
 
 //Techs 
 Route::get('/techs', 'TuserController@index');
