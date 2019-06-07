@@ -116,7 +116,7 @@
               <div class="col-md-3">
               <img src="/images/medic_date.png" style="width: 100%;"></div>
               <div class="col-md-3" style="margin-top: 40px;">
-                <a href="#"> 
+                <a href="/patients/new_inbox_appointment"> 
                      <button class="callout callout-info margin">
                      <h2><i class="fa fa-plus"></i>  Cita Médica </h2>
                     </button>

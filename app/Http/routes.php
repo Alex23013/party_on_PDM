@@ -72,6 +72,7 @@ Route::post('/patients/edit', 'PatientController@store_update');
 Route::get('/patients/update_status_appointment/{app_id}/{new_status}', 'PatientController@update_status_appointment');
 Route::get('/patients/appointments/{app_status}', 'PatientController@appointments');
 Route::get('/patients/new_inbox_emergency', 'PatientController@inbox_emergency');
+Route::get('/patients/new_inbox_appointment', 'PatientController@inbox_appointment');
 Route::post('/patients/new_inbox', 'PatientController@inbox');
 
 

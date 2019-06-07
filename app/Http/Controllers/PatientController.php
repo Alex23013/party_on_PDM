@@ -189,64 +189,65 @@ class PatientController extends Controller
             $app->status = $new_status;
             $app->save();
         }
+        if($new_status == 3){
+            return redirect('/patients/appointments/0');
+        }
+        else{
+            return redirect('/patients/appointments/'.$new_status);
+        }
         return $app;
     } 
 
     public function inbox_emergency(){
-        $u_patients = Patient::all();
-        foreach ($u_patients as $patient) {
-            $users[] =array(
-                        "name" => $patient->user->name,
-                        "id" => $patient->user->id,
-                    ); 
-        }
+        return view('patients_options.new_inbox_emergency');     
+    }
 
-        return view('tcalls.new_inbox_emergency')->with(compact('users'));     
+    public function inbox_appointment(){
+        return view('patients_options.new_inbox_appointment');     
     }
 
     public function inbox(Request $request){
-
         $inbox = New Tcall;
         $data = $request->all();
         unset($data['_token']);
         foreach ($data as $key => $value) {
            if( $value == '' || $value == ' ' ){
            }else{
-                if($key == "patient_id"){
-                    $patient = Patient::find($data[$key]);
-                }
-                $inbox->$key=$data[$key];   
+                $inbox->$key=$data[$key]; 
             }
         }
+        $user = User::find(Auth::user()->id);
+        $inbox->patient_cell = $user->cellphone;
+        $inbox->patient_id = $user->patient->id;
         $inbox->save();
-        return $inbox;
+        return redirect('/');
     }  
 
     public function appointments($app_status){
         $user = User::find(Auth::user()->id);
-        /*if($user->role != 3){ //TODO: hacer el middleware del paciente
-            return response()
-              ->json(['status' => '404', 
-                  'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
-        }else{*/
         $patient = $user->patient;
         $atts = Attention::where('patient_id', $patient->id)->
         where('type', 1)->get();
         $matched_apps=[];
         foreach ($atts as $att) {
             $app = Appointment::where('attention_id',$att->id)->first();
-            if($app->status == $app_status){
+            if($app){
+              if($app->status == $app_status){
                 $specialty = Specialty::find($app->specialty_id);
                 $specialty_name =$specialty->name; 
                 $doctor = Doctor::find($app->doctor_id);
+                $intervals = explode(' ',$app->date_time);
                 $matched_apps[]=[
+                'id'=>$app->id,
                 'specialty' => $specialty_name, 
                 'doctor_name' =>$doctor->user->name,
-                'date_time' =>$app->date_time,
+                'date' =>$intervals[0],
+                'time'=>$intervals[1],
                 ]; 
+                }  
             }
         }
-        return $matched_apps;
-        //}
+        return view('patients_options.appointments')->with(compact('matched_apps','app_status'));
     }
+
 }

@@ -108,13 +108,13 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/patients/new_inbox_appointment">
               <i class="fa fa-plus"></i> <span>Solicitud de cita</span>
             </a>
           </li>
           <li>
             <a href="/patients/appointments/0">
-              <i class="fa fa-list"></i> <span>Lista de citas por confirmar</span>
+              <i class="fa fa-eye"></i> <span>Lista de citas por confirmar</span>
             </a>
           </li>
           <li>

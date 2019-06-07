@@ -32,7 +32,7 @@ class HomeController extends Controller
                 $all_tcalls = Tcall::all();
                 $tcalls=[];
                 foreach ($all_tcalls as $tc) {
-                    if($tc->patient_id){
+                    if($tc->patient_id != null){
                         $patient = Patient::find($tc->patient_id);
                         $tcalls[]=array(
                         "id"=>    $tc->id,
