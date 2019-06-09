@@ -51,5 +51,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'csrf' => \Http\Middleware\VerifyCsrfToken::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'token' => \App\Http\Middleware\TokenMiddleware::class,
     ];
 }
