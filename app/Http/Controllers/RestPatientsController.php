@@ -110,7 +110,11 @@ class RestPatientsController extends Controller
 					        }
 	           			}
 		           		if($user->$key != $data[$key] ){
-		                	$user->$key=$data[$key];    
+		           			if($key == "password"){
+		           				$user->$key=bcrypt($data[$key]);    
+		           			}else{
+		           				$user->$key=$data[$key];    
+		           			}
 		            	}
 		           	}else{
 		           		if($patient->$key != $data[$key] ){
