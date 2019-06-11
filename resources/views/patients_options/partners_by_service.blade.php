@@ -11,7 +11,7 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-	        	<h2>Lista de Servicios Ofertados por DocDoor</h2>
+	        	<h2>Lista de Provedores del servicio : {{$service_name}}</h2>
 	        </div>
 	        <!-- /.box-header -->
 	        <div class="box-body "> 
@@ -19,16 +19,20 @@
 			 <table class="table table-bordered table-striped DataTable">
                 <thead>
                 <tr>
-	                  <th>Nombre del servicio</th>
-	                  <th>Ver detalles</th>
+	                  <th>Nombre del Proveedor</th>
+	                  <th>Costo del servicio</th>
+	                  <th>Comision DocDoor</th>
+	                  <th>Solicitar servicio</th>
 	            </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($services as $s): ?>
+                <?php foreach ($matched_ps as $ps): ?>
 	                  <tr>  
-	                  <td>{{$s->service_name}}</td>
+	                  <td>{{$ps['partner_name']}}</td>
+	                  <td>{{$ps['service_cost']}}</td>
+	                  <td>{{$ps['docdoor_cost']}}</td>
 	                  <td>
-	                  	<a href="/patients/services/{{$s->id}}" title="Ver detalles" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
+	                  	<a href="#" title="Solicitar servicio" > <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa  fa-calendar-check-o "></i></button></a>
 	                  </td>
 	                  </tr>  
 	            <?php endforeach ?>                    

@@ -12,6 +12,8 @@ use App\Attention;
 use App\Appointment;
 use App\Tcall;
 use App\Service;
+use App\Partner_service;
+use App\Partner;
 use Auth;
 
 class PatientController extends Controller
@@ -283,5 +285,23 @@ class PatientController extends Controller
     public function services(){
         $services = Service::all();
      return view('patients_options.services_index')->with(compact('services'));   
+    }
+
+    public function partners_by_service($service_id){
+        $service_name = Service::find($service_id)->service_name;
+        $partner_services = Partner_service::where('service_id', $service_id)->get();
+        $matched_ps=[];
+        foreach ($partner_services as $ps) {
+            $partner = Partner::find($ps->partner_id);
+            if($ps->active){
+                $matched_ps[]=[
+                'id'=>$ps->id,
+                'partner_name' =>$partner->partner_name,
+                'service_cost'=>$ps->service_cost,
+                'docdoor_cost'=>$ps->docdoor_cost,
+                ];
+            } 
+        }
+        return view('patients_options.partners_by_service')->with(compact('matched_ps','service_name'));
     }
 }
