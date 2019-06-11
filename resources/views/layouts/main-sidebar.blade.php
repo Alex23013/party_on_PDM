@@ -113,6 +113,11 @@
             </a>
           </li>
           <li>
+            <a href="/patients/services">
+              <i class="fa fa-suitcase"></i> <span>Servicios DocDoor</span>
+            </a>
+          </li>
+          <li>
             <a href="/patients/appointments/0">
               <i class="fa fa-eye"></i> <span>Lista de citas por confirmar</span>
             </a>

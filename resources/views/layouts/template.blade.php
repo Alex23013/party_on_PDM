@@ -91,6 +91,12 @@
 @else
     <?php $url_image = "/images/uploads/".Auth:: user()->avatar?>
 @endif 
+<style type="text/css">
+.padding-border-table{
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">     
     

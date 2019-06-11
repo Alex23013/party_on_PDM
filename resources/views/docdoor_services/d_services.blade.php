@@ -28,7 +28,7 @@
               <h4>Nueva solicitud</h4>
             </div>
           @endif
-              <table class="table table-bordered table-striped mm-left DataTable">
+              <table class="table table-bordered table-striped DataTable">
                 <thead>
                 <tr>
                   <th>Paciente</th>

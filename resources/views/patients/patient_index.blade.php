@@ -28,7 +28,7 @@
 			  </div>
 			@endif
 			<div class="col-xs-12">
-			 <table  class="table table-bordered table-striped mm-left DataTable">
+			 <table  class="table table-bordered table-striped DataTable">
                 <thead>
                 <tr>
 	                  <th>Nombre</th>

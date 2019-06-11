@@ -22,7 +22,7 @@
 			    <h4><b><?=$newUser['name']?> </b> en el rol de <?=$newUser['name_role']?></h4>
 			  </div>
 			@endif
-			 <table class="table table-bordered table-striped mm-left">
+			 <table class="table table-bordered table-striped DataTable">
                 <thead>
                 <tr>
 	                  <th>Nombre</th>
