@@ -250,4 +250,33 @@ class PatientController extends Controller
         return view('patients_options.appointments')->with(compact('matched_apps','app_status'));
     }
 
+    public function history_appointments(){
+        $user = User::find(Auth::user()->id);
+        $patient = $user->patient;
+        $atts = Attention::where('patient_id', $patient->id)->
+        where('type', 1)->get();
+        $matched_apps=[];
+        foreach ($atts as $att) {
+            $app = Appointment::where('attention_id',$att->id)->first();
+            if($app){
+              if($app->status == 2 || $app->status == 3){
+                $specialty = Specialty::find($app->specialty_id);
+                $specialty_name =$specialty->name; 
+                $doctor = Doctor::find($app->doctor_id);
+                $intervals = explode(' ',$app->date_time);
+                $matched_apps[]=[
+                'id'=>$app->id,
+                'specialty' => $specialty_name, 
+                'doctor_name' =>$doctor->user->name,
+                'date' =>$intervals[0],
+                'time'=>$intervals[1],
+                'status'=> $app->status,
+                ]; 
+                }  
+            }
+        }
+        $app_status =2;
+        return view('patients_options.appointments')->with(compact('matched_apps','app_status'));
+    }
+
 }

@@ -123,7 +123,7 @@
             </a>
           </li>
           <li>
-            <a href="/patients/appointments/2">
+            <a href="/patients/history_appointments">
               <i class="fa fa-stethoscope"></i> <span>Historial de citas</span>
             </a>
           </li>
