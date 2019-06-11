@@ -27,5 +27,6 @@ class SpecialtyTableSeeder extends Seeder
                     'id'=>4,
 	               'name' => "Cirugia",
 	           ]);
+        DB::statement("SELECT SETVAL('specialties_id_seq', (SELECT MAX(id) FROM specialties))");
     }
 }

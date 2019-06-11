@@ -32,5 +32,6 @@ class DServiceTableSeeder extends Seeder
     		'address_to'=>'la casa del paciente',
     		'created_at'=>'2019-02-02 14:52:16',
         ]);
+        DB::statement("SELECT SETVAL('dservices_id_seq', (SELECT MAX(id) FROM dservices))");
     }
 }

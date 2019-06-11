@@ -84,5 +84,9 @@ class UsersTableSeeder extends Seeder
 	    		'patient_code'=>"P-4-1n4d",
 	    		'birth_at'=>"2019-04-16",
 	    	]);
+	    DB::statement("SELECT SETVAL('users_id_seq', (SELECT MAX(id) FROM users))");
+	    DB::statement("SELECT SETVAL('patients_id_seq', (SELECT MAX(id) FROM patients))");
+	    DB::statement("SELECT SETVAL('triages_id_seq', (SELECT MAX(id) FROM patients))");
+	    DB::statement("SELECT SETVAL('doctors_id_seq', (SELECT MAX(id) FROM doctors))");
     }
 }

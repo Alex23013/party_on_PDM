@@ -34,5 +34,6 @@ class Partner_serviceTableSeeder extends Seeder
             'service_cost'=>52,
             'docdoor_cost'=>10.5,
         ]);
+        DB::statement("SELECT SETVAL('partner_services_id_seq', (SELECT MAX(id) FROM partner_services))");
     }
 }

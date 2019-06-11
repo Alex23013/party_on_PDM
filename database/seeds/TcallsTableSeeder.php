@@ -35,5 +35,6 @@ class TcallsTableSeeder extends Seeder
             'message'=>"Me gusta hacer pruebas",
             'type'=>1,
         ]);
+        DB::statement("SELECT SETVAL('tcalls_id_seq', (SELECT MAX(id) FROM tcalls))");
     }
 }

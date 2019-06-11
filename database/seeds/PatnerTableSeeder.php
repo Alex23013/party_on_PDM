@@ -36,5 +36,6 @@ class PatnerTableSeeder extends Seeder
     	 	'cell_1' => '986756453',
     	 	'address' => 'el laboratorio_1',
     	 	]);
+        DB::statement("SELECT SETVAL('partners_id_seq', (SELECT MAX(id) FROM partners))");
     }
 }

@@ -27,5 +27,7 @@ class TechTableSeeder extends Seeder
                    'cellphone'=>"999888777",
                    'active'=>'0',  
                ]);
+
+        DB::statement("SELECT SETVAL('tusers_id_seq', (SELECT MAX(id) FROM tusers))");
     }
 }

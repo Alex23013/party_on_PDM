@@ -96,5 +96,9 @@ class AttentionsTableSeeder extends Seeder
             'address'=> "la universidad",
             'reference'=>"en el primer piso"
         ]);
+        DB::statement("SELECT SETVAL('attentions_id_seq', (SELECT MAX(id) FROM attentions))");
+        DB::statement("SELECT SETVAL('appointments_id_seq', (SELECT MAX(id) FROM appointments))");
+        DB::statement("SELECT SETVAL('emergencies_id_seq', (SELECT MAX(id) FROM emergencies))");
+        DB::statement("SELECT SETVAL('uemergencies_id_seq', (SELECT MAX(id) FROM uemergencies))");
     }
 }
