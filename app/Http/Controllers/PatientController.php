@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Attention;
 use App\Appointment;
 use App\Tcall;
+use App\Service;
 use Auth;
 
 class PatientController extends Controller
@@ -279,4 +280,8 @@ class PatientController extends Controller
         return view('patients_options.appointments')->with(compact('matched_apps','app_status'));
     }
 
+    public function services(){
+        $services = Service::all();
+     return view('patients_options.services_index')->with(compact('services'));   
+    }
 }

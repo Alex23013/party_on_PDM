@@ -24,7 +24,7 @@
 	        <!-- /.box-header -->
 	        <div class="box-body "> 
 			<div class="col-xs-12">
-			 <table class="table table-bordered table-striped mm-left DataTable">
+			 <table class="table table-bordered table-striped  DataTable">
                 <thead>
                 <tr>
 	                  <th>Doctor</th>

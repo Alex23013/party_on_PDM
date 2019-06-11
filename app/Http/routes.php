@@ -95,6 +95,7 @@ Route::get('/patients/history_appointments', 'PatientController@history_appointm
 Route::get('/patients/new_inbox_emergency', 'PatientController@inbox_emergency');
 Route::get('/patients/new_inbox_appointment', 'PatientController@inbox_appointment');
 Route::post('/patients/new_inbox', 'PatientController@inbox');
+Route::get('/patients/services', 'PatientController@services');
 
 
 
