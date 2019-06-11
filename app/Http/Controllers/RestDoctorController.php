@@ -85,6 +85,7 @@ class RestDoctorController extends Controller
     	}
         $data = $request->all();
 		unset($data['user_id']);
+    unset($data['token']);
         $i = 0;
         foreach ($data as $key => $value) {
            if( $value == '' || $value == ' ' ){
@@ -108,7 +109,7 @@ class RestDoctorController extends Controller
 						'message' => 'Ok']);
   	}
   }
-    public function appointments_confirmed($user_id){
+    public function appointments($user_id,$status){
       $user = User::find($user_id);
       if($user->role != 1){
         return response()
@@ -123,11 +124,11 @@ class RestDoctorController extends Controller
   						'message' => 'No se encontro el doctor solicitado']);	
       	}
       	$appointments = $doctor->appointment;
-      	$appointments_confirmed=[];
+      	$matched_appointments=[];
       	foreach ($appointments as $app) {
-              if($app->status == 1){
+              if($app->status == $status){
               	$patient = Patient::find($app->attention->patient_id);
-  					$appointments_confirmed[]= ['id' => $app->attention->id, 
+  					$matched_appointments[]= ['id' => $app->attention->id, 
   						"motive" => $app->attention->motive,
   						"name_patient" =>$patient->user->name,
   						"last_name_patient" =>$patient->user->last_name,]; 
@@ -136,7 +137,7 @@ class RestDoctorController extends Controller
           return response()
   				->json(['status' => '200', 
   						'message' => 'Ok',
-  						'content' => $appointments_confirmed]);
+  						'content' => $matched_appointments]);
     }
   }
 }

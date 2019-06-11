@@ -44,12 +44,20 @@ Route::get('/api/v1/appointments_confirmed/{user_id}', 'RestDoctorController@app
 // ----  END_POINTS V2
 Route::post('/api/v2/user_login', 'RestUserController@login_v2');
 Route::group(['middleware' => ['token']], function () {
+	//users
 	Route::post('/api/v2/recover_password', 'RestUserController@recover');
-	Route::post('/api/v2/doctor_update_data', 'RestDoctorController@update_data');
+	//patients	
+	Route::post('/api/v2/patient_get_data/{user_id}', 'RestPatientsController@get_data');
 	Route::post('/api/v2/patient_edit_profile', 'RestPatientsController@profile');
 	Route::post('/api/v2/patient_inbox/','RestPatientsController@inbox');
 	Route::post('/api/v2/patient_appointments/','RestPatientsController@appointments');
 	Route::post('/api/v2/patient_update_status_appointment/','RestPatientsController@update_status_appointment');
+	//doctors
+	Route::post('/api/v2/doctor_update_data', 'RestDoctorController@update_data');
+	Route::post('/api/v2/doctor_specialties/', 'RestDoctorController@specialties');
+	Route::post('/api/v2/doctor_get_data/{user_id}', 'RestDoctorController@get_data');
+	Route::post('/api/v2/doctor_get_schedule/{user_id}', 'RestDoctorController@get_schedule');
+	Route::post('/api/v2/doctor_appointments/{user_id}/{status}', 'RestDoctorController@appointments');
 	});
 // -------- END_POINTS_V2
 

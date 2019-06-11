@@ -83,40 +83,42 @@ class RestPatientsController extends Controller
     }
 
     public function profile(Request $request){
-    	$user = User::find($request->id);
+    	$user = User::find($request->user_id);
     	if($user->role != 3){
 	        return response()
 	          ->json(['status' => '404', 
 	              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
 	    }else{
 	    	$patient = $user->patient;
-	    	if($user != null ){
-	    		$user = User::find($user->id);   
+	    	if($user != null ){   
 	    		$data = $request->all();
-		        unset($data['id']);
+		        unset($data['user_id']);
+		        unset($data['token']);
+		        $i = 0;
 		        foreach ($data as $key => $value) {
 		           if( $value == '' || $value == ' ' ){
-		           }else{ 
-		           		$pos_coincidence = strpos($key, 'c_');
-			           	if($pos_coincidence == false){
-			           		if($user->$key != $data[$key] ){
-			           			if($key == 'email'){
-			           				$user1 = DB::table('users')
-							                    ->where('email',$request->email)
-							                    ->first();
-							        if($user1){
-							        	return response()
-											->json(['status' => '406',
-													'message' => 'No se pudo actualizar los datos , el email ya tiene una cuenta asignada']);
-							        }
-			           			}
-		                		$user->$key=$data[$key];
-		                	}
-			           	}else{
-			           		if($patient->$key != $data[$key] ){
-		                	$patient->$key=$data[$key];}
-			           	}	           	
+		           }else{
+		           	if($i< 5){
+		           		if($key == 'email'){
+	           				$user1 = DB::table('users')
+					                    ->where('email',$request->email)
+					                    ->first();
+					        if($user1){
+					        	return response()
+									->json(['status' => '406',
+											'message' => 'No se pudo actualizar los datos , el email ya tiene una cuenta asignada']);
+					        }
+	           			}
+		           		if($user->$key != $data[$key] ){
+		                	$user->$key=$data[$key];    
+		            	}
+		           	}else{
+		           		if($patient->$key != $data[$key] ){
+		                	$patient->$key=$data[$key];    
+		            	}
+		           	}
 		           }
+		           $i = $i +1 ;
 		        }
 	    		$user->save();
 	    		$patient->save();
@@ -149,6 +151,7 @@ class RestPatientsController extends Controller
 	public function inbox(Request $request){
 		$inbox = New Tcall;
 		$data = $request->all();
+		unset($data['token']);
         foreach ($data as $key => $value) {
            if( $value == '' || $value == ' ' ){
            }else{
@@ -183,7 +186,8 @@ class RestPatientsController extends Controller
 		$matched_apps=[];
 		foreach ($atts as $att) {
 			$app = Appointment::where('attention_id',$att->id)->first();
-			if($app->status == $request->app_status){
+			if($app){
+				if($app->status == $request->app_status){
 				if($app->specialty_id == 1){
 					$specialty_name = "medico general";
 				}else{
@@ -196,6 +200,7 @@ class RestPatientsController extends Controller
 				'doctor_name' =>$doctor->user->name,
 				'date_time' =>$app->date_time,
 				]; 
+			}
 			}
 		}
 		return response()
