@@ -11,6 +11,10 @@ use App\Tcall;
 use App\Attention;
 use App\Doctor;
 use App\Specialty;
+use App\Service;
+use App\Partner_service;
+use App\Partner;
+use App\Dservice;
 
 
 class RestPatientsController extends Controller
@@ -214,4 +218,50 @@ class RestPatientsController extends Controller
 		}
 	}
 
+	public function services(){
+        $services = Service::all();
+        return response()
+				->json(['status' => '200', 
+						'message' => 'Ok',
+						'content'=>$services]);
+    }
+
+    public function partners_by_service($service_id){
+        $service = Service::find($service_id);
+        $partner_services = Partner_service::where('service_id', $service_id)->get();
+        $matched_ps=[];
+        foreach ($partner_services as $ps) {
+            $partner = Partner::find($ps->partner_id);
+            if($ps->active){
+                $matched_ps[]=[
+                'id'=>$ps->id,
+                'partner_id'=>$ps->partner_id,
+                'partner_name' =>$partner->partner_name,
+                'service_cost'=>$ps->service_cost,
+                'docdoor_cost'=>$ps->docdoor_cost,
+                ];
+            } 
+        }
+        return response()
+				->json(['status' => '200', 
+						'message' => 'Ok',
+						'content'=>$matched_ps]);
+    }
+
+
+    public function store_dservices(Request $request){
+        $data = $request->all();
+        unset($data['token']);
+        $d_service = New Dservice;
+        $partner = Partner::find($data['partner_id']);
+        $d_service->address_from= $partner->address;
+        foreach ($data as $key => $value) {
+            $d_service->$key = $data[$key] ;
+        }
+        $d_service->save();
+        return response()
+				->json(['status' => '200', 
+						'message' => 'Ok',
+						'content' =>$d_service]);
+    }
 }

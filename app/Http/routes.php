@@ -52,6 +52,10 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/patient_inbox/','RestPatientsController@inbox');
 	Route::post('/api/v2/patient_appointments/','RestPatientsController@appointments');
 	Route::post('/api/v2/patient_update_status_appointment/','RestPatientsController@update_status_appointment');
+	Route::post('/api/v2/patient_services/', 'RestPatientsController@services');
+	Route::post('/api/v2/patients_partners_by_service_id/{service_id}', 'RestPatientsController@partners_by_service');
+	Route::post('/api/v2/patients_store_dservice', 'RestPatientsController@store_dservices');
+
 	//doctors
 	Route::post('/api/v2/doctor_update_data', 'RestDoctorController@update_data');
 	Route::post('/api/v2/doctor_specialties/', 'RestDoctorController@specialties');
