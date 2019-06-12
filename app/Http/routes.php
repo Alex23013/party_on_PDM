@@ -174,5 +174,7 @@ Route::post('/ajax_get_doctors_per_specialty','AppointmentController@ajax_get_do
 Route::get('/tcalls/complete/{id}', 'TCallController@complete');
 Route::get('/tcalls/remove/{id}', 'TCallController@delete');
 
+Route::get('/date', 'TCallController@date');
+
 
 

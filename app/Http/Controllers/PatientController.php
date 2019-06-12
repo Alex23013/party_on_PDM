@@ -189,16 +189,26 @@ class PatientController extends Controller
     public function update_status_appointment($app_id,$new_status){  
         $app = Appointment::find($app_id);
         if($app){
-            $app->status = $new_status;
-            $app->save();
+            if($new_status == 3){
+                $then = $app->date_time;
+                $now = time();        
+                $thenTimestamp = strtotime($then);
+                $difference_seconds = $thenTimestamp-$now ;
+                $gap_permited_in_seconds=86400; // 24hours in seconds
+                if($difference_seconds>$gap_permited_in_seconds){
+                    $app->status = $new_status;
+                    $app->save();
+                    return redirect('/patients/history_appointments');
+                }else{
+                    return redirect('/patients/appointments/0');
+                }   
+            }
+            else{
+                $app->status = $new_status;
+                $app->save();
+                return redirect('/patients/appointments/'.$new_status);
+            }
         }
-        if($new_status == 3){
-            return redirect('/patients/appointments/0');
-        }
-        else{
-            return redirect('/patients/appointments/'.$new_status);
-        }
-        return $app;
     } 
 
     public function inbox_emergency(){
