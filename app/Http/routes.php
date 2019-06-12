@@ -97,6 +97,8 @@ Route::get('/patients/new_inbox_appointment', 'PatientController@inbox_appointme
 Route::post('/patients/new_inbox', 'PatientController@inbox');
 Route::get('/patients/services', 'PatientController@services');
 Route::get('/patients/services/{service_id}', 'PatientController@partners_by_service');
+Route::get('/patients/add_dservices/{service_id}/{partner_id}', 'PatientController@add_dservices');
+Route::post('/patients/add_dservices', 'PatientController@store_dservices');
 
 
 
@@ -174,7 +176,6 @@ Route::post('/ajax_get_doctors_per_specialty','AppointmentController@ajax_get_do
 Route::get('/tcalls/complete/{id}', 'TCallController@complete');
 Route::get('/tcalls/remove/{id}', 'TCallController@delete');
 
-Route::get('/date', 'TCallController@date');
 
 
 

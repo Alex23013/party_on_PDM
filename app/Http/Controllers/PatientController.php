@@ -14,6 +14,7 @@ use App\Tcall;
 use App\Service;
 use App\Partner_service;
 use App\Partner;
+use App\Dservice;
 use Auth;
 
 class PatientController extends Controller
@@ -298,7 +299,7 @@ class PatientController extends Controller
     }
 
     public function partners_by_service($service_id){
-        $service_name = Service::find($service_id)->service_name;
+        $service = Service::find($service_id);
         $partner_services = Partner_service::where('service_id', $service_id)->get();
         $matched_ps=[];
         foreach ($partner_services as $ps) {
@@ -306,12 +307,34 @@ class PatientController extends Controller
             if($ps->active){
                 $matched_ps[]=[
                 'id'=>$ps->id,
+                'partner_id'=>$ps->partner_id,
                 'partner_name' =>$partner->partner_name,
                 'service_cost'=>$ps->service_cost,
                 'docdoor_cost'=>$ps->docdoor_cost,
                 ];
             } 
         }
-        return view('patients_options.partners_by_service')->with(compact('matched_ps','service_name'));
+        return view('patients_options.partners_by_service')->with(compact('matched_ps','service'));
+    }
+
+    public function add_dservices($service_id, $partner_id){
+        $partner = Partner::find($partner_id);
+        $service = Service::find($service_id);
+        return view('patients_options.add_dservices')->with(compact('service','partner')); 
+    }
+
+
+    public function store_dservices(Request $request){
+        $data = $request->all();
+        unset($data['_token']);
+        $d_service = New Dservice;
+        $d_service->user_id = Auth::user()->id;
+        $partner = Partner::find($data['partner_id']);
+        $d_service->address_from= $partner->address;
+        foreach ($data as $key => $value) {
+            $d_service->$key = $data[$key] ;
+        }
+        $d_service->save();
+        return redirect('/');
     }
 }

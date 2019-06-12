@@ -11,7 +11,7 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-	        	<h2>Lista de Provedores del servicio : {{$service_name}}</h2>
+	        	<h2>Lista de Provedores del servicio : {{$service->service_name}}</h2>
 	        </div>
 	        <!-- /.box-header -->
 	        <div class="box-body "> 
@@ -32,7 +32,7 @@
 	                  <td>{{$ps['service_cost']}}</td>
 	                  <td>{{$ps['docdoor_cost']}}</td>
 	                  <td>
-	                  	<a href="#" title="Solicitar servicio" > <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa  fa-calendar-check-o "></i></button></a>
+	                  	<a href="/patients/add_dservices/{{$service->id}}/{{$ps['partner_id']}}" title="Solicitar servicio" > <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa  fa-calendar-check-o "></i></button></a>
 	                  </td>
 	                  </tr>  
 	            <?php endforeach ?>                    
