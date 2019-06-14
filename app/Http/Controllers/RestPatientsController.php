@@ -196,19 +196,29 @@ class RestPatientsController extends Controller
 			$app = Appointment::where('attention_id',$att->id)->first();
 			if($app){
 				if($app->status == $request->app_status){
-				if($app->specialty_id == 1){
-					$specialty_name = "medico general";
-				}else{
 					$specialty = Specialty::find($app->specialty_id);
 					$specialty_name =$specialty->name; 
-				}		
-				$doctor = doctor::find($app->doctor_id);
-				$matched_apps[]=[
-				'specialty' => $specialty_name, 
-				'doctor_name' =>$doctor->user->name,
-				'date_time' =>$app->date_time,
-				]; 
-			}
+					$doctor = doctor::find($app->doctor_id);
+					if($request->app_status == 0){
+						$then = $app->date_time;
+			            $now = time();        
+			            $thenTimestamp = strtotime($then);
+			            $difference_seconds = $thenTimestamp-$now ;
+			            if($difference_seconds>0){
+			            	$matched_apps[]=[
+							'specialty' => $specialty_name, 
+							'doctor_name' =>$doctor->user->name,
+							'date_time' =>$app->date_time,
+							];
+			            }
+					}else{
+						$matched_apps[]=[
+						'specialty' => $specialty_name, 
+						'doctor_name' =>$doctor->user->name,
+						'date_time' =>$app->date_time,
+						];
+					}		
+				}
 			}
 		}
 		return response()
