@@ -234,7 +234,16 @@ class PatientController extends Controller
         $inbox->patient_cell = $user->cellphone;
         $inbox->patient_id = $user->patient->id;
         $inbox->save();
-        return redirect('/');
+        if($data['type'] == 1){
+            $tipo = "cita médica";
+        }else{
+            $tipo = "emergencia";
+        }
+        $message = [
+                    "title"=>"Nuevo Inbox de ".$tipo." enviado",
+                    "content"=>"con el mensaje: ".$data['message']
+                ];
+        return view('patients_options.patients_main')->with(compact('message'));
     }  
 
     public function appointments($app_status){
@@ -335,6 +344,11 @@ class PatientController extends Controller
             $d_service->$key = $data[$key] ;
         }
         $d_service->save();
-        return redirect('/');
+        $service = Service::find($data['service_id']);
+        $message = [
+                    "title"=>"Solicitud de servicio DocDoor creada",
+                    "content"=>"para el servicio:  \"".$service->service_name. "\" al asociado: \"". $partner->partner_name."\""
+                ];
+        return view('patients_options.patients_main')->with(compact('message'));
     }
 }

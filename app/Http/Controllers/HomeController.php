@@ -57,7 +57,13 @@ class HomeController extends Controller
                 }
                 return view('main')->with(compact('tcalls'));    
             }else{
-                return view('main');    
+                if(Auth::user()->role == 3){
+                    $message = NULL;
+                    return view('patients_options.patients_main')->with(compact('message'));
+                }else{
+
+                    return view('main');        
+                }                
             }
             
         }else{
