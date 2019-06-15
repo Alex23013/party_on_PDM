@@ -12,7 +12,7 @@
          
           <div class="box">
             <div class="box-header mm-left ">
-            <h2>Lista de Citas de Docdoor</h2>
+            <h2>Lista de Citas de DocDoor</h2>
             <br>
             <a href="/appointments/add">  
                 <button type="button" class="btn  bg-olive margin">
@@ -51,7 +51,7 @@
                     
                     <td> 
                       <a href="/appointments/detail/{{$appointment->attention_id}}" title="Ver detalles" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
-                      <a href="/appointments/remove/{{$appointment->attention_id}}" title="Eliminar"><button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio Docdoor?');"><i class="fa fa-trash"></i></button><a>
+                      <a href="/appointments/remove/{{$appointment->attention_id}}" title="Eliminar"><button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio DocDoor?');"><i class="fa fa-trash"></i></button><a>
                     </td>
                     </tr>  
                     <?php endforeach ?>  

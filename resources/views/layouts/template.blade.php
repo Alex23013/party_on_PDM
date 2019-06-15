@@ -27,11 +27,9 @@
     <link href="{{ asset('css/_all-skins.min.css') }}" rel="stylesheet">
 
 
-    
-
     <!-- font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <!-- //font -->
+    
 
     <!-- jQuery 3 js/jquery-1.8.3.min.js -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -97,7 +95,7 @@
     padding-right: 3%;
   }
 </style>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">     
     
     

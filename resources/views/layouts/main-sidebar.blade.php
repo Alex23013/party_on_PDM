@@ -3,12 +3,13 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-           
-          <img src="{{$url_image}}" class="img-circle" alt="User Image">
+           <img src="/images/logos/icon DocDoor-01.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>{{ Auth::user()->name }}</p>
-          {{ Auth::user()->name_role}}
+          <div class="col-md-12">
+            <img src="/images/logos/logoDD.png" style="width: 100%;">  
+          </div>
+          <!--<span><b> DocDoor </b></span>-->
         </div>
       </div>
       

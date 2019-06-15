@@ -31,21 +31,19 @@
         -webkit-background-size: cover;
         -o-background-size: cover;
       }
-
      </style>
   </head>
 
   <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <header class="main-header">
-    <!-- Logo -->
+    <!-- Logo 
     <div class="logo">
       
       <span class="logo-mini"><b>Doc</b>D</span>
-      <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>Doc</b>Door</span>
 
-    </div>
+    </div>-->
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <span class="sr-only">Toggle navigation</span>

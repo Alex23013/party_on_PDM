@@ -12,7 +12,7 @@
          
           <div class="box">
             <div class="box-header mm-left ">
-            <h2>Lista de Solicitudes de Servicios Docdoor</h2>
+            <h2>Lista de Solicitudes de Servicios DocDoor</h2>
             <br>
             <a href="/d_services/add">  
                 <button type="button" class="btn  bg-olive margin">
@@ -61,7 +61,7 @@
                       @else
                         <a href="/d_services/{{$d_service->d_service_id}}/complete" title="Marcar como completado" > <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa  fa-square-o"></i></button></a>
                       @endif
-                      <a href="/d_services/remove/{{$d_service->d_service_id}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio Docdoor?');"><i class="fa fa-trash"></i></button><a>
+                      <a href="/d_services/remove/{{$d_service->d_service_id}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio DocDoor?');"><i class="fa fa-trash"></i></button><a>
                     </td>
                     </tr>  
                     <?php endforeach ?>  

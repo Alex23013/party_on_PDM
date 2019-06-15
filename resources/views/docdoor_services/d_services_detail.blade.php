@@ -16,7 +16,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-body p-left">
-      <h3> Información de la Solicitud<br></h3>
+      <h3> Información de la Solicitud de Servicio DocDoor<br></h3>
       <div class="col-md-8">
         <div class="col-md-12" >
           <span class="col-md-4"> Paciente: </span>

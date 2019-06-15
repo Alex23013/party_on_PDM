@@ -17,7 +17,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-body p-left">
-        <h3> Información de la Cita médica</h3>
+        <h3> Información de la Cita Médica</h3>
         <form class="form-horizontal" role="form" method="POST" action="/appointments/edit">
       <br>
       <div class="col-md-8">

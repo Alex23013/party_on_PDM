@@ -1,13 +1,7 @@
 @extends('layouts.template')
 
 
-@section('content')
-<style type="text/css">
-.mm-left{
-    margin-left: 2%;
-  }
-</style>
-   
+@section('content')   
       <div class="row">
       	<div class="col-md-12">
       	@if( Auth::user()->role == 2) 
@@ -38,9 +32,9 @@
 			      	</div>
 			      	<div class="col-md-2">
 			      	<img src="/images/medic_date.png" style="width: 100%;"></div>
-		      	</div>
-		      	<div>
-		      		<table  class="table table-bordered table-striped mm-left DataTable">
+		      	
+		      	<div class="col-md-12">
+		      		<table  class="table table-bordered table-striped  DataTable">
                 <thead>
                 <tr>
                   <th>Paciente</th>
@@ -87,6 +81,7 @@
                 </tbody>
               </table>
 		      	</div>
+            </div>
       		</div>
       		@endif 
       	</div>

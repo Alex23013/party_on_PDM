@@ -12,7 +12,7 @@
          
           <div class="box">
             <div class="box-header mm-left ">
-            <h2>Lista de Emergencias de Docdoor</h2>
+            <h2>Lista de Emergencias </h2>
             <br>
             <div class="col-xs-12">
             <a href="/emergency/add">  

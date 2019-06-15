@@ -2,9 +2,9 @@
     <!-- Logo -->
     <div class="logo">
       
-      <span class="logo-mini"><b>Doc</b>D</span>
+      <span class="logo-mini">{{ Auth::user()->name_role[0]}}</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Doc</b>Door</span>
+      <span class="logo-lg">{{ Auth::user()->name_role}}</span>
 
     </div>
     <!-- Header Navbar: style can be found in header.less -->
