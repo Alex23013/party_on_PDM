@@ -94,6 +94,15 @@
     padding-left: 3%;
     padding-right: 3%;
   }
+    @font-face {
+        font-family: "font_gotham";
+        /*src: url("fonts/GothamMedium.woff") format('woff');*/
+        src: url("fonts/GothamBook.woff") format('woff');
+        }
+    body {
+      font-family: font_gotham;
+      font-size: 12px;
+    }
 </style>
 <body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">     
