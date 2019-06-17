@@ -15,6 +15,7 @@ use App\Service;
 use App\Partner_service;
 use App\Partner;
 use App\Dservice;
+use App\History;
 use Auth;
 
 class PatientController extends Controller
@@ -350,5 +351,22 @@ class PatientController extends Controller
                     "content"=>"para el servicio:  \"".$service->service_name. "\" al asociado: \"". $partner->partner_name."\""
                 ];
         return view('patients_options.patients_main')->with(compact('message'));
+    }
+    public function patient_histories()
+    {
+        $histories = History::all();
+        $matched_histories = [];
+        foreach ($histories as $hist) {
+            if($hist->attention->patient->user->id == Auth::user()->id){
+                $date_parts =explode(' ', $hist->attention->appointment->date_time); 
+                $matched_histories[]=[
+                    'attention_code' => $hist->attention->attention_code,
+                    'doctor_name' => $hist->attention->appointment->doctor->user->name,
+                    'app_date'=> $date_parts[0],
+                    'app_time'=> $date_parts[1],
+                ];
+            }
+        }  
+        return $matched_histories;
     }
 }

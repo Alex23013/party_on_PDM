@@ -17,4 +17,8 @@ class Attention extends Model
     public function patient() {
       return $this->belongsTo('App\Patient','patient_id','id');
     }  
+
+    public function history() {
+      return $this->hasOne('App\History');
+    }
 }

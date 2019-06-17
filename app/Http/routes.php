@@ -107,7 +107,7 @@ Route::get('/patients/services', 'PatientController@services');
 Route::get('/patients/services/{service_id}', 'PatientController@partners_by_service');
 Route::get('/patients/add_dservices/{service_id}/{partner_id}', 'PatientController@add_dservices');
 Route::post('/patients/add_dservices', 'PatientController@store_dservices');
-
+Route::get('/patients/clinic_history/', 'PatientController@patient_histories');
 
 
 
