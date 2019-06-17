@@ -133,12 +133,13 @@
               <i class="fa fa-stethoscope"></i> <span>Historial de citas</span>
             </a>
           </li>
+          <!--
           <li>
             <a href="/patients/clinic_history/">
               <i class="fa fa-list"></i> <span>Historial clínico</span>
             </a>
           </li>
-          
+          -->
           @endif
         </ul>      
       </div>
