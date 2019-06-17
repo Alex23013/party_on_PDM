@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Tcall;
 use App\Patient;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -70,5 +71,19 @@ class HomeController extends Controller
             return redirect('/logout');
         }
             
+    }
+
+    public function pdf(){
+
+      // to pretty html :
+      //<link href=\"http://phptopdf.com/bootstrap.css\" rel=\"stylesheet\">  
+      require("phpToPDF.php"); 
+     $new_tech = NULL;
+     $users = User::all();
+
+     $html = view('techs.tuser_index',compact('new_tech','users'))->renderSections()['content'];
+      phptopdf_html($html,'', 'p31.pdf');
+     
+     echo ("<a href='p31.pdf'>Download Your PDF</a>");
     }
 }
