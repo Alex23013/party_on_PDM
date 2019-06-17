@@ -99,6 +99,9 @@
         /*src: url("fonts/GothamMedium.woff") format('woff');*/
         src: url("fonts/GothamBook.woff") format('woff');
         }
+    .main-header .logo{
+      font-family: font_gotham;  
+    }
     body {
       font-family: font_gotham;
       font-size: 12px;

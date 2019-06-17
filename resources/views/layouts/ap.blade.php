@@ -23,6 +23,14 @@
     <!-- Fonts -->
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
      <style type="text/css">
+     @font-face {
+        font-family: "font_gotham";
+        /*src: url("fonts/GothamMedium.woff") format('woff');*/
+        src: url("fonts/GothamBook.woff") format('woff');
+        }
+    body {
+      font-family: font_gotham;
+    }
       body {
         background-color:  #006080;
         background: url(/images/doc.jpg) no-repeat center center fixed;
