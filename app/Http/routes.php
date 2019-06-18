@@ -45,8 +45,6 @@ Route::get('/api/v1/appointments_confirmed/{user_id}', 'RestDoctorController@app
 // ----  END_POINTS V2
 Route::post('/api/v2/user_login', 'RestUserController@login_v2');
 Route::group(['middleware' => ['token']], function () {
-	//users
-	Route::post('/api/v2/recover_password', 'RestUserController@recover');
 	//patients	
 	Route::post('/api/v2/patient_get_data/{user_id}', 'RestPatientsController@get_data');
 	Route::post('/api/v2/patient_edit_profile', 'RestPatientsController@profile');
@@ -108,6 +106,8 @@ Route::get('/patients/services/{service_id}', 'PatientController@partners_by_ser
 Route::get('/patients/add_dservices/{service_id}/{partner_id}', 'PatientController@add_dservices');
 Route::post('/patients/add_dservices', 'PatientController@store_dservices');
 Route::get('/patients/clinic_history/', 'PatientController@patient_histories');
+Route::get('/patients/clinic_history/see/{id}', 'PatientController@patient_histories_detail');
+
 
 
 

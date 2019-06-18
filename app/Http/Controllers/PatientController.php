@@ -365,9 +365,43 @@ class PatientController extends Controller
                     'doctor_name' => $hist->attention->appointment->doctor->user->name,
                     'date'=> $date_parts[0],
                     'time'=> $date_parts[1],
+                    'pdf_status'=>$hist->pdf_status,
                 ];
             }
         }  
         return view('patients_options.histories_by_patient')->with(compact('matched_histories'));
     }
+
+    public function pdf(){
+        return "generar el pdf";
+    }
+    public function patient_histories_detail($id)
+    {
+        $history = History::find($id);
+        $date_parts =explode(' ', $history->attention->appointment->date_time);
+        $info=[
+            'id'=>$history->id,
+            'attention_code' => $history->attention->attention_code,
+            'doctor_name' => $history->attention->appointment->doctor->user->name,
+            'date'=> $date_parts[0],
+            'time'=> $date_parts[1],
+            'motive'=>$history->attention->motive,
+
+            'patient-name'=>$history->attention->patient->user->name,
+            'patient-last_name'=>$history->attention->patient->user->last_name,
+
+            'cardiac_frequency'=>$history->cardiac_frequency,
+            'breathing_frequency'=>$history->breathing_frequency,
+            'temperature'=>$history->temperature,
+            'arterial_pressure'=>$history->arterial_pressure,
+            'personal_antecedents'=>$history->personal_antecedents,
+            'family_antecedents'=>$history->family_antecedents,
+            'pdf_status'=>$history->pdf_status,
+        ];
+        if($history->pdf_status == 2){
+            $asd = $this->pdf();
+        }
+        return view('patients_options.history_detail')->with(compact('info'));
+    }
+
 }
