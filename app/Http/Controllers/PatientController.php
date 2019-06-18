@@ -360,13 +360,14 @@ class PatientController extends Controller
             if($hist->attention->patient->user->id == Auth::user()->id){
                 $date_parts =explode(' ', $hist->attention->appointment->date_time); 
                 $matched_histories[]=[
+                    'id' => $hist->id,
                     'attention_code' => $hist->attention->attention_code,
                     'doctor_name' => $hist->attention->appointment->doctor->user->name,
-                    'app_date'=> $date_parts[0],
-                    'app_time'=> $date_parts[1],
+                    'date'=> $date_parts[0],
+                    'time'=> $date_parts[1],
                 ];
             }
         }  
-        return $matched_histories;
+        return view('patients_options.histories_by_patient')->with(compact('matched_histories'));
     }
 }

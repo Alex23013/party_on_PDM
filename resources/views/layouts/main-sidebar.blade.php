@@ -7,7 +7,7 @@
         </div>
         <div class="pull-left info">
           <div class="col-md-12">
-            <img src="/images/logos/logoDD.png" style="width: 100%;">  
+            <img src="/images/logos/logo-main-side-bar.png" style="width: 100%;">  
           </div>
           <!--<span><b> DocDoor </b></span>-->
         </div>
@@ -120,12 +120,12 @@
           </li>
           <li>
             <a href="/patients/appointments/0">
-              <i class="fa fa-eye"></i> <span>Lista de citas por confirmar</span>
+              <i class="fa fa-eye"></i> <span>Citas por confirmar</span>
             </a>
           </li>
           <li>
             <a href="/patients/appointments/1">
-              <i class="fa fa-list"></i> <span>Lista de citas confirmadas</span>
+              <i class="fa fa-list"></i> <span>Citas confirmadas</span>
             </a>
           </li>
           <li>
@@ -133,13 +133,13 @@
               <i class="fa fa-stethoscope"></i> <span>Historial de citas</span>
             </a>
           </li>
-          <!--
+          
           <li>
             <a href="/patients/clinic_history/">
               <i class="fa fa-list"></i> <span>Historial clínico</span>
             </a>
           </li>
-          -->
+          
           @endif
         </ul>      
       </div>
