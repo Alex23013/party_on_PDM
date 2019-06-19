@@ -15,6 +15,11 @@
       
       <div>
         <ul class="sidebar-menu" data-widget="tree">
+          <li>
+            <a href="/">
+               <span>MENU PRINCIPAL</span>
+            </a>
+          </li>
           <!--menu Administrador-->
           @if( Auth::user()->role == 0)  
           <li><a href="/techs">
@@ -58,11 +63,6 @@
           @endif
           <!--menu triaje-->
           @if( Auth::user()->role == 2)
-          <li>
-            <a href="/">
-               <span>MENU PRINCIPAL</span>
-            </a>
-          </li>
           <li>
             <a href="/techs">
               <i class="glyphicon glyphicon-user"></i> <span>Técnicos</span>
