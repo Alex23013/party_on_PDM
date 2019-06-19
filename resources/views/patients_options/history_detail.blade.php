@@ -80,7 +80,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
           @if($info['pdf_status'] == 0 )
-          <a href="#"> <button class="btn  btn-flat bg-purple m-left">  <i class="fa fa-edit"></i> Solicitar permiso para exportar PDF </button> 
+          <a href="/patients/clinic_history/request/{{$info['id']}}"> <button class="btn  btn-flat bg-purple m-left">  <i class="fa fa-edit"></i> Solicitar permiso para exportar PDF </button> 
           </a>
           @endif
           @if($info['pdf_status'] == 1 )
