@@ -188,43 +188,57 @@ class RestPatientsController extends Controller
 	          ->json(['status' => '404', 
 	              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
 	    }else{
-	        $patient = $user->patient;
-		$atts = Attention::where('patient_id', $patient->id)->
-		where('type', 1)->get();
-		$matched_apps=[];
-		foreach ($atts as $att) {
-			$app = Appointment::where('attention_id',$att->id)->first();
-			if($app){
-				if($app->status == $request->app_status){
-					$specialty = Specialty::find($app->specialty_id);
-					$specialty_name =$specialty->name; 
-					$doctor = doctor::find($app->doctor_id);
-					if($request->app_status == 0){
-						$then = $app->date_time;
-			            $now = time();        
-			            $thenTimestamp = strtotime($then);
-			            $difference_seconds = $thenTimestamp-$now ;
-			            if($difference_seconds>0){
-			            	$matched_apps[]=[
-							'specialty' => $specialty_name, 
-							'doctor_name' =>$doctor->user->name,
-							'date_time' =>$app->date_time,
-							];
-			            }
-					}else{
-						$matched_apps[]=[
-						'specialty' => $specialty_name, 
-						'doctor_name' =>$doctor->user->name,
-						'date_time' =>$app->date_time,
-						];
-					}		
+	    	if($request->app_status>3){
+	    		return response()
+	          ->json(['status' => '404', 
+	              'message' => 'No existe ese estado para una cita medica']); 
+	    	}else{
+	    		$patient = $user->patient;
+				$atts = Attention::where('patient_id', $patient->id)->
+				where('type', 1)->get();
+				//dd($atts);
+				$matched_apps=[];
+				foreach ($atts as $att) {
+					$app = Appointment::where('attention_id',$att->id)->first();
+					//echo $app->status;
+					if($app){
+						if($app->status == $request->app_status){
+							$specialty = Specialty::find($app->specialty_id);
+							$specialty_name =$specialty->name; 
+							$doctor = doctor::find($app->doctor_id);
+							if($request->app_status == 0){
+								$then = $app->date_time;
+					            $now = time();        
+					            $thenTimestamp = strtotime($then);
+					            $difference_seconds = $thenTimestamp-$now ;
+					            if($difference_seconds>0){
+					            	$matched_apps[]=[
+									'specialty' => $specialty_name, 
+									'doctor_name' =>$doctor->user->name,
+									'date_time' =>$app->date_time,
+									];
+					            }
+							}else{
+								$matched_apps[]=[
+								'specialty' => $specialty_name, 
+								'doctor_name' =>$doctor->user->name,
+								'date_time' =>$app->date_time,
+								];
+							}		
+						}
+					}
 				}
-			}
-		}
-		return response()
-				->json(['status' => '200', 
-						'message' => 'Ok',
-						'content' => $matched_apps]);
+				if($matched_apps==[]){
+					return response()
+						->json(['status' => '402', 
+								'message' => 'no-results']);
+				}else{
+					return response()
+						->json(['status' => '200', 
+								'message' => 'Ok',
+								'content' => $matched_apps]);
+				}
+	    	}
 		}
 	}
 
