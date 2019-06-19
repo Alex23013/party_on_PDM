@@ -61,7 +61,7 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_specialties/', 'RestDoctorController@specialties');
 	Route::post('/api/v2/doctor_get_data/{user_id}', 'RestDoctorController@get_data');
 	Route::post('/api/v2/doctor_get_schedule/{user_id}', 'RestDoctorController@get_schedule');
-	Route::post('/api/v2/doctor_appointments/{user_id}/{status}', 'RestDoctorController@appointments');
+	Route::post('/api/v2/doctor_appointments', 'RestDoctorController@appointments');
 
 	Route::post('/api/v2/doctor_update_available/','RestDoctorController@update_available');	
 	});
@@ -107,6 +107,7 @@ Route::get('/patients/add_dservices/{service_id}/{partner_id}', 'PatientControll
 Route::post('/patients/add_dservices', 'PatientController@store_dservices');
 Route::get('/patients/clinic_history/', 'PatientController@patient_histories');
 Route::get('/patients/clinic_history/see/{id}', 'PatientController@patient_histories_detail');
+Route::get('/patients/clinic_history/request/{id}', 'PatientController@request_pdf');
 
 
 

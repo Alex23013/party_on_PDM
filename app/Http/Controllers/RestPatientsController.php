@@ -196,11 +196,9 @@ class RestPatientsController extends Controller
 	    		$patient = $user->patient;
 				$atts = Attention::where('patient_id', $patient->id)->
 				where('type', 1)->get();
-				//dd($atts);
 				$matched_apps=[];
 				foreach ($atts as $att) {
 					$app = Appointment::where('attention_id',$att->id)->first();
-					//echo $app->status;
 					if($app){
 						if($app->status == $request->app_status){
 							$specialty = Specialty::find($app->specialty_id);

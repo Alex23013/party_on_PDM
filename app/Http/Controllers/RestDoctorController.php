@@ -109,14 +109,14 @@ class RestDoctorController extends Controller
 						'message' => 'Ok']);
   	}
   }
-  public function appointments($user_id,$status){
-    $user = User::find($user_id);
+  public function appointments(Request $request){
+    $user = User::find($request->user_id);
     if($user->role != 1){
       return response()
         ->json(['status' => '404', 
             'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
     }else{
-      $doctor = $user->doctor;//Doctor::find($doctor_id);
+      $doctor = $user->doctor;
       $user_doctor = $doctor->user;
     	if(!$doctor){
     		return response()
@@ -126,9 +126,9 @@ class RestDoctorController extends Controller
     	$appointments = $doctor->appointment;
     	$matched_appointments=[];
     	foreach ($appointments as $app) {
-        if($app->status == $status){
+        if($app->status == $request->app_status){
         	$patient = Patient::find($app->attention->patient_id);
-          if($status == 1){
+          if($request->app_status == 1){
             $then = $app->date_time;
             $now = time();        
             $thenTimestamp = strtotime($then);
