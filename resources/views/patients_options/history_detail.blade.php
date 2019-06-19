@@ -87,7 +87,7 @@
           <button class="btn  btn-flat bg-purple m-left"> En espera del permiso para exportar PDF</button> 
           @endif
           @if($info['pdf_status'] == 2 )
-          <a href="#"> <button class="btn  btn-flat bg-olive m-left">  <i class="fa fa-list"></i> Exportar PDF </button> 
+          <a href="#"> <button class="btn  btn-flat bg-olive m-left">  <i class="fa fa-file-pdf-o"></i> Exportar PDF </button> 
           </a>
           @endif
         </div>
