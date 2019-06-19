@@ -44,7 +44,7 @@
           </li>
 
            <li>
-            <a href="#">
+            <a href="/clinic_histories">
               <i class="fa fa-hospital-o"></i> <span> Historias clínicas </span>
             </a>
           </li>

@@ -149,6 +149,9 @@ Route::group(['middleware' => ['admin']], function () {
 	Route::get('/users/{id}/deactive', 'UserController@deactive');
 	Route::post('/users', 'UserController@store');
 	Route::get('/users/remove/{id}', 'UserController@delete');
+	Route:: get('/clinic_histories', 'HistoryController@clinic_histories');
+	Route:: get('/clinic_histories/update_pdf_status_appointment/{id}/{new_status}', 'HistoryController@update_pdf_status_appointment');
+	
 });
 
 Route::get('/users/profile/edit', 'UserController@update');
