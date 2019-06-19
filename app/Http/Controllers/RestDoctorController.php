@@ -152,9 +152,16 @@ class RestDoctorController extends Controller
           
         }
       }
-      return response() ->json(['status' => '200', 
-					                      'message' => 'Ok',
-						                    'content' => $matched_appointments]);
+      if($matched_appointments==[]){
+          return response()
+            ->json(['status' => '402', 
+                'message' => 'no-results']);
+        }else{
+          return response()
+            ->json(['status' => '200', 
+                'message' => 'Ok',
+                'content' => $matched_appointments]);
+        };
     }
   }
 
