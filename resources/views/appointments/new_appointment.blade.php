@@ -27,7 +27,7 @@
                                 
                                 <option value="" selected="selected"> Seleccione una especialidad </option>
                                 @foreach($specialties as $specialty)
-                                  <option value="{{$specialty->id}}" onclick="chooseSpecialty();return false;"><?=$specialty->name?></option>
+                                  <option value="{{$specialty->id}}"><?=$specialty->name?></option>
                                 @endforeach
                                 </select>
                             </div>
@@ -174,6 +174,7 @@
                 $("#resultado").html("Procesando,espere..");
             },
             success: function(response){
+                console.log("ffff");
                 console.log(response);
                 $("#resultado").html(response); 
                  var chooseDoctor= document.getElementById('chooseDoctor');
@@ -186,6 +187,12 @@
        });
     }
 
+    $('#specialty_selector').change(function(){
+        console.log($("#specialty_selector option:selected"));
+        chooseSpecialty();
+    })
+    
+
     function chooseDoctor(){
         var parametros1={
             "valor1":$('#chooseDoctor').find(':selected').val(),
@@ -197,7 +204,8 @@
         console.log($("#chooseDoctor option:selected").data('horario'));
         var horario= $("#chooseDoctor option:selected").data('horario');
 
-        for (var i = 0; i < horario.length; i++) {
+            $("#location").empty()
+            for (var i = 0; i < horario.length; i++) {
             $("#location").append(
                     "<tr>"
                         +"<td>"+horario[i].day+"</td>"
@@ -205,6 +213,8 @@
                         +"<td>"+horario[i].schedule_end+"</td>"
                     +"</tr>" )
                 }
+        
+        
     })
 </script>
 

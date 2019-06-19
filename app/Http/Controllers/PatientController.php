@@ -404,4 +404,15 @@ class PatientController extends Controller
         return view('patients_options.history_detail')->with(compact('info'));
     }
 
+    public function request_pdf($id){
+        $history = History::find($id);
+        $history->pdf_status = 1;
+        $history->save();
+        $message = [
+                    "title"=>"Solicitud de permiso enviado",
+                    "content"=>"para la historia clínica:  \"".$history->id. "\" con código de atención: \"". $history->attention->attention_code."\""
+                ];
+        return view('patients_options.patients_main')->with(compact('message'));
+    }
+
 }

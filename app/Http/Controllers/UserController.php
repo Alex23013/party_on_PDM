@@ -185,7 +185,7 @@ class UserController extends Controller
                 $doctor->birth_at = $request->birth_at;
                 $doctor->college = $request->college;
                 $doctor->address= $request->address;
-                $doctor->specialty_id= $request->specialty_id;
+                $doctor->specialty_id= $request->specialty;
                
                 $doctor->ec_name = $request->ec_name;
                 $doctor->ec_last_name = $request->ec_last_name;

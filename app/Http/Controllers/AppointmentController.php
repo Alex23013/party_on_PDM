@@ -20,13 +20,43 @@ class AppointmentController extends Controller
         $doctors=[];
         foreach ($u_doctors as $doctor) {
             if($doctor->specialty_id == $_POST['valor1']){
-                $schedule = Schedule::find($doctor->schedule_id);
+                $schedule= Schedule::find($doctor->schedule_id);
+                 if($schedule){
+                    $schedule_info = $schedule->schedule;
+
+                 }else{
+                    $schedule_info = "[{\"day\":\"lunes\",\"schedule_start\":\"\",\"schedule_end\":\"\"},{\"day\":\"martes\",\"schedule_start\":\"\",\"schedule_end\":\"\"},{\"day\":\"miercoles\",\"schedule_start\":\"\",\"schedule_end\":\"\"},{\"day\":\"jueves\",\"schedule_start\":\"\",\"schedule_end\":\"\"},{\"day\":\"viernes\",\"schedule_start\":\"\",\"schedule_end\":\"\"},{\"day\":\"sabado\",\"schedule_start\":\"\",\"schedule_end\":\"\"},{\"day\":\"domingo\",\"schedule_start\":\"\",\"schedule_end\":\"\"}]";
+                 }
 
                 $doctors[] =array(
                         "name" => $doctor->user->name,
                         "id" => $doctor->user->id,
                         "specialty"=>$doctor->specialty_id,
-                        "schedule"=>$schedule->schedule,
+                        "schedule"=>$schedule_info,
+                    );     
+            }
+        }
+        return $doctors;
+    }
+
+    public function aj_docs($id){
+        $u_doctors = Doctor::all();
+        $doctors=[];
+        foreach ($u_doctors as $doctor) {
+            if($doctor->specialty_id == $id){
+                
+                 $schedule= Schedule::find($doctor->schedule_id);
+                 if($schedule){
+                    $schedule_info = $schedule->schedule;
+
+                 }else{
+                    $schedule_info = "No tiene horario";
+                 }
+                $doctors[] =array(
+                        "name" => $doctor->user->name,
+                        "id" => $doctor->user->id,
+                        "specialty"=>$doctor->specialty_id,
+                        "schedule"=>$schedule_info,
                     );     
             }
         }
