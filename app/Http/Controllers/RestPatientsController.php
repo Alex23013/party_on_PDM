@@ -163,15 +163,26 @@ class RestPatientsController extends Controller
         foreach ($data as $key => $value) {
            if( $value == '' || $value == ' ' ){
            }else{
-           		if($key == "patient_id"){
-           			$patient = Patient::find($data[$key]);
-           			if(!$patient){
-			    		return response()
-							->json(['status' => '404', 
-									'message' => 'No se encontro la data del paciente solicitado']);	
-			    	}
+           		if($key == "user_id"){
+           			$user = User::find($data['user_id']);
+           			if($user->role != 3){
+				        return response()
+				          ->json(['status' => '404', 
+				              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
+				    }else{
+				    	$patient = $user->patient;
+	           			if(!$patient){
+				    		return response()
+								->json(['status' => '404', 
+										'message' => 'No se encontro la data del paciente solicitado']);	
+				    	}else{
+				    		$inbox->patient_id = $patient->id;
+				    	}	
+				    }
+           		}else{
+           			$inbox->$key=$data[$key];   	
            		}
-                $inbox->$key=$data[$key];   
+                
            	}
            }
         $inbox->save();
