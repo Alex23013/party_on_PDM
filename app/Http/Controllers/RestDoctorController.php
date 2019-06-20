@@ -52,11 +52,17 @@ class RestDoctorController extends Controller
               'message' => 'No se encontro el doctor solicitado']); 
         }
       $schedule = Schedule::find($doctor->schedule_id);
-      $scheduleContent = json_decode($schedule->schedule);
-      return response()
-        ->json(['status' => '200', 
-            'message' => 'Ok',
-            'content' => $scheduleContent]);
+      if($schedule){
+        $scheduleContent = json_decode($schedule->schedule);
+        return response()
+          ->json(['status' => '200', 
+              'message' => 'Ok',
+              'content' => $scheduleContent]);
+      }else{
+        return response()
+          ->json(['status' => '402', 
+              'message' => 'El doctor no tiene un horario asignado aun']);
+      } 
     }
   }
 
