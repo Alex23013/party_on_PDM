@@ -60,7 +60,7 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_update_data', 'RestDoctorController@update_data');
 	Route::post('/api/v2/doctor_specialties/', 'RestDoctorController@specialties');
 	Route::post('/api/v2/doctor_get_data/{user_id}', 'RestDoctorController@get_data');
-	Route::post('/api/v2/doctor_get_schedule/{user_id}', 'RestDoctorController@get_schedule');
+	Route::post('/api/v2/doctor_get_schedule/', 'RestDoctorController@get_schedule');
 	Route::post('/api/v2/doctor_appointments', 'RestDoctorController@appointments');
 
 	Route::post('/api/v2/doctor_update_available/','RestDoctorController@update_available');	

@@ -37,8 +37,8 @@ class RestDoctorController extends Controller
       }
 	}
 
-  public function get_schedule($user_id){
-    $user = User::find($user_id);
+  public function get_schedule(Request $request){
+    $user = User::find($request->user_id);
     if($user->role != 1){
       return response()
         ->json(['status' => '404', 
