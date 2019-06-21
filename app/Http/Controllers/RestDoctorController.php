@@ -45,7 +45,6 @@ class RestDoctorController extends Controller
             'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
     }else{
       $doctor = $user->doctor;  
-      $user_doctor = $doctor->user;
       if(!$doctor){
           return response()
           ->json(['status' => '404', 
@@ -54,10 +53,23 @@ class RestDoctorController extends Controller
       $schedule = Schedule::find($doctor->schedule_id);
       if($schedule){
         $scheduleContent = json_decode($schedule->schedule);
-        return response()
+        $validDays = [];
+        foreach ($scheduleContent as $day) {
+          if($day->schedule_start != ""){
+            $validDays[]= $day;
+          }
+        }
+        if($validDays == []){
+          return response()
+          ->json(['status' => '402', 
+              'message' => 'El doctor no tiene un horario']);
+        }else{
+          return response()
           ->json(['status' => '200', 
               'message' => 'Ok',
-              'content' => $scheduleContent]);
+              'content' => $validDays]);
+        }
+        
       }else{
         return response()
           ->json(['status' => '402', 
