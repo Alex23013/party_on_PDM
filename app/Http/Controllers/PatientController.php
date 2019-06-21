@@ -372,9 +372,14 @@ class PatientController extends Controller
         return view('patients_options.histories_by_patient')->with(compact('matched_histories'));
     }
 
-    public function pdf(){
-        return "generar el pdf";
+    public function pdf($info){
+        require("phpToPDF.php"); 
+        $url_pdf = "images/exports/".Auth::user()->patient->patient_code.".pdf";
+        $html = view('patients_options.history_detail',compact('info','url_pdf'))->renderSections()['content'];
+        phptopdf_html($html,'', $url_pdf);   
+        return $url_pdf;
     }
+
     public function patient_histories_detail($id)
     {
         $history = History::find($id);
@@ -398,10 +403,11 @@ class PatientController extends Controller
             'family_antecedents'=>$history->family_antecedents,
             'pdf_status'=>$history->pdf_status,
         ];
+        $url_pdf = "#";
         if($history->pdf_status == 2){
-            $asd = $this->pdf();
+            $url_pdf = $this->pdf($info);
         }
-        return view('patients_options.history_detail')->with(compact('info'));
+        return view('patients_options.history_detail')->with(compact('info','url_pdf'));
     }
 
     public function request_pdf($id){
@@ -413,6 +419,10 @@ class PatientController extends Controller
                     "content"=>"para la historia clínica:  \"".$history->id. "\" con código de atención: \"". $history->attention->attention_code."\""
                 ];
         return view('patients_options.patients_main')->with(compact('message'));
+    }
+
+    public function redirect(){
+        return redirect('/clinic_histories');
     }
 
 }
