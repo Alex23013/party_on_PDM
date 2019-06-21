@@ -222,6 +222,7 @@ class RestPatientsController extends Controller
 					            $difference_seconds = $thenTimestamp-$now ;
 					            if($difference_seconds>0){
 					            	$matched_apps[]=[
+					            	'app_id'=>$app->id,
 									'specialty' => $specialty_name, 
 									'doctor_name' =>$doctor->user->name,
 									'date_time' =>$app->date_time,
@@ -229,6 +230,7 @@ class RestPatientsController extends Controller
 					            }
 							}else{
 								$matched_apps[]=[
+								'app_id'=>$app->id,
 								'specialty' => $specialty_name, 
 								'doctor_name' =>$doctor->user->name,
 								'date_time' =>$app->date_time,

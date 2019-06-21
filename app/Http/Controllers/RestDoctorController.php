@@ -140,7 +140,8 @@ class RestDoctorController extends Controller
             $thenTimestamp = strtotime($then);
             $difference_seconds = $thenTimestamp-$now ;
             if($difference_seconds>0){
-              $matched_appointments[]= ['id' => $app->attention->id, 
+              $matched_appointments[]= [
+              'app_id' => $app->attention->id, 
               "motive" => $app->attention->motive,
               "name_patient" =>$patient->user->name,
               "last_name_patient" =>$patient->user->last_name,
@@ -148,7 +149,8 @@ class RestDoctorController extends Controller
               ]; 
             }
           }else{
-             $matched_appointments[]= ['id' => $app->attention->id, 
+             $matched_appointments[]= [
+              'app_id' => $app->attention->id, 
               "motive" => $app->attention->motive,
               "name_patient" =>$patient->user->name,
               "last_name_patient" =>$patient->user->last_name,
