@@ -89,7 +89,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-6 col-md-offset-5">
                                 <button type="submit" class="btn btn-primary sub" name = "" value = "">
                                     <i class="fa fa-btn fa-save"></i> Guardar Horario
                                 </button>

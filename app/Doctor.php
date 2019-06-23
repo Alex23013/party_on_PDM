@@ -15,4 +15,8 @@ class Doctor extends Model
 	{
 	  return $this->hasMany('App\Appointment');
 	}
+
+	public function esp_schedule() {
+      return $this->hasMany('App\EspSchedule');
+    }
 }
