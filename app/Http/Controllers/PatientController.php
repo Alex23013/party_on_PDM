@@ -128,8 +128,9 @@ class PatientController extends Controller
                         "id" => $doctor->user->id,
                     );     
             }
-            $patients[] = array(
-                        "name" => $patient->user->name,
+            $patient_option = $patient->user->dni." - ".$patient->user->name." ".$patient->user->last_name;
+            $patients[] =array( 
+                        "name" => $patient_option,
                         "id" => $patient->user->id,
                     ); 
             $one=1;

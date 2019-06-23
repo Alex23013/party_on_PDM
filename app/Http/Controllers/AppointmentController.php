@@ -63,14 +63,19 @@ class AppointmentController extends Controller
         return $doctors;
     }
 
-    public function index(){	
-    	$appointments = DB::table('attentions')
-                    ->join('appointments','attentions.id','=','appointments.attention_id')
-                    ->join('patients','attentions.patient_id','=','patients.id')
-                    ->join('users','patients.user_id','=','users.id')
-                    ->get();
+    public function index(){	 
+    	$appointments = Attention::where('type', 1)->get();
+        $info = [];        
+        foreach ($appointments as $app ) {
+            $info[] = [
+                        'id'=>$app->id,
+                        'attention_code'=>$app->attention_code,
+                        'patient'=>$app->patient->user->name." ".$app->patient->user->last_name,
+                        'patient_dni'=>$app->patient->user->dni,
+                        ];
+        }
     	$new = NULL;   
-        return view('appointments.appointment_index')->with(compact('appointments','new'));
+        return view('appointments.appointment_index')->with(compact('info','new'));
     }
 
     public function detail($id){
@@ -84,9 +89,11 @@ class AppointmentController extends Controller
     public function add(){
         $specialties = Specialty::all();
         $u_patients = Patient::all();
+
         foreach ($u_patients as $patient) {
-            $patients[] =array(
-                        "name" => $patient->user->name,
+            $patient_option = $patient->user->dni." - ".$patient->user->name." ".$patient->user->last_name;
+            $patients[] =array( 
+                        "name" => $patient_option,
                         "id" => $patient->user->id,
                     ); 
         }
@@ -133,13 +140,18 @@ class AppointmentController extends Controller
         $appointment->date_time = $request->date." ".$request->time;
         $appointment->save(); 
 
-        $appointments = DB::table('attentions')
-                ->join('appointments','attentions.id','=','appointments.attention_id')
-                ->join('patients','attentions.patient_id','=','patients.id')
-                ->join('users','patients.user_id','=','users.id')
-                ->get();
+        $appointments = Attention::where('type', 1)->get();
+        $info = [];        
+        foreach ($appointments as $app ) {
+            $info[] = [
+                        'id'=>$app->id,
+                        'attention_code'=>$app->attention_code,
+                        'patient'=>$app->patient->user->name." ".$app->patient->user->last_name,
+                        'patient_dni'=>$app->patient->user->dni,
+                        ];
+        }
         $new = $appointment;   
-        return view('appointments.appointment_index')->with(compact('appointments','new'));
+        return view('appointments.appointment_index')->with(compact('info','new'));
     }
 
     public function delete($id){
