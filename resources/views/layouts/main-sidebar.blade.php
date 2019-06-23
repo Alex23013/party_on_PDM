@@ -78,12 +78,7 @@
               <i class="glyphicon glyphicon-user"></i> <span>Pacientes</span>
             </a>
           </li>
-          <li>
-            <a href="/doctors/schedule">
-              <i class="fa fa-calendar"></i> <span>Horarios de médicos</span>
-            </a>
-          </li>
-          
+                   
           <li>
             <a href="/d_services">
               <i class="fa fa-suitcase"></i> <span>Solicitudes DocDoor</span>
@@ -99,6 +94,16 @@
               <i class="fa fa-ambulance"></i> <b><span>Emergencias</span></b>
             </a>
           </li>
+          <li class="treeview">
+              <a href="#">
+                <i class="fa fa-calendar"></i> <span>Horarios</span> <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+              <li><a href="/doctors/schedule"><i class="fa fa-circle-o"></i> Médicos Generales</a></li>
+              <li><a href="#"><i class="fa fa-circle-o"></i> Médicos Especialistas </a></li>
+            </li> 
           
           @endif
           <!--menu paciente-->
