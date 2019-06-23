@@ -1,12 +1,6 @@
  @extends('layouts.template')
 
 @section('content')
-<style type="text/css">
-.mm-left{
-    margin-left: 2%;
-  }
-</style>
-
         <div class="row">
         <div class="col-xs-12">
          

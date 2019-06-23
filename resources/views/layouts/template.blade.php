@@ -16,9 +16,9 @@
     <link href="{{ asset('css/bootstrap-timepicker.min.css') }}" rel="stylesheet">
     
 
-    <!-- fullCalendar 
+    <!-- fullCalendar -->
     <link href="{{ asset('css/calendar/fullcalendar.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/calendar/fullcalendar.min.css') }}" rel="stylesheet">-->
+    <link href="{{ asset('css/calendar/fullcalendar.min.css') }}" rel="stylesheet">
 
     <!-- DataTables -->
     <link href="{{ asset('css/dataTables.bootstrap.css') }}"  rel="stylesheet" >
@@ -46,11 +46,11 @@
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('js/demo.js') }}"></script>
-    <!-- fullCalendar 
+    <!-- fullCalendar -->
     <script src="{{ asset('js/calendar/moment.js') }}"></script>
     
     <script src="{{ asset('js/calendar/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('js/calendar/es.js') }}"></script>-->
+    <script src="{{ asset('js/calendar/es.js') }}"></script>
     <!-- DataTables -->
     <script src="{{ asset('js/jquery/jquery.dataTables.js') }}" ></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
@@ -63,26 +63,6 @@
     <script src="{{ asset('js/thingsAppears.js') }}"></script>
     <!-- SlimScroll -->
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
-
-  <script>
-    function realizaProceso(valor1, valor2){
-        var parametros={
-            "valor1":valor1,
-            "valor2":valor2
-        };
-        $.ajax({
-            data:parametros,
-            url: 'datos.php',
-            type: 'post',
-            beforeSend: function(){
-                $("#resultado").html("Procesando,espere..");
-            },
-            success: function(response){
-                $("#resultado").html(response); 
-            }
-       });
-    }
-</script>
 </head>
 @if(Auth:: user()->avatar == "default.png")
    <?php  $url_image = "/images/".Auth:: user()->avatar?>
@@ -90,10 +70,10 @@
     <?php $url_image = "/images/uploads/".Auth:: user()->avatar?>
 @endif 
 <style type="text/css">
-.padding-border-table{
-    padding-left: 3%;
-    padding-right: 3%;
-  }
+    .padding-border-table{
+        padding-left: 3%;
+        padding-right: 3%;
+      }
     @font-face {
         font-family: "font_gotham";
         /*src: url("fonts/GothamMedium.woff") format('woff');*/
@@ -106,6 +86,9 @@
       font-family: font_gotham;
       font-size: 12px;
     }
+    .mm-left{
+        margin-left: 2%;
+      }
 </style>
 <body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">     
