@@ -192,14 +192,6 @@
         chooseSpecialty();
     })
     
-
-    function chooseDoctor(){
-        var parametros1={
-            "valor1":$('#chooseDoctor').find(':selected').val(),
-            };
-        console.log(parametros1);
-    }
-
     $('#chooseDoctor').change(function(){
         console.log($("#chooseDoctor option:selected").data('horario'));
         var horario= $("#chooseDoctor option:selected").data('horario');

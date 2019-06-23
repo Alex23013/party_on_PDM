@@ -121,8 +121,11 @@ Route::get('/doctors/schedule/assign/{id}', 'DoctorController@assign');
 
 //eDoctors_schedule
 Route::get('/edoctors/schedule', 'EdoctorController@index');
+Route::post('/edoctors/schedule', 'EdoctorController@search');
 Route::get('/edoctors/schedule/add', 'EdoctorController@add');
 Route::post('/edoctors/schedule/add', 'EdoctorController@store');
+Route::post('/ajax_get_doctors','EdoctorController@ajax_get_doctors');
+
 
 //p_services
 Route::get('/p_services/{id_P}', 'Partner_serviceController@index')->where(['id_P' => '[0-9]+']);

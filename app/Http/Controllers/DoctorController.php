@@ -14,6 +14,7 @@ class DoctorController extends Controller
     public function index(){
         $users = DB::table('users')
                     ->join('doctors','users.id','=','doctors.user_id')
+                    ->where('doctors.specialty_id',"=",1)
                     ->get();
         return view('doctors.doctors_schedule_index')->with(compact('users'));
     }

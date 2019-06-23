@@ -24,12 +24,18 @@
                 <form class="form-horizontal " role="form" method="POST" action="">
                 {{ csrf_field() }}
                 <div class="form-group col-md-8">
-                    <select class="form-control" name = "userId" >
+                    <select class="form-control" name = "specialty_id" id="specialty_select" >
                     <option value=""> Ver todos</option>
+                    @foreach($specialties as $specialty)
+                      @if($specialty->id == 1)
+                      @else
+                      <option value="{{$specialty->id}}"><?=$specialty->name?></option>
+                      @endif
+                    @endforeach
                     </select>   
                 </div>
                 <div class="col-md-2">
-                  <button type="submit" class="btn btn-info">Buscar</button>
+                  <button type="submit" class="btn btn-info" name ="buscarPorEspecialidad" value = 1>Buscar</button>
                 </div>
                 </form>
                 </div>
@@ -38,12 +44,12 @@
                   <form class="form-horizontal " role="form" method="POST" action="">
                     {{ csrf_field() }}
                     <div class="form-group col-md-8">
-                        <select class="form-control" name = "userId" >
+                        <select class="form-control " id = "chooseDoctor" name = "doctor_id" >
                         <option value=""> Ver todos</option>
                         </select>   
                     </div>
                     <div class="col-md-2">
-                      <button type="submit" class="btn btn-info">Buscar</button>
+                      <button type="submit" class="btn btn-info" name = "buscarPorDoctor" value=1>Buscar</button>
                     </div>
                   </form>
                 </div>
@@ -83,6 +89,35 @@
       events    : <?php echo json_encode($jsonevents)?>,
     })  
   })
+
+  function chooseSpecialty(){
+        var parametros={
+            "valor1":$('#specialty_select').find(':selected').val(),
+        };
+        console.log(parametros);
+        $.ajax({
+            data: parametros,
+            url: '/ajax_get_doctors_per_specialty',
+            type: 'post',
+            beforeSend: function(){
+                $("#resultado").html("Procesando,espere..");
+            },
+            success: function(response){
+                console.log(response);
+                 var chooseDoctor= document.getElementById('chooseDoctor');
+                $(chooseDoctor).empty();
+                $(chooseDoctor).append('<option value=""> Ver todos </option>')
+                for (var i = 0; i < response.length; i++) {
+                    $(chooseDoctor).append('<option value="' + response[i].id + '">' + response[i].name + '</option>');
+                }                
+            }
+       });
+    }
+
+    $('#specialty_select').change(function(){
+        console.log($("#specialty_select option:selected"));
+        chooseSpecialty();
+    })
 </script> 
 
 @endsection

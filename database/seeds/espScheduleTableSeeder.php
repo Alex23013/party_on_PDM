@@ -35,6 +35,22 @@ class espScheduleTableSeeder extends Seeder
                 "end_time"=>'14:59:16',
                 "color"=>"#cc3300",
                ]);
+        DB::table('espschedules')->insert([  
+                "id"=>4,
+                "doctor_id" =>5,
+                "date"=>'2019-07-06 ',
+                "start_time"=>'14:52:16',
+                "end_time"=>'14:59:16',
+                "color"=>"#cc3300",
+               ]);
+        DB::table('espschedules')->insert([  
+                "id"=>5,
+                "doctor_id" =>3,
+                "date"=>'2019-07-12 ',
+                "start_time"=>'14:52:16',
+                "end_time"=>'14:59:16',
+                "color"=>"#009933",
+               ]);
         DB::statement("SELECT SETVAL('espschedules_id_seq', (SELECT MAX(id) FROM espschedules))");
     }
 }
