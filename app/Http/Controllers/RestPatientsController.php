@@ -261,9 +261,9 @@ class RestPatientsController extends Controller
 						'content'=>$services]);
     }
 
-    public function partners_by_service($service_id){
-        $service = Service::find($service_id);
-        $partner_services = Partner_service::where('service_id', $service_id)->get();
+    public function partners_by_service(Request $request){
+        $service = Service::find($request->service_id);
+        $partner_services = Partner_service::where('service_id', $request->service_id)->get();
         $matched_ps=[];
         foreach ($partner_services as $ps) {
             $partner = Partner::find($ps->partner_id);

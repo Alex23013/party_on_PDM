@@ -359,6 +359,7 @@ class PatientController extends Controller
         $matched_histories = [];
         foreach ($histories as $hist) {
             if($hist->attention->patient->user->id == Auth::user()->id){
+                
                 $date_parts =explode(' ', $hist->attention->appointment->date_time); 
                 $matched_histories[]=[
                     'id' => $hist->id,

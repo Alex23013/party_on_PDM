@@ -51,9 +51,9 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/patient_inbox/','RestPatientsController@inbox');
 	Route::post('/api/v2/patient_appointments/','RestPatientsController@appointments');
 	Route::post('/api/v2/patient_update_status_appointment/','RestPatientsController@update_status_appointment');
-
+	////falta compartir
 	Route::post('/api/v2/patient_services/', 'RestPatientsController@services');
-	Route::post('/api/v2/patients_partners_by_service_id/{service_id}', 'RestPatientsController@partners_by_service');
+	Route::post('/api/v2/patients_partners_by_service_id/', 'RestPatientsController@partners_by_service');
 	Route::post('/api/v2/patients_store_dservice', 'RestPatientsController@store_dservices');
 
 	//doctors
@@ -62,8 +62,11 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_get_data/{user_id}', 'RestDoctorController@get_data');
 	Route::post('/api/v2/doctor_get_schedule/', 'RestDoctorController@get_schedule');
 	Route::post('/api/v2/doctor_appointments', 'RestDoctorController@appointments');
-
+	////falta compartir
 	Route::post('/api/v2/doctor_update_available/','RestDoctorController@update_available');	
+	
+
+
 	});
 // -------- END_POINTS_V2
 
