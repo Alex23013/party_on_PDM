@@ -101,7 +101,7 @@ class EdoctorController extends Controller
     		}else{
     			$doctor_id = User::find($request->doctor_id)->doctor->id;
     			$schedules = Espschedule::where('doctor_id',$doctor_id)->get();	
-    		} 	;
+    		} 	
     		foreach ($schedules as $key => $value) {
 		    	$doctor_name = $value->doctor->user->name;
 		        $jsonevents[$key] = [
@@ -130,5 +130,21 @@ class EdoctorController extends Controller
             }
         }
         return $doctors;
+    }
+    public function ajax_get_events(){
+        $jsonevents = [];
+        $doctor_id = User::find( $_POST['val1'])->doctor->id;
+        $schedules = Espschedule::where('doctor_id',$doctor_id)->get();
+        foreach ($schedules as $key => $value) {
+                $doctor_name = $value->doctor->user->name;
+                $jsonevents[$key] = [
+                    'title'=> "horario de ".$doctor_name,
+                    'start'=>$value->date.' '.$value->start_time,
+                    'end'=>$value->date.' '.$value->end_time    ,
+                    'backgroundColor'=>$value->color,
+                    'borderColor'=>$value->color,
+                ];
+            }
+        return  $jsonevents;
     }
 }

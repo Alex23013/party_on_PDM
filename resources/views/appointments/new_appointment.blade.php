@@ -85,27 +85,19 @@
 
                             <div class="col-md-6">     
                                 <select
-                                 id = "chooseDoctor"
+                                 id = "doctor_select"
                                 class="form-control"
                                   name="doctor_user_id">
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" >
-                            <label class="col-md-4 control-label">Horario semanal</label>
-                            <div class="col-md-6">
-                                <table class="table table-striped ">
-                                <thead>
-                                <tr>
-                                      <th>Dia</th>
-                                      <th>Inicio</th>
-                                      <th>Fin</th>
-                                </tr>
-                                </thead>
-                                <tbody id= "location">
-                                </tbody>
-                          </table>
-                          </div>
+                            <label class="col-md-10 col-md-offset-4">Horario semanal</label>
+                        </div>
+                        <div class="form-group" >
+                            <div class="col-md-10" id= "location" style="margin-left: 20px">   
+                          
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -177,11 +169,11 @@
                 console.log("ffff");
                 console.log(response);
                 $("#resultado").html(response); 
-                 var chooseDoctor= document.getElementById('chooseDoctor');
-                $(chooseDoctor).empty();
-                $(chooseDoctor).append('<option value=""> Seleccione un doctor</option>')
+                 var doctorSelect= document.getElementById('doctor_select');
+                $(doctorSelect).empty();
+                $(doctorSelect).append('<option value=""> Seleccione un doctor</option>')
                 for (var i = 0; i < response.length; i++) {
-                    $(chooseDoctor).append('<option data-horario=\''+response[i].schedule+'\' value="' + response[i].id + '" onclick="chooseDoctor();return false;" >' + response[i].name + '</option>');
+                    $(doctorSelect).append('<option data-horario=\''+response[i].schedule+'\' value="' + response[i].id + '">' + response[i].name + '</option>');
                 }                
             }
        });
@@ -192,23 +184,64 @@
         chooseSpecialty();
     })
     
-    $('#chooseDoctor').change(function(){
-        console.log($("#chooseDoctor option:selected").data('horario'));
-        var horario= $("#chooseDoctor option:selected").data('horario');
+    $('#doctor_select').change(function(){
+        var specialty_id = $('#specialty_selector').find(':selected').val();
+        console.log("specialty_id", specialty_id);
+        if(specialty_id == 1){
+            console.log("horario ",$("#doctor_select option:selected").data('horario'));
+            var horario= $("#doctor_select option:selected").data('horario');
 
             $("#location").empty()
+            $("#location").append("<table class=\"table table-striped \">"+"<thead>"+"<tr>"+
+                    "<th>Dia</th>"+
+                    "<th>Inicio</th>"+
+                    "<th>Fin</th>"+
+                    "</tr></thead><tbody id =\"location1\">"   
+                )
+    
             for (var i = 0; i < horario.length; i++) {
-            $("#location").append(
+            $("#location1").append(
                     "<tr>"
                         +"<td>"+horario[i].day+"</td>"
                         +"<td>"+horario[i].schedule_start+"</td>"
                         +"<td>"+horario[i].schedule_end+"</td>"
                     +"</tr>" )
+                }        
+           $("#location").append("</tbody> </table>");    
+        }else{
+            console.log("Imprimir calendar")
+            $("#location").empty()
+            $("#location").append("<div id=\"calendar1\" class=\"padding-border-table\">"+"</div>")
+            var parametros={
+                "val1":$('#doctor_select').find(':selected').val(),
+            };
+            console.log("paramEvents: user_id->",parametros);
+            $.ajax({
+                data: parametros,
+                url: '/ajax_get_events_by_user_id',
+                type: 'post',
+                success: function(response){
+                    console.log("events_response",response);
+                    var events_response = response;  
+                    $('#calendar1').fullCalendar({
+                      header    : {
+                        left  : 'prev,next today',
+                        center: 'title',
+                        right : 'month,agendaWeek,agendaDay'
+                      },
+                      buttonText: {
+                        today: 'hoy',
+                        month: 'mes',
+                        week : 'semana',
+                        day  : 'dia'
+                      },
+                      events    :  events_response,
+                    })              
                 }
-        
-        
+            });
+
+         }
     })
 </script>
-
 @endsection
     
