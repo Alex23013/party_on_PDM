@@ -11,7 +11,7 @@ use App\Patient;
 use App\User;
 use App\Schedule;
 use App\Specialty;
-
+use App\History;
 class RestDoctorController extends Controller
 {
 	public function get_data($user_id){
@@ -101,7 +101,7 @@ class RestDoctorController extends Controller
 				->json(['status' => '404', 
 						'message' => 'No se encontro el doctor solicitado']);	
     	}
-        $data = $request->all();
+    $data = $request->all();
 		unset($data['user_id']);
     unset($data['token']);
         $i = 0;
@@ -155,6 +155,7 @@ class RestDoctorController extends Controller
               $matched_appointments[]= [
               'app_id' => $app->attention->id, 
               "motive" => $app->attention->motive,
+              "patient_id"=>$patient->id,
               "name_patient" =>$patient->user->name,
               "last_name_patient" =>$patient->user->last_name,
               "date_time" => $app->date_time,
@@ -164,6 +165,7 @@ class RestDoctorController extends Controller
              $matched_appointments[]= [
               'app_id' => $app->attention->id, 
               "motive" => $app->attention->motive,
+              "patient_id"=>$patient->id,
               "name_patient" =>$patient->user->name,
               "last_name_patient" =>$patient->user->last_name,
               "date_time" => $app->date_time,
@@ -198,6 +200,80 @@ class RestDoctorController extends Controller
     return response()
       ->json(['status' => '200', 
           'message' => 'Ok']);
+  }
+
+  public function attend_appointment(Request $request){
+    $app = Appointment::find($request->app_id);
+    $app->status = 2; // marcar cita como atendida
+    $app->save();
+
+    $patient = Patient::find($request->patient_id);
+    $patient_name = $patient->user->name." ".$patient->user->last_name;
+
+    $histories = History::all();
+    $matched_histories = [];
+    foreach ($histories as $hist) {
+        if($hist->attention->patient->id == $request->patient_id){
+            $matched_histories[]=$hist;
+        }
+    }
+    if($matched_histories){
+      $matched_histories = array_reverse($matched_histories);
+      $last_personal_antecedent = $matched_histories[0]->personal_antecedents;
+      $last_family_antecedent = $matched_histories[0]->family_antecedents;
+      return response()
+        ->json(['status' => '200', 
+            'message' => 'Ok',
+            'patient_name'=>$patient_name,
+            'last_personal_antecedent'=>$last_personal_antecedent,
+            'last_family_antecedent'=>$last_family_antecedent,
+            'content'=>$matched_histories]);  
+    }else{
+      return response()
+        ->json(['status' => '200', 
+            'message' => 'Ok',
+            'patient_name'=>$patient_name,
+            'last_personal_antecedent'=>"",
+            'last_family_antecedent'=>"",
+            'content'=>"aun no hay historial de este paciente"]); 
+    }
+    
+  }
+
+  public function create_history (Request $request){
+    $data = $request->all();
+    unset($data['token']);
+    $personal = $data['personal_antecedents'];
+    unset($data['personal_antecedents']);
+    $family = $data['family_antecedents'];
+    unset($data['family_antecedents']);
+    $history = New History;
+    foreach ($data as $key => $value) {
+      if($key == 'last_personal_antecedents'){
+        if($personal == ""){
+          $history->personal_antecedents=$data[$key];
+        }else{
+          $history->personal_antecedents=$data[$key]."-".$personal;
+        }        
+      }else if($key == 'last_family_antecedents'){
+        if($family == ""){
+          $history->family_antecedents=$data[$key];
+        }else{
+          $history->family_antecedents=$data[$key]."-".$family;
+        }        
+      }else if($key == "app_id"){
+        $app  = Appointment::find($data[$key]);
+        $history->attention_id = $app->attention->id;
+      }
+      else{
+        $history->$key=$data[$key];     
+      }      
+    }
+    $history->save();
+    return response()
+      ->json(['status' => '201', 
+          'message' => 'Ok',
+          'content' => $history]);
   }
 
 }

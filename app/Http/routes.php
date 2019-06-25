@@ -51,7 +51,7 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/patient_inbox/','RestPatientsController@inbox');
 	Route::post('/api/v2/patient_appointments/','RestPatientsController@appointments');
 	Route::post('/api/v2/patient_update_status_appointment/','RestPatientsController@update_status_appointment');
-	////falta compartir
+	////collection_extra: falta compartir
 	Route::post('/api/v2/patient_services/', 'RestPatientsController@services');
 	Route::post('/api/v2/patients_partners_by_service_id/', 'RestPatientsController@partners_by_service');
 	Route::post('/api/v2/patients_store_dservice', 'RestPatientsController@store_dservices');
@@ -62,16 +62,17 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_get_data/{user_id}', 'RestDoctorController@get_data');
 	Route::post('/api/v2/doctor_get_schedule/', 'RestDoctorController@get_schedule');
 	Route::post('/api/v2/doctor_appointments', 'RestDoctorController@appointments');
-	////falta compartir
+	////collection_extra:falta compartir
 	Route::post('/api/v2/doctor_update_available/','RestDoctorController@update_available');	
-	
-
+	////collection_viernes
+	Route::post('/api/v2/doctor_attend_appointment/','RestDoctorController@attend_appointment');	
+	Route::post('/api/v2/doctor_create_history/','RestDoctorController@create_history');	
 
 	});
 // -------- END_POINTS_V2
 
 //Techs 
-Route::get('/techs', 'TuserController@index');
+Route::get('/techs', 'TuserController@index'); 		
 Route::get('/techs/add', 'TuserController@add');
 Route::post('/techs', 'TuserController@store');
 Route::get('/techs/remove/{id}', 'TuserController@delete');
