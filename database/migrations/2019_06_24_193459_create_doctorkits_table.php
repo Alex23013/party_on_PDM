@@ -16,7 +16,7 @@ class CreateDoctorkitsTable extends Migration
             $table->increments('id');
             $table->integer('doctor_id')->unsigned();
             $table->integer('kit_id')->unsigned();
-            $table->boolean('active');
+            $table->boolean('active')->default(1);
             $table->json('bag');
             $table->timestamps();
             $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
