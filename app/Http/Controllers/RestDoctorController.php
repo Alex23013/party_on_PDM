@@ -12,6 +12,7 @@ use App\User;
 use App\Schedule;
 use App\Specialty;
 use App\History;
+use App\Doctorkit;
 class RestDoctorController extends Controller
 {
 	public function get_data($user_id){
@@ -274,6 +275,23 @@ class RestDoctorController extends Controller
       ->json(['status' => '201', 
           'message' => 'Ok',
           'content' => $history]);
+  }
+
+  public function get_bag(Request $request){
+    $user = User::find($request->user_id);
+    if($user->role != 1){
+      return response()
+        ->json(['status' => '404', 
+            'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
+    }else{
+      $doctor = $user->doctor;
+      $doctor_kit = Doctorkit::where ('doctor_id', $doctor->id)->where('active',true)->first();
+      $dbag = json_decode($doctor_kit->bag);
+      return response()
+              ->json(['status' => '200', 
+                  'message' => 'Ok',
+                  'content' => $dbag]);
+    }
   }
 
 }
