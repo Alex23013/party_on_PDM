@@ -13,6 +13,9 @@ use App\Schedule;
 use App\Specialty;
 use App\History;
 use App\Doctorkit;
+use App\Recipe;
+use App\Medicine;
+
 class RestDoctorController extends Controller
 {
 	public function get_data($user_id){
@@ -290,7 +293,92 @@ class RestDoctorController extends Controller
       return response()
               ->json(['status' => '200', 
                   'message' => 'Ok',
-                  'content' => $dbag]);
+                  'kit_id' => $doctor_kit->kit_id,
+                  'bag' => $dbag]);
+    }
+  }
+
+  //utils-function
+  public function objArraySearch($array, $index, $value)
+    {
+        foreach($array as $arrayInf) {
+            if($arrayInf->{$index} == $value) {
+                return $arrayInf;
+            }
+        }
+        return null;
+    }
+
+  //utils-function
+  public function unique_multidimensional_array($array, $key) {
+      $temp_array = array();
+      $i = 0;
+      $key_array = array();
+
+      foreach($array as $val) {
+          if (!in_array($val[$key], $key_array)) {
+              $key_array[$i] = $val[$key];
+              $temp_array[$i] = $val;
+          }
+          $i++;
+      }
+      return $temp_array;
+  }
+
+  public function create_recipe(Request $request){
+    $user = User::find($request->user_id);
+    if($user->role != 1){
+      return response()
+        ->json(['status' => '404', 
+            'message' => 'Solo usuarios con rol doctor pueden registrar una receta médica']); 
+    }else{
+      $data = $request->all();
+      unset($data['token']);
+      unset($data['user_id']);
+      unset($data['kit_id']);
+
+      $user = User::find($request->user_id); 
+      $doctor_id = $user->doctor->id;
+      $last_kit = Doctorkit::where('doctor_id', $doctor_id)->where('active',true)->first();
+      $last_kit->active = 0;
+      $last_kit->save();
+      $last_bag_obj =json_decode($last_kit->bag);
+      $last_bag_arr =json_decode($last_kit->bag,TRUE);
+     
+      $doctor_kit = New Doctorkit;
+      $doctor_kit->kit_id = $request->kit_id;
+      $doctor_kit->doctor_id = $doctor_id;
+      $medicine_list = json_decode($request->medicines); 
+      $medicine_list_actualized=[];
+
+      foreach ($medicine_list as $key => $value) {
+        $name = Medicine::find($value->id)->name;
+        $neededObject = $this->objArraySearch($last_bag_obj, "id", $value->id);
+        $medicine_list_actualized[]=[
+          "id"=>$value->id,
+          "name"=>$name,
+          "quantity"=>($neededObject->quantity)-($value->quantity),
+        ];
+      }
+      $result = array_merge( $medicine_list_actualized,$last_bag_arr );
+      $result1= $this->unique_multidimensional_array($result, "id");
+      $result2 = array();
+      foreach ($result1 as $to_obj)
+      {
+        $result2[] = (object)$to_obj;
+      }
+      $doctor_kit->bag = json_encode($result2);
+      $doctor_kit->save();
+
+      $recipe = New Recipe;
+      foreach ($data as $key => $value) {
+        $recipe->$key=$data[$key];
+      }
+      $recipe->save();
+      return response()
+              ->json(['status' => '201', 
+                  'message' => 'Ok',
+                  'bag' => $recipe]);
     }
   }
 
