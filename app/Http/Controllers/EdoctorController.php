@@ -27,7 +27,15 @@ class EdoctorController extends Controller
 
 	    }
 	    $specialties = Specialty::all();
-    	return view('espschedule.all_calendar')->with(compact('jsonevents','specialties'));
+        $all_doctors = User::where('role',1)->get();
+        $doctors=[];
+        foreach ($all_doctors as $key => $value) {
+            $doctors[]=[
+                "id"=>$value->id,
+                "name"=>$value->dni." - ".$value->name." ".$value->last_name,
+            ];
+        }
+    	return view('espschedule.all_calendar')->with(compact('jsonevents','specialties','doctors'));
     }
 
     public function add(){
@@ -114,7 +122,15 @@ class EdoctorController extends Controller
 	    	}
     	}
     	$specialties = Specialty::all();
-    	return view('espschedule.all_calendar')->with(compact('jsonevents','specialties'));
+        $all_doctors = User::where('role',1)->get();
+        $doctors=[];
+        foreach ($all_doctors as $key => $value) {
+            $doctors[]=[
+                "id"=>$value->id,
+                "name"=>$value->dni." - ".$value->name." ".$value->last_name,
+            ];
+        }
+    	return view('espschedule.all_calendar')->with(compact('jsonevents','specialties','doctors'));
     }
 
     public function ajax_get_doctors(){

@@ -46,6 +46,9 @@
                     <div class="form-group col-md-8">
                         <select class="form-control " id = "chooseDoctor" name = "doctor_id" >
                         <option value=""> Ver todos</option>
+                        @foreach($doctors as $doctor)
+                          <option value="{{$doctor['id']}}"><?=$doctor['name']?></option>
+                        @endforeach
                         </select>   
                     </div>
                     <div class="col-md-2">
