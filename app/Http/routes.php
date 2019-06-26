@@ -126,6 +126,8 @@ Route::get('/doctors/schedule/assign/{id}', 'DoctorController@assign');
 
 //eDoctors_schedule
 Route::get('/edoctors/schedule', 'EdoctorController@index');
+Route::get('/edoctors/schedule/{id}', 'EdoctorController@detail')->where(['id' => '[0-9]+']);
+Route::get('/edoctors/schedule/remove/{id}', 'EdoctorController@remove');
 Route::post('/edoctors/schedule', 'EdoctorController@search');
 Route::get('/edoctors/schedule/add', 'EdoctorController@add');
 Route::post('/edoctors/schedule/add', 'EdoctorController@store');

@@ -23,6 +23,7 @@ class EdoctorController extends Controller
 	            'end'=>$value->date.' '.$value->end_time	,
 	            'backgroundColor'=>$value->color,
 	            'borderColor'=>$value->color,
+                'url'=>"/edoctors/schedule/".$value->id,
 	        ];
 
 	    }
@@ -41,6 +42,13 @@ class EdoctorController extends Controller
     public function add(){
     	$specialties = Specialty::all();
     	return view('espschedule.new_schedule')->with(compact('specialties'));
+    }
+
+    public function detail($id){
+        $schedule = Espschedule::find($id);
+        $doctor = $schedule->doctor;
+        $doctor_name = $doctor->user->name." ".$doctor->user->last_name;
+        return view('espschedule.detail_schedule')->with(compact('doctor_name','schedule'));
     }
 
     public function store(Request $request){
@@ -100,6 +108,7 @@ class EdoctorController extends Controller
 		            'end'=>$value->date.' '.$value->end_time	,
 		            'backgroundColor'=>$value->color,
 		            'borderColor'=>$value->color,
+                    'url'=>"/edoctors/schedule/".$value->id,
 		        ];
 	    	}
     	}
@@ -118,6 +127,7 @@ class EdoctorController extends Controller
 		            'end'=>$value->date.' '.$value->end_time	,
 		            'backgroundColor'=>$value->color,
 		            'borderColor'=>$value->color,
+                    'url'=>"/edoctors/schedule/".$value->id,
 		        ];
 	    	}
     	}
@@ -133,6 +143,10 @@ class EdoctorController extends Controller
     	return view('espschedule.all_calendar')->with(compact('jsonevents','specialties','doctors'));
     }
 
+    public function remove($id){
+        Espschedule::destroy($id);
+        return redirect('/edoctors/schedule');
+    }
     public function ajax_get_doctors(){
         $u_doctors = Doctor::all();
         $doctors=[];
