@@ -129,8 +129,6 @@ Route::get('/edoctors/schedule', 'EdoctorController@index');
 Route::post('/edoctors/schedule', 'EdoctorController@search');
 Route::get('/edoctors/schedule/add', 'EdoctorController@add');
 Route::post('/edoctors/schedule/add', 'EdoctorController@store');
-Route::post('/ajax_get_doctors','EdoctorController@ajax_get_doctors');
-
 
 //p_services
 Route::get('/p_services/{id_P}', 'Partner_serviceController@index')->where(['id_P' => '[0-9]+']);
@@ -197,12 +195,16 @@ Route::get('/appointments/remove/{id}', 'AppointmentController@delete');
 
 Route::post('/ajax_get_doctors_per_specialty','AppointmentController@ajax_get_doctors');
 Route::post('/ajax_get_events_by_user_id','EdoctorController@ajax_get_events');
+Route::post('/ajax_validate_date','AppointmentController@ajax_validate_date');
 
 
 // tcalls of the traige main-menu
 Route::get('/tcalls/complete/{id}', 'TCallController@complete');
 Route::get('/tcalls/remove/{id}', 'TCallController@delete');
+
+//rutas de prueba eliminar al final de la etapa de desarrollo
 Route::get('/aj/{id}', 'AppointmentController@aj_docs');
+Route::get('/val_m_general/{user_id}/{input_date}', 'AppointmentController@validate_medico_general');
 
 
 

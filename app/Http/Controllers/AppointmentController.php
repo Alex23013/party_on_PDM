@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -38,29 +38,57 @@ class AppointmentController extends Controller
         }
         return $doctors;
     }
+   // val_m_general/2/2019-06-12
+    
 
-    public function aj_docs($id){
-        $u_doctors = Doctor::all();
-        $doctors=[];
-        foreach ($u_doctors as $doctor) {
-            if($doctor->specialty_id == $id){
-                
-                 $schedule= Schedule::find($doctor->schedule_id);
-                 if($schedule){
-                    $schedule_info = $schedule->schedule;
-
-                 }else{
-                    $schedule_info = "No tiene horario";
-                 }
-                $doctors[] =array(
-                        "name" => $doctor->user->name,
-                        "id" => $doctor->user->id,
-                        "specialty"=>$doctor->specialty_id,
-                        "schedule"=>$schedule_info,
-                    );     
+    public function validate_medico_general($user_id,$input_date){
+        $user = User::find($user_id);
+        $doctor = $user->doctor;
+        $schedule = json_decode(Schedule::find($doctor->schedule_id)->schedule);
+        $valid_days=[]; //where monday = 0
+        foreach ($schedule as $key => $value) {
+            if($value->schedule_start!=""){
+                $valid_days[]=$key;
             }
         }
-        return $doctors;
+        //dd($valid_days);
+        $timestamp = strtotime($input_date);
+        $requested_day = date('D', $timestamp);
+        //dd($requested_day);
+        $dayToNumber=[
+        "Mon"=>0,   "Tue"=>1,   "Wed"=>2,   "Thu"=>3,
+        "Fri"=>4,   "Sat"=>5,   "Sun"=>6,
+        ];
+        if(in_array($dayToNumber[$requested_day], $valid_days)){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function ajax_validate_date(){
+        $then = $_POST['input_date'];
+        $now = time();        
+        $thenTimestamp = strtotime($then);
+        $difference_seconds = $thenTimestamp-$now ;
+        if($difference_seconds<0){
+            return "No se puede reservar una cita en el pasado";
+        }else{
+            if($_POST['input_esp_id'] == 1){
+                if($this->validate_medico_general($_POST['input_user_id'],$then)){
+                    return 1;
+                }else{
+                    $user = User::find($_POST['input_user_id']);
+                    $doctor_name = $user->name." ".$user->last_name;
+                    $response =$doctor_name." no atiende ese día";
+                    return $response;
+                }
+            }else{
+                //comprobar si el especilista atiende ese dia;
+                //return "cita con especialidad";
+            }
+            return 1; // fecha valida
+        }
     }
 
     public function index(){	 

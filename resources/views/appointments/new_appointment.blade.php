@@ -105,6 +105,7 @@
 
                             <div class="col-md-6">
                                 <input id="datepicker" type="text" class="form-control" name="date" >
+                                <div id="responseDate">  </div>
                             </div>
                         </div> 
 
@@ -113,7 +114,7 @@
                             <label for="birth" class="col-md-4 control-label">Hora de la cita * </label>
                             <div class="col-md-6">
                             <div class="bootstrap-timepicker">
-                             <input id="schedule_start" type="text" class="form-control timepicker" name="time" >
+                             <input id="input_time" type="text" class="form-control timepicker" name="time" >
                                 </div>
                             <b>Nota: Los campos con * son obligatorios</b>
                             </div>
@@ -122,7 +123,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary" name="registrar" value = "1">
+                                <button type="submit" class="btn btn-primary" id="submit_button" name="registrar" value = "1">
                                     <i class="fa fa-btn fa-user"></i> Registrar
                                 </button>
                             </div>
@@ -153,7 +154,15 @@
 </script>
 <script>
     
-    function chooseSpecialty(){
+    var submit_button = document.getElementById("submit_button");
+
+    var input_date = document.getElementById("datepicker");
+    input_date.disabled=true;
+
+    var input_time = document.getElementById("input_time");
+    input_time.disabled=true;
+
+    $('#specialty_selector').change(function(){
         var parametros={
             "valor1":$('#specialty_selector').find(':selected').val(),
         };
@@ -166,8 +175,7 @@
                 $("#resultado").html("Procesando,espere..");
             },
             success: function(response){
-                console.log("ffff");
-                console.log(response);
+                console.log("response: ",response);
                 $("#resultado").html(response); 
                  var doctorSelect= document.getElementById('doctor_select');
                 $(doctorSelect).empty();
@@ -177,14 +185,44 @@
                 }                
             }
        });
-    }
+    })
 
-    $('#specialty_selector').change(function(){
-        console.log($("#specialty_selector option:selected"));
-        chooseSpecialty();
+    $('#datepicker').change(function(){
+        $("#responseDate").empty()
+        $("#responseDate").append("Comprobando cita...")
+        console.log("input-date",$('#datepicker').val())
+        console.log("input-user_id",$('#doctor_select').find(':selected').val())
+        console.log("input-esp_id",$('#specialty_selector').find(':selected').val())
+        var parametros={
+                "input_date":$('#datepicker').val(),
+                "input_user_id":$('#doctor_select').find(':selected').val(),
+                "input_esp_id":$('#specialty_selector').find(':selected').val(),
+            };
+        $.ajax({
+                data: parametros,
+                url: '/ajax_validate_date',
+                type: 'post',
+                success: function(response){
+                    console.log("message_response",response);
+                    $("#responseDate").empty()
+                    
+                    if(response == 1){
+                        $("#responseDate").append("<i class=\"fa fa-check\"></i> Fecha válida")
+                        input_time.disabled=false;
+                        submit_button.classList.remove("disabled");
+                    }else{
+                        $("#responseDate").append("<i class=\"fa fa-times\"></i> ")
+                        $("#responseDate").append(response)
+                        input_time.disabled=true;
+                        submit_button.classList.add("disabled");
+                    }
+                    
+                }
+            });
     })
     
     $('#doctor_select').change(function(){
+        input_date.disabled=false;
         var specialty_id = $('#specialty_selector').find(':selected').val();
         console.log("specialty_id", specialty_id);
         if(specialty_id == 1){
