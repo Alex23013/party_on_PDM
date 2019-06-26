@@ -29,7 +29,7 @@ class AppointmentController extends Controller
                  }
 
                 $doctors[] =array(
-                        "name" => $doctor->user->name,
+                        "name" => $doctor->user->dni." - ".$doctor->user->name." ".$doctor->user->last_name,
                         "id" => $doctor->user->id,
                         "specialty"=>$doctor->specialty_id,
                         "schedule"=>$schedule_info,
