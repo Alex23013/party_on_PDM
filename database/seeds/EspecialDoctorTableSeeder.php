@@ -72,7 +72,7 @@ class EspecialDoctorTableSeeder extends Seeder
 	    		'address'=>"su otra casita",
 	    		'specialty_id'=> 4,	    		
 	    	]);
-	   	DB::statement("SELECT SETVAL('users_id_seq', (SELECT MAX(id) FROM users))");
+	   	DB::statement("SELECT SETVAL('users_id_seq', (SELECT MAX(id) FROM users))");	
 	    DB::statement("SELECT SETVAL('doctors_id_seq', (SELECT MAX(id) FROM doctors))");
     }
 }
