@@ -54,32 +54,38 @@ class RestDoctorController extends Controller
           ->json(['status' => '404', 
               'message' => 'No se encontro el doctor solicitado']); 
         }
-      $schedule = Schedule::find($doctor->schedule_id);
-      if($schedule){
-        $scheduleContent = json_decode($schedule->schedule);
-        $validDays = [];
-        foreach ($scheduleContent as $day) {
-          if($day->schedule_start != ""){
-            $validDays[]= $day;
+      if($doctor->specialty_id == 1){
+        $schedule = Schedule::find($doctor->schedule_id);
+        if($schedule){
+          $scheduleContent = json_decode($schedule->schedule);
+          $validDays = [];
+          foreach ($scheduleContent as $day) {
+            if($day->schedule_start != ""){
+              $validDays[]= $day;
+            }
           }
-        }
-        if($validDays == []){
-          return response()
-          ->json(['status' => '402', 
-              'content'=>$scheduleContent,
-              'message' => 'El doctor no tiene un horario']);
+          if($validDays == []){
+            return response()
+            ->json(['status' => '402', 
+                'content'=>$scheduleContent,
+                'message' => 'El doctor no tiene un horario']);
+          }else{
+            return response()
+            ->json(['status' => '200', 
+                'message' => 'Ok',
+                'content' => $validDays]);
+          }
+          
         }else{
           return response()
-          ->json(['status' => '200', 
-              'message' => 'Ok',
-              'content' => $validDays]);
-        }
-        
-      }else{
+            ->json(['status' => '402', 
+                'message' => 'El doctor no tiene un horario asignado aun']);
+        } 
+      }else{//medico especialista
         return response()
-          ->json(['status' => '402', 
-              'message' => 'El doctor no tiene un horario asignado aun']);
-      } 
+            ->json(['status' => '402', 
+                'message' => 'El doctor es especialista']);
+      }
     }
   }
 
@@ -164,6 +170,7 @@ class RestDoctorController extends Controller
               "name_patient" =>$patient->user->name,
               "last_name_patient" =>$patient->user->last_name,
               "date_time" => $app->date_time,
+              "address"=>$app->attention->address,
               ]; 
             }
           }else{
@@ -174,6 +181,7 @@ class RestDoctorController extends Controller
               "name_patient" =>$patient->user->name,
               "last_name_patient" =>$patient->user->last_name,
               "date_time" => $app->date_time,
+              "address"=>$app->attention->address,
               ]; 
           }
           

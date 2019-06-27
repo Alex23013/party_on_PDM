@@ -27,7 +27,7 @@ class espScheduleTableSeeder extends Seeder
         $max_id_user = DB::statement("SELECT MAX(id) FROM users");
         DB::table('doctors')->insert([
                 //'id'=>3,
-                'user_id'=> $max_id_user+1 ,
+                'user_id'=> $max_id_user+2 ,
                 'birth_at'=>"2019-04-16",
                 'address'=>"su casita",
                 'specialty_id'=> 2,             
@@ -50,7 +50,7 @@ class espScheduleTableSeeder extends Seeder
         DB::table('doctors')->insert([
                 //'id'=>4,
                 //'user_id'=> 12,
-                'user_id'=> $max_id_user +2,
+                'user_id'=> $max_id_user +3,
                 'birth_at'=>"2019-04-16",
                 'address'=>"su casita",
                 'specialty_id'=> 3,             
@@ -73,7 +73,7 @@ class espScheduleTableSeeder extends Seeder
         DB::table('doctors')->insert([
                 //'id'=>4,
                 //'user_id'=> 13,
-                'user_id'=> $max_id_user+3 ,
+                'user_id'=> $max_id_user+4 ,
                 'birth_at'=>"2019-09-16",
                 'address'=>"su casita",
                 'specialty_id'=> 4,             
