@@ -234,39 +234,57 @@ class RestDoctorController extends Controller
 
   public function attend_appointment(Request $request){
     $app = Appointment::find($request->app_id);
-    $app->status = 2; // marcar cita como atendida
-    $app->save();
+    if($app){
+      $patient = Patient::find($request->patient_id);
+      if(!$patient){
+        return response()
+        ->json(['status' => '404', 
+            'message' => 'no se encontro la información del historial, verifique el id del paciente']);
+      }
+      if($patient->id != $app->attention->patient_id){
+        return response()
+        ->json(['status' => '404', 
+            'message' => 'El id del paciente no coiincide con la cita medica']);
+      }
+      $app->status = 2; // marcar cita como atendida
+      $app->save();
 
-    $patient = Patient::find($request->patient_id);
-    $patient_name = $patient->user->name." ".$patient->user->last_name;
+      
+      $patient_name = $patient->user->name." ".$patient->user->last_name;
 
-    $histories = History::all();
-    $matched_histories = [];
-    foreach ($histories as $hist) {
-        if($hist->attention->patient->id == $request->patient_id){
-            $matched_histories[]=$hist;
-        }
-    }
-    if($matched_histories){
-      $matched_histories = array_reverse($matched_histories);
-      $last_personal_antecedent = $matched_histories[0]->personal_antecedents;
-      $last_family_antecedent = $matched_histories[0]->family_antecedents;
-      return response()
-        ->json(['status' => '200', 
-            'message' => 'Ok',
-            'patient_name'=>$patient_name,
-            'last_personal_antecedent'=>$last_personal_antecedent,
-            'last_family_antecedent'=>$last_family_antecedent,
-            'content'=>$matched_histories]);  
+      $histories = History::all();
+      $matched_histories = [];
+      foreach ($histories as $hist) {
+          if($hist->attention->patient->id == $request->patient_id){
+              $matched_histories[]=$hist;
+          }
+      }
+      if($matched_histories){
+        $matched_histories = array_reverse($matched_histories);
+        $last_personal_antecedent = $matched_histories[0]->personal_antecedents;
+        $last_family_antecedent = $matched_histories[0]->family_antecedents;
+        return response()
+          ->json(['status' => '200', 
+              'message' => 'Ok',
+              'patient_name'=>$patient_name,
+              'last_personal_antecedent'=>$last_personal_antecedent,
+              'last_family_antecedent'=>$last_family_antecedent,
+              'content'=>$matched_histories]);  
+      }else{
+        return response()
+          ->json(['status' => '200', 
+              'message' => 'Ok',
+              'patient_name'=>$patient_name,
+              'last_personal_antecedent'=>"",
+              'last_family_antecedent'=>"",
+              'content'=>"aun no hay historial de este paciente"]); 
+      }
     }else{
       return response()
-        ->json(['status' => '200', 
-            'message' => 'Ok',
-            'patient_name'=>$patient_name,
-            'last_personal_antecedent'=>"",
-            'last_family_antecedent'=>"",
-            'content'=>"aun no hay historial de este paciente"]); 
+        ->json(['status' => '404', 
+            'message' => 'no se encontro la información de esa cita, verifique el id de la cita']);
     }
+    
     
   }
 
