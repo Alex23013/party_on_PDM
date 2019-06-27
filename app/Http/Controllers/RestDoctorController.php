@@ -15,6 +15,7 @@ use App\History;
 use App\Doctorkit;
 use App\Recipe;
 use App\Medicine;
+use App\Espschedule;
 
 class RestDoctorController extends Controller
 {
@@ -67,7 +68,6 @@ class RestDoctorController extends Controller
           if($validDays == []){
             return response()
             ->json(['status' => '402', 
-                'content'=>$scheduleContent,
                 'message' => 'El doctor no tiene un horario']);
           }else{
             return response()
@@ -82,9 +82,26 @@ class RestDoctorController extends Controller
                 'message' => 'El doctor no tiene un horario asignado aun']);
         } 
       }else{//medico especialista
-        return response()
+        $schedules = Espschedule::where('doctor_id',$doctor->id)->get();
+        $validDays = [];
+        if(count($schedules)>0){
+          foreach ($schedules as $key => $value) {
+            $validDays[]=[
+              "day"=> $value->date,
+            "schedule_start"=> $value->start_time,
+            "schedule_end"=> $value->end_time,
+            ];
+          }
+          return response()
+            ->json(['status' => '200', 
+                'message' => 'Ok',
+                'content' => $validDays]);
+
+        }else{
+          return response()
             ->json(['status' => '402', 
-                'message' => 'El doctor es especialista']);
+                'message' => 'El doctor no tiene horarios de atención asignados']);
+        }
       }
     }
   }
