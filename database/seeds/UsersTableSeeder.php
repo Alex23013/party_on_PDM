@@ -86,7 +86,7 @@ class UsersTableSeeder extends Seeder
 	    	]);
 	    DB::statement("SELECT SETVAL('users_id_seq', (SELECT MAX(id) FROM users))");
 	    DB::statement("SELECT SETVAL('patients_id_seq', (SELECT MAX(id) FROM patients))");
-	    DB::statement("SELECT SETVAL('triages_id_seq', (SELECT MAX(id) FROM patients))");
+	    DB::statement("SELECT SETVAL('triages_id_seq', (SELECT MAX(id) FROM triages))");
 	    DB::statement("SELECT SETVAL('doctors_id_seq', (SELECT MAX(id) FROM doctors))");
     }
 }
