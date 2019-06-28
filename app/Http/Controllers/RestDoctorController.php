@@ -437,22 +437,29 @@ class RestDoctorController extends Controller
   }
 
   public function get_recipe(Request $request){
-    $recipe = Recipe::find($request->recipe_id);
-    if($recipe){
-      $info[]=[
-      "recipe_id"=>$recipe->id,
-        "appointment_id"=>$recipe->appointment_id,
-        "medicines"=>json_decode($recipe->medicines),
-        "instructions"=>$recipe->instructions,
-      ];
-      return response()
-              ->json(['status' => '200', 
-                  'message' => 'Ok',
-                  'recipe' => $info]);
+    $app = Appointment::find($request->appointment_id);
+    if($app){
+      $recipe = $app->recipe;
+      if($recipe){
+        $info[]=[
+        "recipe_id"=>$recipe->id,
+          "appointment_id"=>$recipe->appointment_id,
+          "medicines"=>json_decode($recipe->medicines),
+          "instructions"=>$recipe->instructions,
+        ];
+        return response()
+                ->json(['status' => '200', 
+                    'message' => 'Ok',
+                    'recipe' => $info]);
+      }else{
+        return response()
+                ->json(['status' => '402', 
+                    'message' => 'Esta cita no tiene una receta asignada']);
+      }      
     }else{
       return response()
-              ->json(['status' => '404', 
-                  'message' => 'No se encotró la receta solicitada']);
+                ->json(['status' => '404', 
+                    'message' => 'No se encontró la cita solicitada']);
     }
   }
 
