@@ -19,4 +19,7 @@ class Appointment extends Model
     return $this->belongsTo('App\Doctor','doctor_id','id');
   } 
 
+  public function recipe() {
+      return $this->hasOne('App\Recipe');
+    }
 }

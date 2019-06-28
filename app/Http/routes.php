@@ -69,6 +69,7 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_create_history/','RestDoctorController@create_history');	
 	Route::post('/api/v2/doctor_get_bag/','RestDoctorController@get_bag');
 	Route::post('/api/v2/doctor_create_recipe/','RestDoctorController@create_recipe');
+	Route::post('/api/v2/doctor_get_recipe/','RestDoctorController@get_recipe');
 	});
 // -------- END_POINTS_V2
 
@@ -198,7 +199,7 @@ Route::get('/appointments/remove/{id}', 'AppointmentController@delete');
 Route::post('/ajax_get_doctors_per_specialty','AppointmentController@ajax_get_doctors');
 Route::post('/ajax_get_events_by_user_id','EdoctorController@ajax_get_events');
 Route::post('/ajax_validate_date','AppointmentController@ajax_validate_date');
-
+Route::post('/ajax_validate_time','AppointmentController@ajax_validate_time');
 
 // tcalls of the traige main-menu
 Route::get('/tcalls/complete/{id}', 'TCallController@complete');
@@ -207,6 +208,8 @@ Route::get('/tcalls/remove/{id}', 'TCallController@delete');
 //rutas de prueba eliminar al final de la etapa de desarrollo
 Route::get('/aj/{id}', 'AppointmentController@aj_docs');
 Route::get('/val_m_general/{user_id}/{input_date}', 'AppointmentController@validate_medico_general');
+
+Route::get('/val_t_general/{input_date}/{input_time}/{user_id}', 'AppointmentController@val_time_general');
 
 
 
