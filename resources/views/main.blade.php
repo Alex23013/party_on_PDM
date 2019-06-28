@@ -49,11 +49,11 @@
                 <tbody>
                 	<?php foreach ($tcalls as $tc): ?>
                     <tr>  
-                    @if($tc['name']!= "")
-                    <td> {{$tc['name']}}</td>
-					@else
-					<td>Paciente no registrado</td>
-					@endif
+                    @if($tc['is_registed']== 1)
+                      <td> {{$tc['name']}}</td>
+          					@else
+          					 <td>{{$tc['name']}} (UNR)</td>
+          					@endif
                     <td>{{$tc['patient_cell']}}</td>
                     <td>{{$tc['message']}}</td>
                     @if($tc['type'] == 1)
@@ -81,6 +81,7 @@
                 </tbody>
               </table>
 		      	</div>
+            <span class="mm-left"> Nota: UNR = Usuario No Registrado</span>
             </div>
       		</div>
       		@endif 

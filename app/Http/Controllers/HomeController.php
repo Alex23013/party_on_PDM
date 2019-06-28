@@ -43,16 +43,18 @@ class HomeController extends Controller
                         "type"=>$tc->type,
                         "created_at"=>$tc->created_at,
                         "status"=>$tc->status,
+                        "is_registed"=>1,
                         );   
                     }else{
                         $tcalls[]=array(
                         "id"=>    $tc->id,
-                        "name" => $tc->caller_name,                            
+                        "name" => $tc->caller_name,                       
                         "patient_cell" => $tc->patient_cell,
                         "message"=>$tc->message,
                         "type"=>$tc->type,
                         "created_at"=>$tc->created_at,
                         "status"=>$tc->status,
+                        "is_registed"=>0,
                         );   
                     }
                 }
