@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="patient_id" class="col-md-4 control-label">Nombre del paciente *</label>
+                             <label for="patient_id" class="col-md-4 control-label">Nombre del paciente *</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name = "patient_user_id" >
@@ -115,7 +115,8 @@
                             <div class="col-md-6">
                             <div class="bootstrap-timepicker">
                              <input id="input_time" type="text" class="form-control timepicker" name="time" >
-                                </div>
+                             <div id="responseTime"> </div>
+                            </div>
                             <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
@@ -219,6 +220,45 @@
                     
                 }
             });
+    })
+
+    $('#input_time').change(function(){
+        $("#responseTime").empty()
+        $("#responseTime").append("Comprobando cita...")
+        console.log("T input-time",$('#input_time').val())
+        console.log("T input-user_id",$('#doctor_select').find(':selected').val())
+        console.log("T input-esp_id",$('#specialty_selector').find(':selected').val())
+        var parametros={
+                "input_date":$('#datepicker').val(),
+                "input_time":$('#input_time').val(),
+                "input_user_id":$('#doctor_select').find(':selected').val(),
+                "input_esp_id":$('#specialty_selector').find(':selected').val(),
+            };
+        if(input_date.disabled){
+            input_time.disabled=true;
+        }else{
+            $.ajax({
+                data: parametros,
+                url: '/ajax_validate_time',
+                type: 'post',
+                success: function(response){
+                    console.log("T message_response",response);
+                    $("#responseTime").empty()
+                    
+                    if(response == 1){
+                        $("#responseTime").append("<i class=\"fa fa-check\"></i> Hora válida")
+                        submit_button.classList.remove("disabled");
+                    }else{
+                        $("#responseTime").append("<i class=\"fa fa-times\"></i> ")
+                        $("#responseTime").append(response)
+                        submit_button.classList.add("disabled");
+                    }
+                    
+                }
+            });
+
+        }
+        
     })
     
     $('#doctor_select').change(function(){

@@ -40,6 +40,15 @@ class AppointmentController extends Controller
     }
    // val_m_general/2/2019-06-12
     
+    public function day_to_number($input_date){
+       $timestamp = strtotime($input_date);
+       $requested_day = date('D', $timestamp);
+       $dayToNumber=[
+        "Mon"=>0,   "Tue"=>1,   "Wed"=>2,   "Thu"=>3,
+        "Fri"=>4,   "Sat"=>5,   "Sun"=>6,
+        ]; 
+        return $dayToNumber[$requested_day];
+    }
 
     public function validate_medico_general($user_id,$input_date){
         $user = User::find($user_id);
@@ -89,6 +98,56 @@ class AppointmentController extends Controller
             }
             return 1; // fecha valida
         }
+    }
+
+    public function val_time_general($user_id,$input_date,$input_time){
+        $user = User::find($user_id);
+        $doctor = $user->doctor;
+        $doctor_name = $user->name." ".$user->last_name;
+        $day = $this->day_to_number($input_date);
+        $schedule = json_decode(Schedule::find($doctor->schedule_id)->schedule);
+        $start = $schedule[$day]->schedule_start;
+        $end =  $schedule[$day]->schedule_end;   
+        $startTimestamp = strtotime($start);
+        $endTimestamp = strtotime($end);
+        $nowTimestamp = strtotime($input_time);
+       
+        if($nowTimestamp > $startTimestamp && $nowTimestamp < $endTimestamp){
+            dd( 1);
+        }else{
+            $response =$doctor_name." no atiende en ese horario";
+            dd($response);
+        }
+    }
+
+    public function val_time_especialidad($input_date, $input_time, $doctor_id){
+        return "especialidad";
+    }
+    
+    public function ajax_validate_time(){
+        $user = User::find($_POST['input_user_id']);
+        $doctor_name = $user->name." ".$user->last_name;
+        $doctor = $user->doctor;
+
+        if($_POST['input_esp_id'] == 1){
+            $day = $this->day_to_number($_POST['input_date']);
+            $schedule = json_decode(Schedule::find($doctor->schedule_id)->schedule);
+            $start = $schedule[$day]->schedule_start;
+            $end =  $schedule[$day]->schedule_end; 
+            $startTimestamp = strtotime($start);
+            $endTimestamp = strtotime($end);
+            $nowTimestamp = strtotime($_POST['input_time']);
+            if($nowTimestamp > $startTimestamp && $nowTimestamp < $endTimestamp){
+                return 1;
+            }else{
+                $response =$doctor_name." no atiende en ese horario";
+                return $response;
+            }
+        }else{
+            //comprobar si esta en el horario del especialista
+            //$this->val_time_especialidad($_POST['input_date'],$_POST['input_time'],$doctor->id);
+        }   
+        return 1;
     }
 
     public function index(){	 

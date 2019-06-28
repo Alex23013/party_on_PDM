@@ -209,7 +209,7 @@ Route::get('/tcalls/remove/{id}', 'TCallController@delete');
 Route::get('/aj/{id}', 'AppointmentController@aj_docs');
 Route::get('/val_m_general/{user_id}/{input_date}', 'AppointmentController@validate_medico_general');
 
-Route::get('/val_t_general/{input_date}/{input_time}/{user_id}', 'AppointmentController@val_time_general');
+Route::get('/val_t_general/{user_id}/{input_date}/{input_time}', 'AppointmentController@val_time_general');
 
 
 
