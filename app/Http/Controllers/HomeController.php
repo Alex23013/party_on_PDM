@@ -47,7 +47,7 @@ class HomeController extends Controller
                     }else{
                         $tcalls[]=array(
                         "id"=>    $tc->id,
-                        "name" =>"",                            
+                        "name" => $tc->caller_name,                            
                         "patient_cell" => $tc->patient_cell,
                         "message"=>$tc->message,
                         "type"=>$tc->type,

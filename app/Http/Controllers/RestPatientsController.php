@@ -192,6 +192,22 @@ class RestPatientsController extends Controller
 						'inbox' =>$inbox]);
 	}
 
+	public function unregisted_inbox(Request $request){
+		$inbox = New Tcall;
+		$data = $request->all();
+        foreach ($data as $key => $value) {
+           if( $value == '' || $value == ' ' ){
+           }else{
+    			$inbox->$key=$data[$key];   	
+       		}     
+       	}           
+        $inbox->save();
+        return response()
+				->json(['status' => '200', 
+						'message' => 'Ok',
+						'inbox' =>$inbox]);
+	}
+
 	public function appointments(Request $request){
 		$user = User::find($request->user_id);
 	    if($user->role != 3){

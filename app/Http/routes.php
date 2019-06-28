@@ -44,6 +44,7 @@ Route::get('/api/v1/appointments_confirmed/{user_id}', 'RestDoctorController@app
 
 // ----  END_POINTS V2
 Route::post('/api/v2/user_login', 'RestUserController@login_v2');
+Route::post('/api/v2/unregisted_patient_inbox/','RestPatientsController@unregisted_inbox');
 Route::group(['middleware' => ['token']], function () {
 	//patients	
 	Route::post('/api/v2/patient_get_data/{user_id}', 'RestPatientsController@get_data');
