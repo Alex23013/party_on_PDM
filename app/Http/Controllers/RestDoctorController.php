@@ -429,10 +429,16 @@ class RestDoctorController extends Controller
         }        
       }
       $recipe->save();
+      $info[]=[
+        "recipe_id"=>$recipe->id,
+          "appointment_id"=>$recipe->appointment_id,
+          "medicines"=>json_decode($recipe->medicines),
+          "instructions"=>$recipe->instructions,
+        ];
       return response()
               ->json(['status' => '201', 
                   'message' => 'Ok',
-                  'bag' => $recipe]);
+                  'bag' => $info]);
     }
   }
 
