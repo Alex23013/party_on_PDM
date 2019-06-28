@@ -192,7 +192,7 @@ class RestDoctorController extends Controller
             }
           }else{
              $matched_appointments[]= [
-              'app_id' => $app->attention->id, 
+              'app_id' => $app->id, 
               "motive" => $app->attention->motive,
               "patient_id"=>$patient->id,
               "name_patient" =>$patient->user->name,
