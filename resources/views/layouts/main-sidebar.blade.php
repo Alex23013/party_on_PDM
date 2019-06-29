@@ -26,6 +26,11 @@
               <i class="glyphicon glyphicon-user"></i> <span>Técnicos</span>
             </a>
           </li>
+          <li>
+            <a href="/specialties/">
+              <i class="fa fa-list"></i> <span> Especialidades </span>
+            </a>
+          </li>
 
           <li>
             <a href="/partners">
@@ -48,7 +53,8 @@
               <i class="fa fa-hospital-o"></i> <span> Historias clínicas </span>
             </a>
           </li>
-            <li class="treeview">
+          
+          <li class="treeview">
               <a href="#">
                 <i class="glyphicon glyphicon-plus"></i> <span>Añadir miembro</span> <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -66,6 +72,11 @@
           <li>
             <a href="/techs">
               <i class="glyphicon glyphicon-user"></i> <span>Técnicos</span>
+            </a>
+          </li>
+          <li>
+            <a href="/specialties/">
+              <i class="fa fa-list"></i> <span> Especialidades </span>
             </a>
           </li>
           <li>

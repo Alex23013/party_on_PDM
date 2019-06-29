@@ -74,6 +74,16 @@ Route::group(['middleware' => ['token']], function () {
 	});
 // -------- END_POINTS_V2
 
+
+//Specialties
+Route::get('/specialties', 'SpecialtyController@index'); 	
+Route::get('/specialties/edit/{id}', 'SpecialtyController@update')->where(['id' => '[0-9]+']);
+Route::post('/specialties/edit', 'SpecialtyController@store_update');	
+Route::get('/specialties/add', 'SpecialtyController@add');
+Route::post('/specialties/add', 'SpecialtyController@store');
+Route::get('/specialties/remove/{id}', 'SpecialtyController@delete')->where(['id' => '[0-9]+']);
+
+
 //Techs 
 Route::get('/techs', 'TuserController@index'); 		
 Route::get('/techs/add', 'TuserController@add');
@@ -196,6 +206,8 @@ Route::post('/appointments', 'AppointmentController@store_real_time');
 Route::get('/appointments/edit/{id}', 'AppointmentController@update')->where(['id' => '[0-9]+']);
 Route::post('/appointments/edit', 'AppointmentController@store_update');
 Route::get('/appointments/remove/{id}', 'AppointmentController@delete')->where(['id' => '[0-9]+']);
+Route::get('/appointments/update_status/{id}/{new_status}', 'AppointmentController@update_status')->where(['id' => '[0-9]+'],['new_status' => '[0-3]']);
+
 
 Route::post('/ajax_get_doctors_per_specialty','AppointmentController@ajax_get_doctors');
 Route::post('/ajax_get_events_by_user_id','EdoctorController@ajax_get_events');
