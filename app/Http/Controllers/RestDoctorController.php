@@ -252,12 +252,26 @@ class RestDoctorController extends Controller
       
       $patient_name = $patient->user->name." ".$patient->user->last_name;
 
-      $histories = History::all();
-      $matched_histories = [];
-      foreach ($histories as $hist) {
-          if($hist->attention->patient->id == $request->patient_id){
-              $matched_histories[]=$hist;
+      $appointments_completed = Appointment::where('status',2)->get(); 
+      $matched_histories = []; 
+      foreach ($appointments_completed as $app_com) {
+        if($app_com->attention->patient_id == $request->patient_id ){
+          $month = date("m",strtotime($app_com->date_time));
+          $year = date("y",strtotime($app_com->date_time));
+          if( $month ==date('m') &&  $year == date('y')){
+            $matched_histories[]=$app_com->attention->history;
           }
+        }
+      }
+      if($matched_histories == []){
+        return response()
+        ->json(['status' => '200', 
+              'message' => 'Ok',
+              'patient_name'=>$patient_name,
+              'last_personal_antecedent'=>"",
+              'last_family_antecedent'=>"",
+              'content'=>"El paciente no tiene historias clinicas del ultimo mes"]);
+
       }
       if($matched_histories){
         $matched_histories = array_reverse($matched_histories);
@@ -270,7 +284,7 @@ class RestDoctorController extends Controller
               'last_personal_antecedent'=>$last_personal_antecedent,
               'last_family_antecedent'=>$last_family_antecedent,
               'content'=>$matched_histories]);  
-      }else{
+      }else{ //TODO: revisar si entrara a este caso
         return response()
           ->json(['status' => '200', 
               'message' => 'Ok',
