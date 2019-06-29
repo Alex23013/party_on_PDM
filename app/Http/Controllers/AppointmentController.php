@@ -151,15 +151,20 @@ class AppointmentController extends Controller
     }
 
     public function index(){	 
-    	$appointments = Attention::where('type', 1)->get();
+    	$attentions = Attention::where('type', 1)->get();
         $info = [];        
-        foreach ($appointments as $app ) {
+        $array=array(0=>"En espera",1=>"Confirmada",2=>"Atendida",3=>"Cancelada" );
+
+        foreach ($attentions as $att ) {
+            $app = Appointment::where('attention_id',$att->id)->first();
             $info[] = [
-                        'id'=>$app->id,
-                        'attention_code'=>$app->attention_code,
-                        'patient'=>$app->patient->user->name." ".$app->patient->user->last_name,
-                        'patient_dni'=>$app->patient->user->dni,
-                        ];
+                'id'=>$att->id,
+                'attention_code'=>$att->attention_code,
+                'patient'=>$att->patient->user->name." ".$att->patient->user->last_name,
+                'patient_dni'=>$att->patient->user->dni,
+                'status'=>$array[$app->status],
+                'app_id'=>$app->id,
+                ];
         }
     	$new = NULL;   
         return view('appointments.appointment_index')->with(compact('info','new'));
@@ -308,5 +313,12 @@ class AppointmentController extends Controller
         $s_attention->save();
         $attention->save();
         return redirect('/appointments/detail/'.$attention->id);
+    }
+
+    public function update_status($id,$new_status){
+        $app = Appointment::find($id);
+        $app->status = $new_status;
+        $app->save();
+         return redirect('/appointments/');
     }
 }
