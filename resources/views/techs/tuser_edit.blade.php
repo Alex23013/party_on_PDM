@@ -59,10 +59,14 @@
                         </div>
                          <input id="id" type="hidden" name="id" value = 
                          {{$user->id}}>
-                         <button type="submit" class="btn  btn-flat btn-success m-left">  <i class="fa fa-save"></i>    Guardar cambios  </button>                                  
+                         <div class="col-md-8 col-md-offset-2">
+                         <button type="submit" class="btn  btn-flat btn-success m-left col-md-7">  <i class="fa fa-save"></i>    Guardar cambios  </button>
+                         </div>                                  
 			            </form>
 			            <br>
-			            <a href="/techs"> <button class="btn  btn-flat btn-danger m-left">  <i class="fa fa-close"></i> Descartar cambios</button></a>
+                  <div class="col-md-8 col-md-offset-2" style="margin-top: 10px;">
+                    <a href="/techs"> <button class=" btn  btn-flat btn-danger m-left col-md-7">  <i class="fa fa-close"></i> Descartar cambios</button></a>  
+                  </div>
 			        </div>
 	            </div>
             </div>
