@@ -20,7 +20,7 @@ class CreateEspschedulesTable extends Migration
             $table->time('end_time');
             $table->string('color');
             $table->timestamps();
-            $table->foreign('doctor_id')->references('id')->on('attentions')->onDelete('cascade');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
         });
     }
 
