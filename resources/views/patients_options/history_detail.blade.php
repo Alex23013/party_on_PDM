@@ -74,7 +74,6 @@
           <label  class="col-md-6"> {{$info['family_antecedents']}}</label>
         </div>
       </div> 
-      
         
         <div class="col-md-12">
         <div class="col-md-3"></div>
@@ -87,7 +86,7 @@
           <button class="btn  btn-flat bg-purple m-left"> En espera del permiso para exportar PDF</button> 
           @endif
           @if($info['pdf_status'] == 2 )
-          <a href="#"> <button class="btn  btn-flat bg-olive m-left">  <i class="fa fa-file-pdf-o"></i> Exportar PDF </button> 
+          <a href="/{{$url_pdf}}" target= "_blank"> <button class="btn  btn-flat bg-olive m-left">  <i class="fa fa-file-pdf-o"></i> Exportar PDF </button> 
           </a>
           @endif
         </div>

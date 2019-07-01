@@ -373,10 +373,10 @@ class PatientController extends Controller
         }  
         return view('patients_options.histories_by_patient')->with(compact('matched_histories'));
     }
-
-    public function pdf($info){
+ 
+    public function pdf($info, $attention_code){
         require("phpToPDF.php"); 
-        $url_pdf = "images/exports/".Auth::user()->patient->patient_code.".pdf";
+        $url_pdf = "images/exports/".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
         $html = view('patients_options.history_detail',compact('info','url_pdf'))->renderSections()['content'];
         phptopdf_html($html,'', $url_pdf);   
         return $url_pdf;
@@ -406,8 +406,9 @@ class PatientController extends Controller
             'pdf_status'=>$history->pdf_status,
         ];
         $url_pdf = "#";
+        $att_code = rtrim($history->attention->attention_code);
         if($history->pdf_status == 2){
-            $url_pdf = $this->pdf($info);
+            $url_pdf = $this->pdf($info,  $att_code );
         }
         return view('patients_options.history_detail')->with(compact('info','url_pdf'));
     }
