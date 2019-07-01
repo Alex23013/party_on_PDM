@@ -16,36 +16,38 @@
                           </ul>
                       </div>
                 @endif
-                
-                    <form class="form-horizontal" role="form" method="POST" action="/edoctors/schedule/add">
+                    <form class="form-horizontal" role="form" method="POST" action="/edoctors/schedule/other/add">
                          {{ csrf_field() }}
-                        <div class="form-group">
+                        
+                         <div class="form-group">
                             <label for="name" class="col-md-4 control-label">Especialidad *</label>
 
-                             <div class="col-md-6">                      
-                                <select class="form-control" name = "specialty_id" id="specialty_select" >
-                                <option value="">Seleccione una especialidad</option>
-                                @foreach($specialties as $specialty)
-                                  @if($specialty->id == 1)
-                                  @else
-                                  <option value="{{$specialty->id}}"><?=$specialty->name?></option>
-                                  @endif
-                                @endforeach
-                                </select>
+                             <div class="col-md-5" style="
+                                margin-left:20px;
+                                 background-color: {{$color}}; border-radius: 10px;">                      
+                                {{$specialty_name}} 
                             </div>
+                            <input type="hidden" name="specialty_id" value = 
+                            {{$specialty_id}}> 
+                            <input type="hidden" name="specialty_name" value = 
+                            {{$specialty_name}}>
                         </div>
 
                         <div class="form-group">
                             <label for="user_id" class="col-md-4 control-label">Doctor *</label>
 
-                            <div class="col-md-6">
-                                <select
-                                 id = "chooseDoctor"
-                                class="form-control"
-                                name = "user_id">
-                                </select>
+                            <div class="col-md-6" style="
+                                margin-left:20px;"">
+                                {{$doctor_name}}
+                                <input type="hidden" name="doctor_id" value = 
+                         {{$doctor_id}}>
+                         <input type="hidden" name="doctor_name" value = 
+                         {{$doctor_name}}>
                             </div>
                         </div>
+                        
+                         
+                         
 
                         <div class="form-group">
                             <label for="dni" class="col-md-4 control-label">Fecha *</label>
@@ -75,6 +77,8 @@
                                 <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
+                        
+
                         <div class="form-group">
                             <div class="col-md-3 col-md-offset-3 ">
                                 <button type="submit" class="btn btn-primary sub" id = "submit_button" name = "guardar" value =0 "">
@@ -117,35 +121,6 @@
       showInputs: false,
       showSeconds:false,
       showMeridian:false
-    })
-
-  function chooseSpecialty(){
-        var parametros={
-            "valor1":$('#specialty_select').find(':selected').val(),
-        };
-        console.log(parametros);
-        $.ajax({
-            data: parametros,
-            url: '/ajax_get_doctors_per_specialty',
-            type: 'post',
-            beforeSend: function(){
-                $("#resultado").html("Procesando,espere..");
-            },
-            success: function(response){
-                console.log(response);
-                 var chooseDoctor= document.getElementById('chooseDoctor');
-                $(chooseDoctor).empty();
-                $(chooseDoctor).append('<option value=""> Seleccione un doctor </option>')
-                for (var i = 0; i < response.length; i++) {
-                    $(chooseDoctor).append('<option value="' + response[i].id + '">' + response[i].name + '</option>');
-                }                
-            }
-       });
-    }
-
-    $('#specialty_select').change(function(){
-        console.log($("#specialty_select option:selected"));
-        chooseSpecialty();
     })
 
     var input_end_time = document.getElementById("input_end_time");

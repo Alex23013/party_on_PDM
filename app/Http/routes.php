@@ -143,6 +143,7 @@ Route::get('/edoctors/schedule/remove/{id}', 'EdoctorController@remove')->where(
 Route::post('/edoctors/schedule', 'EdoctorController@search');
 Route::get('/edoctors/schedule/add', 'EdoctorController@add');
 Route::post('/edoctors/schedule/add', 'EdoctorController@store');
+Route::post('/edoctors/schedule/other/add', 'EdoctorController@other_store');
 
 //p_services
 Route::get('/p_services/{id_P}', 'Partner_serviceController@index')->where(['id_P' => '[0-9]+']);

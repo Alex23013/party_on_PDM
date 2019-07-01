@@ -51,6 +51,43 @@ class EdoctorController extends Controller
         return view('espschedule.detail_schedule')->with(compact('doctor_name','schedule'));
     }
 
+    public function other_store(Request $request){
+        $rules1 = [
+            'date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            ];
+        $messages1 = [
+                'date.required' => 'Es necesario escoger una fecha para registrar un horario de atención',
+                'end_time.required' => 'Es necesario escoger una hora para registrar un horario de atención',
+                'start_time.required' => 'Es necesario escoger una hora para registrar un horario de atención',
+            ];  
+            $this->validate($request, $rules1, $messages1);
+            $new_schedule =  New Espschedule;
+            $data = $request->all();
+            unset($data['_token']);
+            unset($data['guardar']);
+            $color = Specialty::find($data['specialty_id'])->color;
+            $new_schedule->color = $color;
+            unset($data['specialty_id']);
+            unset($data['specialty_name']);
+            unset($data['doctor_name']);
+            foreach ($data as $key => $value) {
+                $new_schedule->$key = $data[$key];
+            }
+            $color = Specialty::find($request->specialty_id)->color;
+            $specialty_name = $request->specialty_name;
+            $doctor_name = $request->doctor_name;
+            $doctor_id = $request->doctor_id;
+            $specialty_id = $request->specialty_id;
+            $new_schedule->save();
+            if($request->guardar){
+                return view('espschedule.new_other_schedule')->with(compact('color','doctor_id','specialty_name','doctor_name','specialty_id'));
+            }else{
+                return redirect('/edoctors/schedule');  
+            }
+    }
+
     public function store(Request $request){
     	$rules1 = [
             'user_id' => 'required',
@@ -66,23 +103,26 @@ class EdoctorController extends Controller
                 'start_time.required' => 'Es necesario escoger una hora para registrar un horario de atención',
                 'specialty_id.required' => 'Es necesario seleccionar una "especialidad"  para registrar un horario de atención'
             ];  
-        $this->validate($request, $rules1, $messages1);
-    	$new_schedule =  New Espschedule;
-    	$data = $request->all();
-        unset($data['_token']);
-        unset($data['guardar']);
-        $color = Specialty::find($data['specialty_id'])->color;
-        $new_schedule->color = $color;
-        unset($data['specialty_id']);
-        unset($data['user_id']);
-        $new_schedule->doctor_id = User::find($request->user_id)->doctor->id;
-        foreach ($data as $key => $value) {
-        	$new_schedule->$key = $data[$key];
-        }
-        $new_schedule->save();
+            $this->validate($request, $rules1, $messages1);
+            $new_schedule =  New Espschedule;
+            $data = $request->all();
+            unset($data['_token']);
+            unset($data['guardar']);
+            $color = Specialty::find($data['specialty_id'])->color;
+            $specialty_name = Specialty::find($data['specialty_id'])->name;
+            $new_schedule->color = $color;
+            unset($data['specialty_id']);
+            unset($data['user_id']);
+            $doctor_name =User::find($request->user_id)->name;
+            $doctor_id =User::find($request->user_id)->doctor->id;
+            $new_schedule->doctor_id = $doctor_id;
+            foreach ($data as $key => $value) {
+                $new_schedule->$key = $data[$key];
+            }
+            $new_schedule->save();
+            $specialty_id = $request->specialty_id ;
         if($request->guardar){
-        	$specialties = Specialty::all();
-        	return view('espschedule.new_schedule')->with(compact('specialties'));
+        	return view('espschedule.new_other_schedule')->with(compact('color','doctor_id','specialty_name','doctor_name','specialty_id'));
         }else{
         	return redirect('/edoctors/schedule');	
         }        
