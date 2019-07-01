@@ -51,14 +51,15 @@
 
                             <div class="col-md-6">
                                 <input id="datepicker" type="text" class="form-control" name="date" >
+                                <div id="responseDate">  </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="form-group">
                             <label for="start_time" class="col-md-4 control-label">Hora Inicio *</label>
 
                             <div class="col-md-6">
                                 <div class="bootstrap-timepicker">
-                             <input id="start_time"  class="form-control timepicker" name="start_time" >
+                             <input id="input_start_time"  class="form-control timepicker" name="start_time" >
                                 </div>
                             </div>
                         </div>
@@ -67,35 +68,15 @@
 
                             <div class="col-md-6">
                                 <div class="bootstrap-timepicker">
-                             <input id="end_time"  class="form-control timepicker" name="end_time" >
+                                <input id="input_end_time"  class="form-control timepicker" name="end_time" >
                                 </div>
+                                <div id="responseTime">  </div>
                                 <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="color" class="col-md-4 control-label">Color</label>
-                             
-                            <div class="col-md-6 btn-group">
-                                <ul class="fc-color-picker" id="color-chooser">
-                                  <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-green" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-lime" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-red" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-purple" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-teal" href="#"><i class="fa fa-square"></i></a></li>
-                                  <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
-                                </ul>
-                            </div>
-                              <input id="input-color" type="hidden" name="color">
-                        </div>
-
-                        <div class="form-group">
                             <div class="col-md-3 col-md-offset-3 ">
-                                <button type="submit" class="btn btn-primary sub" name = "guardar" value =0 "">
+                                <button type="submit" class="btn btn-primary sub" id = "submit_button" name = "guardar" value =0 "">
                                     <i class="fa fa-btn fa-save"></i> Guardar Horario
                                 </button>
                             </div>
@@ -137,16 +118,6 @@
       showMeridian:false
     })
 
-	$('#color-chooser > li > a').click(function (e) {
-	      e.preventDefault()
-	      //Save color
-	      currColor = $(this).css('color')
-	      //Add color effect to button
-	      $('.sub').css({ 'background-color': currColor, 'border-color': currColor });
-	      $('#input-color').val(currColor);
-	       console.log(currColor)
-	    })
-
   function chooseSpecialty(){
         var parametros={
             "valor1":$('#specialty_select').find(':selected').val(),
@@ -176,6 +147,98 @@
         chooseSpecialty();
     })
 
+    var input_end_time = document.getElementById("input_end_time");
+    input_end_time.disabled=true;
+    var input_start_time = document.getElementById("input_start_time");
+    input_start_time.disabled=true;
+    var submit_button = document.getElementById("submit_button");
+
+    $('#datepicker').change(function(){
+        
+        $("#responseDate").empty()
+        $("#responseDate").append("Validando fecha...")
+        var parametros={
+                "input_date":$('#datepicker').val()
+            };
+        $.ajax({
+                data: parametros,
+                url: '/ajax_validate_date_future',
+                type: 'post',
+                success: function(response){
+                    console.log("message_response",response);
+                    $("#responseDate").empty()
+                    
+                    if(response == 1){
+                        $("#responseDate").append("<i class=\"fa fa-check\"></i> Fecha válida")
+                        input_start_time.disabled=false;
+                        submit_button.classList.remove("disabled");
+                    }else{
+                        $("#responseDate").append("<i class=\"fa fa-times\"></i> ")
+                        $("#responseDate").append(response)
+                        submit_button.classList.add("disabled");
+                    }
+                    
+                }
+            });
+    })
+
+    $('#input_start_time').change(function(){
+        input_end_time.disabled=false;
+        $("#responseTime").empty()
+      $("#responseTime").append("Validando hora...")
+      var parametros={
+                "start_time":$('#input_start_time').val(),
+                "end_time":$('#input_end_time').val()
+            };
+      $.ajax({
+                data: parametros,
+                url: '/ajax_validate_time_interval',
+                type: 'post',
+                success: function(response){
+                    console.log("message_response",response);
+                    $("#responseTime").empty()
+                    
+                    if(response == 1){
+                        $("#responseTime").append("<i class=\"fa fa-check\"></i> Horario válido")
+                        input_start_time.disabled=false;
+                        submit_button.classList.remove("disabled");
+                    }else{
+                        $("#responseTime").append("<i class=\"fa fa-times\"></i> ")
+                        $("#responseTime").append(response)
+                        submit_button.classList.add("disabled");
+                    }
+                    
+                }
+            });
+    })
+    $('#input_end_time').change(function(){
+      $("#responseTime").empty()
+      $("#responseTime").append("Validando hora...")
+      var parametros={
+                "start_time":$('#input_start_time').val(),
+                "end_time":$('#input_end_time').val()
+            };
+      $.ajax({
+                data: parametros,
+                url: '/ajax_validate_time_interval',
+                type: 'post',
+                success: function(response){
+                    console.log("message_response",response);
+                    $("#responseTime").empty()
+                    
+                    if(response == 1){
+                        $("#responseTime").append("<i class=\"fa fa-check\"></i> Horario válido")
+                        input_start_time.disabled=false;
+                        submit_button.classList.remove("disabled");
+                    }else{
+                        $("#responseTime").append("<i class=\"fa fa-times\"></i> ")
+                        $("#responseTime").append(response)
+                        submit_button.classList.add("disabled");
+                    }
+                    
+                }
+            });
+    })
  }); 
 </script>
 @endsection

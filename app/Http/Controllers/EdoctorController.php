@@ -71,6 +71,8 @@ class EdoctorController extends Controller
     	$data = $request->all();
         unset($data['_token']);
         unset($data['guardar']);
+        $color = Specialty::find($data['specialty_id'])->color;
+        $new_schedule->color = $color;
         unset($data['specialty_id']);
         unset($data['user_id']);
         $new_schedule->doctor_id = User::find($request->user_id)->doctor->id;
@@ -176,5 +178,28 @@ class EdoctorController extends Controller
                 ];
             }
         return  $jsonevents;
+    }
+
+    public function ajax_validate_date_future(){
+        $then = $_POST['input_date'];
+        $now = time();        
+        $thenTimestamp = strtotime($then);
+        $difference_seconds = $thenTimestamp-$now ;
+        if($difference_seconds<0){
+            return "No se puede reservar una cita en el pasado";
+        }else{
+            return 1; // fecha valida
+        }
+    }
+
+    public function ajax_validate_time_interval(){
+        $start = strtotime($_POST['start_time']);
+        $end = strtotime($_POST['end_time']);
+        $difference_seconds = $end - $start ;
+        if($difference_seconds<0){
+            return "Horario inválido";
+        }else{
+            return 1; // fecha valida
+        }   
     }
 }
