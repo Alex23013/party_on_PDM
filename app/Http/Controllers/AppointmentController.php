@@ -12,6 +12,9 @@ use App\Doctor;
 use App\Appointment;
 use App\Specialty;
 use App\Schedule;
+use App\History;
+use App\Recipe;
+use App\Medicine;
 
 class AppointmentController extends Controller
 {
@@ -176,7 +179,25 @@ class AppointmentController extends Controller
         $specialty = $s_attention->specialty;
         $user_doctor =$s_attention->doctor->user;
     	$user_patient = $attention->patient->user;
-        return view('attentions.attention_detail')->with(compact('s_attention','attention','user_patient','specialty','user_doctor'));
+        $medicines = [];
+        if($s_attention->status == 2){
+            $history = History::where('attention_id', $id)->first();
+            $app = Appointment::where('attention_id', $id)->first();
+            $recipe = Recipe::where('appointment_id', $app->id)->first();
+            $recipe_medicines = json_decode($recipe->medicines);
+            foreach ( $recipe_medicines  as $key => $value) {
+                $medicine = Medicine::find($value->id);
+                $medicines[]=[
+                    "name"=>$medicine->name,
+                    "quantity"=>$value->quantity,
+                    ];
+            }    
+        }else{
+            $history = NULL;
+            $recipe = NULL;
+        }
+        
+        return view('attentions.attention_detail')->with(compact('s_attention','attention','user_patient','specialty','user_doctor','history','recipe','medicines'));
     }
     public function add(){
         $specialties = Specialty::all();
