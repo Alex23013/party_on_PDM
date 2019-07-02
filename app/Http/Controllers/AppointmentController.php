@@ -140,7 +140,7 @@ class AppointmentController extends Controller
             $startTimestamp = strtotime($start);
             $endTimestamp = strtotime($end);
             $nowTimestamp = strtotime($_POST['input_time']);
-            if($nowTimestamp > $startTimestamp && $nowTimestamp < $endTimestamp){
+            if($nowTimestamp >= $startTimestamp && $nowTimestamp <= $endTimestamp){
                 return 1;
             }else{
                 $response =$doctor_name." no atiende en ese horario";
@@ -261,6 +261,7 @@ class AppointmentController extends Controller
                         'attention_code'=>$app->attention_code,
                         'patient'=>$app->patient->user->name." ".$app->patient->user->last_name,
                         'patient_dni'=>$app->patient->user->dni,
+                        'status'=>$app->status,
                         ];
         }
         $new = $appointment;   
