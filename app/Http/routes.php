@@ -14,6 +14,7 @@
 Route::auth();
 
 Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 Route::get('/pdf', 'HomeController@pdf');
 
 Route::get('/profile', 'UserController@profile');
