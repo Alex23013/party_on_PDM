@@ -71,6 +71,7 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_get_bag/','RestDoctorController@get_bag');
 	Route::post('/api/v2/doctor_create_recipe/','RestDoctorController@create_recipe');
 	Route::post('/api/v2/doctor_get_recipe/','RestDoctorController@get_recipe');
+	Route::post('/api/v2/doctor_cancel_appointment/','RestDoctorController@cancel_appointment');
 	});
 // -------- END_POINTS_V2
 

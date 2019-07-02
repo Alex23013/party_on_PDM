@@ -483,4 +483,26 @@ class RestDoctorController extends Controller
     }
   }
 
+  public function cancel_appointment(Request $request){
+    $user = User::find($request->user_id);
+    if($user->role != 1){
+      return response()
+        ->json(['status' => '404', 
+            'message' => 'Solo usuarios con rol de doctor pueden cancelar citas']); 
+    }else{
+      $doctor = $user->doctor;
+      $app = Appointment::find($request->appointment_id);
+      if($app->doctor_id !=  $doctor->id){
+        return response()
+        ->json(['status' => '404', 
+            'message' => 'El usuario solicitado no es doctor de la cita médica']); 
+      }else{
+        $app->status = 3;
+        return response()
+        ->json(['status' => '200', 
+            'message' => 'Ok']); 
+      }
+    }
+  }
+
 }
