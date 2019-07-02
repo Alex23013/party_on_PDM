@@ -399,41 +399,44 @@ class RestDoctorController extends Controller
       $doctor_id = $user->doctor->id;
       $last_kit = Doctorkit::where('doctor_id', $doctor_id)->where('active',true)->first();
       
-      $last_kit->active = 0;
-      $last_kit->save();
+      
       $last_bag_obj =json_decode($last_kit->bag);
       $last_bag_arr =json_decode($last_kit->bag,TRUE);
-     
-      $doctor_kit = New Doctorkit;
-      $doctor_kit->kit_id = $request->kit_id;
-      $doctor_kit->doctor_id = $doctor_id;
+         
       $medicine_list = $request->medicines; 
-      $medicine_list_actualized=[];
-      //dd($medicine_list);
-      foreach ($medicine_list as $key => $value) {
-        //dd($value);
-        $name = Medicine::find($value['id'])->name;
-        $neededObject = $this->objArraySearch($last_bag_obj, "id", $value['id']);
-        $medicine_list_actualized[]=[
-          "id"=>$value['id'],
-          "name"=>$name,
-          "quantity"=>($neededObject->quantity)-($value['quantity']),
-        ];
+      if(count($medicine_list)>0){
+        $last_kit->active = 0;
+        $last_kit->save();
+        $medicine_list_actualized=[];
+        //dd($medicine_list);
+        foreach ($medicine_list as $key => $value) {
+          //dd($value);
+          $name = Medicine::find($value['id'])->name;
+          $neededObject = $this->objArraySearch($last_bag_obj, "id", $value['id']);
+          $medicine_list_actualized[]=[
+            "id"=>$value['id'],
+            "name"=>$name,
+            "quantity"=>($neededObject->quantity)-($value['quantity']),
+          ];
+        }
+        //dd("actualizado",$medicine_list_actualized);
+        //dd("last_bag", $last_bag_arr);
+        $result = array_merge( $medicine_list_actualized,$last_bag_arr );
+        $result1= $this->unique_multidimensional_array($result, "id");
+        $result2 = array();
+        foreach ($result1 as $to_obj)
+        {
+          $result2[] = (object)$to_obj;
+        }
+        //dd($result2);
+        //dd("dd", $doctor_kit->bag);
+        $doctor_kit = New Doctorkit;
+        $doctor_kit->kit_id = $request->kit_id;
+        $doctor_kit->doctor_id = $doctor_id;
+        $doctor_kit->bag = json_encode($result2);
+        $doctor_kit->save();
       }
-      //dd("actualizado",$medicine_list_actualized);
-      //dd("last_bag", $last_bag_arr);
-      $result = array_merge( $medicine_list_actualized,$last_bag_arr );
-      $result1= $this->unique_multidimensional_array($result, "id");
-      $result2 = array();
-      foreach ($result1 as $to_obj)
-      {
-        $result2[] = (object)$to_obj;
-      }
-      //dd($result2);
-      //dd("dd", $doctor_kit->bag);
-      $doctor_kit->bag = json_encode($result2);
-      $doctor_kit->save();
-      //dd($doctor_kit);
+      
       $recipe = New Recipe;
       foreach ($data as $key => $value) {
         if($key == 'medicines'){
@@ -444,7 +447,7 @@ class RestDoctorController extends Controller
       }
       $recipe->save();
       $info[]=[
-        "recipe_id"=>$recipe->id,
+          "recipe_id"=>$recipe->id,
           "appointment_id"=>$recipe->appointment_id,
           "medicines"=>json_decode($recipe->medicines),
           "instructions"=>$recipe->instructions,

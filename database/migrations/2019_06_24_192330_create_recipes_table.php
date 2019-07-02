@@ -15,7 +15,7 @@ class CreateRecipesTable extends Migration
         Schema::create('recipes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('appointment_id')->unsigned();
-            $table->json('medicines');
+            $table->json('medicines')->nullable();
             $table->text('instructions');
             $table->timestamps();
             $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
