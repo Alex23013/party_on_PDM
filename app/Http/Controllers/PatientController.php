@@ -428,4 +428,27 @@ class PatientController extends Controller
         return redirect('/clinic_histories');
     }
 
+    public function payment(){
+        //echo "Pago realizado";
+        require "Requests/library/Requests.php";
+        Requests::register_autoloader();
+        require "culqui-php/lib/culqui.php";
+        $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
+
+        $culqi = new Culqi\Culqi(array('api_key' => $SECRET_KEY));
+        $culqi->Charges->create(
+             array(
+                 "amount" => $_POST['cost'],
+                 "capture" => true,
+                 "currency_code" => "PEN",
+                 "description" => $_POST['descp'],
+                 "email" => $_POST['email'],
+                 "installments"=>0,
+                 "source_id" => $_POST['token'],
+               )
+            );
+        echo "Pago con exito";
+        //exit();
+    }
+
 }

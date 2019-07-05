@@ -128,6 +128,7 @@ Route::get('/patients/clinic_history/', 'PatientController@patient_histories');
 Route::get('/patients/clinic_history/see/{id}', 'PatientController@patient_histories_detail')->where(['id' => '[0-9]+']);
 Route::get('/patients/clinic_history/request/{id}', 'PatientController@request_pdf')->where(['id' => '[0-9]+']);
 
+Route::post('/patients/payment', 'PatientController@payment');
 
 
 

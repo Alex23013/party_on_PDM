@@ -30,6 +30,8 @@
     <!-- font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     
+    <!-- Incluyendo Culqi Checkout -->
+    <script src="https://checkout.culqi.com/js/v3"></script>
 
     <!-- jQuery 3 js/jquery-1.8.3.min.js -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -107,6 +109,47 @@
 </div>
 
 @yield('specific scripts')  
+
+<script>
+  Culqi.publicKey = 'pk_test_4AOuYFleZVAvrn41';
+
+  var descp = "";
+  var cost = "";
+
+  $('#buyButton').on('click', function(e) {
+    descp = $(this).attr('data-description');
+    cost = $(this).attr('data-cost')*100;
+
+    Culqi.settings({
+        title: "DocDoor services",
+        currency: 'PEN',
+        description: descp ,
+        amount: cost,
+      });
+    Culqi.open();
+    e.preventDefault();
+    });
+
+  function culqi() {
+      if (Culqi.token) { // ¡Objeto Token creado exitosamente!
+          var token = Culqi.token.id;
+          var email = Culqi.token.email;
+          //alert('Se ha creado un token:' + token);
+          var data = {descp: descp , cost: cost, token: token, email: email};
+          var url = "/patients/payment";
+
+          $.post(url,data,function(res){
+            alert(res);
+          });
+
+      } else { // ¡Hubo algún problema!
+          // Mostramos JSON de objeto error en consola
+          console.log(Culqi.error);
+          alert(Culqi.error.user_message);
+      }
+    };
+
+</script>
 
 <script>
     $(function () {
