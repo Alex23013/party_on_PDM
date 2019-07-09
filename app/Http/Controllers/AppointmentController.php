@@ -137,6 +137,7 @@ class AppointmentController extends Controller
         }
     }
 
+   //Consulta de prueba: http://localhost:8000/val_t_especialista/2019-07-18/10:55:00/7
     public function val_time_especialidad($input_date, $input_time, $user_id){
         $user = User::find($user_id);
         $doctor = $user->doctor;
@@ -148,6 +149,25 @@ class AppointmentController extends Controller
         $endTimestamp = strtotime($end);
         $nowTimestamp = strtotime($input_time);
         if($nowTimestamp >= $startTimestamp && $nowTimestamp <= $endTimestamp){
+            //chequear que no hay citas reservadas en ese horario
+            $reserved_app = Appointment::where('doctor_id',$doctor->id)->where('status',1)->get();
+            //dd($reserved_app);
+            foreach ($reserved_app as $app) {
+                $date_parts = explode(" ", $app->date_time);
+                $start_app = strtotime($date_parts[1]);
+                $end_app = strtotime($date_parts[1])+3600; // 1 hour in seconds
+                //echo("S: ".$start_app);
+                //echo(" E: ".$end_app);
+                $possible_end = $nowTimestamp+3600;
+                if($date_parts[0]== $input_date){
+                    //echo("LA fecha");
+                    //echo("hora: ".$nowTimestamp);
+                    if(($nowTimestamp>=$start_app &&$nowTimestamp<=$end_app)|| ($possible_end>=$start_app &&$possible_end<=$end_app)){
+                        $response ="El especialista tiene una cita confirmada en ese horario";
+                        return $response;
+                    }
+                }
+            }
             return 1;
         }else{
             $response ="El especialista no atiende en ese horario";
@@ -183,13 +203,28 @@ class AppointmentController extends Controller
             $endTimestamp = strtotime($end);
             $nowTimestamp = strtotime($_POST['input_time']);
             if($nowTimestamp >= $startTimestamp && $nowTimestamp <= $endTimestamp){
+                //chequear que no hay citas reservadas en ese horario
+                $reserved_app = Appointment::where('doctor_id',$doctor->id)->where('status',1)->get();
+                //dd($reserved_app);
+                foreach ($reserved_app as $app) {
+                    $date_parts = explode(" ", $app->date_time);
+                    //dd($date_parts);
+                    $start_app = strtotime($date_parts[1]);
+                    $end_app = strtotime($date_parts[1])+3600; // 1 hour in seconds
+                    $possible_end = $nowTimestamp+3600;
+                    if($date_parts[0]== $_POST['input_date']){                        
+                        if(($nowTimestamp>=$start_app &&$nowTimestamp<=$end_app)|| ($possible_end>=$start_app &&$possible_end<=$end_app)){
+                                $response ="El especialista tiene una cita confirmada en ese horario";                            
+                            return $response;
+                        }
+                    }
+                }
                 return 1;
             }else{
                 $response =$doctor_name." no atiende en ese horario";
                 return $response;
             }
         }   
-        return 1;
     }
 
     public function index(){	 
@@ -301,6 +336,7 @@ class AppointmentController extends Controller
                         'patient'=>$app->patient->user->name." ".$app->patient->user->last_name,
                         'patient_dni'=>$app->patient->user->dni,
                         'status'=>$app->status,
+                        'app_id'=>$app->id,
                         ];
         }
         $new = $appointment;   
