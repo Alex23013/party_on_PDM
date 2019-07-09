@@ -297,7 +297,7 @@
             console.log("paramEvents: user_id->",parametros);
             $.ajax({
                 data: parametros,
-                url: '/ajax_get_events_by_user_id',
+                url: '/ajax_get_schedule_by_user_id',
                 type: 'post',
                 success: function(response){
                     console.log("events_response",response);

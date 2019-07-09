@@ -215,6 +215,7 @@ Route::get('/appointments/update_status/{id}/{new_status}', 'AppointmentControll
 
 Route::post('/ajax_get_doctors_per_specialty','AppointmentController@ajax_get_doctors');
 Route::post('/ajax_get_events_by_user_id','EdoctorController@ajax_get_events');
+Route::post('/ajax_get_schedule_by_user_id','EdoctorController@ajax_get_schedules');
 Route::post('/ajax_validate_date_future','EdoctorController@ajax_validate_date_future');
 Route::post('/ajax_validate_time_interval','EdoctorController@ajax_validate_time_interval');
 

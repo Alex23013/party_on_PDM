@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Espschedule;
 use App\Specialty;
 use App\User;
+use App\Appointment;
 
 class EdoctorController extends Controller
 {
@@ -217,6 +218,47 @@ class EdoctorController extends Controller
                     'borderColor'=>$value->color,
                 ];
             }
+        return  $jsonevents;
+    }
+
+    public function ajax_get_schedules(){
+        $jsonevents = [];
+        $doctor_id = User::find( $_POST['val1'])->doctor->id;
+        $schedules = Espschedule::where('doctor_id',$doctor_id)->get();
+        foreach ($schedules as $key => $value) {
+                $doctor_name = $value->doctor->user->name;
+                $jsonevents[] = [
+                    'title'=> "horario de ".$doctor_name,
+                    'start'=>$value->date.' '.$value->start_time,
+                    'end'=>$value->date.' '.$value->end_time    ,
+                    'backgroundColor'=> "#336600",
+                    'borderColor'=>"#336600",
+                ];
+            }
+        $reserved_app = Appointment::where('doctor_id',$doctor_id)->where('status',0)->get();
+        foreach ($reserved_app as $key => $value) {
+            $newDate = strtotime ( '+1 hour' , strtotime ($value->date_time) ) ;
+            $newDate  = date("Y-m-d H:i:s", $newDate);
+            $jsonevents[] = [
+                    'title'=> "cita  reservada",
+                    'start'=>$value->date_time,
+                    'end'=>$newDate,
+                    'backgroundColor'=> "#476b6b",
+                    'borderColor'=>"#476b6b",
+                ];
+        }
+        $confirmed_app = Appointment::where('doctor_id',$doctor_id)->where('status',1)->get();
+        foreach ($confirmed_app as $key => $value) {
+            $newDate = strtotime ( '+1 hour' , strtotime ($value->date_time) ) ;
+            $newDate  = date("Y-m-d H:i:s", $newDate);
+            $jsonevents[] = [
+                    'title'=> "cita  confirmada",
+                    'start'=>$value->date_time,
+                    'end'=>$newDate,
+                    'backgroundColor'=> "#cc0000",
+                    'borderColor'=>"#cc0000",
+                ];
+        }
         return  $jsonevents;
     }
 

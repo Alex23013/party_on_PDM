@@ -137,7 +137,8 @@ class AppointmentController extends Controller
         }
     }
 
-   //Consulta de prueba: http://localhost:8000/val_t_especialista/2019-07-18/10:55:00/7
+   //Consulta de prueba: 
+   //http://localhost:8000/val_t_especialista/2019-07-18/10:55:00/7
     public function val_time_especialidad($input_date, $input_time, $user_id){
         $user = User::find($user_id);
         $doctor = $user->doctor;
