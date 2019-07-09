@@ -76,8 +76,8 @@ class AppointmentController extends Controller
         $schedules = Espschedule::where('doctor_id',$doctor_id)->get(); 
         //$dates=[];
         foreach ($schedules as $key => $value) {
-            //dd($value->date,$input_date[0]);
-            if ( $value->date == $input_date[0]){
+            //dd($value->date,$input_date);
+            if ( $value->date == $input_date){
                // $dates[]=$value->date;
                 return 1;
             }
@@ -104,7 +104,7 @@ class AppointmentController extends Controller
                 }
             }else{
                 $input_date = explode(' ', $then);
-                if($this->validate_especialista($_POST['input_user_id'],$input_date)){
+                if($this->validate_especialista($_POST['input_user_id'],$input_date[0])){
                     return 1;
                 }else{
                     $user = User::find($_POST['input_user_id']);
@@ -137,8 +137,22 @@ class AppointmentController extends Controller
         }
     }
 
-    public function val_time_especialidad($input_date, $input_time, $doctor_id){
-        return "especialidad";
+    public function val_time_especialidad($input_date, $input_time, $user_id){
+        $user = User::find($user_id);
+        $doctor = $user->doctor;
+        $schedule = Espschedule::where('doctor_id',$doctor->id)->where('date',$input_date)->first();
+
+        $start = $schedule->start_time;
+        $end =  $schedule->end_time;
+        $startTimestamp = strtotime($start);
+        $endTimestamp = strtotime($end);
+        $nowTimestamp = strtotime($input_time);
+        if($nowTimestamp >= $startTimestamp && $nowTimestamp <= $endTimestamp){
+            return 1;
+        }else{
+            $response ="El especialista no atiende en ese horario";
+            return $response;
+        }
     }
     
     public function ajax_validate_time(){
@@ -162,7 +176,18 @@ class AppointmentController extends Controller
             }
         }else{
             //comprobar si esta en el horario del especialista
-            //$this->val_time_especialidad($_POST['input_date'],$_POST['input_time'],$doctor->id);
+            $schedule = Espschedule::where('doctor_id',$doctor->id)->where('date',$_POST['input_date'])->first();
+            $start = $schedule->start_time;
+            $end =  $schedule->end_time;
+            $startTimestamp = strtotime($start);
+            $endTimestamp = strtotime($end);
+            $nowTimestamp = strtotime($_POST['input_time']);
+            if($nowTimestamp >= $startTimestamp && $nowTimestamp <= $endTimestamp){
+                return 1;
+            }else{
+                $response =$doctor_name." no atiende en ese horario";
+                return $response;
+            }
         }   
         return 1;
     }

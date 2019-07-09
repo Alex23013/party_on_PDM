@@ -224,7 +224,7 @@
 
     $('#input_time').change(function(){
         $("#responseTime").empty()
-        $("#responseTime").append("Comprobando cita...")
+        
         console.log("T input-time",$('#input_time').val())
         console.log("T input-user_id",$('#doctor_select').find(':selected').val())
         console.log("T input-esp_id",$('#specialty_selector').find(':selected').val())
@@ -237,6 +237,7 @@
         if(input_date.disabled){
             input_time.disabled=true;
         }else{
+            $("#responseTime").append("Comprobando cita...")
             $.ajax({
                 data: parametros,
                 url: '/ajax_validate_time',

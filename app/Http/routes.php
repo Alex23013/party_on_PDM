@@ -231,7 +231,6 @@ Route::get('/val_m_general/{user_id}/{input_date}', 'AppointmentController@valid
 Route::get('/val_m_especialista/{user_id}/{input_date}', 'AppointmentController@validate_especialista');
 
 Route::get('/val_t_general/{user_id}/{input_date}/{input_time}', 'AppointmentController@val_time_general');
-
-
+Route::get('/val_t_especialista/{input_date}/{input_time}/{user_id}', 'AppointmentController@val_time_especialidad');
 
 
