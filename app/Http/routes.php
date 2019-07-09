@@ -228,6 +228,7 @@ Route::get('/tcalls/remove/{id}', 'TCallController@delete')->where(['id' => '[0-
 //rutas de prueba eliminar al final de la etapa de desarrollo
 Route::get('/aj/{id}', 'AppointmentController@aj_docs')->where(['id' => '[0-9]+']);
 Route::get('/val_m_general/{user_id}/{input_date}', 'AppointmentController@validate_medico_general');
+Route::get('/val_m_especialista/{user_id}/{input_date}', 'AppointmentController@validate_especialista');
 
 Route::get('/val_t_general/{user_id}/{input_date}/{input_time}', 'AppointmentController@val_time_general');
 

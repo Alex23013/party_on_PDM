@@ -15,6 +15,7 @@ use App\Schedule;
 use App\History;
 use App\Recipe;
 use App\Medicine;
+use App\Espschedule;
 
 class AppointmentController extends Controller
 {
@@ -41,7 +42,6 @@ class AppointmentController extends Controller
         }
         return $doctors;
     }
-   // val_m_general/2/2019-06-12
     
     public function day_to_number($input_date){
        $timestamp = strtotime($input_date);
@@ -63,19 +63,26 @@ class AppointmentController extends Controller
                 $valid_days[]=$key;
             }
         }
-        //dd($valid_days);
-        $timestamp = strtotime($input_date);
-        $requested_day = date('D', $timestamp);
-        //dd($requested_day);
-        $dayToNumber=[
-        "Mon"=>0,   "Tue"=>1,   "Wed"=>2,   "Thu"=>3,
-        "Fri"=>4,   "Sat"=>5,   "Sun"=>6,
-        ];
-        if(in_array($dayToNumber[$requested_day], $valid_days)){
+        if(in_array($this->day_to_number($input_date), $valid_days)){
             return 1;
         }else{
             return 0;
         }
+    }
+
+    public function validate_especialista($user_id,$input_date){
+        //dd($input_date);
+        $doctor_id = User::find($user_id)->doctor->id;
+        $schedules = Espschedule::where('doctor_id',$doctor_id)->get(); 
+        //$dates=[];
+        foreach ($schedules as $key => $value) {
+            //dd($value->date,$input_date[0]);
+            if ( $value->date == $input_date[0]){
+               // $dates[]=$value->date;
+                return 1;
+            }
+        }
+        return 0;
     }
 
     public function ajax_validate_date(){
@@ -96,8 +103,15 @@ class AppointmentController extends Controller
                     return $response;
                 }
             }else{
-                //comprobar si el especilista atiende ese dia;
-                //return "cita con especialidad";
+                $input_date = explode(' ', $then);
+                if($this->validate_especialista($_POST['input_user_id'],$input_date)){
+                    return 1;
+                }else{
+                    $user = User::find($_POST['input_user_id']);
+                    $doctor_name = $user->name." ".$user->last_name;
+                    $response =$doctor_name." no atiende ese día";
+                    return $response;
+                }
             }
             return 1; // fecha valida
         }
