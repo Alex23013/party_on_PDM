@@ -112,7 +112,7 @@
                         
                         <div class="form-group">
                             <label for="birth" class="col-md-4 control-label">Hora de la cita * </label>
-                            <div class="col-md-6">
+                            <div class="col-md-6" >
                             <div class="bootstrap-timepicker">
                              <input id="input_time" type="text" class="form-control timepicker" name="time" >
                              <div id="responseTime"> </div>
@@ -290,7 +290,12 @@
         }else{
             console.log("Imprimir calendar")
             $("#location").empty()
-            $("#location").append("<div id=\"calendar1\" class=\"padding-border-table\">"+"</div>")
+            $("#location").append("<div style =\" margin-left:10%\">" +
+                "<div class=\"col-md-2\" style=\"background-color: #336600; color :#336600; border-radius: 10px;\"> S </div><div class=\"col-md-10\">Horario de atención</div>"+
+                "<div class=\"col-md-2\" style=\"background-color: #cc0000; color :#cc0000; border-radius: 10px;margin-top: 10px\"> S </div><div class=\"col-md-10\"style = \"margin-top: 10px\">Confirmadas</div>"+
+                "<div class=\"col-md-2\" style=\"background-color: #476b6b; color :#476b6b; border-radius: 10px;margin-top: 10px\"> S </div><div class=\"col-md-10\" style = \"margin-top: 10px; margin-bottom:10px\">Reservadas</div>"+
+                "</div>"+
+                "<div id=\"calendar1\" class=\"padding-border-table\" style=\"margin-top:10px\">"+"</div>")
             var parametros={
                 "val1":$('#doctor_select').find(':selected').val(),
             };
