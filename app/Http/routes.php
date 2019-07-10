@@ -65,7 +65,8 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_get_schedule/', 'RestDoctorController@get_schedule');
 	Route::post('/api/v2/doctor_appointments', 'RestDoctorController@appointments');
 	////collection_extra:falta compartir
-	Route::post('/api/v2/doctor_update_available/','RestDoctorController@update_available');	
+	Route::post('/api/v2/doctor_active/','RestDoctorController@active');
+	Route::post('/api/v2/doctor_deactive/','RestDoctorController@deactive');	
 	////collection_viernes
 	Route::post('/api/v2/doctor_attend_appointment/','RestDoctorController@attend_appointment');	
 	Route::post('/api/v2/doctor_create_history/','RestDoctorController@create_history');	

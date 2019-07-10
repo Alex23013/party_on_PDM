@@ -217,7 +217,7 @@ class RestDoctorController extends Controller
     }
   }
 
- public function update_available(Request $request){   
+ public function active(Request $request){   
     $user = User::find($request->user_id);
     $doctor = $user->doctor;
     if(!$doctor){
@@ -225,7 +225,24 @@ class RestDoctorController extends Controller
       ->json(['status' => '404', 
           'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
     }
-    $doctor->available = $request->new_available;
+    $doctor->available = 1;
+    $doctor->doctor_longitude = $request->longitude;
+    $doctor->doctor_latitude = $request->latitude;
+    $doctor->save();
+    return response()
+      ->json(['status' => '200', 
+          'message' => 'Ok']); 
+  }
+
+  public function deactive(Request $request){   
+    $user = User::find($request->user_id);
+    $doctor = $user->doctor;
+    if(!$doctor){
+      return response()
+      ->json(['status' => '404', 
+          'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
+    }
+    $doctor->available = 0;
     $doctor->save();
     return response()
       ->json(['status' => '200', 
