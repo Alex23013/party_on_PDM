@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
         $this->call(DServiceTableSeeder::class);
         $this->call(AttentionsTableSeeder::class);
         $this->call(TcallsTableSeeder::class);
-        $this->call(MedicineTableSeeder::class);
-        $this->call(DoctorkitTableSeeder::class); 
+       // $this->call(MedicineTableSeeder::class);
+       // $this->call(DoctorkitTableSeeder::class); 
 
         $this->call(EspecialDoctorTableSeeder::class);           
-        $this->call(MoreMedicineTableSeeder::class);   
-        $this->call(MoreDoctorkitTableSeeder::class);   
+        $this->call(MoreMedicineTableSeeder::class);  //Data de prueba 
+        $this->call(MoreDoctorkitTableSeeder::class);  //Data de prueba
                 
        // $this->call(RoleTableSeeder::class);
     }

@@ -28,7 +28,7 @@ class MoreMedicineTableSeeder extends Seeder
         DB::statement("SELECT SETVAL('gmedicines_id_seq', (SELECT MAX(id) FROM gmedicines))");
 
         DB::table('medicines')->insert([
-            'id'=>5,
+            'id'=>1,
     				'name'=> "Paracetamol",
     				'medicine_group'=>1,
     				'brand'=>"Panadol",
@@ -36,7 +36,7 @@ class MoreMedicineTableSeeder extends Seeder
     				'presentation'=>"Tableta" 		
         ]);
         DB::table('medicines')->insert([
-            'id'=>6,
+            'id'=>2,
     				'name'=> "Naproxeno", 		
     				'medicine_group'=>1,
     				'brand'=>"Apronax",
@@ -44,7 +44,7 @@ class MoreMedicineTableSeeder extends Seeder
     				'presentation'=>"Tableta" 		
         ]);
         DB::table('medicines')->insert([
-            'id'=>7,
+            'id'=>3,
     				'name'=> "Diclofenaco",
     				'medicine_group'=>1,
     				'brand'=>"Diclo-K",
@@ -52,7 +52,7 @@ class MoreMedicineTableSeeder extends Seeder
     				'presentation'=>"Tableta" 		
         ]);
         DB::table('medicines')->insert([
-            'id'=>8,
+            'id'=>4,
     				'name'=> "Ketorolaco", 	
     				'medicine_group'=>1,
     				'brand'=>"Ketorolac",
@@ -60,7 +60,7 @@ class MoreMedicineTableSeeder extends Seeder
     				'presentation'=>"Ampolla" 		
         ]);
         DB::table('medicines')->insert([
-            'id'=>9,
+            'id'=>5,
     				'name'=> "Metamizol", 				
     				'medicine_group'=>2,
     				'brand'=>"Antalgina",
@@ -68,7 +68,7 @@ class MoreMedicineTableSeeder extends Seeder
     				'presentation'=>"Tableta" 		
         ]);
         DB::table('medicines')->insert([
-            'id'=>10,
+            'id'=>6,
     				'name'=> "Paracetamol", 				
     				'medicine_group'=>2,
     				'brand'=>"Quitadol",
@@ -76,7 +76,7 @@ class MoreMedicineTableSeeder extends Seeder
     				'presentation'=>"Tableta" 		
         ]);
         DB::table('medicines')->insert([
-            'id'=>11,
+            'id'=>7,
     				'name'=> "Ibuprofeno", 			
     				'medicine_group'=>2,
     				'brand'=>"Doloral",
@@ -84,7 +84,7 @@ class MoreMedicineTableSeeder extends Seeder
     				'presentation'=>"Tableta" 		
         ]);
         DB::table('medicines')->insert([
-            'id'=>12,
+            'id'=>8,
     				'name'=> "Ambroxol", 			
     				'medicine_group'=>3,
     				'brand'=>"Muxol",
@@ -92,7 +92,7 @@ class MoreMedicineTableSeeder extends Seeder
     				'presentation'=>"Jarabe" 		
         ]);
         DB::table('medicines')->insert([
-            'id'=>13,
+            'id'=>9,
     				'name'=> "Ambroxol/Clembuterol", 	
     				'medicine_group'=>3,
     				'brand'=>"Mucosalvan",
@@ -102,64 +102,64 @@ class MoreMedicineTableSeeder extends Seeder
         DB::statement("SELECT SETVAL('medicines_id_seq', (SELECT MAX(id) FROM medicines))");
 
         DB::table('kits')->insert([
-            'id'=>2,
+            'id'=>1,
     				'name'=> "Kit con Data de Prueba DocDoor",
         ]);
         DB::statement("SELECT SETVAL('kits_id_seq', (SELECT MAX(id) FROM kits))");
 
 
         DB::table('entrykits')->insert([
+            'id'=>1,
+            'medicine_id'=>1,
+            'kit_id'=>1,
+            'quantity'=>20,
+        ]);
+        DB::table('entrykits')->insert([
+            'id'=>2,
+            'medicine_id'=>2,
+            'kit_id'=>1,
+            'quantity'=>10,
+        ]);
+        DB::table('entrykits')->insert([
+            'id'=>3,
+            'medicine_id'=>3,
+            'kit_id'=>1,
+            'quantity'=>15,
+        ]);
+        DB::table('entrykits')->insert([
             'id'=>4,
-            'medicine_id'=>5,
-            'kit_id'=>2,
+            'medicine_id'=>4,
+            'kit_id'=>1,
             'quantity'=>20,
         ]);
         DB::table('entrykits')->insert([
             'id'=>5,
-            'medicine_id'=>6,
-            'kit_id'=>2,
-            'quantity'=>10,
+            'medicine_id'=>5,
+            'kit_id'=>1,
+            'quantity'=>20,
         ]);
         DB::table('entrykits')->insert([
             'id'=>6,
-            'medicine_id'=>7,
-            'kit_id'=>2,
-            'quantity'=>15,
+            'medicine_id'=>6,
+            'kit_id'=>1,
+            'quantity'=>30,
         ]);
         DB::table('entrykits')->insert([
             'id'=>7,
-            'medicine_id'=>8,
-            'kit_id'=>2,
+            'medicine_id'=>7,
+            'kit_id'=>1,
             'quantity'=>20,
         ]);
         DB::table('entrykits')->insert([
             'id'=>8,
-            'medicine_id'=>9,
-            'kit_id'=>2,
+            'medicine_id'=>8,
+            'kit_id'=>1,
             'quantity'=>20,
         ]);
         DB::table('entrykits')->insert([
             'id'=>9,
-            'medicine_id'=>10,
-            'kit_id'=>2,
-            'quantity'=>30,
-        ]);
-        DB::table('entrykits')->insert([
-            'id'=>10,
-            'medicine_id'=>11,
-            'kit_id'=>2,
-            'quantity'=>20,
-        ]);
-        DB::table('entrykits')->insert([
-            'id'=>11,
-            'medicine_id'=>12,
-            'kit_id'=>2,
-            'quantity'=>20,
-        ]);
-        DB::table('entrykits')->insert([
-            'id'=>12,
-            'medicine_id'=>13,
-            'kit_id'=>2,
+            'medicine_id'=>9,
+            'kit_id'=>1,
             'quantity'=>30,
         ]);
         DB::statement("SELECT SETVAL('entrykits_id_seq', (SELECT MAX(id) FROM entrykits))");

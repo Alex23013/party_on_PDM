@@ -16,6 +16,8 @@ use App\Doctorkit;
 use App\Recipe;
 use App\Medicine;
 use App\Espschedule;
+use App\Entrykit;
+use App\Gmedicine;
 
 class RestDoctorController extends Controller
 {
@@ -355,6 +357,28 @@ class RestDoctorController extends Controller
           'content' => $history]);
   }
 
+  public function get_medicines_groups(Request $request){
+    $user = User::find($request->user_id);
+    if($user->role != 1){
+      return response()
+        ->json(['status' => '404', 
+            'message' => 'El usuario solicitado no es un usuario con rol de doctor']); 
+    }else{
+      $groups_data = Gmedicine::all();
+      $groups =[];
+      foreach ($groups_data as $value) {
+        $groups[]=[
+        'id'=> $value->id,
+        'medicine_group'=>$value->group_name,
+        ];
+      }
+      return response()
+      ->json(['status' => '200', 
+          'message' => 'Ok',
+          'content' => $groups]);
+    }
+  }
+
   public function get_bag(Request $request){
     $user = User::find($request->user_id);
     if($user->role != 1){
@@ -365,11 +389,24 @@ class RestDoctorController extends Controller
       $doctor = $user->doctor;
       $doctor_kit = Doctorkit::where ('doctor_id', $doctor->id)->where('active',true)->first();
       $dbag = json_decode($doctor_kit->bag);
+      $select_group =[];
+      foreach ($dbag as $key => $value) {
+        $medicine = Medicine::find($value->id);
+        if($medicine->medicine_group == $request->medicine_group){
+          $select_group[]=[
+          'id'=>$value->id,
+          'name'=>$medicine->name,
+          'brand'=>$medicine->brand,
+          'dosis'=>$medicine->dosis,
+          'quantity'=>$value->quantity,
+          ];
+        }
+      }
       return response()
               ->json(['status' => '200', 
                   'message' => 'Ok',
                   'kit_id' => $doctor_kit->kit_id,
-                  'bag' => $dbag]);
+                  'bag' => $select_group]);
     }
   }
 
@@ -383,7 +420,20 @@ class RestDoctorController extends Controller
         }
         return null;
     }
-
+ 
+  public function new_bag($kit_id){
+    $entries = Entrykit::where('kit_id',$kit_id)->get();
+    $bag=[];
+    foreach ($entries as $key => $value) {
+      $medicine = Medicine::find($value->medicine_id);
+      $medicine_name = $medicine->name.":".$medicine->brand."-".$medicine->dosis;
+      $bag[$key]=(object)[
+      "id"=>$value->id,
+      "quantity"=>$value->quantity,
+      ];
+    }
+    return json_encode($bag);
+  }
   //utils-function
   public function unique_multidimensional_array($array, $key) {
       $temp_array = array();
@@ -428,11 +478,12 @@ class RestDoctorController extends Controller
         //dd($medicine_list);
         foreach ($medicine_list as $key => $value) {
           //dd($value);
-          $name = Medicine::find($value['id'])->name;
+          //$medicine = Medicine::find($value['id']);
+          //$medicine_name = $medicine->name.":".$medicine->brand."-".$medicine->dosis;
           $neededObject = $this->objArraySearch($last_bag_obj, "id", $value['id']);
           $medicine_list_actualized[]=[
             "id"=>$value['id'],
-            "name"=>$name,
+            //"name"=>$medicine_name,
             "quantity"=>($neededObject->quantity)-($value['quantity']),
           ];
         }
