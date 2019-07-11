@@ -13,8 +13,7 @@ class AddFeaturesToMedicinesTable extends Migration
     public function up()
     {
       Schema::table('medicines', function (Blueprint $table) {
-        $table->string('medicine_group')->nullable();
-        $table->string('main_active')->nullable();
+        $table->integer('medicine_group')->unsigned()->nullable();
         $table->string('brand')->nullable();
         $table->string('dosis')->nullable();
         $table->string('presentation')->nullable();
@@ -30,7 +29,6 @@ class AddFeaturesToMedicinesTable extends Migration
     {
       Schema::table('medicines', function (Blueprint $table) {
         $table->dropColumn('medicine_group');
-        $table->dropColumn('main_active');
         $table->dropColumn('brand');
         $table->dropColumn('dosis');
         $table->dropColumn('presentation');
