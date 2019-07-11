@@ -25,19 +25,6 @@
                          {{ csrf_field() }}
                          
                          <div class="form-group">
-                            <label for="specialty" class="col-md-4 control-label">Especialidad *</label>
-
-                            <div class="col-md-6">                      
-                                <select class="form-control" name = "specialty_id" id="specialty_selector" >
-                                
-                                <option value="" selected="selected"> Seleccione una especialidad </option>
-                                @foreach($specialties as $specialty)
-                                  <option value="{{$specialty->id}}"><?=$specialty->name?></option>
-                                @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                              <label for="patient_id" class="col-md-4 control-label">Nombre del paciente *</label>
 
                             <div class="col-md-6">
@@ -55,13 +42,20 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="motive" class="col-md-4 control-label">Motivo  *</label>
+                         <div class="form-group">
+                            <label for="specialty" class="col-md-4 control-label">Especialidad *</label>
 
-                            <div class="col-md-6">
-                                <textarea class="form-control" name = "motive" rows="3" placeholder="Describa el problema"></textarea>
+                            <div class="col-md-6">                      
+                                <select class="form-control" name = "specialty_id" id="specialty_selector" >
+                                
+                                <option value="" selected="selected"> Seleccione una especialidad </option>
+                                @foreach($specialties as $specialty)
+                                  <option value="{{$specialty->id}}"><?=$specialty->name?></option>
+                                @endforeach
+                                </select>
                             </div>
                         </div>
+                        
 
                         <div class="form-group">
                             <label for="address" class="col-md-4 control-label">Dirección *</label>
@@ -80,6 +74,13 @@
                             </div>
                         </div>
                         <div id="map"></div>
+                         <div class="form-group">
+                            <label for="motive" class="col-md-4 control-label">Motivo de Consulta *</label>
+
+                            <div class="col-md-6">
+                                <textarea class="form-control" name = "motive" rows="3" placeholder="Describa el problema"></textarea>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-8 control-label">Información de la cita </label>
                         </div>
