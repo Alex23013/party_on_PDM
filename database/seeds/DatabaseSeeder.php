@@ -22,8 +22,12 @@ class DatabaseSeeder extends Seeder
         $this->call(AttentionsTableSeeder::class);
         $this->call(TcallsTableSeeder::class);
         $this->call(MedicineTableSeeder::class);
-        $this->call(DoctorkitTableSeeder::class);   
-        
+        $this->call(DoctorkitTableSeeder::class); 
+
+        $this->call(EspecialDoctorTableSeeder::class);           
+        $this->call(MoreMedicineTableSeeder::class);   
+        $this->call(MoreDoctorkitTableSeeder::class);   
+                
        // $this->call(RoleTableSeeder::class);
     }
 }
