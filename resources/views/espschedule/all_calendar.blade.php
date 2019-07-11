@@ -27,7 +27,7 @@
                     <select class="form-control" name = "specialty_id" id="specialty_select" >
                     <option value=""> Ver todos</option>
                     @foreach($specialties as $specialty)
-                      @if($specialty->id == 1)
+                      @if($specialty->id < 3)
                       @else
                       <option value="{{$specialty->id}}"><?=$specialty->name?></option>
                       @endif

@@ -266,7 +266,7 @@
         input_date.disabled=false;
         var specialty_id = $('#specialty_selector').find(':selected').val();
         console.log("specialty_id", specialty_id);
-        if(specialty_id == 1){
+        if(specialty_id < 3){
             console.log("horario ",$("#doctor_select option:selected").data('horario'));
             var horario= $("#doctor_select option:selected").data('horario');
 

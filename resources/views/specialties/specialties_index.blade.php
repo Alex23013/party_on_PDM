@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                 <?php foreach ($specialties as $esp): ?>
-                	@if($esp->id != 1)
+                	@if($esp->id > 2)
 	                  <tr>  
 	                  <td>{{$esp->name}}</td>
 	                  <td><div class="col-md-4 " style="border-radius: 10px; background-color: {{$esp->color}};

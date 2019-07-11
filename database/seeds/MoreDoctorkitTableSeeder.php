@@ -46,6 +46,12 @@ class MoreDoctorkitTableSeeder extends Seeder
             'kit_id'=>1,
             'bag'=>json_encode($bag),
         ]);
+       DB::table('doctorkits')->insert([
+            'id'=>5,
+            'doctor_id'=>5,
+            'kit_id'=>1,
+            'bag'=>json_encode($bag),
+        ]);
         DB::statement("SELECT SETVAL('doctorkits_id_seq', (SELECT MAX(id) FROM doctorkits))");
     }
 }

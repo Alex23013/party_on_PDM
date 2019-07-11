@@ -21,7 +21,7 @@ class ServiceTableSeeder extends Seeder
         ]);
         DB::table('services')->insert([
             'id'=>3,
-    		'service_name'=> "Analisis de sangre",
+    		'service_name'=> "Análisis de sangre",
         ]);
         DB::statement("SELECT SETVAL('services_id_seq', (SELECT MAX(id) FROM services))");
     }
