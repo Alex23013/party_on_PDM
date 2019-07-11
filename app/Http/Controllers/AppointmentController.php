@@ -19,6 +19,7 @@ use App\Espschedule;
 
 class AppointmentController extends Controller
 {
+    
     public function ajax_get_doctors(){
         $u_doctors = Doctor::all();
         $doctors=[];

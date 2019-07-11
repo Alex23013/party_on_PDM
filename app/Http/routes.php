@@ -74,6 +74,8 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_create_recipe/','RestDoctorController@create_recipe');
 	Route::post('/api/v2/doctor_get_recipe/','RestDoctorController@get_recipe');
 	Route::post('/api/v2/doctor_cancel_appointment/','RestDoctorController@cancel_appointment');
+	Route::post('/api/v2/get_medicines_groups/','RestDoctorController@get_medicines_groups');
+	
 	});
 // -------- END_POINTS_V2
 
@@ -234,5 +236,10 @@ Route::get('/val_m_especialista/{user_id}/{input_date}', 'AppointmentController@
 
 Route::get('/val_t_general/{user_id}/{input_date}/{input_time}', 'AppointmentController@val_time_general');
 Route::get('/val_t_especialista/{input_date}/{input_time}/{user_id}', 'AppointmentController@val_time_especialidad');
+
+Route::get('/maps', 'AppointmentController@maps');
+
+Route::get('/new_bag/{kit_id}', 'RestDoctorController@new_bag');
+
 
 
