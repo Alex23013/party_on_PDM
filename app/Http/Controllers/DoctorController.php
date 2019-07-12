@@ -18,6 +18,13 @@ class DoctorController extends Controller
                     ->get();
         return view('doctors.doctors_schedule_index')->with(compact('users'));
     }
+    public function index_r(){
+        $users = DB::table('users')
+                    ->join('doctors','users.id','=','doctors.user_id')
+                    ->where('doctors.specialty_id',"=",2)
+                    ->get();
+        return view('doctors.doctors_schedule_index')->with(compact('users'));
+    }
 
     //schedules_detail
     public function detail($id){

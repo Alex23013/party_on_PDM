@@ -113,6 +113,7 @@
               </a>
               <ul class="treeview-menu" style="display: none;">
               <li><a href="/doctors/schedule"><i class="fa fa-circle-o"></i> Médicos Generales</a></li>
+              <li><a href="/rdoctors/schedule"><i class="fa fa-circle-o"></i> Médicos de Retén</a></li>
               <li><a href="/edoctors/schedule"><i class="fa fa-circle-o"></i> Médicos Especialistas </a></li>
             </li> 
           

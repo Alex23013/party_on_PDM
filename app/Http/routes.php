@@ -137,6 +137,7 @@ Route::post('/patients/payment', 'PatientController@payment');
 
 //Doctors_schedule
 Route::get('/doctors/schedule', 'DoctorController@index');
+Route::get('/rdoctors/schedule', 'DoctorController@index_r');
 Route::get('/doctors/schedule/detail/{id}', 'DoctorController@detail')->where(['id' => '[0-9]+']);
 Route::get('/doctors/schedule/edit/{id}', 'DoctorController@update')->where(['id' => '[0-9]+']);
 Route::post('/doctors/schedule/edit', 'DoctorController@store_update');
