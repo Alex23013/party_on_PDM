@@ -12,7 +12,7 @@
          
           <div class="box">
             <div class="box-header mm-left ">
-            <h2>Lista de Emergencias </h2>
+            <h2>Lista de Emergencias / Urgencias </h2>
             <br>
             <div class="col-xs-12">
             <a href="/emergency/add">  
@@ -40,6 +40,7 @@
                 <thead>
                 <tr>
                   <th>Código de Atención</th>
+                  <th>Tipo</th>
                   <th>Paciente</th>
                   <th>Acciones</th>
                 </tr>
@@ -49,6 +50,11 @@
                 <?php foreach ($emergencies as $emergency): ?>
                     <tr>  
                     <td>{{$emergency['attention_code']}}</td>
+                    @if ($emergency['emergency_type'] == 1)
+                    <td>Urgencia</td>
+                    @else
+                    <td>Emergencia</td>
+                    @endif
                     <td>{{$emergency['name']}}</td>
                     
                     <td> 

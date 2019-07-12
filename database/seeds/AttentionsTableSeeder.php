@@ -83,7 +83,8 @@ class AttentionsTableSeeder extends Seeder
             'p_cell'=>"987678987",
             'motive'=> "emergencia de usuario 1 no registrado",
             'address'=> "la universidad paciente 1",
-            'reference'=>"en el pasillo del primer piso"
+            'reference'=>"en el pasillo del primer piso",
+            "response_type"=>1,
         ]);
 
         DB::table('uemergencies')->insert([
@@ -94,7 +95,9 @@ class AttentionsTableSeeder extends Seeder
             'p_cell'=>"987611117",
             'motive'=> "emergencia de usuario 2 no registrado",
             'address'=> "la universidad",
-            'reference'=>"en el primer piso"
+            'reference'=>"en el primer piso",   
+            'emergency_type'=>1,
+            'response_type'=>2,
         ]);
         DB::statement("SELECT SETVAL('attentions_id_seq', (SELECT MAX(id) FROM attentions))");
         DB::statement("SELECT SETVAL('appointments_id_seq', (SELECT MAX(id) FROM appointments))");

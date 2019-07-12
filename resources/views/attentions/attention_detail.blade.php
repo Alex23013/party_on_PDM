@@ -141,7 +141,20 @@
           @endif
           
         @else
-           <div class="col-md-12" >
+          <div class="col-md-12" >
+            <span class="col-md-4"> Servicio de respuesta: </span>
+            @if($s_attention->response_type == 0)
+            <label  class="col-md-8"> Sin servicio de respuesta </label>
+            @else
+              @if($s_attention->response_type == 1)
+               <label  class="col-md-8"> Bomberos </label>
+              @else
+               <label  class="col-md-8"> Cruz Roja </label>
+              @endif
+            @endif
+          </div>
+
+          <div class="col-md-12" >
             <h4>
               <label class="col-md-11 subtitle">Información de la persona que llamó </label>
             </h4>

@@ -17,12 +17,14 @@ class EmergencyController extends Controller
     public function index(){	
         $all_emergencies = Emergency::all();
         $all_uemergencies = Uemergency::all();
+        $emergencies=[];
         foreach ($all_emergencies as $em ) {
             $attention = $em->attention;
             $patient = Patient::find($attention->patient_id);
             $emergencies[]=array(
                         "attention_id"=>$attention->id,
                         "attention_code"=> $attention->attention_code,
+                        "emergency_type"=>$em->emergency_type,
                         "name" => $patient->user->name,
                         "is_attention"=>1,
                         );
@@ -31,6 +33,7 @@ class EmergencyController extends Controller
             $emergencies[]=array(
                         "attention_id"=>$u_em->id,
                         "attention_code"=> "UEM-".$u_em->id,
+                        "emergency_type"=>$u_em->emergency_type,
                         "name" => $u_em->p_name,
                         "is_attention"=>0,
                         );
