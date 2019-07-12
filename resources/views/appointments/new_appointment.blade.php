@@ -4,7 +4,10 @@
 <style type="text/css">
     #map {
         height: 400px;
-      }    
+      }
+    .m-left{
+        margin-left: 20%;
+    }    
 </style>
 <div class="container">
     <div class="row">
@@ -61,19 +64,24 @@
                             <label for="address" class="col-md-4 control-label">Dirección *</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control" name="address" >
+                                <input id="address2" type="text" class="form-control" name="address" >
                                  
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        
+                        <div class="form-group col-md-10 col-md-offset-2 ">  
+                            <div id="map" class="m-left"></div>
+                        </div>
+                        
+                        <div class="form-group ">
                             <label for="reference" class="col-md-4 control-label">Referencia </label>
 
                             <div class="col-md-6">
                                 <input id="reference" type="text" class="form-control" name="reference" >
                             </div>
                         </div>
-                        <div id="map"></div>
+
                          <div class="form-group">
                             <label for="motive" class="col-md-4 control-label">Motivo de Consulta *</label>
 
@@ -136,6 +144,7 @@
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
@@ -168,6 +177,8 @@
 
     var input_time = document.getElementById("input_time");
     input_time.disabled=true;
+    var locations = [];
+    
 
     $('#specialty_selector').change(function(){
         var parametros={
@@ -189,7 +200,9 @@
                 $(doctorSelect).append('<option value=""> Seleccione un doctor</option>')
                 for (var i = 0; i < response.length; i++) {
                     $(doctorSelect).append('<option data-horario=\''+response[i].schedule+'\' value="' + response[i].id + '">' + response[i].name + '</option>');
-                }                
+                    locations.push([response[i].name,response[i].latitude,response[i].longitude]);
+                }         
+                console.log("loc.sze(): ",locations.length);         
             }
        });
     })
@@ -332,48 +345,67 @@
 
          }
     })
+
 </script>
 <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-      var map, infoWindow;
-      function initMap() {  
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 6
+     function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: -16.405363, lng: -71.533260}
         });
-        infoWindow = new google.maps.InfoWindow;
+        var geocoder = new google.maps.Geocoder();
 
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
+        document.getElementById('address2').addEventListener('keypress', function(e) {
+             var key = e.keyCode || e.which;
+             if(key == 13){
+                geocodeAddress(geocoder, map);
+                e.preventDefault();
+                return false;
+             }          
+        }); 
       }
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address2').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+            console.log("resul",results," ",status);
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker1 = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location,
+              icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+              //title: 'Hello World!'
+            }); 
+            google.maps.event.addListener(marker1, 'click', (function(marker1) {
+                return function() {
+                  infowindow.setContent('Dirección solicitada');
+                  infowindow.open(map, marker1);
+                }
+            })(marker1));
+            var infowindow = new google.maps.InfoWindow();
+            var marker, i;
+            
+            for (i = 0; i < locations.length; i++) {  
+              marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: resultsMap,
+                
+              });
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                  infowindow.setContent(locations[i][0]);
+                  infowindow.open(map, marker);
+                }
+            })(marker, i));
+            }
+
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
       }
+
     </script>
     <script async defer
     src="https://maps.google.com/maps/api/js?key=AIzaSyCILxmzsVKpgprW3wmiVyBk3-ylNy2g8Vc&callback=initMap">

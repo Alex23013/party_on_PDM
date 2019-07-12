@@ -38,6 +38,8 @@ class AppointmentController extends Controller
                         "id" => $doctor->user->id,
                         "specialty"=>$doctor->specialty_id,
                         "schedule"=>$schedule_info,
+                        "latitude"=>$doctor->doctor_latitude,
+                        "longitude"=>$doctor->doctor_longitude,
                     );     
             }
         }
