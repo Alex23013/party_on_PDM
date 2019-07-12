@@ -130,7 +130,7 @@ class AppointmentController extends Controller
         $startTimestamp = strtotime($start);
         $endTimestamp = strtotime($end);
         $nowTimestamp = strtotime($input_time);
-       
+        $possible_end = $nowTimestamp+3600;
         if($nowTimestamp > $startTimestamp && $nowTimestamp < $endTimestamp){
             dd( 1);
         }else{
@@ -183,7 +183,7 @@ class AppointmentController extends Controller
         $doctor_name = $user->name." ".$user->last_name;
         $doctor = $user->doctor;
 
-        if($_POST['input_esp_id'] == 1){
+        if($_POST['input_esp_id'] < 3){
             $day = $this->day_to_number($_POST['input_date']);
             $schedule = json_decode(Schedule::find($doctor->schedule_id)->schedule);
             $start = $schedule[$day]->schedule_start;
@@ -191,6 +191,7 @@ class AppointmentController extends Controller
             $startTimestamp = strtotime($start);
             $endTimestamp = strtotime($end);
             $nowTimestamp = strtotime($_POST['input_time']);
+            $possible_end = $nowTimestamp+3600;
             if($nowTimestamp >= $startTimestamp && $nowTimestamp <= $endTimestamp){
                 //chequear que no hay citas reservadas en ese horario
                 $reserved_app = Appointment::where('doctor_id',$doctor->id)->where('status',1)->get();
