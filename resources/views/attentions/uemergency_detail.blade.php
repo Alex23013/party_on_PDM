@@ -11,7 +11,11 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-body p-left">
+       @if($u_emergency ->emergency_type == 0)
         <h3> Información de la Emergencia</h3>
+       @else
+        <h3> Información de la Urgencia</h3>
+       @endif
       <br>
       <div class="col-md-8">
         <div class="col-md-12" >

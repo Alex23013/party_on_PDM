@@ -65,7 +65,9 @@ class EmergencyController extends Controller
             'p_dni' => 'required|size:8',
             'p_cell' => 'required',
             'motive' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'response_type'=> 'required',
+            'emergency_type'=> 'required',
         ];
         $messages = [
             'p_name.required' => 'Es necesario ingresar un nombre para registrar una emergencia',
@@ -81,7 +83,9 @@ class EmergencyController extends Controller
 
             'p_cell.required' => 'Es necesario ingresar un número de celular para registrar una emergencia',
             'motive.required' => 'Es necesario ingresar la descripcion del problema del paciente para registrar una emergencia',
-            'address.required' => 'Es necesario ingresar una dirección para registrar una emergencia'
+            'address.required' => 'Es necesario ingresar una dirección para registrar una emergencia',
+            'response_type.required' => 'Es necesario ingresar un tipo de servicio de respuesta para registrar una emergencia',
+                'emergency_type.required' => 'Es necesario ingresar algún tipo de emergencia para registrar una emergencia',
             ];  
         $this->validate($request, $rules, $messages);
         $uemergency= New Uemergency;
@@ -114,12 +118,16 @@ class EmergencyController extends Controller
         $rules = [
             'patient_id' => 'required',
             'motive' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'response_type'=> 'required',
+            'emergency_type'=> 'required'
         ];
         $messages = [
                 'patient_id.required' => 'Es necesario ingresar un id de paciente para registrar una emergencia',
                 'motive.required' => 'Es necesario ingresar la descripcion del problema del paciente para registrar una emergencia',
-                'address.required' => 'Es necesario ingresar una dirección para registrar una emergencia'
+                'address.required' => 'Es necesario ingresar una dirección para registrar una emergencia',
+                'response_type.required' => 'Es necesario ingresar un tipo de servicio de respuesta para registrar una emergencia',
+                'emergency_type.required' => 'Es necesario ingresar algún tipo de emergencia para registrar una emergencia',
             ];  
         $this->validate($request, $rules, $messages);  
         
@@ -158,6 +166,7 @@ class EmergencyController extends Controller
                         "attention_id"=>$attention->id,
                         "attention_code"=> $attention->attention_code,
                         "name" => $patient->user->name,
+                        "emergency_type"=>$em->emergency_type,
                         "is_attention"=>1,
                         );
         }
@@ -166,6 +175,7 @@ class EmergencyController extends Controller
                         "attention_id"=>$u_em->id,
                         "attention_code"=> "UEM-".$u_em->id,
                         "name" => $u_em->p_name,
+                        "emergency_type"=>$u_em->emergency_type,
                         "is_attention"=>2,
                         );
         }

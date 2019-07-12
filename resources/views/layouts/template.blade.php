@@ -27,8 +27,8 @@
     <link href="{{ asset('css/_all-skins.min.css') }}" rel="stylesheet">
 
 
-    <!-- font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!-- font 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
     
     <!-- Incluyendo Culqi Checkout -->
     <script src="https://checkout.culqi.com/js/v3"></script>

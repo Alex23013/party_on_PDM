@@ -14,7 +14,11 @@
       @if($attention ->type == 1)
         <h3> Información de la Cita médica</h3>
       @else
+        @if($s_attention ->emergency_type == 0)
         <h3> Información de la Emergencia</h3>
+       @else
+        <h3> Información de la Urgencia</h3>
+       @endif
       @endif
       <br>
       <div class="col-md-8">

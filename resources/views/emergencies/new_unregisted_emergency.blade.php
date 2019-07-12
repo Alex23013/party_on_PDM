@@ -69,6 +69,25 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="motive" class="col-md-4 control-label">Tipo de emergencia  *</label>
+
+                            <div class="col-md-6">
+                                <input type="radio" name="emergency_type" value = "0" checked> Emergencia
+                                <input type="radio" name="emergency_type" value = "1" > Urgencia
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="motive" class="col-md-4 control-label">Tipo de servicio de respuesta  *</label>
+
+                            <div class="col-md-6">
+                                <input type="radio" name="response_type" value = "0" checked> Sin servicio
+                                <input type="radio" name="response_type" value = "1" > Bomberos
+                                <input type="radio" name="response_type" value = "2" > Cruz Roja
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-md-8 control-label">Información de la persona que está llamando (opcional)</label>
                         </div>
 
