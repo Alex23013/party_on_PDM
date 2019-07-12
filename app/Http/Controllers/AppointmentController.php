@@ -91,7 +91,8 @@ class AppointmentController extends Controller
         $now = time();        
         $thenTimestamp = strtotime($then);
         $difference_seconds = $thenTimestamp-$now ;
-        if($difference_seconds<0){
+        //return $difference_seconds ;
+        if($difference_seconds+86400<0){
             return "No se puede reservar una cita en el pasado";
         }else{
             if($_POST['input_esp_id'] == 1){
