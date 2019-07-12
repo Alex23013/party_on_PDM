@@ -89,7 +89,7 @@ class AppointmentController extends Controller
     public function ajax_validate_date(){
         $then = $_POST['input_date'];
         $now = time();        
-        $thenTimestamp = strtotime(date("ymd"));
+        $thenTimestamp = strtotime($then);
         $difference_seconds = $thenTimestamp-$now ;
         if($difference_seconds<0){
             return "No se puede reservar una cita en el pasado";
