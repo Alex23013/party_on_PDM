@@ -36,6 +36,9 @@
 	                  @else
 	                  <th>Estado</th>
 	                  @endif
+	                  @if($app_status == 2)
+	                  <th>Acciones</th>
+	                  @endif
 	            </tr>
                 </thead>
                 <tbody>
@@ -55,6 +58,7 @@
 	                  @else
 	                  	@if($app['status']==2)
 	                  		<td> Atendido </td>
+	                  		<td> <a href="#" title="Solicitar Reporte" > <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa   fa-file-text-o "></i></button></a> </td>
 	                  	@else
 	                  		<td> Cancelado </td>
 	                  	@endif	
