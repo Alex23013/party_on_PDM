@@ -78,21 +78,17 @@
       }
     @font-face {
         font-family: "font_gothamBook";
-        /*src: url("fonts/GothamMedium.woff") format('woff');*/
-        src: url("fonts/GothamBook.woff") format('woff');
+        src: url("fonts/GothamMedium.woff") format('woff');
+        /*src: url("fonts/GothamBook.woff") format('woff');*/
         }
-    @font-face {
-    font-family: "font_gothamBookItalic";
-    src: url("fonts/GothamLight.woff") format('woff');
-    }
     .main-header .logo{
-      font-family: font_gothamBook, monospace;
+      font-family: font_gothamBook, sans-serif;
       font-display: swap;
-      font-size: 14px;
+      font-size: 13px;
     }
     body {
-      font-family: font_gothamBook, monospace;
-      font-size: 14px;
+      font-family: font_gothamBook, sans-serif;
+      font-size: 13px;
       font-display: swap;
     }
     .mm-left{
