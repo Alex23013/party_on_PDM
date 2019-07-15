@@ -292,7 +292,7 @@ class RestDoctorController extends Controller
               'content'=>"El paciente no tiene historias clinicas del ultimo mes"]);
 
       }
-      if($matched_histories){
+      if($matched_histories[0]){
         $matched_histories = array_reverse($matched_histories);
         $last_personal_antecedent = $matched_histories[0]->personal_antecedents;
         $last_family_antecedent = $matched_histories[0]->family_antecedents;
@@ -388,25 +388,32 @@ class RestDoctorController extends Controller
     }else{
       $doctor = $user->doctor;
       $doctor_kit = Doctorkit::where ('doctor_id', $doctor->id)->where('active',true)->first();
-      $dbag = json_decode($doctor_kit->bag);
-      $select_group =[];
-      foreach ($dbag as $key => $value) {
-        $medicine = Medicine::find($value->id);
-        if($medicine->medicine_group == $request->medicine_group){
-          $select_group[]=[
-          'id'=>$value->id,
-          'name'=>$medicine->name,
-          'brand'=>$medicine->brand,
-          'dosis'=>$medicine->dosis,
-          'quantity'=>$value->quantity,
-          ];
+      if($doctor_kit){
+        $dbag = json_decode($doctor_kit->bag);
+        $select_group =[];
+        foreach ($dbag as $key => $value) {
+          $medicine = Medicine::find($value->id);
+          if($medicine->medicine_group == $request->medicine_group){
+            $select_group[]=[
+            'id'=>$value->id,
+            'name'=>$medicine->name,
+            'brand'=>$medicine->brand,
+            'dosis'=>$medicine->dosis,
+            'quantity'=>$value->quantity,
+            ];
+          }
         }
-      }
-      return response()
-              ->json(['status' => '200', 
+        return response()
+                ->json(['status' => '200', 
                   'message' => 'Ok',
                   'kit_id' => $doctor_kit->kit_id,
                   'bag' => $select_group]);
+      }else{
+        return response()
+                ->json(['status' => '403', 
+                  'message' => "El doctor no tiene un kit de doctor asignado"]);   
+      }
+      
     }
   }
 

@@ -419,7 +419,7 @@ class PatientController extends Controller
         $history->save();
         $message = [
                     "title"=>"Solicitud de permiso enviado",
-                    "content"=>"para la historia clínica:  \"".$history->id. "\" con código de atención: \"". $history->attention->attention_code."\""
+                    "content"=>"para la historia clínica con código de atención: \"". $history->attention->attention_code."\""
                 ];
         return view('patients_options.patients_main')->with(compact('message'));
     }
