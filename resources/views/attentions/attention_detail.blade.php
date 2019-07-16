@@ -5,6 +5,10 @@
   .p-left{
     padding-left: 5%;
   }
+  #map {
+        height: 400px;
+        margin-top: 5%;
+      }
 </style>
 
 <div class="row">
@@ -49,9 +53,12 @@
           @endif
           
         </div>
-
-        
+        <div class="col-md-10 ">  
+            <div id="map" class="m-left"></div>
+        </div> 
         @if($attention ->type == 1)
+        
+
         <div class="col-md-12" >
             <h4>
               <label class="col-md-11 subtitle">Detalles de la cita médica</label>
@@ -227,4 +234,26 @@
     </div>
   </div>
 </div>
+@endsection
+
+
+
+@section('specific scripts')
+<script>
+     function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: {lat: -16.405363, lng: -71.533260}
+        });
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(-16.4052938, -71.5425724),
+          map: map,
+          title: "Dirección de la cita",          
+        });
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.google.com/maps/api/js?key=AIzaSyCILxmzsVKpgprW3wmiVyBk3-ylNy2g8Vc&callback=initMap">
+    </script>
 @endsection
