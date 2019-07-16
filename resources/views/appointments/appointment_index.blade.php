@@ -49,8 +49,8 @@
                     <td> 
                       <a href="/appointments/detail/{{$app['id']}}" title="Ver detalles" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
                       <a href="/appointments/remove/{{$app['id']}}" title="Eliminar"><button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta cita médica?');"><i class="fa fa-trash"></i></button><a>
-                      <a href="/appointments/update_status/{{$app['app_id']}}/2" title="Atendida" > <button  type="button" class="btn btn-success btn-flat buttonSpace" onclick="return confirm('¿Estas seguro de que quieres marcar como atendida esta cita médica?');"><i class="fa fa-check"></i></button></a>
-                      <a href="/appointments/update_status/{{$app['app_id']}}/3" title="Cancelada" > <button  type="button" class="btn btn-danger btn-flat buttonSpace" onclick="return confirm('¿Estas seguro de que quieres marcar como cancelada esta cita médica?');"><i class="fa fa-ban"></i></button></a>
+                      <a href="/appointments/update_status/{{$app['app_id']}}/1" title="Confirmar Cita" > <button  type="button" class="btn btn-success btn-flat buttonSpace" onclick="return confirm('¿Estas seguro que quieres confirmar esta cita médica?');"><i class="fa fa-check"></i></button></a>
+                      <a href="/appointments/update_status/{{$app['app_id']}}/3" title="Cancelar Cita" > <button  type="button" class="btn btn-danger btn-flat buttonSpace" onclick="return confirm('¿Estas seguro que quieres canceladar esta cita médica?');"><i class="fa fa-ban"></i></button></a>
                     </td>
                     </tr>  
                     <?php endforeach ?>  
