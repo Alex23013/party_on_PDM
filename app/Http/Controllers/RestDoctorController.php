@@ -576,6 +576,7 @@ class RestDoctorController extends Controller
             'message' => 'El usuario solicitado no es doctor de la cita médica']); 
       }else{
         $app->status = 3;
+        $app->save();
         return response()
         ->json(['status' => '200', 
             'message' => 'Ok']); 
