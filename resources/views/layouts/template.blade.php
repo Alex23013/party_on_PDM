@@ -84,7 +84,7 @@
     .main-header .logo{
       font-family: font_gothamBook, sans-serif;
       font-display: swap;
-      font-size: 13px;
+      font-size: 20px;
     }
     body {
       font-family: font_gothamBook, sans-serif;
