@@ -149,11 +149,30 @@ class RestPatientsController extends Controller
 				->json(['status' => '404', 
 						'message' => 'No se encontro la cita solicitada']);	
     	}
-    	$app->status = $request->new_status;
-    	$app->save();
-    	return response()
-				->json(['status' => '200', 
-						'message' => 'Ok']);
+    	if($request->new_status == 3){
+    		$then = $app->date_time;
+	      $now = time();        
+	      $thenTimestamp = strtotime($then);
+	      $difference_seconds = $thenTimestamp-$now ;
+	      $gap_permited_in_seconds=86400; // 24hours in seconds
+	      if($difference_seconds>$gap_permited_in_seconds){
+		      $app->status = $request->new_status;
+	    		$app->save();	
+	    		return response()
+					->json(['status' => '200', 
+							'message' => 'Ok']);
+	      }else{
+	     		return response()
+				->json(['status' => '404', 
+						'message' => 'No se puede cancelar una cita con menos de 24 horas de aticipación']); 	
+	      }
+    	}else{
+    		$app->status = $request->new_status;
+	    	$app->save();
+	    	return response()
+					->json(['status' => '200', 
+							'message' => 'Ok']);
+    	}
     }
 
 	public function inbox(Request $request){
@@ -232,14 +251,14 @@ class RestPatientsController extends Controller
 							$specialty_name =$specialty->name; 
 							$doctor = doctor::find($app->doctor_id);
 							$attention= $app->attention;
-							if($request->app_status == 0){ //citas por confirmar solo las del futuro
+							if($request->app_status == 0){ //citas por confirmar 
 								$then = $app->date_time;
 					      $now = time();        
 		            $thenTimestamp = strtotime($then);
 		            $difference_seconds = $thenTimestamp-$now ;
-		            if($difference_seconds>0){
+		            if($difference_seconds>0){ //filtrar solo las del futuro
 		            	$matched_apps[]=[
-		            	'app_id'=>$app->id,
+		            	'appoinment_id'=>$app->id,
 									'specialty' => $specialty_name, 
 									'doctor_name' =>$doctor->user->name,
 									'date_time' =>$app->date_time,
@@ -249,7 +268,7 @@ class RestPatientsController extends Controller
 					      }
 							}else{
 								$matched_apps[]=[
-								'app_id'=>$app->id,
+								'appointment_id'=>$app->id,
 								'specialty' => $specialty_name, 
 								'doctor_name' =>$doctor->user->name,
 								'date_time' =>$app->date_time,
@@ -274,6 +293,58 @@ class RestPatientsController extends Controller
 		}
 	}
 
+	public function edit_appointment_location(Request $request){
+		$user = User::find($request->user_id);
+    if($user->role != 3){
+        return response()
+          ->json(['status' => '404', 
+              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
+    }else{
+    	$app = Appointment::find($request->appointment_id);
+
+    	if(!$app){
+    		return response()
+				->json(['status' => '404', 
+						'message' => 'No se encontro la cita solicitada']);	
+    	}else{
+    		$attention = $app->attention;
+    		$R_patient_id =$user->patient->id; 
+    		if($R_patient_id == $attention->patient_id){
+    			$then = $app->date_time;
+		      $now = time();        
+		      $thenTimestamp = strtotime($then);
+		      $difference_seconds = $thenTimestamp-$now ;
+		      $gap_permited_in_seconds=86400; // 24hours in seconds
+		      if($difference_seconds>$gap_permited_in_seconds){
+		      	$data = $request->all();
+			    	unset($data['token']);
+			    	unset($data['appointment_id']);
+			    	unset($data['user_id']);
+			    	//dd($data);
+			      foreach ($data as $key => $value) {
+			         if( $value == '' || $value == ' ' ){
+			         }else{
+			  			$attention ->$key=$data[$key];   	
+			     		}     
+			     	}           
+			      $attention ->save();
+			      return response()
+									->json(['status' => '200', 
+											'message' => 'Ok']);			
+		      }else{
+		      	return response()
+				->json(['status' => '404', 
+						'message' => 'No se puede editar la ubicacion de una cita con menos de 24 horas de aticipación']);
+		      }
+    			
+    		}else{
+    			return response()
+				->json(['status' => '403', 
+						'message' => 'El id del paciente no corresponde con el id del appointment']);	
+    		}
+    	}
+    }
+	}
 	public function services(){
         $services = Service::all();
         return response()
