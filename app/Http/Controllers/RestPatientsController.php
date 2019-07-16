@@ -210,17 +210,17 @@ class RestPatientsController extends Controller
 
 	public function appointments(Request $request){
 		$user = User::find($request->user_id);
-	    if($user->role != 3){
-	        return response()
-	          ->json(['status' => '404', 
-	              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
-	    }else{
-	    	if($request->app_status>3){
-	    		return response()
-	          ->json(['status' => '404', 
-	              'message' => 'No existe ese estado para una cita medica']); 
-	    	}else{
-	    		$patient = $user->patient;
+    if($user->role != 3){
+        return response()
+          ->json(['status' => '404', 
+              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
+    }else{
+    	if($request->app_status>3){
+    		return response()
+          ->json(['status' => '404', 
+              'message' => 'No existe ese estado para una cita medica']); 
+    	}else{
+    		$patient = $user->patient;
 				$atts = Attention::where('patient_id', $patient->id)->
 				where('type', 1)->get();
 				$matched_apps=[];
@@ -234,19 +234,19 @@ class RestPatientsController extends Controller
 							$attention= $app->attention;
 							if($request->app_status == 0){ //citas por confirmar solo las del futuro
 								$then = $app->date_time;
-					            $now = time();        
-					            $thenTimestamp = strtotime($then);
-					            $difference_seconds = $thenTimestamp-$now ;
-					            if($difference_seconds>0){
-					            	$matched_apps[]=[
-					            	'app_id'=>$app->id,
+					      $now = time();        
+		            $thenTimestamp = strtotime($then);
+		            $difference_seconds = $thenTimestamp-$now ;
+		            if($difference_seconds>0){
+		            	$matched_apps[]=[
+		            	'app_id'=>$app->id,
 									'specialty' => $specialty_name, 
 									'doctor_name' =>$doctor->user->name,
 									'date_time' =>$app->date_time,
 									'latitude'=>$attention->att_latitude,
 									'longitude'=>$attention->att_longitude,
 									];
-					            }
+					      }
 							}else{
 								$matched_apps[]=[
 								'app_id'=>$app->id,
@@ -270,7 +270,7 @@ class RestPatientsController extends Controller
 								'message' => 'Ok',
 								'content' => $matched_apps]);
 				}
-	    	}
+    	}
 		}
 	}
 
