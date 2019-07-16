@@ -231,7 +231,8 @@ class RestPatientsController extends Controller
 							$specialty = Specialty::find($app->specialty_id);
 							$specialty_name =$specialty->name; 
 							$doctor = doctor::find($app->doctor_id);
-							if($request->app_status == 0){
+							$attention= $app->attention;
+							if($request->app_status == 0){ //citas por confirmar solo las del futuro
 								$then = $app->date_time;
 					            $now = time();        
 					            $thenTimestamp = strtotime($then);
@@ -242,6 +243,8 @@ class RestPatientsController extends Controller
 									'specialty' => $specialty_name, 
 									'doctor_name' =>$doctor->user->name,
 									'date_time' =>$app->date_time,
+									'latitude'=>$attention->att_latitude,
+									'longitude'=>$attention->att_longitude,
 									];
 					            }
 							}else{
@@ -250,6 +253,8 @@ class RestPatientsController extends Controller
 								'specialty' => $specialty_name, 
 								'doctor_name' =>$doctor->user->name,
 								'date_time' =>$app->date_time,
+								'latitude'=>$attention->att_latitude,
+								'longitude'=>$attention->att_longitude,
 								];
 							}		
 						}
