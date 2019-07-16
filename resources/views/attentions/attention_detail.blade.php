@@ -7,7 +7,6 @@
   }
   #map {
         height: 400px;
-        margin-top: 5%;
       }
 </style>
 
@@ -25,7 +24,7 @@
        @endif
       @endif
       <br>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="col-md-12" >
           <span class="col-md-4"> Código de la atención: </span>
           <label  class="col-md-8">{{$attention -> attention_code}} </label>
@@ -53,9 +52,6 @@
           @endif
           
         </div>
-        <div class="col-md-10 ">  
-            <div id="map" class="m-left"></div>
-        </div> 
         @if($attention ->type == 1)
         
 
@@ -209,9 +205,12 @@
         @endif
       </div>
 
-      <div class="col-md-4 ">
+      <div class="col-md-6 ">
         @if($attention ->type == 1)
-          <img src="/images/medic_date.png" style="width:100%;">  
+          <!--<img src="/images/medic_date.png" style="width:100%;"> -->
+          <div class="col-md-12 ">  
+            <div id="map" class="m-left"></div>
+           </div> 
         @else
           <img src="/images/ambulance.png" style="width:100%;">
         @endif
