@@ -329,7 +329,7 @@ class AppointmentController extends Controller
                 'specialty_id.required' => 'Es necesario seleccionar una "especialidad"  para registrar una cita médica'
             ];  
         $this->validate($request, $rules1, $messages1);
-
+       
         $attention = new Attention;
         $patient = User::find($request->patient_user_id)->patient;
         $attention->patient_id = $patient->id;
@@ -337,6 +337,8 @@ class AppointmentController extends Controller
         $attention->attention_code = "AT-".date("ymd");
         $attention->address = $request->address;
         $attention->reference = $request->reference;
+        $attention->att_latitude = $request->att_latitude;
+        $attention->att_longitude = $request->att_longitude;
         $attention->type = 1;
         $attention->save();
         $attention->attention_code = $attention->attention_code.$attention->id;

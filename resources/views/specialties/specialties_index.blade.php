@@ -41,7 +41,7 @@
 	                  <td> 
 	                  	<a href="/specialties/edit/{{$esp->id}}" title="Editar"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
 	                  	
-	                  	<a href="/specialties/remove/{{$esp->id}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta especialidad?');"><i class="fa fa-trash"></i></button><a>
+	                  	<a href="/specialties/remove/{{$esp->id}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace disabled" onclick="return confirm('¿Estas seguro de que quieres eliminar esta especialidad?');"><i class="fa fa-trash"></i></button><a>
 	                 
 	                  </td>
 	                  </tr> 
