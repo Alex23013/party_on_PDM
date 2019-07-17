@@ -20,6 +20,8 @@ class AttentionsTableSeeder extends Seeder
             'address'=> "la casa del paciente 1",
             'reference'=>"cerca de su casa hay un parque",
             'type'=>1,
+            'att_latitude' => "-16.4052938",
+            'att_longitude' => "-71.5425724",
         ]);
 
         DB::table('attentions')->insert([
@@ -30,6 +32,8 @@ class AttentionsTableSeeder extends Seeder
             'address'=> "la universidad paciente 1",
             'reference'=>"en el pasillo del primer piso",
             'type'=>2,
+            'att_latitude' => "-16.4052938",
+            'att_longitude' => "-71.5425724",
         ]);
 
          DB::table('attentions')->insert([
@@ -40,6 +44,8 @@ class AttentionsTableSeeder extends Seeder
             'address'=> "la ucasa del doctor",
             'reference'=>"cerca de la clinica",
             'type'=>1,
+            'att_latitude' => "-16.4052938",
+            'att_longitude' => "-71.5425724",
         ]);
 
         // -------- emergencies  ----------- //
@@ -85,6 +91,8 @@ class AttentionsTableSeeder extends Seeder
             'address'=> "la universidad paciente 1",
             'reference'=>"en el pasillo del primer piso",
             "response_type"=>1,
+            'att_latitude' => "-16.4052938",
+            'att_longitude' => "-71.5425724",
         ]);
 
         DB::table('uemergencies')->insert([
@@ -98,6 +106,8 @@ class AttentionsTableSeeder extends Seeder
             'reference'=>"en el primer piso",   
             'emergency_type'=>1,
             'response_type'=>2,
+            'att_latitude' => "-16.4052938",
+            'att_longitude' => "-71.5425724",
         ]);
         DB::statement("SELECT SETVAL('attentions_id_seq', (SELECT MAX(id) FROM attentions))");
         DB::statement("SELECT SETVAL('appointments_id_seq', (SELECT MAX(id) FROM appointments))");

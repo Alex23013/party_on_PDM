@@ -5,6 +5,9 @@
   .p-left{
     padding-left: 5%;
   }
+  #map {
+        height: 400px;
+      }
 </style>
 
 <div class="row">
@@ -17,7 +20,7 @@
         <h3> Información de la Urgencia</h3>
        @endif
       <br>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="col-md-12" >
           <span class="col-md-4"> Código de la atención: </span>
           <label  class="col-md-8">UEM-{{$u_emergency -> id}} </label>
@@ -102,13 +105,35 @@
           </div>
       </div>
 
-      <div class="col-md-4 ">
-          <img src="/images/ambulance.png" style="width:100%;">
-            
+      <div class="col-md-6 ">
+        <div class="col-md-12 ">  
+          <div id="map" class="m-left"></div>
+        </div>             
       </div>        
       </div>
         <!-- /.box-body -->
     </div>
   </div>
 </div>
+@endsection
+
+
+@section('specific scripts')
+<script>
+     function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: {lat:<?php echo $u_emergency->att_latitude?>    ,lng:<?php echo $u_emergency->att_longitude?> }
+        });
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(<?php echo $u_emergency->att_latitude?> , <?php echo $u_emergency->att_longitude?>),
+          map: map,
+          title: "Dirección de la cita",          
+        });
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.google.com/maps/api/js?key=AIzaSyCILxmzsVKpgprW3wmiVyBk3-ylNy2g8Vc&callback=initMap">
+    </script>
 @endsection

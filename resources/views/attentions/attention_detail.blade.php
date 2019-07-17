@@ -206,15 +206,9 @@
       </div>
 
       <div class="col-md-6 ">
-        @if($attention ->type == 1)
-          <!--<img src="/images/medic_date.png" style="width:100%;"> -->
-          <div class="col-md-12 ">  
-            <div id="map" class="m-left"></div>
-           </div> 
-        @else
-          <img src="/images/ambulance.png" style="width:100%;">
-        @endif
-            
+        <div class="col-md-12 ">  
+          <div id="map" class="m-left"></div>
+        </div>             
       </div>  
         <div class="col-md-12 ">
           <div class="col-md-4 "></div>
@@ -225,7 +219,7 @@
              <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Cita Médica</button>
             </a>
             @endif  
-          @endif  
+          @endif         
           </div>
         </div>      
       </div>
@@ -241,11 +235,11 @@
 <script>
      function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: {lat: -16.405363, lng: -71.533260}
+          zoom: 15,
+          center: {lat: <?php echo $attention->att_latitude?>    ,lng:<?php echo $attention->att_longitude?> }
         });
         marker = new google.maps.Marker({
-          position: new google.maps.LatLng(-16.4052938, -71.5425724),
+          position: new google.maps.LatLng(<?php echo $attention->att_latitude?>, <?php echo $attention->att_longitude?>),
           map: map,
           title: "Dirección de la cita",          
         });
