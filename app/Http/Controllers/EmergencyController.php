@@ -25,7 +25,7 @@ class EmergencyController extends Controller
                         "attention_id"=>$attention->id,
                         "attention_code"=> $attention->attention_code,
                         "emergency_type"=>$em->emergency_type,
-                        "name" => $patient->user->name,
+                        "name" => $patient->user->name." ".$patient->user->last_name,
                         "is_attention"=>1,
                         );
         }
@@ -34,7 +34,7 @@ class EmergencyController extends Controller
                         "attention_id"=>$u_em->id,
                         "attention_code"=> "UEM-".$u_em->id,
                         "emergency_type"=>$u_em->emergency_type,
-                        "name" => $u_em->p_name,
+                        "name" => $u_em->p_name." ".$patient->user->last_name,
                         "is_attention"=>0,
                         );
         }
@@ -137,6 +137,8 @@ class EmergencyController extends Controller
         $attention->motive = $request->motive;
         $attention->attention_code = "AT-".date("ymd");
         $attention->address = $request->address;
+        $attention->att_latitude = $request->att_latitude;
+        $attention->att_longitude = $request->att_longitude;
         $attention->reference = $request->reference;
         $attention->type = 2;
         $attention->save();
@@ -152,6 +154,8 @@ class EmergencyController extends Controller
         unset($data['motive']);
         unset($data['address']);
         unset($data['reference']);
+        unset($data['att_latitude']);
+        unset($data['att_longitude']);
         foreach ($data as $key => $value) {
             $emergency->$key = $data[$key] ;
         }  
