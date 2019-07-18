@@ -214,12 +214,12 @@
           <div class="col-md-4 "></div>
           <div class="col-md-8 ">
           @if($attention ->type == 1)
-            @if($s_attention->status < 2)
+            @if($s_attention->status < 2 )
             <a href="/appointments/edit/{{$attention->id}}"> 
              <button type="button" class="btn bg-purple margin">  <i class="fa fa-edit"></i>  Editar Cita Médica</button>
             </a>
             @endif  
-          @endif         
+          @endif 
           </div>
         </div>      
       </div>

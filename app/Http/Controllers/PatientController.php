@@ -264,6 +264,7 @@ class PatientController extends Controller
                 $intervals = explode(' ',$app->date_time);
                 $matched_apps[]=[
                 'id'=>$app->id,
+                'att_id'=>$att->id,
                 'specialty' => $specialty_name, 
                 'doctor_name' =>$doctor->user->name,
                 'date' =>$intervals[0],
@@ -382,6 +383,16 @@ class PatientController extends Controller
         return $url_pdf;
     }
 
+    public function app_detail($id){
+        $attention = Attention::find($id);
+        $s_attention = $attention->appointment;
+        //dd($s_attention);
+        $specialty = $s_attention->specialty;
+        //dd($specialty);
+        $user_doctor =$s_attention->doctor->user;
+        $user_patient = $attention->patient->user;
+        return view('patients_options.app_detail')->with(compact('s_attention','attention','user_patient','specialty','user_doctor'));
+    }
     public function patient_histories_detail($id)
     {
         $history = History::find($id);

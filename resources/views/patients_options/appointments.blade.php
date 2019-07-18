@@ -53,6 +53,7 @@
 	                  	@if($app_status == 0 )
 	                  	<a href="/patients/update_status_appointment/{{$app['id']}}/1" title="Confirmar cita" > <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa  fa-calendar-check-o "></i></button></a>
 	                  	@endif
+	                  	<a href="/patients/appointment_detail/{{$app['att_id']}}" title="Ver detalles de la cita" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
 	                  	 <a href="/patients/update_status_appointment/{{$app['id']}}/3" title="Cancelar cita" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres cancelar esta cita');"><i class="fa fa-calendar-times-o "></i></button><a>
 	                  </td>
 	                  @else
