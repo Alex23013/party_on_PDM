@@ -309,6 +309,7 @@ class PatientController extends Controller
                 $intervals = explode(' ',$app->date_time);
                 $matched_apps[]=[
                 'id'=>$app->id,
+                'att_id'=>$app->attention->id,
                 'specialty' => $specialty_name, 
                 'doctor_name' =>$doctor->user->name,
                 'date' =>$intervals[0],
@@ -320,6 +321,11 @@ class PatientController extends Controller
         }
         $app_status =2;
         return view('patients_options.appointments')->with(compact('matched_apps','app_status'));
+    }
+
+    public function attention_report($att_id){
+        $attention = Attention::find($att_id);
+        return view('patients_options.attention_report')->with(compact('$attention'));
     }
 
     public function services(){

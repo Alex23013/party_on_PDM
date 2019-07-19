@@ -120,6 +120,7 @@ Route::post('/patients/edit', 'PatientController@store_update');
 Route::get('/patients/update_status_appointment/{app_id}/{new_status}', 'PatientController@update_status_appointment')->where(['app_id' => '[0-9]+'],['new_status' => '[0-3]']);
 Route::get('/patients/appointments/{app_status}', 'PatientController@appointments')->where(['app_status' => '[0-3]']);
 Route::get('/patients/history_appointments', 'PatientController@history_appointments');
+Route::get('/patients/attention_report/{att_id}', 'PatientController@attention_report')->where(['att_id' => '[0-9]+']);
 Route::get('/patients/new_inbox_emergency', 'PatientController@inbox_emergency');
 Route::get('/patients/new_inbox_appointment', 'PatientController@inbox_appointment');
 Route::post('/patients/new_inbox', 'PatientController@inbox');
