@@ -92,12 +92,12 @@
         </div>             
       </div>  
         <div class="col-md-12 ">
-          <div class="col-md-8 "></div>
-          <div class="col-md-4 ">
-            <a href="#"> 
-             <button type="button" class="btn bg-success margin">  <i class="fa fa-save"></i>  Guardar Nueva Dirección</button>
-            </a>
+          <div class="col-md-6 "></div>
+          <div class="col-md-6 ">
+             <button type="button" id = "buttonUpdateLocation" class="btn bg-success margin" style="margin-left: 30%;">  <i class="fa fa-save"></i>  Guardar Nueva Dirección</button>
+             <div id="responseUpdate" style="margin-left: 10%;" > </div>
           </div>
+
         </div>      
       </div>
         <!-- /.box-body -->
@@ -110,21 +110,51 @@
 
 @section('specific scripts')
 <script>
-     function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 15,
-          center: {lat: <?php echo $attention->att_latitude?>    ,lng:<?php echo $attention->att_longitude?> }
-        });
-        marker = new google.maps.Marker({
-          position: new google.maps.LatLng(<?php echo $attention->att_latitude?>, <?php echo $attention->att_longitude?>),
-          map: map,
-          title: "Dirección de la cita",
-          draggable : true,          
-        });
-      }
+  $( "#buttonUpdateLocation" ).click(function() {
 
-    </script>
-    <script async defer
+    var lat = marker.getPosition().lat();
+    var lng = marker.getPosition().lng()
+    var parametros={
+            "attention_id":{{$attention->id}},
+            "att_latitude":lat,
+            "att_longitude": lng,
+        };
+    console.log(parametros);
+    $.ajax({
+        data: parametros,
+        url: '/patients/update_location_appointment',
+        type: 'post',
+        beforeSend: function(){
+                $("#resUpdate").html("Procesando,espere..");
+            },
+        success: function(response){
+          console.log("events_response",response);
+          $("#resUpdate").empty();
+          if(response == 1){
+            $("#responseUpdate").append("<i class=\"fa fa-check\"></i> Ubicación de la cita actualizada con éxito")
+            }else{
+                $("#responseUpdate").append("<i class=\"fa fa-times\"></i> ")
+                $("#responseUpdate").append(response)
+            }
+          }
+    });
+  }); 
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: {lat: <?php echo $attention->att_latitude?>    ,lng:<?php echo $attention->att_longitude?> }
+    });
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(<?php echo $attention->att_latitude?>, <?php echo $attention->att_longitude?>),
+      map: map,
+      title: "Dirección de la cita",
+      draggable : true,          
+    });
+  }
+
+  </script>
+  <script async defer
     src="https://maps.google.com/maps/api/js?key=AIzaSyCILxmzsVKpgprW3wmiVyBk3-ylNy2g8Vc&callback=initMap">
-    </script>
+  </script>
 @endsection

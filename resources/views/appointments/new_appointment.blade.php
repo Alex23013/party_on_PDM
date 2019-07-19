@@ -248,7 +248,7 @@
                         input_time.disabled=false;
                         submit_button.classList.remove("disabled");
                     }else{
-                        $("#responseDate").append("<i class=\"fa fa-times\"></i> ")
+                        $("#responseDate").append("<i class=\"fa fa-times\"></i> Ubicación de la cita cambiada con éxito")
                         $("#responseDate").append(response)
                         input_time.disabled=true;
                         submit_button.classList.add("disabled");

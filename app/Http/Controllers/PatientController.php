@@ -188,7 +188,24 @@ class PatientController extends Controller
         User::destroy($id);
         return redirect('/patients');
     }
-
+ 
+    public function update_location_appointment(Request $request){
+      $attention = Attention::find($_POST['attention_id']);
+      $app = $attention->appointment;
+      $then = $app->date_time;
+      $now = time();        
+      $thenTimestamp = strtotime($then);
+      $difference_seconds = $thenTimestamp-$now ;
+      $gap_permited_in_seconds=86400; // 24hours in seconds
+      if($difference_seconds>$gap_permited_in_seconds){
+            $attention ->att_latitude = $_POST['att_latitude'];
+            $attention ->att_longitude = $_POST['att_longitude'];
+            $attention ->save();           
+        return 1;          
+      }else{
+        return "No se puede editar la ubicacion de una cita con menos de 24 horas de aticipación a la hora de la cita";
+        }
+    }
     public function update_status_appointment($app_id,$new_status){  
         $app = Appointment::find($app_id);
         if($app){
