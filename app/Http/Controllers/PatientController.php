@@ -323,9 +323,23 @@ class PatientController extends Controller
         return view('patients_options.appointments')->with(compact('matched_apps','app_status'));
     }
 
-    public function attention_report($att_id){
+    //TODO: buscar una libreria que respete los estilos y las imagenes
+    public function pdf_attention($att_id){
         $attention = Attention::find($att_id);
-        return view('patients_options.attention_report')->with(compact('$attention'));
+        $attention_code = trim($attention->attention_code);
+        require("phpToPDF.php"); 
+        $url_pdf = "images/exports/reporte_de_atencion_".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
+        $html = view('patients_options.attention_report',compact('attention','url_pdf'))->renderSections()['content'];
+        phptopdf_html($html,'', $url_pdf);   
+        return $url_pdf;
+    }
+    //TODO: buscar una libreria que respete los estilos y las imagenes
+    public function attention_report($att_id){
+
+        $attention = Attention::find($att_id);
+        $url_pdf = "#";//$this->pdf_attention($att_id);
+        //dd($url_pdf);
+        return view('patients_options.attention_report')->with(compact('attention','url_pdf'));
     }
 
     public function services(){
@@ -398,13 +412,15 @@ class PatientController extends Controller
         return view('patients_options.histories_by_patient')->with(compact('matched_histories'));
     }
  
-    public function pdf($info, $attention_code){
+    public function pdf_history($info, $attention_code){
         require("phpToPDF.php"); 
-        $url_pdf = "images/exports/".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
+        $url_pdf = "images/exports/historia_clinica".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
         $html = view('patients_options.history_detail',compact('info','url_pdf'))->renderSections()['content'];
         phptopdf_html($html,'', $url_pdf);   
         return $url_pdf;
     }
+
+    
 
     public function app_detail($id){
         $attention = Attention::find($id);
@@ -442,7 +458,7 @@ class PatientController extends Controller
         $url_pdf = "#";
         $att_code = rtrim($history->attention->attention_code);
         if($history->pdf_status == 2){
-            $url_pdf = $this->pdf($info,  $att_code );
+            $url_pdf = $this->pdf_history($info,  $att_code );
         }
         return view('patients_options.history_detail')->with(compact('info','url_pdf'));
     }
