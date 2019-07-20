@@ -6,12 +6,23 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Specialty;
+use App\Doctor;
 
 class SpecialtyController extends Controller
 {
     public function index()
  	{
-   		$specialties = Specialty::all();
+        $all_specialties = Specialty::all();
+        $specialties=[];
+        foreach ($all_specialties as $key => $value) {
+          $num_doctors = count(Doctor::where('specialty_id',$value->id)->get());
+          $specialties[] = [
+            'name' => $value->name,
+            'id' => $value->id,
+            'color' => $value->color,
+            'num_doctors'=> $num_doctors,
+          ];
+        }
         $new = NULL;   
         return view('specialties.specialties_index')->with(compact('specialties','new'));
     }
@@ -37,7 +48,17 @@ class SpecialtyController extends Controller
         $especialty->color = $request->color;
         $especialty->save();
         
-        $specialties = Specialty::all();
+        $all_specialties = Specialty::all();
+        $specialties=[];
+        foreach ($all_specialties as $key => $value) {
+          $num_doctors = count(Doctor::where('specialty_id',$value->id)->get());
+          $specialties[] = [
+            'name' => $value->name,
+            'id' => $value->id,
+            'color' => $value->color,
+            'num_doctors'=> $num_doctors,
+          ];
+        }
         $new = $especialty;   
      	return view('specialties.specialties_index')->with(compact('specialties','new'));
     }
@@ -46,10 +67,10 @@ class SpecialtyController extends Controller
 		$esp = Specialty::find($id);    	
 		return view('specialties.specialty_edit')->with(compact('esp'));
     }
+    
     public function store_update(Request $request){
     	$esp = Specialty::find($request->id);
         $data = $request->all();
-        //dd($data);
         unset($data['_token']);
         unset($data['id']);
         foreach ($data as $key => $value) {
@@ -63,6 +84,7 @@ class SpecialtyController extends Controller
         $esp->save();
         return redirect('/specialties/');
     }
+
      public function delete($id)
     {
         Specialty::destroy($id);

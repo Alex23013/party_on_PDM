@@ -28,21 +28,25 @@
                 <tr>
 	                  <th>Nombre</th>
 	                  <th>Color</th>
+	                  <th>N° Doctores</th>
 	                  <th>Acciones</th>
 	            </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($specialties as $esp): ?>
-                	@if($esp->id > 2)
+                	@if($esp['id'] > 2)
 	                  <tr>  
-	                  <td>{{$esp->name}}</td>
-	                  <td><div class="col-md-4 " style="border-radius: 10px; background-color: {{$esp->color}};
-    						color: {{$esp->color}};"> Color</div></td>
+	                  <td>{{$esp['name']}}</td>
+	                  <td><div class="col-md-4 " style="border-radius: 10px; background-color: {{$esp['color']}};
+    						color: {{$esp['color']}};"> Color</div></td>
+    								<td>{{$esp['num_doctors']}}</td>
 	                  <td> 
-	                  	<a href="/specialties/edit/{{$esp->id}}" title="Editar"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
-	                  	
-	                  	<a href="/specialties/remove/{{$esp->id}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace disabled" onclick="return confirm('¿Estas seguro de que quieres eliminar esta especialidad?');"><i class="fa fa-trash"></i></button><a>
-	                 
+	                  	<a href="/specialties/edit/{{$esp['id']}}" title="Editar"> <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa fa-edit"></i></button></a>
+	                  	@if($esp['num_doctors'] > 0)
+	                  	<a href="/specialties/remove/{{$esp['id']}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace disabled" onclick="return confirm('¿Estas seguro de que quieres eliminar esta especialidad?');"><i class="fa fa-trash"></i></button><a>
+	                 		@else
+	                 		<a href="/specialties/remove/{{$esp['id']}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace" onclick="return confirm('¿Estas seguro de que quieres eliminar esta especialidad?');"><i class="fa fa-trash"></i></button><a>
+	                 		@endif
 	                  </td>
 	                  </tr> 
 	                @endif 
