@@ -2,8 +2,7 @@
 
 @section('content')	
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<style type="text/css">
+<style type="text/css" media="all">
     .padding-border-table{
         padding-left: 3%;
         padding-right: 3%;
@@ -27,7 +26,7 @@
         margin-left: 2%;
       }
 </style>
-<style type="text/css">
+<style type="text/css" media="all">
 	#header-title{
 		padding-left: 10%;
 		padding-top: 2%;
@@ -64,7 +63,7 @@
   				<img src="/images/logos/logo-main-side-bar.png" style="width: 100%;">
   			</div>
   			<div class="col-md-6" id = "header-title">
-  			  <h2>REPORTE DE ATENCION</h2> 
+  			  <h2>REPORTE DE ATENCIÓN</h2> 
   			</div>
   			<div class="col-md-3 left-8" id = "header-text">
   				<span>Codigo: FOR-DD-001 <br>
