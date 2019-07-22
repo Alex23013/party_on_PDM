@@ -17,6 +17,7 @@ use App\Partner;
 use App\Dservice;
 use App\History;
 use Auth;
+use PDF;
 
 class PatientController extends Controller
 {
@@ -203,7 +204,7 @@ class PatientController extends Controller
             $attention ->save();           
         return 1;          
       }else{
-        return "No se puede editar la ubicacion de una cita con menos de 24 horas de aticipación a la hora de la cita";
+        return "No se puede editar la ubicacion de una cita con menos de 24 horas de anticipación a la hora de la cita";
         }
     }
     public function update_status_appointment($app_id,$new_status){  
@@ -324,22 +325,15 @@ class PatientController extends Controller
     }
 
     //TODO: buscar una libreria que respete los estilos y las imagenes
-    public function pdf_attention($att_id){
-        $attention = Attention::find($att_id);
-        $attention_code = trim($attention->attention_code);
-        require("phpToPDF.php"); 
-        $url_pdf = "images/exports/reporte_de_atencion_".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
-        $html = view('patients_options.attention_report',compact('attention','url_pdf'))->renderSections()['content'];
-        phptopdf_html($html,'', $url_pdf);   
-        return $url_pdf;
-    }
-    //TODO: buscar una libreria que respete los estilos y las imagenes
     public function attention_report($att_id){
-
+        require("phpToPDF.php"); 
         $attention = Attention::find($att_id);
-        $url_pdf = "#";//$this->pdf_attention($att_id);
-        //dd($url_pdf);
-        return view('patients_options.attention_report')->with(compact('attention','url_pdf'));
+        $app = $attention->appointment;
+        $attention_code = trim($attention->attention_code);
+        $url_pdf = "images/exports/reporte_de_atencion_".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
+        $html = view('patients_options.attention_report',compact('attention','url_pdf','app'))->renderSections()['content'];
+        phptopdf_html($html,'', $url_pdf);   
+        return view('patients_options.attention_report')->with(compact('attention','url_pdf','app'));
     }
 
     public function services(){

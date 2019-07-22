@@ -1,6 +1,32 @@
 @extends('layouts.template')
 
 @section('content')	
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style type="text/css">
+    .padding-border-table{
+        padding-left: 3%;
+        padding-right: 3%;
+      }
+    @font-face {
+        font-family: "font_gothamBook";
+        src: url("fonts/GothamMedium.woff") format('woff');
+        /*src: url("fonts/GothamBook.woff") format('woff');*/
+        }
+    .main-header .logo{
+      font-family: font_gothamBook, sans-serif;
+      font-display: swap;
+      font-size: 20px;
+    }
+    body {
+      font-family: font_gothamBook, sans-serif;
+      font-size: 13px;
+      font-display: swap;
+    }
+    .mm-left{
+        margin-left: 2%;
+      }
+</style>
 <style type="text/css">
 	#header-title{
 		padding-left: 10%;
@@ -54,7 +80,7 @@
 									<i class="fa fa-file-pdf-o"></i>
 					  		</a>
 				  		</td>
-					    <td><b>Fecha de Atencion:</b> 27 de setiembre de 2018</td>
+					    <td><b>Fecha de Atencion:</b>{{$app->date_time}} <!--27 de setiembre de 2018--></td>
 					  </tr>
 					</table>
 					
