@@ -35,18 +35,17 @@
 		      </div>
 		      <div class="col-md-12">
 		        <h4>Doctores que lo usan</h4>
-		        <div class="col-md-12 m-top">
-		        	<ul> 
 		          <?php foreach ($doctors as $doc): ?>
-		            <li>
-		             <!--<button  type="button" class="btn btn-danger " onclick="return confirm('¿Estas seguro que quieres desmarcar este kit para este doctor?');"><i class="fa fa-times"></i>
-		             </button>--> {{$doc['name']}}
-		            </li> 		             
+		        	<div class="col-md-8 m-top">    
+		              {{$doc['name']}} 
+		          </div>
+							<div class="col-md-4 m-top"> 
+		          <a href="/kits/removeDoctorkit/{{$doc['doctor_id']}}/{{$kit->id}}"><button  type="button" class="btn btn-danger " onclick="return confirm('¿Estas seguro que quieres desmarcar este kit para este doctor?');"><i class="fa fa-times"></i>
+		             </button></a>
+		          </div>
 		          <?php endforeach ?> 
-		          </ul>
-		          </div> 
 		      </div>
-		      <div class="col-md-12">
+		      <div class="col-md-12 m-top">
 		      <form class="form-horizontal" role="form" method="POST" action="/kits/addDoctorkit">
                     {{ csrf_field() }}
               <div class="col-md-4 ">

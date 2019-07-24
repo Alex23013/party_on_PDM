@@ -77,6 +77,12 @@ class KitController extends Controller
   	return redirect('/kits/detail/'.$request->kit_id);
   }
 
+  public function removeDoctorkit($id,$kit_id){
+  	$doctorkit= Doctorkit::where('doctor_id',$id)->where('kit_id',$kit_id)->where('active',1)->first();
+  	Doctorkit::destroy($doctorkit->id);
+  	return redirect('/kits/detail/'.$kit_id);	
+  }
+
    public function create()
   {
   	$medicines = Medicine::all();

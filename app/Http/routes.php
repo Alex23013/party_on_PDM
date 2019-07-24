@@ -240,6 +240,7 @@ Route::get('/kits/create', 'KitController@create');
 Route::post('/kits', 'KitController@store');
 Route::post('/kits/addDoctorkit', 'KitController@addDoctorkit');
 Route::get('/kits/detail/{id}', 'KitController@detail')->where(['id' => '[0-9]+']);
+Route::get('/kits/removeDoctorkit/{id}/{kit_id}', 'KitController@removeDoctorkit')->where(['id' => '[0-9]+'],['kit_id' => '[0-9]+']);
 Route::get('/kits/remove/{id}', 'KitController@destroy')->where(['id' => '[0-9]+']);
 
 //rutas de prueba eliminar al final de la etapa de desarrollo
