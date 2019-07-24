@@ -16,6 +16,9 @@ use App\Partner_service;
 use App\Partner;
 use App\Dservice;
 use App\History;
+use App\Recipe;
+use App\Medicine;
+use App\Gmedicine;
 use Auth;
 use PDF;
 
@@ -326,14 +329,62 @@ class PatientController extends Controller
 
     //TODO: buscar una libreria que respete los estilos y las imagenes
     public function attention_report($att_id){
-        require("phpToPDF.php"); 
+        
         $attention = Attention::find($att_id);
-        $app = $attention->appointment;
         $attention_code = trim($attention->attention_code);
         $url_pdf = "images/exports/reporte_de_atencion_".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
-        $html = view('patients_options.pdf_attention_report',compact('attention','url_pdf','app'))->renderSections()['content'];
-        phptopdf_html($html,'', $url_pdf);   
-        return view('patients_options.attention_report')->with(compact('attention','url_pdf','app'));
+
+        $hoy = getdate();
+        $app = $attention->appointment;
+        $patient = Patient::find($attention->patient_id);
+        $user = $patient->user;
+        $date=[];
+        $doctor_name = "";
+        $instructions = "";
+        $medicines = [];
+        if($app){
+            $date = explode(' ', $app->date_time);
+            $header_type = 1;
+            if($app->specialty_id > 2){
+                $type = "especialidad";    
+            }else{
+                $type = "atención común"; 
+            }
+           $doctor = Doctor::find($app->doctor_id)->user;
+           $doctor_name = "Dr. ".$doctor->name." ".$doctor->last_name;
+           $recipe = Recipe::where('appointment_id',$app->id)->first();
+           $instructions = $recipe->instructions;
+           $all_medicines = json_decode($recipe->medicines);
+           foreach ($all_medicines as $key => $value) {
+               $med = Medicine::find($value->id);
+               $group = Gmedicine::find($med->medicine_group);
+               $medicines[]=$group->group_name." - ".$med->name;
+           }
+        }else{
+            $header_type = 0;
+            $emer = $attention->emergency;
+            if($emer){
+                $type = "urgencia";
+            }else{
+                $type = "emergencia";
+            }
+        }
+        $info =[
+            'date'=> $date[0],
+            'vigencia' => $hoy['month']." ".$hoy['year'],
+            'type' => $type,
+            'header_type'=> $header_type,
+            'pat_name'=>$user->name." ".$user->last_name,
+            'pat_age'=> 20,
+            'pat_dni'=>$user->dni,
+            'doctor'=>$doctor_name,
+            'instructions'=>$instructions,
+            'medicines'=>$medicines,
+        ];
+        require("phpToPDF.php");         
+        $html = view('patients_options.pdf_attention_report',compact('attention','url_pdf','info'))->renderSections()['content'];
+        phptopdf_html($html,'', $url_pdf); 
+        return view('patients_options.attention_report')->with(compact('attention','url_pdf','info'));
     }
 
     public function att(){

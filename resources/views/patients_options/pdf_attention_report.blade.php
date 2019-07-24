@@ -74,18 +74,18 @@
   			<div class="col-md-3 left-8" id = "header-text">
   				<span>Codigo: FOR-DD-001 <br>
 								Version: 00<br>
-								Vigencia: Jun 2018</span>
+								Vigencia: {{$info['vigencia']}}</span>
   			</div>  			
   		</div>
   		<div class="box-body ">
   				<table class="col-md-10 col-md-offset-1 bg-gray">
 					  <tr>
-					    <td><b> Reporte N°: </b> 001 – 2018 
+					    <td><b> Reporte N°: </b> 001 – 2019 
 						    <a href="/{{$url_pdf}}" target= "_blank"> 
 									<i class="fa fa-file-pdf-o"></i>
 					  		</a>
 				  		</td>
-					    <td><b>Fecha de Atencion:</b>{{$app->date_time}} <!--27 de setiembre de 2018--></td>
+					    <td><b>Fecha de Atencion:</b> {{$info['date']}} <!--27 de setiembre de 2018--></td>
 					  </tr>
 					</table>
 					
@@ -99,10 +99,18 @@
 					    <td class="col-md-3" style="padding-left: 10%;"><b>OTROS</b></td>
 					  </tr>
 					  <tr>
+						  <td style="padding-left: 12%">
+						  @if($info['header_type'] == 1)
+						  	<b> X </b>
+						  @endif
+						  </td>
 						  <td></td>
-						  <td></td>
-						  <td style="padding-left: 12%"> <b> X </b></td>
-						  <td></td>
+						  <td ></td>
+						  <td style="padding-left: 12%">
+						  @if($info['header_type'] == 0)
+						  <b> X </b>
+						  @endif
+						  </td>
 					  </tr>
 					</table>
 					
@@ -112,23 +120,39 @@
 					  <tr>
 						  <td>TIPO DE</td>
 						  <td><b>ATENCIÓN COMÚN</b></td>
-						  <td class="col-md-1"></td>
+						  <td> 
+							  @if($info['type'] == "atención común")
+							  <b> X </b>
+							  @endif
+						  </td>
 						  <td><b>PROCEDIMIENTO DE ENFERMERÍA</b></td>
-						  <td class="col-md-1" >  </td>
+						  <td>  </td>
 					  </tr>
 					  <tr>
 						  <td>ATENCIÓN</td>
 						  <td><b>EMERGENCIA</b></td>
-						  <td></td>
+						  <td>
+						  	@if($info['type'] == "emergencia")
+							  <b> X </b>
+							  @endif
+						  </td>
 						  <td><b>LABORATORIO</b></td>
-						  <td> - </td>
+						  <td> </td>
 					  </tr>
 					  <tr>
 						  <td></td>
 						  <td><b>URGENCIA</b></td>
-						  <td> </td>
+						  <td> 
+						  	@if($info['type'] == "urgencia")
+							  <b> X </b>
+							  @endif
+						  </td>
 						  <td><b>CONSULTA A ESPECIALIDAD</b></td>
-						  <td> </td>
+						  <td>
+						  	@if($info['type'] == "especialidad")
+							  <b> X </b>
+							  @endif
+						  </td>
 					  </tr>
 					</table>
 
@@ -137,7 +161,7 @@
 					<table class="col-md-10 col-md-offset-1">
 					  <tr>
 							<td class="col-md-3" style="padding-left: 5%"> <b> LUGAR DE ATENCIÓN </b></td>
-						  <td>  </td>
+						  <td> {{$attention->address}} </td>
 					  </tr>
 					</table>					 
 
@@ -150,27 +174,27 @@
 					  </tr>
 					  <tr>
 					    <td class="col-md-3"><b>Nombres y Apellidos</b></td>
-					    <td>  </td>
+					    <td> {{$info['pat_name']}} </td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-3"><b>Edad</b></td>
-					    <td> </td>
+					    <td> {{$info['pat_age']}}</td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-3"><b>DNI / CE / PASAPORTE</b></td>
-					    <td> </td>
+					    <td> {{$info['pat_dni']}}</td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-3"><b>EPS / Aseguradora</b></td>
-					    <td> </td>
+					    <td>  - </td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-3"><b>Código de Póliza</b></td>
-					    <td> </td>
+					    <td>  - </td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-3"><b>Seguro (EsSalud/SIS)</b></td>
-					    <td>  </td>
+					    <td>  -  </td>
 					  </tr>
 					</table>
 
@@ -191,7 +215,7 @@
 					  </tr>
 					  <tr>
 					  	<td><b>PS 01</b></td>
-					  	<td>Dr. Richard Fernández Mata</td>
+					  	<td>{{$info['doctor']}}</td>
 					  	<td></td>
 					  	<td></td>
 					  </tr>
@@ -208,12 +232,15 @@
 								<ul>
 									<li>(Anamnesis)</li>
 									<li>Diagnóstico: CIE-10</li>
-									<li>Clasificación: (Colocar Tipo de Atención)</li>
-									<li>Tratamiento:  (Instrucciones)</li>	
-									<ul>
-										<li> ( Grupo ) - (Nombre del medicamento)</li>	
-										<li> antinflamatorios - naproxeno</li>	
-									</ul>									
+									<li>Clasificación: {{$info['type']}}</li>
+									<li>Lista de medicamentos recetados:
+										<ul>
+										<?php foreach ($info['medicines'] as $med): ?>
+											<li> {{$med }}</li>
+										<?php endforeach ?>
+										</ul>	
+									</li>	
+									<li>Tratamiento: <br> {{$info['instructions']}}</li>	
 								</ul>
 							</td>
 					  </tr>
