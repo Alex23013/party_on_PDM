@@ -29,7 +29,7 @@
 		             <!--<button  type="button" class="btn btn-danger " onclick="return confirm('¿Estas seguro que quieres eliminar esta medicina del kit?');"><i class="fa fa-times"></i>
 		             </button>--> {{$med['quantity']}} {{$med['name']}} - {{$med['brand']}} 
 		            </li> 		             
-		          <?php endforeach ?> 
+		          <?php endforeach ?>  
 		          </ul>
 		          </div> 
 		      </div>
@@ -41,12 +41,34 @@
 		            <li>
 		             <!--<button  type="button" class="btn btn-danger " onclick="return confirm('¿Estas seguro que quieres desmarcar este kit para este doctor?');"><i class="fa fa-times"></i>
 		             </button>--> {{$doc['name']}}
-		            </li> 		
-		            <!--TODO: agregar el select para asignar este kit a un doctor-->             
+		            </li> 		             
 		          <?php endforeach ?> 
 		          </ul>
 		          </div> 
 		      </div>
+		      <div class="col-md-12">
+		      <form class="form-horizontal" role="form" method="POST" action="/kits/addDoctorkit">
+                    {{ csrf_field() }}
+              <div class="col-md-4 ">
+                <div class="form-group">                   
+                    <select class="form-control" name = "user_id" >
+                    @foreach($all_doctors as $user)
+                      <option value="<?=$user->id?>">{{$user->name}} {{$user->last_name}} </option>
+                    @endforeach
+                    </select>    
+                </div>
+              </div>
+              <input type="hidden" name="kit_id" value ={{$kit->id}}>
+            <div class="col-md-2">
+               <button type="submit" class="btn  btn-flat btn-success" onclick="return confirm('¿Estas seguro que quieres asignar este doctor a este kit?');">  <i class="fa fa-plus"></i>  Asignar este kit</button>
+            </div>
+          </form>
+          </div>
+		      <div class="col-md-6 col-md-offset-4">
+              <br>
+                <a href="/kits"> <button class="btn  btn-flat bg-olive m-left">  Volver a la lista de kits</button>
+                </a>
+          </div>
 	      </div>
       </div>
       <!-- /.box-body -->

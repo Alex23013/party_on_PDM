@@ -49,7 +49,7 @@
 		                   </button>
 	                  @else
 		                  <a href="/kits/remove/{{$kit->id}}" title="Eliminar" >
-		                   <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar este paciente?');"><i class="fa fa-trash"></i>
+		                   <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro que quieres eliminar este paciente?');"><i class="fa fa-trash"></i>
 		                   </button>
 		                  <a>
 	                  @endif

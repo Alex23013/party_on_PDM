@@ -238,6 +238,7 @@ Route::get('/tcalls/remove/{id}', 'TCallController@delete')->where(['id' => '[0-
 Route::get('/kits', 'KitController@index');
 Route::get('/kits/create', 'KitController@create');
 Route::post('/kits', 'KitController@store');
+Route::post('/kits/addDoctorkit', 'KitController@addDoctorkit');
 Route::get('/kits/detail/{id}', 'KitController@detail')->where(['id' => '[0-9]+']);
 Route::get('/kits/remove/{id}', 'KitController@destroy')->where(['id' => '[0-9]+']);
 
