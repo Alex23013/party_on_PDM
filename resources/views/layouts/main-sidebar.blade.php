@@ -80,6 +80,11 @@
             </a>
           </li>
           <li>
+            <a href="/kits">
+              <i class="fa fa-medkit"></i> <span>Kits de Doctor</span>
+            </a>
+          </li>
+          <li>
             <a href="/partners">
               <i class="fa fa-users"></i> <span>Asociados</span>
             </a>

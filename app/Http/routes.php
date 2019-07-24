@@ -234,6 +234,13 @@ Route::post('/ajax_validate_time','AppointmentController@ajax_validate_time');
 Route::get('/tcalls/complete/{id}', 'TCallController@complete')->where(['id' => '[0-9]+']);
 Route::get('/tcalls/remove/{id}', 'TCallController@delete')->where(['id' => '[0-9]+']);
 
+//Doctor_kits
+Route::get('/kits', 'KitController@index');
+Route::get('/kits/create', 'KitController@create');
+Route::post('/kits', 'KitController@store');
+Route::get('/kits/detail/{id}', 'KitController@detail')->where(['id' => '[0-9]+']);
+Route::get('/kits/remove/{id}', 'KitController@destroy')->where(['id' => '[0-9]+']);
+
 //rutas de prueba eliminar al final de la etapa de desarrollo
 Route::get('/aj/{id}', 'AppointmentController@aj_docs')->where(['id' => '[0-9]+']);
 Route::get('/val_m_general/{user_id}/{input_date}', 'AppointmentController@validate_medico_general');
