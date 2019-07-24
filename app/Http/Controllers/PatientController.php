@@ -331,11 +331,18 @@ class PatientController extends Controller
         $app = $attention->appointment;
         $attention_code = trim($attention->attention_code);
         $url_pdf = "images/exports/reporte_de_atencion_".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
-        $html = view('patients_options.attention_report',compact('attention','url_pdf','app'))->renderSections()['content'];
+        $html = view('patients_options.pdf_attention_report',compact('attention','url_pdf','app'))->renderSections()['content'];
         phptopdf_html($html,'', $url_pdf);   
         return view('patients_options.attention_report')->with(compact('attention','url_pdf','app'));
     }
 
+    public function att(){
+        $attention = Attention::find($att_id);
+        $app = $attention->appointment;
+        $attention_code = trim($attention->attention_code);
+        $url_pdf = "images/exports/reporte_de_atencion_".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
+        return view('patients_options.pdf_attention_report',compact('attention','url_pdf','app'));
+    }
     public function services(){
         $services = Service::all();
      return view('patients_options.services_index')->with(compact('services'));   
