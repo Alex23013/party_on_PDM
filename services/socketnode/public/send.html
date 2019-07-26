@@ -13,10 +13,11 @@
 
     socket.on('connect',function(){
       console.log("connected socket");
-      socket.emit('message',{
+      $json = {
         "id": socket.id,
-        "txt": "prueba"
-        });
+        "data": "prueba"
+      }
+      socket.emit('send', $json);
     });
   </script>
 </body>

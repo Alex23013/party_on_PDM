@@ -27,10 +27,10 @@ io.on('connection',function(socket){
     socket.broadcast.emit('stream',image);
   });
 
-  socket.on('send', function(msg){
-    console.log(msg)
+  socket.on('send', function(json){
+    console.log(json)
 
-    socket.broadcast.emit('recive', msg.txt);
+    socket.broadcast.emit('recive', json.data);
 
   });
 });
