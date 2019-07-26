@@ -260,7 +260,7 @@ class RestPatientsController extends Controller
 		            	$matched_apps[]=[
 		            	'appoinment_id'=>$app->id,
 									'specialty' => $specialty_name, 
-									'doctor_name' =>$doctor->user->name,
+									'doctor_name' =>$doctor->user->name." ".$doctor->user->last_name,
 									'date_time' =>$app->date_time,
 									'latitude'=>$attention->att_latitude,
 									'longitude'=>$attention->att_longitude,
