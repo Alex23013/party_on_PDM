@@ -387,16 +387,9 @@ class PatientController extends Controller
         return view('patients_options.attention_report')->with(compact('attention','url_pdf','info'));
     }
 
-    public function att(){
-        $attention = Attention::find($att_id);
-        $app = $attention->appointment;
-        $attention_code = trim($attention->attention_code);
-        $url_pdf = "images/exports/reporte_de_atencion_".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
-        return view('patients_options.pdf_attention_report',compact('attention','url_pdf','app'));
-    }
     public function services(){
         $services = Service::all();
-     return view('patients_options.services_index')->with(compact('services'));   
+     return view('patients_options.services_index')->with(compact('services'));
     }
 
     public function partners_by_service($service_id){
@@ -463,6 +456,14 @@ class PatientController extends Controller
         }  
         return view('patients_options.histories_by_patient')->with(compact('matched_histories'));
     }
+
+    /*public function all_history($patient_id){
+        require("phpToPDF.php"); 
+        $url_pdf = "images/exports/historial_clinico/".Auth::user()->patient->user->dni.".pdf";
+        $info =[];
+        $html = view('patients_options.history_detail',compact('info','url_pdf'))->renderSections()['content'];
+        phptopdf_html($html,'', $url_pdf);   
+    }*/
  
     public function pdf_history($info, $attention_code){
         require("phpToPDF.php"); 
