@@ -53,12 +53,6 @@
 		border: 1px solid #000000;
 		padding: 5px;
 	}
-	.col-md-6{	
-		width: 50%;
-	}
-	.col-md-3{	
-		width: 25%;
-	}
 
 </style>
 <div class="row">
@@ -118,18 +112,19 @@
 					
 					<table class="col-md-10 col-md-offset-1">
 					  <tr>
-						  <td>TIPO DE</td>
+						  <td ROWSPAN="3" style="padding-left: 4%;" > <b> TIPO DE <br> ATENCION</b></td>
 						  <td><b>ATENCIÓN COMÚN</b></td>
-						  <td> 
+						  <td class = "col-md-1" style="padding-left: 4%;"> 
 							  @if($info['type'] == "atención común")
-							  <b> X </b>
+							  <b>  X </b>
 							  @endif
 						  </td>
-						  <td><b>PROCEDIMIENTO DE ENFERMERÍA</b></td>
-						  <td>  </td>
+						  <td >
+						  <b>PROCEDIMIENTO DE ENFERMERÍA</b></td>
+						  <td class = "col-md-1" style="padding-left: 4%;">  </td>
 					  </tr>
 					  <tr>
-						  <td>ATENCIÓN</td>
+						  
 						  <td><b>EMERGENCIA</b></td>
 						  <td>
 						  	@if($info['type'] == "emergencia")
@@ -140,7 +135,7 @@
 						  <td> </td>
 					  </tr>
 					  <tr>
-						  <td></td>
+						  
 						  <td><b>URGENCIA</b></td>
 						  <td> 
 						  	@if($info['type'] == "urgencia")
@@ -169,8 +164,7 @@
 
 					<table class="col-md-10 col-md-offset-1">
 					  <tr class="bg-gray">
-					    <td><b>DATOS DE FILIACION </b></td>
-					    <td><b> DEL PACIENTE</b></td>
+					    <td COLSPAN="2"><b>DATOS DE FILIACION DEL PACIENTE</b></td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-3"><b>Nombres y Apellidos</b></td>
@@ -202,10 +196,10 @@
 
 					<table class="col-md-10 col-md-offset-1">
 					  <tr class="bg-gray">
-					    <td><b>PERSONAL </b></td>
-					    <td><b> ASISTENTE </b></td>
-					    <td><b>VEHICULO </b></td>
-					    <td><b> ASISTENTE </b></td>
+					    <td COLSPAN="2" style="padding-left: 15%;"><b>PERSONAL ASISTENTE</b></td>
+					    
+					    <td COLSPAN="2" style="padding-left: 15%;"><b>VEHICULO ASISTENTE  </b></td>
+					   
 					  </tr>
 					  <tr class="bg-gray">
 					    <td class="col-md-2 left-5"><b>ASISTENTES</b></td>
@@ -250,7 +244,7 @@
 						<tr><td class="left-5"> <h2> FIRMA</h2></td></tr>
 					</table>
 					<div class="space col-md-12">  </div>
-					<div class="col-md-10 col-md-offset-3"> Este documento una vez impreso se considera no controlado.  </div>
+					<div class="col-md-10 col-md-offset-3"> * Este documento una vez impreso se considera no controlado.  </div>
   		</div>	
   	</div>
   </div>

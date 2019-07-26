@@ -28,7 +28,7 @@
 </style>
 <style type="text/css" media="all">
 	#header-title{
-		padding-left: 10%;
+		padding-left: 30%;
 		padding-top: 2%;
 	}
 	#header-text{
@@ -52,6 +52,8 @@
 	td {
 		border: 1px solid #000000;
 		padding: 5px;
+		padding-left: 5%;
+		padding-right: 5%;
 	}
 	.col-md-6{	
 		width: 50%;
@@ -59,33 +61,32 @@
 	.col-md-3{	
 		width: 25%;
 	}
-
 </style>
 <div class="row">
 	<div class="col-xs-12">
   	<div class="box"> 
   		<div class="box-header col-md-10 col-md-offset-1 ">
-  			<div class="col-md-3">
-  				<img src="/images/logos/logo-main-side-bar.png" style="width: 100%;">
-  			</div>
+  			
   			<div class="col-md-6" id = "header-title">
-  			  <h2>REPORTE DE ATENCIÓN</h2> 
+  			  <h2>DocDoor - REPORTE DE ATENCIÓN</h2> 
   			</div>
-  			<div class="col-md-3 left-8" id = "header-text">
+  			<div class="col-md-3 " id = "header-text">
   				<span>Codigo: FOR-DD-001 <br>
 								Version: 00<br>
-								Vigencia: {{$info['vigencia']}}</span>
+								Vigencia: {{$info['vigencia']}}
+					</span>
   			</div>  			
   		</div>
+  		<div class="space col-md-12">  </div>
   		<div class="box-body ">
-  				<table class="col-md-10 col-md-offset-1 bg-gray">
+  				<table class="col-md-10 bg-gray">
 					  <tr>
-					    <td><b> Reporte N°: </b> 001 – 2019 
+					    <td style="padding-left: 5%;padding-right: 190px;"><b> Reporte N°: </b> 001 – 2019 
 						    <a href="/{{$url_pdf}}" target= "_blank"> 
 									<i class="fa fa-file-pdf-o"></i>
 					  		</a>
 				  		</td>
-					    <td><b>Fecha de Atencion:</b> {{$info['date']}} <!--27 de setiembre de 2018--></td>
+					    <td style="padding-left: 5%;padding-right: 180px;"><b>Fecha de Atencion:</b> {{$info['date']}} <!--27 de setiembre de 2018--></td>
 					  </tr>
 					</table>
 					
@@ -93,7 +94,7 @@
 					
 					<table class="col-md-10 col-md-offset-1">
 					  <tr class="bg-gray">
-					    <td class="col-md-3 left-8"><b>ATENCION <br> LOCALIZADA </b></td>
+					    <td class="col-md-3 left-8" style="padding-right: 50px;"><b>ATENCION <br> LOCALIZADA </b></td>
 					    <td class="col-md-3 left-8"><b>TRASLADO EN <br>AMBULANCIA</b></td>
 					    <td class="col-md-3 left-8"><b>ATENCION EN <br>CONSULTORIO</b></td>
 					    <td class="col-md-3" style="padding-left: 10%;"><b>OTROS</b></td>
@@ -118,7 +119,7 @@
 					
 					<table class="col-md-10 col-md-offset-1">
 					  <tr>
-						  <td>TIPO DE</td>
+						  <td ROWSPAN="3" >TIPO DE <br> ATENCION</td>
 						  <td><b>ATENCIÓN COMÚN</b></td>
 						  <td> 
 							  @if($info['type'] == "atención común")
@@ -129,7 +130,7 @@
 						  <td>  </td>
 					  </tr>
 					  <tr>
-						  <td>ATENCIÓN</td>
+						  
 						  <td><b>EMERGENCIA</b></td>
 						  <td>
 						  	@if($info['type'] == "emergencia")
@@ -140,7 +141,7 @@
 						  <td> </td>
 					  </tr>
 					  <tr>
-						  <td></td>
+						  
 						  <td><b>URGENCIA</b></td>
 						  <td> 
 						  	@if($info['type'] == "urgencia")
@@ -169,8 +170,7 @@
 
 					<table class="col-md-10 col-md-offset-1">
 					  <tr class="bg-gray">
-					    <td><b>DATOS DE FILIACION </b></td>
-					    <td><b> DEL PACIENTE</b></td>
+					    <td COLSPAN="2"><b>DATOS DE FILIACION DEL PACIENTE</b></td>
 					  </tr>
 					  <tr>
 					    <td class="col-md-3"><b>Nombres y Apellidos</b></td>
@@ -202,10 +202,10 @@
 
 					<table class="col-md-10 col-md-offset-1">
 					  <tr class="bg-gray">
-					    <td><b>PERSONAL </b></td>
-					    <td><b> ASISTENTE </b></td>
-					    <td><b>VEHICULO </b></td>
-					    <td><b> ASISTENTE </b></td>
+					    <td COLSPAN="2"><b>PERSONAL ASISTENTE</b></td>
+					    
+					    <td COLSPAN="2"><b>VEHICULO ASISTENTE  </b></td>
+					   
 					  </tr>
 					  <tr class="bg-gray">
 					    <td class="col-md-2 left-5"><b>ASISTENTES</b></td>
@@ -250,7 +250,7 @@
 						<tr><td class="left-5"> <h2> FIRMA</h2></td></tr>
 					</table>
 					<div class="space col-md-12">  </div>
-					<div class="col-md-10 col-md-offset-3"> Este documento una vez impreso se considera no controlado.  </div>
+					<div class="col-md-10 col-md-offset-3"> * Este documento una vez impreso se considera no controlado.  </div>
   		</div>	
   	</div>
   </div>
