@@ -6,3 +6,4 @@ Homestead.json
 .env
 public/images/uploads/
 public/images/exports/
+node_modules
