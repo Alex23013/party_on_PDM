@@ -33,8 +33,8 @@
 	                  <td>{{$ps['docdoor_cost']}}</td>
 	                  <td>
 	                  	<a href="/patients/add_dservices/{{$service->id}}/{{$ps['partner_id']}}" title="Solicitar servicio" > <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa  fa-calendar-check-o "></i></button></a>
-	                  	<!--
-	                  	<button class="btn btn-info btn-flat buttonSpace" id = "buyButton" data-description ="{{$service->service_name}} con el Proveedor {{$ps['partner_name']}}" data-cost = "{{$ps['service_cost'] + $ps['docdoor_cost']}}" ><i class="fa  fa-suitcase"></i> Pagar</button> -->
+	                  	
+	                  	<button class="btn btn-info btn-flat buttonSpace" id = "buyButton" data-description ="{{$service->service_name}} con el Proveedor {{$ps['partner_name']}}" data-cost = "{{$ps['service_cost'] + $ps['docdoor_cost']}}" ><i class="fa  fa-suitcase"></i> Pagar</button> 
 
 	                  </td>
 	                  </tr>  
