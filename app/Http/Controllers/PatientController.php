@@ -264,7 +264,8 @@ class PatientController extends Controller
         }
         $message = [
                     "title"=>"Nuevo Inbox de ".$tipo." enviado",
-                    "content"=>"con el mensaje: ".$data['message']
+                    "content"=>"con el mensaje: ".$data['message'],
+                    "type"=> $data['type']
                 ];
         return view('patients_options.patients_main')->with(compact('message'));
     }  
@@ -532,7 +533,7 @@ class PatientController extends Controller
     }
 
     public function payment(){
-        //echo "Pago realizado";
+        dd("Pago realizado");
         require "Requests/library/Requests.php";
         Requests::register_autoloader();
         require "culqui-php/lib/culqui.php";

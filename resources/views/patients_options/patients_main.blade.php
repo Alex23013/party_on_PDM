@@ -6,6 +6,9 @@
 .mm-left{
     margin-left: 2%;
   }
+#message_type{
+	visibility: hidden;
+}
 </style>
    
 <div class="row">
@@ -15,7 +18,22 @@
 		    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		    <h3>{{$message['title']}}</h3>
 		  	<h4>{{$message['content']}}</h4>
-		  </div>	
+		  	<span id = "message_type">{{$message['type']}}</span>
+		</div>	
+		<script>
+		  var socket = io('http://127.0.0.1:3030');
+		  	var a = $("#message_type").html();
+	      a = parseInt(a);
+	      
+		    socket.on('connect',function(){
+		      console.log("connected22 socket");
+		      $json = {
+		        "id": socket.id,
+		        "data": a,
+		      }
+		      socket.emit('send', $json);
+		    });
+		</script>
 		@endif  
 	  <div class="box">
 	    <div class="box-body ">

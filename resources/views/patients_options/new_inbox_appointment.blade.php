@@ -23,7 +23,7 @@
                             <label for="motive" class="col-md-4 control-label">Motivo  *</label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" name = "message" rows="3" placeholder="Describa el problema"></textarea>
+                                <textarea class="form-control" name = "message" rows="3" placeholder="Describa el problema" required></textarea>
                                 <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="buttonNewInboxApp" >
                                     <i class="fa fa-btn fa-stethoscope"></i> Registrar
                                 </button>
 

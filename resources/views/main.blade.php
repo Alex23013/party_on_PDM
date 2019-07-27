@@ -74,7 +74,11 @@
                       @else  
                         <a href="/tcalls/complete/{{$tc['id']}}" title="Marcar como completado" > <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa  fa-square-o"></i></button></a>
                        @endif
+                      @if($tc['status']) 
                       <a href="/tcalls/remove/{{$tc['id']}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud ?');"><i class="fa fa-trash"></i></button><a>
+                      @else
+                      <a href="#" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " disabled ><i class="fa fa-trash"></i></button><a>
+                      @endif
                     </td>
                     </tr>            
                  <?php endforeach ?>  
