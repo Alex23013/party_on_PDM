@@ -24,9 +24,9 @@
 $( document ).ready(function() {
 	 Culqi.publicKey = 'pk_test_4AOuYFleZVAvrn41';
     //alert( "ready!" );
-    descp = "remera";// $(this).attr('data-description');
-    cost = "300";//$(this).attr('data-cost')*100;
-
+    descp = <?php echo ($description)?>;
+    cost = <?php echo ($cost)?>;
+    tokenPay =<?php echo ($tokenPay)?>;
     Culqi.settings({
         title: "DocDoor services",
         currency: 'PEN',
@@ -42,7 +42,7 @@ function culqi() {
           var token = Culqi.token.id;
           var email = Culqi.token.email;
           console.log('Se ha creado un token:' + token);
-          var data = {descp: descp , cost: cost, token_pay: token, email: email};
+          var data = {descp: descp , cost: cost, token_pay: token, email: email, tokenPay: tokenPay};
 
           $.ajax({
             data: data,

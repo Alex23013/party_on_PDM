@@ -437,7 +437,7 @@ class PatientController extends Controller
         }
 
         $d_service->save();
-        $d_service->token_pay = bcrypt(date("ymdHis").$d_service->id);
+        $d_service->token_pay = str_replace("/","-",bcrypt(date("ymdHis").$d_service->id));
         
         $d_service->save();
         $service = Service::find($data['service_id']);
@@ -573,11 +573,30 @@ class PatientController extends Controller
     }
 
     public function payment_app($token){
-        return view('patients_options.payment_form');
+        $dservice = Dservice::where('token_pay',$token)->first();
+        if($dservice){
+          if($dservice->payment_status == true){
+            return "Esta solicitud ya ha sido pagada";
+          }else{
+        $service = Service::find($dservice->service_id);
+        $partner = Partner::find($dservice->partner_id);
+        
+        $description = "\"".$service->service_name." con el Proveedor ".$partner->partner_name."\"";
+        $cost = ($dservice->cost)*100; 
+        $tokenPay = "\"".$token."\"";
+        return view('patients_options.payment_form')->with(compact('description','cost','tokenPay'));}
+        }else{
+            return "Token invalido: no se encontró la solicitud";
+        }
     }
 
     public function post_payment_app(Request $request){ 
-      $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
+    $dservice = Dservice::where('token_pay',$request->tokenPay)->first();
+    if($dservice){
+      if($dservice->payment_status == true){
+        return "Esta solicitud ya ha sido pagada";
+      }else{
+        $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
       
       $culqi = new Culqi\Culqi(array('api_key' => $SECRET_KEY));
       $charge = $culqi->Charges->create(
@@ -591,8 +610,18 @@ class PatientController extends Controller
          "source_id" => $request->token_pay,
        )
       );
-    $message = "De la compra de: ".$request->descp." por: s/. ".($request->cost/100). " nuevos soles. ";
-    return $message;
+      
+      $dservice->payment_status = true;
+      $dservice->token_pay = "used";
+      $dservice->save();
+
+      $message = "De la compra de: ".$request->descp." por: s/. ".($request->cost/100). " nuevos soles. ";
+      return $message;
+      }      
+    }else{
+        return "Token invalido: no se encontró la solicitud";
+    }
+      
     }
 
     public function my_d_services(){

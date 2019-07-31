@@ -56,7 +56,7 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/patient_services/', 'RestPatientsController@services');
 	Route::post('/api/v2/patients_partners_by_service_id/', 'RestPatientsController@partners_by_service');
 	Route::post('/api/v2/patients_store_dservice', 'RestPatientsController@store_dservices');
-	//Route::post('/api/v2/patients/payment', 'RestPatientsController@payment');
+	Route::post('/api/v2/patient_my_dservices', 'RestPatientsController@my_dservices');
 
 
 	//doctors

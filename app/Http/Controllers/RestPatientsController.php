@@ -389,6 +389,9 @@ class RestPatientsController extends Controller
             $d_service->$key = $data[$key] ;
         }
         $d_service->save();
+        $d_service->token_pay = str_replace("/","-",bcrypt(date("ymdHis").$d_service->id));
+        $d_service->cost = (float)$request->cost;
+        $d_service->save();
         return response()
 				->json(['status' => '200', 
 						'message' => 'Ok',
@@ -415,5 +418,39 @@ class RestPatientsController extends Controller
 				->json(['status' => '200', 
 						'message' => 'Ok',
 						'content' =>$charge]);
+    }
+
+    public function my_dservices(Request $request){
+    	$user = User::find($request->user_id);
+	    if($user->role != 3){
+	        return response()
+	          ->json(['status' => '404', 
+	              'message' => 'El usuario solicitado no es un usuario con rol de paciente']); 
+	    }else{
+	   		$all_dservices = Dservice::all();
+        $dservices = [];
+        foreach ($all_dservices as $key => $value) {
+            $patient_user = User::find($value->user_id);
+            if($patient_user->id == $user->id){
+                $service = Service::find($value->service_id);
+                $partner = Partner::find($value->partner_id);
+
+                $dservices[] = [
+                    'id'=>$value->id,
+                    'service_name'=>$service->service_name,
+                    'partner_name'=>$partner->partner_name,
+                    'address_from'=>$value->address_from,
+                    'address_to'=>$value->address_to,
+                    'payment_status'=>$value->payment_status,
+                    'token_pay'=>$value->token_pay,
+                    'cost'=> $value->cost,
+                ];
+            }
+        }
+        return response()
+				->json(['status' => '200', 
+						'message' => 'Ok',
+						'content' =>$dservices]); 	
+	    }
     }
 }
