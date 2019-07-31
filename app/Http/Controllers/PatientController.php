@@ -446,7 +446,29 @@ class PatientController extends Controller
                     "content"=>"para el servicio:  \"".$service->service_name. "\" al asociado: \"". $partner->partner_name."\"",
                     "type"=>""
                 ];
-        return view('patients_options.patients_main')->with(compact('message'));
+        $all_dservices = Dservice::all();
+        $dservices = [];
+        foreach ($all_dservices as $key => $value) {
+            $patient_user = User::find($value->user_id);
+            if($patient_user->id == Auth::user()->id){
+                $service = Service::find($value->service_id);
+                $partner = Partner::find($value->partner_id);
+
+                $dservices[] = [
+                    'id'=>$value->id,
+                    'service_name'=>$service->service_name,
+                    'partner_name'=>$partner->partner_name,
+                    'address_from'=>$value->address_from,
+                    'address_to'=>$value->address_to,
+                    'payment_status'=>$value->payment_status,
+                    'complete'=>$value->complete,
+                    'token_pay'=>$value->token_pay,
+                    'cost'=> $value->cost,
+                    'created_at'=>$value->created_at
+                ];
+            }
+        }
+        return view('patients_options.my_d_services')->with(compact('message','dservices'));
     }
     public function patient_histories()
     {

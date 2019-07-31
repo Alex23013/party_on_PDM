@@ -22,12 +22,14 @@
           </div>
             <!-- /.box-header -->
             <div class="box-body ">
-            @if ($new)
+            @if($message)
             <div class="alert alert-success alert-dismissible pTop" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4>Nueva solicitud</h4>
-            </div>
-          @endif
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3>{{$message['title']}}</h3>
+                <h4>{{$message['content']}}</h4>
+                <span id = "message_type">{{$message['type']}}</span>
+            </div>  
+           @endif 
           <div id="alertsuccess"></div>	
               <table class="table table-bordered table-striped DataTable">
                 <thead>
