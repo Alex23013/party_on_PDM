@@ -154,13 +154,25 @@
       if (Culqi.token) { // ¡Objeto Token creado exitosamente!
           var token = Culqi.token.id;
           var email = Culqi.token.email;
-          //alert('Se ha creado un token:' + token);
-          var data = {descp: descp , cost: cost, token: token, email: email};
-          var url = "/patients/payment";
+          console.log('Se ha creado un token:' + token);
+          var data = {descp: descp , cost: cost, token_pay: token, email: email};
 
-          $.post(url,data,function(res){
-            alert(res);
-          });
+          $.ajax({
+            data: data,
+            url: '/patients/payment',
+            type: 'post',
+            success: function(response){
+              console.log("response:");
+                console.log(response);
+                $("#alertsuccess").append('<div class="alert alert-success alert-dismissible pTop" role="alert">'+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+"<h3>Pago Realizado</h3><h4>"+response+" </h4>"+"</div>");         
+            },
+            error:function(er){
+              console.log("error:");
+                console.log(er);        
+            }
+
+       });
+          console.log("end_culqi");
 
       } else { // ¡Hubo algún problema!
           // Mostramos JSON de objeto error en consola

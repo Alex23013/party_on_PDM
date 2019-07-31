@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
+
+use App\Http\Requests;
+
 use App\User;
 use App\Patient;
-use App\Http\Requests;
 use App\Appointment;
 use App\Tcall;
 use App\Attention;
@@ -15,7 +18,7 @@ use App\Service;
 use App\Partner_service;
 use App\Partner;
 use App\Dservice;
-
+use Culqi;
 
 class RestPatientsController extends Controller
 {
@@ -390,5 +393,27 @@ class RestPatientsController extends Controller
 				->json(['status' => '200', 
 						'message' => 'Ok',
 						'content' =>$d_service]);
+    }
+
+ 		public function payment(Request $request){ 
+     
+      $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
+      
+      $culqi = new Culqi\Culqi(array('api_key' => $SECRET_KEY));
+      $charge = $culqi->Charges->create(
+      array(
+         "amount" => $request->cost,
+         "capture" => true,
+         "currency_code" => "PEN",
+         "description" => $request->descp,
+         "email" => $request->email,
+         "installments"=>0,
+         "source_id" => $request->token_pay,
+       )
+      );
+      return response()
+				->json(['status' => '200', 
+						'message' => 'Ok',
+						'content' =>$charge]);
     }
 }

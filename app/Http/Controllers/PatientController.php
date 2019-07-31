@@ -21,9 +21,13 @@ use App\Medicine;
 use App\Gmedicine;
 use Auth;
 use PDF;
+use Culqi;
 
 class PatientController extends Controller
 {
+
+    public function __construct() { $this->middleware('auth',['except' => ['payment_app','post_payment_app']]); }
+
     public function index()
  	{
    		$users = DB::table('patients')
@@ -409,7 +413,8 @@ class PatientController extends Controller
                 ];
             } 
         }
-        return view('patients_options.partners_by_service')->with(compact('matched_ps','service'));
+        $message = null;
+        return view('patients_options.partners_by_service')->with(compact('matched_ps','service','message'));
     }
 
     public function add_dservices($service_id, $partner_id){
@@ -433,7 +438,8 @@ class PatientController extends Controller
         $service = Service::find($data['service_id']);
         $message = [
                     "title"=>"Solicitud de servicio DocDoor creada",
-                    "content"=>"para el servicio:  \"".$service->service_name. "\" al asociado: \"". $partner->partner_name."\""
+                    "content"=>"para el servicio:  \"".$service->service_name. "\" al asociado: \"". $partner->partner_name."\"",
+                    "type"=>""
                 ];
         return view('patients_options.patients_main')->with(compact('message'));
     }
@@ -532,27 +538,46 @@ class PatientController extends Controller
         return redirect('/clinic_histories');
     }
 
-    public function payment(){
-        dd("Pago realizado");
-        require "Requests/library/Requests.php";
-        Requests::register_autoloader();
-        require "culqui-php/lib/culqui.php";
-        $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
+    public function payment(Request $request){ 
+      $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
+      
+      $culqi = new Culqi\Culqi(array('api_key' => $SECRET_KEY));
+      $charge = $culqi->Charges->create(
+      array(
+         "amount" => $request->cost,
+         "capture" => true,
+         "currency_code" => "PEN",
+         "description" => $request->descp,
+         "email" => $request->email,
+         "installments"=>0,
+         "source_id" => $request->token_pay,
+       )
+      );
+    $message = "De la compra de: ".$request->descp." por: s/. ".($request->cost/100). " nuevos soles. ";
+    return $message;
+    }
 
-        $culqi = new Culqi\Culqi(array('api_key' => $SECRET_KEY));
-        $culqi->Charges->create(
-             array(
-                 "amount" => $_POST['cost'],
-                 "capture" => true,
-                 "currency_code" => "PEN",
-                 "description" => $_POST['descp'],
-                 "email" => $_POST['email'],
-                 "installments"=>0,
-                 "source_id" => $_POST['token'],
-               )
-            );
-        echo "Pago con exito";
-        //exit();
+    public function payment_app($token){
+        return view('patients_options.payment_form');
+    }
+
+    public function post_payment_app(Request $request){ 
+      $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
+      
+      $culqi = new Culqi\Culqi(array('api_key' => $SECRET_KEY));
+      $charge = $culqi->Charges->create(
+      array(
+         "amount" => $request->cost,
+         "capture" => true,
+         "currency_code" => "PEN",
+         "description" => $request->descp,
+         "email" => $request->email,
+         "installments"=>0,
+         "source_id" => $request->token_pay,
+       )
+      );
+    $message = "De la compra de: ".$request->descp." por: s/. ".($request->cost/100). " nuevos soles. ";
+    return $message;
     }
 
 }

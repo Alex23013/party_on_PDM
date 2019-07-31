@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -57,6 +56,8 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/patient_services/', 'RestPatientsController@services');
 	Route::post('/api/v2/patients_partners_by_service_id/', 'RestPatientsController@partners_by_service');
 	Route::post('/api/v2/patients_store_dservice', 'RestPatientsController@store_dservices');
+	//Route::post('/api/v2/patients/payment', 'RestPatientsController@payment');
+
 
 	//doctors
 	Route::post('/api/v2/doctor_update_data', 'RestDoctorController@update_data');
@@ -135,8 +136,8 @@ Route::get('/patients/clinic_history/request/{id}', 'PatientController@request_p
 Route::get('/patients/appointment_detail/{id}', 'PatientController@app_detail')->where(['id' => '[0-9]+']);
 Route::post('/patients/update_location_appointment', 'PatientController@update_location_appointment');
 Route::post('/patients/payment', 'PatientController@payment');
-
-
+Route::get('/patients/payment_app/{token}', 'PatientController@payment_app');
+Route::post('/patients/payment_app/', 'PatientController@post_payment_app');
 
 //Doctors_schedule
 Route::get('/doctors/schedule', 'DoctorController@index');

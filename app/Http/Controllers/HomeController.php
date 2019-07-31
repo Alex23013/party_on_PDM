@@ -76,9 +76,7 @@ class HomeController extends Controller
     }
 
     public function pdf(){
-
-      // to pretty html :
-      //<link href=\"http://phptopdf.com/bootstrap.css\" rel=\"stylesheet\">  
+ 
       require("phpToPDF.php"); 
      $new_tech = NULL;
      $users = User::all();

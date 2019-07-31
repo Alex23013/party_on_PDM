@@ -52,6 +52,9 @@
     padding-left: 5%;
     padding-right: 5%;
   }
+  .margin-right{
+    padding-right: 100px;
+  }
 </style>
 
 <div class="row">
@@ -86,13 +89,13 @@
       </div>
       <div class="space col-md-12">  </div>
       <div class="box-body p-left">
-      <table class="col-md-10 col-md-offset-1">
+      <table class="col-md-10 col-md-offset-1 margin-right">
         <tr class="bg-gray">
           <td COLSPAN="2"><b>DATOS DE LA ATENCIÓN</b></td>
         </tr>
-        <tr>
+        <tr >
           <td class="col-md-3"><b>Doctor:</b></td>
-          <td> {{$info['doctor_name']}} </td>
+          <td > {{$info['doctor_name']}} </td>
         </tr>
         <tr>
           <td class="col-md-3"><b>Fecha:</b></td>
