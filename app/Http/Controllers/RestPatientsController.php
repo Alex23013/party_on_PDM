@@ -384,6 +384,12 @@ class RestPatientsController extends Controller
         unset($data['token']);
         $d_service = New Dservice;
         $partner = Partner::find($data['partner_id']);
+        if(!$partner){
+        	return response()
+				->json(['status' => '400', 
+						'message' => 'error',
+						'content' =>"no se encontro al asociado requerido"]);
+        }
         $d_service->address_from= $partner->address;
         foreach ($data as $key => $value) {
             $d_service->$key = $data[$key] ;
@@ -398,7 +404,7 @@ class RestPatientsController extends Controller
 						'content' =>$d_service]);
     }
 
- 		public function payment(Request $request){ 
+ 		/*public function payment(Request $request){ 
      
       $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
       
@@ -418,7 +424,7 @@ class RestPatientsController extends Controller
 				->json(['status' => '200', 
 						'message' => 'Ok',
 						'content' =>$charge]);
-    }
+    }*/
 
     public function my_dservices(Request $request){
     	$user = User::find($request->user_id);
