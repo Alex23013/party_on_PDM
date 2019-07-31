@@ -39,6 +39,7 @@ class DocDoor_serviceController extends Controller
     public function complete($id)
     {
         $d_service = Dservice::find($id);
+        //dd($d_service );
         $d_service->complete = 1;
         $d_service->save();
         return redirect('/d_services');

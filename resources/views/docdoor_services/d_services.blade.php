@@ -37,6 +37,7 @@
                   <th>Direccion inicio</th>
                   <th>Direccion fin</th>
                   <th>Estado</th>
+                  <th>Proceso</th>
                   <th>Acciones</th>
                 </tr>
                 </thead>
@@ -48,18 +49,24 @@
                     <td><?=$d_service->partner_name?></td>
                     <td><?=$d_service->address_from?></td>
                     <td><?=$d_service->address_to?></td>
-                    @if ($d_service->complete)
+                    @if ($d_service->payment_status == 1)
+                      <td>Pagado</td>
+                    @else
+                      <td>Falta Pagar </td>
+                    @endif
+                    @if ($d_service->complete == 1)
                       <td>Realizado</td>
                     @else
                       <td>Pendiente </td>
                     @endif
                     <td> 
                       <a href="/d_services/detail/{{$d_service->d_service_id}}" title="Ver detalles" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
-
-                      @if ($d_service->complete)
-                        <button  type="button" class="btn btn-success btn-flat buttonSpace disabled"><i class="fa fa-check-square-o"></i></button>
-                      @else
-                        <a href="/d_services/{{$d_service->d_service_id}}/complete" title="Marcar como completado" > <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa  fa-square-o"></i></button></a>
+                      @if ($d_service->payment_status == 1)
+                        @if ($d_service->complete == 1)
+                          <button  type="button" class="btn btn-success btn-flat buttonSpace disabled"><i class="fa fa-check-square-o"></i></button> 
+                        @else
+                          <a href="/d_services/{{$d_service->d_service_id}}/complete" title="Atender" > <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa  fa-square-o"></i></button></a>            
+                        @endif
                       @endif
                       <a href="/d_services/remove/{{$d_service->d_service_id}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio DocDoor?');"><i class="fa fa-trash"></i></button><a>
                     </td>
