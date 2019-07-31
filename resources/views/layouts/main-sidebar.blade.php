@@ -135,9 +135,14 @@
               <i class="fa fa-plus"></i> <span>Solicitud de cita</span>
             </a>
           </li>
-          <li>
+          <!--<li>
             <a href="/patients/services">
               <i class="fa fa-suitcase"></i> <span>Servicios DocDoor</span>
+            </a>
+          </li>-->
+          <li>
+            <a href="/patients/my_d_services">
+              <i class="fa fa-suitcase"></i> <span>Mis Solicitudes DocDoor</span>
             </a>
           </li>
           <li>

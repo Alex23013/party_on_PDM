@@ -15,6 +15,7 @@ class AddTokenAndPayStatusToDservicesTable extends Migration
         Schema::table('dservices', function (Blueprint $table) {
             $table->boolean('payment_status')->default(0);
             $table->string('token_pay')->default("undefined");
+            $table->float('cost')->default(0);
         });
     }
 
@@ -28,6 +29,7 @@ class AddTokenAndPayStatusToDservicesTable extends Migration
        Schema::table('dservices', function (Blueprint $table) {
             $table->dropColumn('payment_status');
             $table->dropColumn('token_pay');
+            $table->dropColumn('cost');
         });
     }
 }

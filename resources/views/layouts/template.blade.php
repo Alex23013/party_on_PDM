@@ -135,11 +135,15 @@
 
   var descp = "";
   var cost = "";
+  var tokenPay = "";
 
-  $('#buyButton').on('click', function(e) {
+  $('.buyButton').on('click', function(e) {
     descp = $(this).attr('data-description');
     cost = $(this).attr('data-cost')*100;
+    tokenPay = $(this).attr('data-tokenPay');
+    console.log('push_dservice: '+tokenPay);
 
+    console.log("buyButton pushed");
     Culqi.settings({
         title: "DocDoor services",
         currency: 'PEN',
@@ -155,8 +159,8 @@
           var token = Culqi.token.id;
           var email = Culqi.token.email;
           console.log('Se ha creado un token:' + token);
-          var data = {descp: descp , cost: cost, token_pay: token, email: email};
-
+          var data = {descp: descp , cost: cost, token_pay: token, email: email,tokenPay:tokenPay};
+          console.log('dservice tokenPay: '+tokenPay);
           $.ajax({
             data: data,
             url: '/patients/payment',

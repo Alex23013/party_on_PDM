@@ -12,9 +12,9 @@
          
           <div class="box">
             <div class="box-header mm-left ">
-            <h2>Lista de Solicitudes de Servicios DocDoor</h2>
+            <h2>Mis Solicitudes de Servicios DocDoor</h2>
             <br>
-            <a href="/d_services/add">  
+            <a href="/patients/services">  
                 <button type="button" class="btn  bg-olive margin">
                  <h5 ><i class="fa fa-plus"></i>  Añadir una Solicitud</h5>
                 </button>
@@ -28,27 +28,24 @@
               <h4>Nueva solicitud</h4>
             </div>
           @endif
+          <div id="alertsuccess"></div>	
               <table class="table table-bordered table-striped DataTable">
                 <thead>
                 <tr>
-                  <th>Paciente</th>
+                  <th>Fecha pedido</th>
                   <th>Servicio</th>
                   <th>Asociado</th>
-                  <th>Direccion inicio</th>
-                  <th>Direccion fin</th>
                   <th>Estado</th>
                   <th>Proceso</th>
                   <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($services as $d_service): ?>
+                <?php foreach ($dservices as $d_service): ?>
                     <tr>  
-                    <td><?=$d_service['patient_name']?></td>
+                    <td><?=$d_service['created_at']?></td>
                     <td><?=$d_service['service_name']?></td>
                     <td><?=$d_service['partner_name']?></td>
-                    <td><?=$d_service['address_from']?></td>
-                    <td><?=$d_service['address_to']?></td>
                     @if ($d_service['payment_status'] == 1)
                       <td>Pagado</td>
                     @else
@@ -62,12 +59,11 @@
                     <td> 
                       <a href="/d_services/detail/{{$d_service['id']}}" title="Ver detalles" > <button  type="button" class="btn btn-primary btn-flat buttonSpace"><i class="fa fa-eye"></i></button></a>
                       @if ($d_service['payment_status'] == 1)
-                        @if ($d_service['complete'] == 1)
-                          <button  type="button" class="btn btn-success btn-flat buttonSpace disabled"><i class="fa fa-check-square-o"></i></button> 
-                        @else
-                          <a href="/d_services/{{$d_service['id']}}/complete" title="Atender" > <button  type="button" class="btn btn-warning btn-flat buttonSpace"><i class="fa  fa-square-o"></i></button></a>            
-                        @endif
+                      <button class="btn btn-info btn-flat buttonSpace buyButton disabled" ><i class="fa  fa-suitcase"></i> Pagar</button>
+                      @else
+                      <button class="btn btn-info btn-flat buttonSpace buyButton" data-description="{{$d_service['service_name']}} con el Proveedor {{$d_service['partner_name']}}" data-cost= "{{$d_service['cost']}}" data-tokenPay = "{{$d_service['token_pay']}}"><i class="fa  fa-suitcase"></i> Pagar</button>
                       @endif
+                       
                       <a href="/d_services/remove/{{$d_service['id']}}" title="Eliminar" > <button  type="button" class="btn btn-danger btn-flat buttonSpace " onclick="return confirm('¿Estas seguro de que quieres eliminar esta solicitud de servicio DocDoor?');"><i class="fa fa-trash"></i></button><a>
                     </td>
                     </tr>  

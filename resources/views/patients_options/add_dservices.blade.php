@@ -31,6 +31,7 @@
                         <input type="hidden" name="service_id" value = "{{$service->id}}" >
 
                         <input type="hidden" name="partner_id" value = "{{$partner->id}}" >
+                        <input type="hidden" name="cost" value = "{{$cost}}" >
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

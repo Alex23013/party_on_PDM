@@ -417,10 +417,10 @@ class PatientController extends Controller
         return view('patients_options.partners_by_service')->with(compact('matched_ps','service','message'));
     }
 
-    public function add_dservices($service_id, $partner_id){
+    public function add_dservices($service_id, $partner_id, $cost){
         $partner = Partner::find($partner_id);
         $service = Service::find($service_id);
-        return view('patients_options.add_dservices')->with(compact('service','partner')); 
+        return view('patients_options.add_dservices')->with(compact('service','partner','cost')); 
     }
 
 
@@ -431,9 +431,14 @@ class PatientController extends Controller
         $d_service->user_id = Auth::user()->id;
         $partner = Partner::find($data['partner_id']);
         $d_service->address_from= $partner->address;
+        $d_service->cost =(float)$request->cost;
         foreach ($data as $key => $value) {
             $d_service->$key = $data[$key] ;
         }
+
+        $d_service->save();
+        $d_service->token_pay = bcrypt(date("ymdHis").$d_service->id);
+        
         $d_service->save();
         $service = Service::find($data['service_id']);
         $message = [
@@ -539,22 +544,32 @@ class PatientController extends Controller
     }
 
     public function payment(Request $request){ 
-      $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
+      if($request->tokenPay == "used"){
+        return "El token de pago ya ha sido usado.";
+      } else{
+        $SECRET_KEY = "sk_test_ctxwx9WnIVnhIR26";
       
-      $culqi = new Culqi\Culqi(array('api_key' => $SECRET_KEY));
-      $charge = $culqi->Charges->create(
-      array(
-         "amount" => $request->cost,
-         "capture" => true,
-         "currency_code" => "PEN",
-         "description" => $request->descp,
-         "email" => $request->email,
-         "installments"=>0,
-         "source_id" => $request->token_pay,
-       )
-      );
-    $message = "De la compra de: ".$request->descp." por: s/. ".($request->cost/100). " nuevos soles. ";
-    return $message;
+          $culqi = new Culqi\Culqi(array('api_key' => $SECRET_KEY));
+          $charge = $culqi->Charges->create(
+          array(
+             "amount" => $request->cost,
+             "capture" => true,
+             "currency_code" => "PEN",
+             "description" => $request->descp,
+             "email" => $request->email,
+             "installments"=>0,
+             "source_id" => $request->token_pay,
+           )
+          );
+          $dservice = Dservice::where('token_pay',$request->tokenPay)->first();
+          $dservice->payment_status = true;
+          $dservice->token_pay = "used";
+          $dservice->save();
+
+          $message = "De la compra de: ".$request->descp." por: s/. ".($request->cost/100). " nuevos soles. ";
+          return $message;
+      } 
+      
     }
 
     public function payment_app($token){
@@ -580,4 +595,30 @@ class PatientController extends Controller
     return $message;
     }
 
+    public function my_d_services(){
+        $new = null;
+        $all_dservices = Dservice::all();
+        $dservices = [];
+        foreach ($all_dservices as $key => $value) {
+            $patient_user = User::find($value->user_id);
+            if($patient_user->id == Auth::user()->id){
+                $service = Service::find($value->service_id);
+                $partner = Partner::find($value->partner_id);
+
+                $dservices[] = [
+                    'id'=>$value->id,
+                    'service_name'=>$service->service_name,
+                    'partner_name'=>$partner->partner_name,
+                    'address_from'=>$value->address_from,
+                    'address_to'=>$value->address_to,
+                    'payment_status'=>$value->payment_status,
+                    'complete'=>$value->complete,
+                    'token_pay'=>$value->token_pay,
+                    'cost'=> $value->cost,
+                    'created_at'=>$value->created_at
+                ];
+            }
+        }
+        return view('patients_options.my_d_services')->with(compact('new','dservices'));
+    }
 }

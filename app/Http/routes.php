@@ -127,7 +127,7 @@ Route::get('/patients/new_inbox_appointment', 'PatientController@inbox_appointme
 Route::post('/patients/new_inbox', 'PatientController@inbox');
 Route::get('/patients/services', 'PatientController@services');
 Route::get('/patients/services/{service_id}', 'PatientController@partners_by_service')->where(['service_id' => '[0-9]+']);
-Route::get('/patients/add_dservices/{service_id}/{partner_id}', 'PatientController@add_dservices')->where(['service_id' => '[0-9]+'],['partner_id' => '[0-9]+']);
+Route::get('/patients/add_dservices/{service_id}/{partner_id}/{cost}', 'PatientController@add_dservices')->where(['service_id' => '[0-9]+'],['partner_id' => '[0-9]+'],['cost' => '[0-9]+']);
 Route::post('/patients/add_dservices', 'PatientController@store_dservices');
 Route::get('/patients/clinic_history/', 'PatientController@patient_histories');
 Route::get('/patients/clinic_history/see/{id}', 'PatientController@patient_histories_detail')->where(['id' => '[0-9]+']);
@@ -138,6 +138,7 @@ Route::post('/patients/update_location_appointment', 'PatientController@update_l
 Route::post('/patients/payment', 'PatientController@payment');
 Route::get('/patients/payment_app/{token}', 'PatientController@payment_app');
 Route::post('/patients/payment_app/', 'PatientController@post_payment_app');
+Route::get('/patients/my_d_services','PatientController@my_d_services');
 
 //Doctors_schedule
 Route::get('/doctors/schedule', 'DoctorController@index');

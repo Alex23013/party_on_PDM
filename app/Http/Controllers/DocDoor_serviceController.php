@@ -11,27 +11,33 @@ use App\Service;
 use App\Partner;
 use App\Patient;
 
+use Auth;
+
 class DocDoor_serviceController extends Controller
 {
     public function index()
  	{
-        //TODO: optimizar esto
-        $services =  DB::table('dservices')
-                    ->join('partners','dservices.partner_id','=','partners.id')
-                    ->join('users','dservices.user_id','=','users.id')
-                    ->join('services','dservices.service_id','=','services.id') 
-                    ->get();
-        $servicesB =  DB::table('dservices')
-                    ->join('partners','dservices.partner_id','=','partners.id')
-                    ->join('users','dservices.user_id','=','users.id')
-                    ->join('services','dservices.service_id','=','services.id') 
-                    ->pluck('dservices.id');
-        $i = 0;
-        foreach ($services as $temp) {
-           $temp->d_service_id=$servicesB[$i];
-           $i= $i+1;
+        $all_dservices = Dservice::all();
+        $services = [];
+        foreach ($all_dservices as $key => $value) {
+            $patient_user = User::find($value->user_id);
+            $service = Service::find($value->service_id);
+            $partner = Partner::find($value->partner_id);
+
+            $services[] = [
+                'id'=>$value->id,
+                'patient_name'=>$patient_user->name." ".$patient_user->last_name,
+                'service_name'=>$service->service_name,
+                'partner_name'=>$partner->partner_name,
+                'address_from'=>$value->address_from,
+                'address_to'=>$value->address_to,
+                'payment_status'=>$value->payment_status,
+                'complete'=>$value->complete,
+                'token_pay'=>$value->token_pay,
+                'cost'=> $value->cost,
+                'created_at'=>$value->created_at
+            ];
         }
-        //dd($services);
         $new = NULL;   
         return view('docdoor_services.d_services')->with(compact('services','new'));
     }
@@ -118,21 +124,27 @@ class DocDoor_serviceController extends Controller
         $partner = Partner::find($data['partner_id']);
         $d_service->address_from= $partner->address;
         $d_service->save();
-        $services =  DB::table('dservices')
-                    ->join('services','dservices.service_id','=','services.id')
-                    ->join('users','dservices.user_id','=','users.id')
-                    ->join('partners','dservices.partner_id','=','partners.id')
-                    ->get();
         $new = $d_service; 
-        $servicesB =  DB::table('dservices')
-                    ->join('partners','dservices.partner_id','=','partners.id')
-                    ->join('users','dservices.user_id','=','users.id')
-                    ->join('services','dservices.service_id','=','services.id') 
-                    ->pluck('dservices.id');
-        $i = 0;
-        foreach ($services as $temp) {
-           $temp->d_service_id=$servicesB[$i];
-           $i= $i+1;
+        $all_dservices = Dservice::all();
+        $services = [];
+        foreach ($all_dservices as $key => $value) {
+            $patient_user = User::find($value->user_id);
+            $service = Service::find($value->service_id);
+            $partner = Partner::find($value->partner_id);
+
+            $services[] = [
+                'id'=>$value->id,
+                'patient_name'=>$patient_user->name." ".$patient_user->last_name,
+                'service_name'=>$service->service_name,
+                'partner_name'=>$partner->partner_name,
+                'address_from'=>$value->address_from,
+                'address_to'=>$value->address_to,
+                'payment_status'=>$value->payment_status,
+                'complete'=>$value->complete,
+                'token_pay'=>$value->token_pay,
+                'cost'=> $value->cost,
+                'created_at'=>$value->created_at
+            ];
         }
         return view('docdoor_services.d_services')->with(compact('services','new'));
         }
@@ -168,6 +180,9 @@ class DocDoor_serviceController extends Controller
 
     public function delete($id){
     	Dservice::destroy($id);
+        if(Auth::user()->role == 3){
+            return redirect('/patients/my_d_services'); 
+        }
        	return redirect('/d_services');	
     }
 
