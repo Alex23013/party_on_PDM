@@ -190,6 +190,8 @@ class RestDoctorController extends Controller
               "last_name_patient" =>$patient->user->last_name,
               "date_time" => $app->date_time,
               "address"=>$app->attention->address,
+              "latitude"=>$app->attention->att_latitude,
+              "longitude"=>$app->attention->att_longitude,
               ]; 
             }
           }else{
@@ -201,6 +203,8 @@ class RestDoctorController extends Controller
               "last_name_patient" =>$patient->user->last_name,
               "date_time" => $app->date_time,
               "address"=>$app->attention->address,
+              "latitude"=>$app->attention->att_latitude,
+              "longitude"=>$app->attention->att_longitude,
               ]; 
           }
           
