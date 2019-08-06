@@ -94,57 +94,68 @@
             @endif
           </div>
           @if($s_attention->status == 2)
-          <div class="col-md-12" >
-            <h4>
-              <label class="col-md-11 subtitle">Historia Clínica</label>
-            </h4>
-          </div>
-          <div class="col-md-12" >
-            <span class="col-md-4"> Frecuencia cardiaca: </span>
-            <label  class="col-md-8">{{$history->cardiac_frequency }} </label>
-          </div>
-          <div class="col-md-12" >
-            <span class="col-md-4"> Frecuencia respiratoria: </span>
-            <label  class="col-md-8">{{$history->breathing_frequency }} </label>
-          </div>
-          <div class="col-md-12" >
-            <span class="col-md-4"> Temperatura: </span>
-            <label  class="col-md-8">{{$history->temperature }} </label>
-          </div>
-          <div class="col-md-12" >
-            <span class="col-md-4"> Presión Arterial: </span>
-            <label  class="col-md-8">{{$history->arterial_pressure }} </label>
-          </div>
-          <div class="col-md-12" >
-            <span class="col-md-4"> Antecedentes Personales: </span>
-            <label  class="col-md-8">{{$history->personal_antecedents }} </label>
-          </div>
-          <div class="col-md-12" >
-            <span class="col-md-4"> Antecedentes Familiares: </span>
-            <label  class="col-md-8">{{$history->family_antecedents }} </label>
-          </div>
-          <div class="col-md-12" >
-            <h4>
-              <label class="col-md-11 subtitle">Receta médica</label>
-            </h4>
-          </div>
+            <div class="col-md-12" >
+              <h4>
+                <label class="col-md-11 subtitle">Historia Clínica</label>
+              </h4>
+            </div>
+            @if($has_history == 1)
+            
+            <div class="col-md-12" >
+              <span class="col-md-4"> Frecuencia cardiaca: </span>
+              <label  class="col-md-8">{{$history->cardiac_frequency }} </label>
+            </div>
+            <div class="col-md-12" >
+              <span class="col-md-4"> Frecuencia respiratoria: </span>
+              <label  class="col-md-8">{{$history->breathing_frequency }} </label>
+            </div>
+            <div class="col-md-12" >
+              <span class="col-md-4"> Temperatura: </span>
+              <label  class="col-md-8">{{$history->temperature }} </label>
+            </div>
+            <div class="col-md-12" >
+              <span class="col-md-4"> Presión Arterial: </span>
+              <label  class="col-md-8">{{$history->arterial_pressure }} </label>
+            </div>
+            <div class="col-md-12" >
+              <span class="col-md-4"> Antecedentes Personales: </span>
+              <label  class="col-md-8">{{$history->personal_antecedents }} </label>
+            </div>
+            <div class="col-md-12" >
+              <span class="col-md-4"> Antecedentes Familiares: </span>
+              <label  class="col-md-8">{{$history->family_antecedents }} </label>
+            </div>
+            @else
+              <div class="col-md-12" >
+                <span  class="col-md-8">No se registró historia clínica</span>
+              </div>
+            @endif
+            <div class="col-md-12" >
+                <h4>
+                  <label class="col-md-11 subtitle">Receta médica</label>
+                </h4>
+            </div>
+            @if($has_recipe == 1)
+              <div class="col-md-12" >
+                <span class="col-md-4"> Medicinas recetadas: </span>
+                <label  class="col-md-8">
+                  <ul>
+                    <?php foreach ($medicines as $med): ?>
+                    <li> {{$med['quantity']}} {{$med['name']}} </li>
+                     <?php endforeach ?> 
+                  </ul>
+                </label>
+              </div>
 
-          <div class="col-md-12" >
-            <span class="col-md-4"> Medicinas recetadas: </span>
-            <label  class="col-md-8">
-              <ul>
-                <?php foreach ($medicines as $med): ?>
-                <li> {{$med['quantity']}} {{$med['name']}} </li>
-                 <?php endforeach ?> 
-              </ul>
-            </label>
-          </div>
-
-          <div class="col-md-12" >
-            <span class="col-md-4"> Instrucciones: </span>
-            <label  class="col-md-8">{{$recipe->instructions }} </label>
-          </div>
-
+              <div class="col-md-12" >
+                <span class="col-md-4"> Instrucciones: </span>
+                <label  class="col-md-8">{{$recipe->instructions }} </label>
+              </div>
+            @else
+              <div class="col-md-12" >
+                <span  class="col-md-8">No tiene receta médica</span>
+              </div>
+            @endif
           @endif
           
         @else

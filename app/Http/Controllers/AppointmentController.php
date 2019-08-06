@@ -278,22 +278,32 @@ class AppointmentController extends Controller
         $medicines = [];
         if($s_attention->status == 2){
             $history = History::where('attention_id', $id)->first();
-            $app = Appointment::where('attention_id', $id)->first();
+            if($history){
+                $has_history = 1;
+            }else{
+                $has_history = 0;
+            }
+            $app=Appointment::where('attention_id', $id)->first();
             $recipe = Recipe::where('appointment_id', $app->id)->first();
-            $recipe_medicines = json_decode($recipe->medicines);
-            foreach ( $recipe_medicines  as $key => $value) {
-                $medicine = Medicine::find($value->id);
-                $medicines[]=[
-                    "name"=>$medicine->name,
-                    "quantity"=>$value->quantity,
-                    ];
+            if($recipe){
+                $has_recipe = 1; 
+                $recipe_medicines = json_decode($recipe->medicines);
+                foreach ( $recipe_medicines  as $key => $value) {
+                    $medicine = Medicine::find($value->id);
+                    $medicines[]=[
+                        "name"=>$medicine->name,
+                        "quantity"=>$value->quantity,
+                        ];
+                }
+            }else{
+                $has_recipe = 0; 
             }    
         }else{
-            $history = NULL;
-            $recipe = NULL;
+            $has_history = 0;
+            $has_recipe = 0; 
         }
         
-        return view('attentions.attention_detail')->with(compact('s_attention','attention','user_patient','specialty','user_doctor','history','recipe','medicines'));
+        return view('attentions.attention_detail')->with(compact('s_attention','attention','user_patient','specialty','user_doctor','history','recipe','medicines','has_history','has_recipe'));
     }
     public function add(){
         $specialties = Specialty::all();
