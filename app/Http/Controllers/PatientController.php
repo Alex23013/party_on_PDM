@@ -358,13 +358,18 @@ class PatientController extends Controller
            $doctor = Doctor::find($app->doctor_id)->user;
            $doctor_name = "Dr. ".$doctor->name." ".$doctor->last_name;
            $recipe = Recipe::where('appointment_id',$app->id)->first();
-           $instructions = $recipe->instructions;
-           $all_medicines = json_decode($recipe->medicines);
-           foreach ($all_medicines as $key => $value) {
-               $med = Medicine::find($value->id);
-               $group = Gmedicine::find($med->medicine_group);
-               $medicines[]=$group->group_name." - ".$med->name;
+           if($recipe){
+               $instructions = $recipe->instructions;
+               $all_medicines = json_decode($recipe->medicines);
+               foreach ($all_medicines as $key => $value) {
+                   $med = Medicine::find($value->id);
+                   $group = Gmedicine::find($med->medicine_group);
+                   $medicines[]=$group->group_name." - ".$med->name;
+               } 
+           }else{
+                $instructions = "No hubo receta médica";
            }
+           
         }else{
             $header_type = 0;
             $emer = $attention->emergency;
@@ -670,6 +675,7 @@ class PatientController extends Controller
                 ];
             }
         }
-        return view('patients_options.my_d_services')->with(compact('new','dservices'));
+        $message = NULL;
+        return view('patients_options.my_d_services')->with(compact('new','dservices','message'));
     }
 }
