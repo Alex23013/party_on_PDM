@@ -41,21 +41,24 @@ class Partner_serviceController extends Controller
    	}
 
     public function add($id_P){
-        return view('partner_services.new_p_service')->with(compact('id_P')); 
+
+        $services = Service::all();
+        return view('partner_services.new_p_service')->with(compact('id_P','services')); 
     }
 
     public function store($id_P,Request $request){
         $rules = [
-            'service_name' => 'required|min:2|max:25|unique:services',
+            //'service_name' => 'required|min:2|max:25|unique:services',
+            'service_id' => 'required',
             'service_cost' => 'required|numeric',
             'docdoor_cost' => 'required|numeric',
         ];
 
         $messages = [
-            'service_name.required' => 'Es necesario ingresar un nombre para registrar a un asociado',
-            'service_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
+            'service_id.required' => 'Es necesario seleccionar un servicio para agregarlo a un asociado',
+            /*'service_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
             'service_name.max' => 'Campo "Nombre" es demasiado extenso.',
-            'service_name.unique' => 'Ya existe un servicio registrado con este Nombre',
+            'service_name.unique' => 'Ya existe un servicio registrado con este Nombre',*/
 
             'service_cost.required' => 'Es necesario ingresar un costo para el servicio para registrar a un asociado',
             'service_cost.numeric' => 'El costo para el servicio debe ser un número',
@@ -65,19 +68,19 @@ class Partner_serviceController extends Controller
         ];
 
         $this->validate($request, $rules, $messages);   
-        $service = New Service;
-        $service->service_name = $request->service_name;
-        $service->save();
+        //$service = New Service;
+        //$service->service_name = $request->service_name;
+        //$service->save();
 
         $p_service = New Partner_service;
         $data = $request->all();
         unset($data['_token']);
-        unset($data['service_name']);
+        //unset($data['service_name']);
         foreach ($data as $key => $value) {
             $p_service->$key = $data[$key] ;
         }   
         $p_service->partner_id = $id_P;
-        $p_service->service_id = $service->id;
+        //$p_service->service_id = $service->id;
         $p_service->save();
 
         $services =  DB::table('services')

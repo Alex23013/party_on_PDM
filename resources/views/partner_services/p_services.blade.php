@@ -18,7 +18,7 @@
 			@if ($new)
 			  <div class="alert alert-success alert-dismissible pTop" role="alert">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    <h4>Nuevo servicio agregado</h4>
+			    <h4>Nuevo servicio agregado a este Asociado</h4>
 			  </div>
 			@endif
 			<div class="col-xs-12">
@@ -60,7 +60,7 @@
               </div>
             <a href="/p_services/{{$id_P}}/add">  
                 <button type="button" class="btn  bg-olive margin">
-                 <h5 ><i class="fa fa-plus"></i>  Añadir un Servicio</h5>
+                 <h5 ><i class="fa fa-plus"></i>  Añadir un Servicio a este Asociado</h5>
                 </button>
               </a>
 	        </div>

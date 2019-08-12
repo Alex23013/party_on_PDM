@@ -18,11 +18,17 @@
                 @endif
                     <form class="form-horizontal" role="form" method="POST" action="/p_services/{{$id_P}}">
                          {{ csrf_field() }}
+
                         <div class="form-group">
-                            <label for="name" class="col-md-4 control-label">Nombre *</label>
+                            <label for="patient_id" class="col-md-4 control-label">Nombre del servicio *</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="service_name" >
+                                <select class="form-control" name = "service_id" >
+                                    <option value=""> Selecione un servicio </option>
+                                    @foreach($services as $ser)
+                                    <option value="<?=$ser['id']?>"><?=$ser['service_name']?></option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
