@@ -107,7 +107,7 @@ class EmergencyController extends Controller
         $patients = Patient::all();
         foreach ($patients as $patient) {
             $users[] =array(
-                        "name" => $patient->user->name,
+                        "name" => $patient->user->name." ".$patient->user->last_name." - ".$patient->user->dni,
                         "id" => $patient->user->id,
                     ); 
         }

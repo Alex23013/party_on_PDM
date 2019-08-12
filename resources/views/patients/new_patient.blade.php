@@ -44,13 +44,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="birth" class="col-md-4 control-label">Fecha de Nacimiento * </label>
-
-                            <div class="col-md-6">
-                                <input id="datepicker" type="text" class="form-control" name="birth_at" >
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <label for="cellphone" class="col-md-4 control-label">Email *</label>
 
@@ -64,6 +58,14 @@
 
                             <div class="col-md-6">
                                 <input id="cellphone" type="text" class="form-control" name="cellphone" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birth" class="col-md-4 control-label">Fecha de Nacimiento * </label>
+
+                            <div class="col-md-6">
+                                <input id="datepicker" type="text" class="form-control" name="birth_at" >
                                 <b>Nota: Los campos con * son obligatorios</b>
                             </div>
                         </div>
