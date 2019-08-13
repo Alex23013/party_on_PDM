@@ -25,13 +25,19 @@
                             <div class="col-md-6">
                                 <select class="form-control" name = "service_id" >
                                     <option value=""> Selecione un servicio </option>
-                                    @foreach($services as $ser)
+                                    @foreach($services_by_partner as $ser)
                                     <option value="<?=$ser['id']?>"><?=$ser['service_name']?></option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-
+                        <div class="form-group" style="padding-left: 40%;">
+                            <a href="/services/add/{{$id_P}}">  
+                                <button type="button" class="btn  bg-purple margin">
+                                 <h5 ><i class="fa fa-plus"></i>  Añadir un nuevo Servicio</h5>
+                                </button>
+                            </a>
+                        </div>
                         <div class="form-group">
                             <label for="service_cost" class="col-md-4 control-label">Costo del servicio *</label>
 

@@ -58,6 +58,13 @@
                             </div>
                         </div>
                     </form>
+                    <div class="col-md-12 col-md-offset-1">
+                      <a href="/specialties">
+                        <button type="submit" class="btn btn-primary bg-olive" >
+                           Volver al menú
+                        </button>  
+                      </a>
+                    </div>
                 </div>
             </div>
         </div>

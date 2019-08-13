@@ -11,11 +11,11 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-	          <h2>Lista de Servicios</h2>
+	          <h2>Lista de Servicios de: {{$p_name}}</h2>
 	        </div>
 	        <!-- /.box-header -->
 	        <div class="box-body "> 
-			@if ($new)
+			@if ($new == 1)
 			  <div class="alert alert-success alert-dismissible pTop" role="alert">
 			    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			    <h4>Nuevo servicio agregado a este Asociado</h4>
@@ -58,11 +58,11 @@
                 </tbody>
               </table>
               </div>
-            <a href="/p_services/{{$id_P}}/add">  
-                <button type="button" class="btn  bg-olive margin">
-                 <h5 ><i class="fa fa-plus"></i>  Añadir un Servicio a este Asociado</h5>
-                </button>
-              </a>
+            	<a href="/p_services/{{$id_P}}/add">  
+	                <button type="button" class="btn  bg-olive margin">
+	                 <h5 ><i class="fa fa-plus"></i>  Añadir un Servicio a este Asociado</h5>
+	                </button>
+	            </a>
 	        </div>
             <!-- /.box-body -->
         </div>

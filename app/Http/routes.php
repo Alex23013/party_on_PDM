@@ -90,6 +90,15 @@ Route::post('/specialties/add', 'SpecialtyController@store');
 Route::get('/specialties/remove/{id}', 'SpecialtyController@delete')->where(['id' => '[0-9]+']);
 
 
+//Services
+Route::get('/services', 'ServiceController@index'); 	
+Route::get('/services/edit/{id}', 'ServiceController@update')->where(['id' => '[0-9]+']);
+Route::post('/services/edit', 'ServiceController@store_update');	
+Route::get('/services/add/{id_P}', 'ServiceController@add')->where(['id_P' => '[0-9]+']);
+Route::post('/services/add', 'ServiceController@store');
+Route::get('/services/remove/{id}', 'ServiceController@delete')->where(['id' => '[0-9]+']);
+
+
 //Techs 
 Route::get('/techs', 'TuserController@index'); 		
 Route::get('/techs/add', 'TuserController@add');

@@ -37,13 +37,24 @@ class Partner_serviceController extends Controller
                     ->get();     
         $new = NULL;   
         $id_P = $idPartner;
-        return view('partner_services.p_services')->with(compact('services','new','id_P'));
+        $p_name = Partner::find($id_P)->partner_name;
+        return view('partner_services.p_services')->with(compact('services','new','id_P','p_name'));
    	}
 
     public function add($id_P){
 
         $services = Service::all();
-        return view('partner_services.new_p_service')->with(compact('id_P','services')); 
+        $services_by_partner = [];
+        //dd($services);
+        foreach ($services as $key => $value) {
+            $query1 = Partner_service::where('partner_id',$id_P)->where('service_id',$value->id)->first();
+            if($query1){
+
+            }else{
+                $services_by_partner[]=$value;
+            }
+        }
+        return view('partner_services.new_p_service')->with(compact('id_P','services_by_partner')); 
     }
 
     public function store($id_P,Request $request){
@@ -72,23 +83,23 @@ class Partner_serviceController extends Controller
         //$service->service_name = $request->service_name;
         //$service->save();
 
-        $p_service = New Partner_service;
-        $data = $request->all();
-        unset($data['_token']);
-        //unset($data['service_name']);
-        foreach ($data as $key => $value) {
-            $p_service->$key = $data[$key] ;
-        }   
-        $p_service->partner_id = $id_P;
-        //$p_service->service_id = $service->id;
-        $p_service->save();
+            $p_service = New Partner_service;
+            $data = $request->all();
+            unset($data['_token']);
+            foreach ($data as $key => $value) {
+                $p_service->$key = $data[$key] ;
+            }   
+            $p_service->partner_id = $id_P;
+            $p_service->save();
 
-        $services =  DB::table('services')
-                    ->join('partner_services','services.id','=','partner_services.service_id')
-                    ->where('partner_id', $id_P)
-                    ->get();     
-        $new = $p_service;   
-        return view('partner_services.p_services')->with(compact('services','new','id_P'));
+            $services =  DB::table('services')
+                        ->join('partner_services','services.id','=','partner_services.service_id')
+                        ->where('partner_id', $id_P)
+                        ->get();     
+            $new = 1;   
+            $p_name = Partner::find($id_P)->partner_name;
+            return view('partner_services.p_services')->with(compact('services','new','id_P','p_name'));    
+        
     }
 
    	public function active($id_P,$id)

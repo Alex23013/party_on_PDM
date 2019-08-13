@@ -31,7 +31,11 @@
               <i class="fa fa-list"></i> <span> Especialidades </span>
             </a>
           </li>
-
+          <li>
+            <a href="/services/">
+              <i class="fa fa-stethoscope"></i> <span> Servicios </span>
+            </a>
+          </li>
           <li>
             <a href="/partners">
               <i class="fa fa-users"></i> <span>Asociados</span>
@@ -77,6 +81,11 @@
           <li>
             <a href="/specialties/">
               <i class="fa fa-list"></i> <span> Especialidades </span>
+            </a>
+          </li>
+          <li>
+            <a href="/services/">
+              <i class="fa fa-stethoscope"></i> <span> Servicios </span>
             </a>
           </li>
           <li>
