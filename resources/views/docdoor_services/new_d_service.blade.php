@@ -43,40 +43,29 @@
                          {{ csrf_field() }}
                          <div class="form-group">
                             <label for="service_id" class="col-md-4 control-label">Servicio *</label>
-
                             <div class="col-md-6">
-                                @if($one)
-                                   <b> {{$services->service_name}}</b>
-                                   <input id="id" type="hidden" name="service_id" value ="{{$services->id}}">
-                                @else
-                                    <select class="form-control" name = "service_id" >
-                                    <option value=""> Seleccione un servicio </option>
-                                    @foreach($services as $service)
-                                    <option value="<?=$service->id?>"><?=$service->service_name?></option>
-                                    @endforeach
-                                    </select>
-                                @endif
+                              <select class="form-control" name = "service_id" id = "service_selector" >
+                                <option value=""> Seleccione un servicio </option>
+                                @foreach($services as $service)
+                                <option value="<?=$service->id?>"><?=$service->service_name?></option>
+                                @endforeach
+                              </select>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary " style="margin-left: 35%; margin-bottom: 1%;" name="chosePartner" value = "1">
-                                   <i class="glyphicon glyphicon-user"></i> Elegir Asociado
-                                </button>
-                            </div>
-                        @if($one)
 
-                        <div class="form-group" id="chosePartner">
+                        <div class="form-group">
+
                             <label for="partner_id" class="col-md-4 control-label">Asociado *</label>
 
-                            <div class="col-md-6">
-                                <select class="form-control" name = "partner_id" >
-                                <option value=""> Seleccione un asociado </option>
-                                @foreach($partners as $partner)
-                              <option value="<?=$partner->id?>"><?=$partner->partner_name?></option>
-                            @endforeach
-                            </select>
-                            </div> 
+                            <div class="col-md-6">     
+                                <select
+                                 id = "partner_select"
+                                class="form-control"
+                                  name="partner_id">
+                                </select>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="patient_id" class="col-md-4 control-label">Nombre del paciente *</label>
 
@@ -113,7 +102,6 @@
                                 </button>
                             </div>
                         </div>
-                         @endif
                     </form>
                 </div>
             </div>
@@ -122,6 +110,34 @@
 </div>
 @endsection
 @section('specific scripts')
+<script type="text/javascript">
+  $('#service_selector').change(function(){
+        var parametros={
+            "valor1":$('#service_selector').find(':selected').val(),
+        };
+        console.log(parametros);
+        $.ajax({
+            data: parametros,
+            url: '/ajax/d_services/get_partners/',
+            type: 'post',
+            beforeSend: function(){
+                $("#resultado").html("Procesando,espere..");
+            },
+            success: function(response){
+                locations = [];
+                console.log("response: ",response);
+                $("#resultado").html(response); 
+                 var doctorSelect= document.getElementById('partner_select');
+                $(doctorSelect).empty();
+                $(doctorSelect).append('<option value=""> Seleccione un asociado</option>')
+                for (var i = 0; i < response.length; i++) {
+                    $(doctorSelect).append('<option value="' + response[i].id + '">' + response[i].name + '</option>');
+                }   
+            }
+       });
+    })
+
+</script>
 <script>
      function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {

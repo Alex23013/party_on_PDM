@@ -187,6 +187,7 @@ Route::get('/d_services/detail/{id}', 'DocDoor_serviceController@detail')->where
 Route::get('/d_services/remove/{id}', 'DocDoor_serviceController@delete')->where(['id' => '[0-9]+']);
 Route::get('/d_services/edit/{id}', 'DocDoor_serviceController@update')->where(['id' => '[0-9]+']);
 Route::post('/d_services/edit', 'DocDoor_serviceController@store_update');
+Route::post('/ajax/d_services/get_partners/', 'DocDoor_serviceController@ajax_get_partners')->where(['service_id' => '[0-9]+']);
 
 //admin
 Route::group(['middleware' => ['admin']], function () {
@@ -266,4 +267,4 @@ Route::get('/maps', 'AppointmentController@maps');
 Route::get('/new_bag/{kit_id}', 'RestDoctorController@new_bag');
 
 
-
+Route::get('/d_services/partners/{service_id}', 'DocDoor_serviceController@get_partners')->where(['service_id' => '[0-9]+']);

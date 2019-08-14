@@ -9,12 +9,40 @@ use App\Http\Requests;
 use App\User;
 use App\Service;
 use App\Partner;
+use App\Partner_service;
 use App\Patient;
 
 use Auth;
 
 class DocDoor_serviceController extends Controller
 {
+    public function ajax_get_partners(){
+        $all_relations = Partner_service::where('service_id', $_POST['valor1'])->get();
+        $partners =[];
+        foreach ($all_relations as $key => $value) {
+            $partner = Partner::find($value->partner_id);
+            $partners[]=array(
+                    "name" => $partner->partner_name,
+                    "id" => $partner->id
+                );   
+        }
+        return $partners;
+    }
+
+
+    public function get_partners($service_id){
+        $all_relations = Partner_service::where('service_id',$service_id)->get();
+        $partners =[];
+        foreach ($all_relations as $key => $value) {
+            $partner = Partner::find($value->partner_id);
+            $partners[]=array(
+                    "name" => $partner->partner_name,
+                    "id" => $partner->id
+                );   
+        }
+        return $partners;
+    }
+
     public function index()
  	{
         $all_dservices = Dservice::all();
@@ -60,40 +88,28 @@ class DocDoor_serviceController extends Controller
     }
 
     public function add(){
-        $services = Service::all();
-        $one = NULL;
-        return view('docdoor_services.new_d_service')->with(compact('services','one')); 
-    }
-
-    public function postAddDocDoorService(Request $request)
-    {
-        //check which submit was clicked on
-        if($request->chosePartner)
-        {
-            $rules = [
-                'service_id' => 'required',
-            ];
-            $messages = [
-            'service_id.required' => 'Es necesario "seleccionar un servicio" para registrar una solicitud'
-            ];
-
-            $this->validate($request, $rules, $messages);
-            $partners = Service::find($request->service_id)->partners;
-            $one = 1; 
-            $u_patients = Patient::all();
+        $all_services = Service::all();
+        $services =[];
+        foreach ($all_services as $key => $value) {
+            $num_partners = count(Partner_service::where('service_id',$value->id)->get());
+            if($num_partners>0){
+                $services[]=$value;
+            }
+        }
+        $u_patients = Patient::all();
             foreach ($u_patients as $patient) {
                 $patients[] =array(
                             "name" => $patient->user->name,
                             "id" => $patient->user->id,
                         ); 
             }
-            $services = Service::find($request->service_id);
-            return view('docdoor_services.new_d_service')->with(compact('services','partners','one','patients')); 
-        } 
-        else//if($request->registrar) 
-        {
+        return view('docdoor_services.new_d_service')->with(compact('services','patients')); 
+    }
 
-            $rules1 = [
+    public function postAddDocDoorService(Request $request)
+    {
+        $rules1 = [
+            'service_id' => 'required',
             'partner_id' => 'required',
             'service_id' => 'required',
             'patient_user_id' => 'required',
@@ -101,6 +117,7 @@ class DocDoor_serviceController extends Controller
         ];
 
         $messages1 = [
+            'service_id.required' => 'Es necesario "seleccionar un servicio" para registrar una solicitud',
             'partner_id.required' => 'Es necesario "seleccionar un asociado" para registrar una solicitud',
             'service_id.required' => 'Es necesario "seleccionar un servicio" para registrar una solicitud',
 
@@ -147,7 +164,6 @@ class DocDoor_serviceController extends Controller
             ];
         }
         return view('docdoor_services.d_services')->with(compact('services','new'));
-        }
     }
 
     public function update($id){
