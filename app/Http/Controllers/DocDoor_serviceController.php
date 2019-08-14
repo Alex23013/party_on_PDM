@@ -113,7 +113,7 @@ class DocDoor_serviceController extends Controller
             'partner_id' => 'required',
             'service_id' => 'required',
             'patient_user_id' => 'required',
-            'address_to'=>'required|max:40',
+            'address_to'=>'required',
         ];
 
         $messages1 = [
