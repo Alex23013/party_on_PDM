@@ -431,6 +431,7 @@ class PatientController extends Controller
 
     public function store_dservices(Request $request){
         $data = $request->all();
+        //dd($data);
         unset($data['_token']);
         $d_service = New Dservice;
         $d_service->user_id = Auth::user()->id;

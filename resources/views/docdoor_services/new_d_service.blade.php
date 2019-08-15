@@ -78,6 +78,7 @@
                                 </select>
                             </div>
                         </div>
+                        <input id = "cost1" type="hidden" name="cost"> 
                         
                         <div class="form-group">
                             <label for="address" class="col-md-4 control-label">Dirección de llegada *</label>
@@ -131,11 +132,19 @@
                 $(doctorSelect).empty();
                 $(doctorSelect).append('<option value=""> Seleccione un asociado</option>')
                 for (var i = 0; i < response.length; i++) {
-                    $(doctorSelect).append('<option value="' + response[i].id + '">' + response[i].name + '</option>');
+                    $(doctorSelect).append('<option data-cost='+response[i].cost+' value="' + response[i].id + '">' + response[i].name + '</option>');
                 }   
             }
        });
     })
+
+  $('#partner_select').change(function(){
+    var partner_id = $('#partner_select').find(':selected').val();
+    console.log("partner_select", partner_id);
+    var costo = $("#partner_select option:selected").data('cost');
+    console.log("cost ",costo);
+    document.getElementById("cost1").value =costo;
+  })  
 
 </script>
 <script>

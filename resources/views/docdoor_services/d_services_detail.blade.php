@@ -39,6 +39,10 @@
           <label  class="col-md-8">{{$partner->partner_name}} </label>
         </div>
         <div class="col-md-12" >
+          <span class="col-md-4"> Costo: </span>
+          <label  class="col-md-8">s/. {{$data->cost}} </label>
+        </div>
+        <div class="col-md-12" >
           <span class="col-md-4"> Dirección de salida: </span>
           <label  class="col-md-8">{{$data->address_from}} </label>
         </div>

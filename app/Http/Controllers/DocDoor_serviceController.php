@@ -21,9 +21,12 @@ class DocDoor_serviceController extends Controller
         $partners =[];
         foreach ($all_relations as $key => $value) {
             $partner = Partner::find($value->partner_id);
+            $pservice = Partner_service::where('service_id',$_POST['valor1'])->where('partner_id',$partner->id)->first();
+            $cost = $pservice->service_cost + $pservice->docdoor_cost;
             $partners[]=array(
                     "name" => $partner->partner_name,
-                    "id" => $partner->id
+                    "id" => $partner->id,
+                    "cost"=> $cost
                 );   
         }
         return $partners;
@@ -124,10 +127,11 @@ class DocDoor_serviceController extends Controller
             'patient_user_id.required' => 'Es necesario ingresar un usuario receptor del servicio para registrar una solicitud',
             'address_to.required' => 'Es necesario ingresar una "dirección de llegada" para registrar una solicitud',
             'address_to.max' => 'Campo "Dirección de llegada" es demasiado extenso.',
-        ];
+        ]; 
 
         $this->validate($request, $rules1, $messages1);   
         $data = $request->all();
+        //dd($data);
         $d_service = New Dservice;
         
         $d_service->user_id =$request->patient_user_id;     
