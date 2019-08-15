@@ -398,7 +398,14 @@ class PatientController extends Controller
     }
 
     public function services(){
-        $services = Service::all();
+        $all_services = Service::all();
+        $services =[];
+        foreach ($all_services as $key => $value) {
+            $num_partners = count(Partner_service::where('service_id',$value->id)->get());
+            if($num_partners>0){
+                $services[]=$value;
+            }
+        }
      return view('patients_options.services_index')->with(compact('services'));
     }
 
@@ -637,7 +644,7 @@ class PatientController extends Controller
          "installments"=>0,
          "source_id" => $request->token_pay,
        )
-      );
+      ); 
       
       $dservice->payment_status = true;
       $dservice->token_pay = "used";
