@@ -32,12 +32,13 @@ class ServiceController extends Controller
 
     public function store(Request $request){
     	$rules = [
-            'service_name' => 'required|min:2|max:255',
+            'service_name' => 'required|min:2|max:255| unique:services',
         ];
         $messages = [
             'service_name.required' => 'Es necesario ingresar un nombre para registrar a un usuario',
             'service_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
             'service_name.max' => 'Campo "Nombre" es demasiado extenso.'
+            'service_name.unique'=>'Ya existe un servicio con este nombre-'
         ];
 
         $this->validate($request, $rules, $messages);   
