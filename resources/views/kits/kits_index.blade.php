@@ -14,7 +14,7 @@
 	          <h2>Lista de kits</h2>
 	          <br>
 	          <a href="/kits/create">  
-                <button type="button" class="btn  bg-olive margin" disabled>
+                <button type="button" class="btn  bg-olive margin" >
                  <h5 ><i class="fa fa-user-plus"></i>  Añadir un kit</h5>
                 </button>
               </a>
