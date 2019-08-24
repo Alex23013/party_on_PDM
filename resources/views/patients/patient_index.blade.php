@@ -33,6 +33,7 @@
                 <tr>
 	                  <th>Nombre</th>
 	                  <th>Apellido</th>
+	                  <th>Género</th>
 	                  <th>DNI</th>
 	                  <th>Celular</th>
 	            </tr>
@@ -42,6 +43,11 @@
 	                  <tr>  
 	                  <td><?=$user->name?></td>
 	                  <td><?=$user->last_name?></td>
+	                  @if ($user->genre)
+	                  	<td> M </td>
+	                  @else
+	                  	<td> F </td>
+	                  @endif
 	                  <td><?=$user->dni?></td>
 	                  <td><?=$user->cellphone?></td>	                  
 	                  <td> 

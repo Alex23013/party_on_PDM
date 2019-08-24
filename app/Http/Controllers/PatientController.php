@@ -90,11 +90,13 @@ class PatientController extends Controller
             $this->validate($request, $rules, $messages);      
             $rules1 = [
                 'birth_at' => 'required',
+                'genre'  => 'required',
             ];
             $messages1 = [
-                'birth_at.required' => 'Es necesario ingresar una fecha de nacimiento para registrar a un doctor',
+                'birth_at.required' => 'Es necesario ingresar una fecha de nacimiento para registrar a un paciente',
+                'genre.required' => 'Es necesario seleccionar un genero para registrar a un paciente'
             ];
-            if($request->role == 1){ //new_doctor
+            if($request->role == 1){ //new_patient
                 $this->validate($request, $rules1, $messages1);       
             }
     	$user = New User;
@@ -113,6 +115,7 @@ class PatientController extends Controller
         $patient->user_id = $user->id;
         $patient->patient_code = "P-".$user->id."-".str_random(4);
         $patient->birth_at = $request->birth_at;
+        $patient->genre = $request->genre;
         if($request->ec_name != ''){
             $patient->ec_name = $request->ec_name;
         }

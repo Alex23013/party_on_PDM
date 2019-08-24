@@ -34,6 +34,15 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="genre" class="col-md-4 control-label">Género *</label>
+
+                            <div class="col-md-6">
+                                <input type="radio" name="genre" value = "1"> Masculino 
+                                <input type="radio" name="genre" value = "0"> Femenino
+                            </div>
+                        </div>
+
                         <input id="id" type="hidden" name="password" value ="123456">
 
                         <div class="form-group">
