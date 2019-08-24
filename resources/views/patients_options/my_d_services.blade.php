@@ -34,7 +34,7 @@
               <table class="table table-bordered table-striped DataTable">
                 <thead>
                 <tr>
-                  <th>Fecha pedido</th>
+                  <th sort = "descending">Fecha pedido</th>
                   <th>Servicio</th>
                   <th>Asociado</th>
                   <th>Estado</th>
