@@ -381,9 +381,10 @@ class PatientController extends Controller
             }else{
                 $type = "emergencia";
             }
-        }
+        } 
         $info =[
             'date'=> $date[0],
+            'id'=>$attention->id,
             'vigencia' => $hoy['month']." ".$hoy['year'],
             'type' => $type,
             'header_type'=> $header_type,

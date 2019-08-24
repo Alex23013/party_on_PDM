@@ -66,7 +66,7 @@
   			  <h2>REPORTE DE ATENCIÓN</h2> 
   			</div>
   			<div class="col-md-3 left-8" id = "header-text">
-  				<span>Codigo: FOR-DD-001 <br>
+  				<span>Codigo: FOR-DD-00{{$info['id']}} <br>
 								Version: 00<br>
 								Vigencia: {{$info['vigencia']}}</span>
   			</div>  			
@@ -74,7 +74,7 @@
   		<div class="box-body ">
   				<table class="col-md-10 col-md-offset-1 bg-gray">
 					  <tr>
-					    <td><b> Reporte N°: </b> 001 – 2019 
+					    <td><b> Reporte N°: </b> 00{{$info['id']}} – 2019 
 						    <a href="/{{$url_pdf}}" target= "_blank"> 
 									<i class="fa fa-file-pdf-o"></i>
 					  		</a>
