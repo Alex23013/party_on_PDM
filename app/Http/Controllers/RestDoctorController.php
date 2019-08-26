@@ -286,6 +286,7 @@ class RestDoctorController extends Controller
           }
         }
       }
+      //dd($matched_histories);
       if($matched_histories == []){
         return response()
         ->json(['status' => '200', 
@@ -303,8 +304,8 @@ class RestDoctorController extends Controller
           ->json(['status' => '200', 
               'message' => 'Ok',
               'patient_name'=>$patient_name,
-              'last_personal_antecedent'=>$last_personal_antecedent,
-              'last_family_antecedent'=>$last_family_antecedent,
+              'last_personal_antecedent'=>json_decode($last_personal_antecedent),
+              'last_family_antecedent'=>json_decode($last_family_antecedent),
               'content'=>$matched_histories]);  
       }
     }else{
@@ -317,33 +318,22 @@ class RestDoctorController extends Controller
   public function create_history (Request $request){
     $data = $request->all();
     unset($data['token']);
-    $personal = $data['personal_antecedents'];
-    unset($data['personal_antecedents']);
-    $family = $data['family_antecedents'];
-    unset($data['family_antecedents']);
     $history = New History;
     foreach ($data as $key => $value) {
-      if($key == 'last_personal_antecedents'){
-        if($personal == ""){
-          $history->personal_antecedents=$data[$key];
-        }else{
-          $history->personal_antecedents=$data[$key]."-".$personal;
-        }        
-      }else if($key == 'last_family_antecedents'){
-        if($family == ""){
-          $history->family_antecedents=$data[$key];
-        }else{
-          $history->family_antecedents=$data[$key]."-".$family;
-        }        
+      if($key == 'last_family_antecedents'){
+        $history->family_antecedents=json_encode($data[$key]);
+      } else if($key == 'personal_antecedents'){
+        $history->personal_antecedents=json_encode($data[$key]);
       }else if($key == "app_id"){
         $app  = Appointment::find($data[$key]);
         $history->attention_id = $app->attention->id;
-      }
-      else{
+      } else{
         $history->$key=$data[$key];     
       }      
     }
     $history->save();
+    $history->personal_antecedents = json_decode($history->personal_antecedents);
+    $history->family_antecedents = json_decode($history->family_antecedents);
     return response()
       ->json(['status' => '201', 
           'message' => 'Ok',
