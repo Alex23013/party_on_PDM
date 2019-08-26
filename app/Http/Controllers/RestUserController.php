@@ -45,6 +45,7 @@ class RestUserController extends Controller
             }
 
             $token = bcrypt(date("ymdHis").$user_obj->email);
+            $token = str_replace("/", "-", $token);
             $Token = New Token;
             $Token->token = $token;
             $Token->user_id = $user->id;
