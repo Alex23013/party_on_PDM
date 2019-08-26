@@ -293,10 +293,9 @@ class RestDoctorController extends Controller
               'patient_name'=>$patient_name,
               'last_personal_antecedent'=>"",
               'last_family_antecedent'=>"",
-              'content'=>"El paciente no tiene historias clinicas del ultimo mes"]);
+              'content'=>"El paciente no tiene historias clinicas en el ultimo mes"]);
 
-      }
-      if($matched_histories[0]){
+      }else{
         $matched_histories = array_reverse($matched_histories);
         $last_personal_antecedent = $matched_histories[0]->personal_antecedents;
         $last_family_antecedent = $matched_histories[0]->family_antecedents;
@@ -307,22 +306,12 @@ class RestDoctorController extends Controller
               'last_personal_antecedent'=>$last_personal_antecedent,
               'last_family_antecedent'=>$last_family_antecedent,
               'content'=>$matched_histories]);  
-      }else{ //TODO: revisar si entrara a este caso
-        return response()
-          ->json(['status' => '200', 
-              'message' => 'Ok',
-              'patient_name'=>$patient_name,
-              'last_personal_antecedent'=>"",
-              'last_family_antecedent'=>"",
-              'content'=>"aun no hay historial de este paciente"]); 
       }
     }else{
       return response()
         ->json(['status' => '404', 
             'message' => 'no se encontro la información de esa cita, verifique el id de la cita']);
-    }
-    
-    
+    } 
   }
 
   public function create_history (Request $request){

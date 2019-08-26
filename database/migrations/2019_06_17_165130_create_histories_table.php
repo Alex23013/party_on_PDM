@@ -4,7 +4,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateHistoriesTable extends Migration
-{
+{ 
     /**
      * Run the migrations.
      *
@@ -19,8 +19,8 @@ class CreateHistoriesTable extends Migration
             $table->string('breathing_frequency')->nullable();
             $table->string('temperature')->nullable();
             $table->string('arterial_pressure')->nullable();
-            $table->string('personal_antecedents')->nullable();
-            $table->string('family_antecedents')->nullable();
+            $table->json('personal_antecedents')->nullable();
+            $table->json('family_antecedents')->nullable();
             $table->integer('pdf_status')->default(0);
             /* 0:inactive   1:requested  2:active */
             $table->foreign('attention_id')->references('id')->on('attentions')->onDelete('cascade');
