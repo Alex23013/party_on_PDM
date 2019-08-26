@@ -16,7 +16,7 @@ class CreateRecipesTable extends Migration
             $table->increments('id');
             $table->integer('appointment_id')->unsigned();
             $table->json('medicines')->nullable();
-            $table->text('instructions');
+            $table->json('instructions');
             $table->timestamps();
             $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
         });

@@ -397,7 +397,7 @@ class RestDoctorController extends Controller
         $select_group =[];
         foreach ($dbag as $key => $value) {
           $medicine = Medicine::find($value->id);
-          if($medicine->medicine_group == $request->medicine_group){
+          //if($medicine->medicine_group == $request->medicine_group){
             $select_group[]=[
             'id'=>$value->id,
             'name'=>$medicine->name,
@@ -405,7 +405,7 @@ class RestDoctorController extends Controller
             'dosis'=>$medicine->dosis,
             'quantity'=>$value->quantity,
             ];
-          }
+          //}
         }
         return response()
                 ->json(['status' => '200', 
@@ -520,6 +520,9 @@ class RestDoctorController extends Controller
       foreach ($data as $key => $value) {
         if($key == 'medicines'){
           $recipe->$key = json_encode($data[$key]);
+        }elseif ($key == 'instructions') {
+          $recipe->$key = json_encode($data[$key]);
+
         }else{
           $recipe->$key=$data[$key];  
         }        
@@ -529,7 +532,8 @@ class RestDoctorController extends Controller
           "recipe_id"=>$recipe->id,
           "appointment_id"=>$recipe->appointment_id,
           "medicines"=>json_decode($recipe->medicines),
-          "instructions"=>$recipe->instructions,
+          "instructions"=>json_decode($recipe->instructions),
+          "prox_attentions"=>$recipe->prox_attention,
         ];
       return response()
               ->json(['status' => '201', 
@@ -547,7 +551,8 @@ class RestDoctorController extends Controller
         "recipe_id"=>$recipe->id,
           "appointment_id"=>$recipe->appointment_id,
           "medicines"=>json_decode($recipe->medicines),
-          "instructions"=>$recipe->instructions,
+          "instructions"=>json_decode($recipe->instructions),
+          "prox_attentions"=>$recipe->prox_attention,
         ];
         return response()
                 ->json(['status' => '200', 
