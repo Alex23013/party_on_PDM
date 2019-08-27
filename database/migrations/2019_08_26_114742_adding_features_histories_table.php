@@ -27,7 +27,7 @@ class AddingFeaturesHistoriesTable extends Migration
             $table->string('sub_8')->nullable();
             $table->string('sub_9')->nullable();
             $table->string('aux_exams')->nullable();
-            $table->string('diagnosis_impresion')->nullable();            
+            $table->string('diagnosis_impresion')->nullable();
         });
     }
 

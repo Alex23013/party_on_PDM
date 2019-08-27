@@ -91,6 +91,65 @@
       <div class="box-body p-left">
       <table class="col-md-10 col-md-offset-1 margin-right">
         <tr class="bg-gray">
+          <td COLSPAN="2"><b>DATOS DEL PACIENTE</b></td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Nombres:</b></td>
+          <td> {{$info['patient-name']}} </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b> Edad:</b></td>
+          <td> {{$info['patient-age']}} </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b> Género:</b></td>
+          <td> {{$info['patient-genre']}} </td>
+        </tr>        
+      </table>
+      <div class="space col-md-12">  </div>
+
+      <table class="col-md-10 col-md-offset-1">
+        <tr class="bg-gray">
+          <td COLSPAN="2"><b>ANTECEDENTES</b></td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Personales: </b></td>
+          <td> {{$info['personal_antecedents']}} </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Familiares: </b></td>
+          <td> {{$info['family_antecedents']}} </td>
+        </tr>
+      </table>
+
+      <div class="space col-md-12">  </div>
+
+      <table class="col-md-10 col-md-offset-1">
+        <tr class="bg-gray">
+          <td COLSPAN="2"><b>FUNCIONES VITALES</b></td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Frecuencia Cardiaca:</b></td>
+          <td> {{$info['cardiac_frequency']}} </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Frecuencia Respiratoria:</b></td>
+          <td> {{$info['breathing_frequency']}} </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Temperatura:</b></td>
+          <td> {{$info['temperature']}} </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Presion Arterial: </b></td>
+          <td> {{$info['arterial_pressure']}} </td>
+        </tr>
+      </table> 
+
+      <div class="space col-md-12">  </div>
+
+      <table class="col-md-10 col-md-offset-1">
+        <tr class="bg-gray">
           <td COLSPAN="2"><b>DATOS DE LA ATENCIÓN</b></td>
         </tr>
         <tr >
@@ -109,54 +168,31 @@
           <td class="col-md-3"><b>Motivo de la Consulta:</b></td>
           <td> {{$info['motive']}} </td>
         </tr>
-        <tr class="bg-gray">
-          <td COLSPAN="2"><b>INFORMACIÓN DEL PACIENTE</b></td>
-        </tr>
         <tr>
-          <td class="col-md-3"><b>Nombres:</b></td>
-          <td> {{$info['patient-name']}} </td>
-        </tr>
-        <tr>
-          <td class="col-md-3"><b>Apellidos:</b></td>
-          <td> {{$info['patient-last_name']}} </td>
+          <td class="col-md-3"><b>Anamnesis: </b></td>
+          <td> {{$info['anamnesis']}} </td>
         </tr>
       </table>
-
       <div class="space col-md-12">  </div>
 
       <table class="col-md-10 col-md-offset-1">
         <tr class="bg-gray">
-          <td COLSPAN="2"><b>DETALLE DE LA HISTORIA</b></td>
+          <td COLSPAN="2"><b>EXÁMEN FÍSICO</b></td>
+        </tr>
+        
+        <tr>
+          <td> {{$info['sub_0']}} </td>
         </tr>
         <tr>
-          <td class="col-md-3"><b>Frecuencia Cardiaca:</b></td>
-          <td> {{$info['cardiac_frequency']}} </td>
+          <td> {{$info['sub_1']}} </td>
         </tr>
         <tr>
-          <td class="col-md-3"><b>Frecuencia Respiratoria:</b></td>
-          <td> {{$info['breathing_frequency']}} </td>
+          <td> {{$info['sub_2']}} </td>
         </tr>
         <tr>
-          <td class="col-md-3"><b>Temperatura:</b></td>
-          <td> {{$info['temperature']}} </td>
+          <td> {{$info['sub_3']}} </td>
         </tr>
-        <tr>
-          <td class="col-md-3"><b>Presion Arterial: </b></td>
-          <td> {{$info['arterial_pressure']}} </td>
-        </tr>
-        <tr class="bg-gray">
-          <td COLSPAN="2"><b>ANTECEDENTES</b></td>
-        </tr>
-        <tr>
-          <td class="col-md-3"><b>Personales: </b></td>
-          <td> {{$info['personal_antecedents']}} </td>
-        </tr>
-        <tr>
-          <td class="col-md-3"><b>Familiares: </b></td>
-          <td> {{$info['family_antecedents']}} </td>
-        </tr>
-
-      </table> 
+      </table>
       <div class="space col-md-12">  </div>
           <div class="col-md-10 col-md-offset-3"> * Este documento una vez impreso se considera no controlado.  </div>       
           

@@ -536,10 +536,25 @@ class PatientController extends Controller
         $user_patient = $attention->patient->user;
         return view('patients_options.app_detail')->with(compact('s_attention','attention','user_patient','specialty','user_doctor'));
     }
+    function calculaedad($fechanacimiento){
+      list($ano,$mes,$dia) = explode("-",$fechanacimiento);
+      $ano_diferencia  = date("Y") - $ano;
+      $mes_diferencia = date("m") - $mes;
+      $dia_diferencia   = date("d") - $dia;
+      if ($dia_diferencia < 0 || $mes_diferencia < 0)
+        $ano_diferencia--;
+      return $ano_diferencia;
+    }
     public function patient_histories_detail($id)
     {
         $history = History::find($id);
         $date_parts =explode(' ', $history->attention->appointment->date_time);
+        if($history->attention->patient->user->genre == 0){
+            $genre = "F";
+        }else{
+            $genre = "M";
+        }
+        $age = $this->calculaedad($history->attention->patient->birth_at);
         $info=[
             'id'=>$history->id,
             'attention_code' => $history->attention->attention_code,
@@ -547,16 +562,24 @@ class PatientController extends Controller
             'date'=> $date_parts[0],
             'time'=> $date_parts[1],
             'motive'=>$history->attention->motive,
-
-            'patient-name'=>$history->attention->patient->user->name,
-            'patient-last_name'=>$history->attention->patient->user->last_name,
+            'anamnesis'=>$history->anamnesis,
+            'patient-name'=>$history->attention->patient->user->name." ".$history->attention->patient->user->last_name,
+            'patient-age'=>$age,
+            'patient-genre'=>$genre,
 
             'cardiac_frequency'=>$history->cardiac_frequency,
             'breathing_frequency'=>$history->breathing_frequency,
             'temperature'=>$history->temperature,
             'arterial_pressure'=>$history->arterial_pressure,
+
             'personal_antecedents'=>$history->personal_antecedents,
             'family_antecedents'=>$history->family_antecedents,
+
+            'sub_0'=>$history->sub_0,
+            'sub_1'=>$history->sub_1,
+            'sub_2'=>$history->sub_2,
+            'sub_3'=>$history->sub_3,
+
             'pdf_status'=>$history->pdf_status,
         ];
         $url_pdf = "#";
@@ -573,7 +596,8 @@ class PatientController extends Controller
         $history->save();
         $message = [
                     "title"=>"Solicitud de permiso enviado",
-                    "content"=>"para la historia clínica con código de atención: \"". $history->attention->attention_code."\""
+                    "content"=>"para la historia clínica con código de atención: \"". $history->attention->attention_code."\"",
+                    "type"=>0,
                 ];
         return view('patients_options.patients_main')->with(compact('message'));
     }
