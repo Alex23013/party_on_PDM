@@ -89,6 +89,11 @@ Route::get('/specialties/add', 'SpecialtyController@add');
 Route::post('/specialties/add', 'SpecialtyController@store');
 Route::get('/specialties/remove/{id}', 'SpecialtyController@delete')->where(['id' => '[0-9]+']);
 
+//Medicines
+Route::get('/medicines', 'MedicineController@index'); 	
+Route::get('/medicines/add', 'MedicineController@add');
+Route::post('/medicines/add', 'MedicineController@store');
+Route::get('/medicines/remove/{id}', 'MedicineController@delete')->where(['id' => '[0-9]+']);
 
 //Services
 Route::get('/services', 'ServiceController@index'); 	

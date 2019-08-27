@@ -36,7 +36,7 @@ class SpecialtyController extends Controller
             'name' => 'required|min:2|max:255',
         ];
         $messages = [
-            'name.required' => 'Es necesario ingresar un nombre para registrar a un usuario',
+            'name.required' => 'Es necesario ingresar un nombre para registrar una especialidad',
             'name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
             'name.max' => 'Campo "Nombre" es demasiado extenso.'
         ];

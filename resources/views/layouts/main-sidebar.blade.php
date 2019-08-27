@@ -52,11 +52,12 @@
               </a>
           </li>
 
-           <li>
+          <li>
             <a href="/clinic_histories">
               <i class="fa fa-hospital-o"></i> <span> Historias clínicas </span>
             </a>
           </li>
+          
           
           <li class="treeview">
               <a href="#">
@@ -91,6 +92,11 @@
           <li>
             <a href="/kits">
               <i class="fa fa-medkit"></i> <span>Kits de Doctor</span>
+            </a>
+          </li>
+          <li>
+            <a href="/medicines">
+              <i class="fa fa-medkit"></i> <span> Medicamentos </span>
             </a>
           </li>
           <li>
