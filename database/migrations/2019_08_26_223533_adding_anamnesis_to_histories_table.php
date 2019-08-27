@@ -14,6 +14,7 @@ class AddingAnamnesisToHistoriesTable extends Migration
     {
         Schema::table('histories', function (Blueprint $table) {
             $table->text('anamnesis')->nullable();
+            $table->float('sato')->nullable();
             });
     }
 
@@ -26,6 +27,7 @@ class AddingAnamnesisToHistoriesTable extends Migration
     {
         Schema::table('histories', function (Blueprint $table) {
             $table->dropColumn('anamnesis');
+            $table->dropColumn('sato');
         });
     }
 }

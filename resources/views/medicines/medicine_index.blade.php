@@ -6,7 +6,7 @@
   	<div class="col-xs-12">
     	<div class="box">
 	        <div class="box-header mm-left ">
-	          <h2>Lista de medecialidades</h2>
+	          <h2>Lista de medicamentos</h2>
 	          <br>
 	          <a href="/medicines/add">  
                 <button type="button" class="btn  bg-olive margin">

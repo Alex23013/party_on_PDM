@@ -224,7 +224,7 @@
 					  <tr>
 							<td> 
 								<ul>
-									<li>(Anamnesis)</li>
+									<li>{{$info['anamnesis']}}</li>
 									<li>Diagnóstico: CIE-10</li>
 									<li>Clasificación: {{$info['type']}}</li>
 									<li>Lista de medicamentos recetados:
@@ -234,7 +234,11 @@
 										<?php endforeach ?>
 										</ul>	
 									</li>	
-									<li>Tratamiento: <br> {{$info['instructions']}}</li>	
+									<li>Tratamiento: <br>
+										@foreach ($info['instructions'] as $in)
+			              {{$in}}      <br>
+			            @endforeach
+									</li>	
 								</ul>
 							</td>
 					  </tr>

@@ -382,6 +382,18 @@ class PatientController extends Controller
                 $type = "emergencia";
             }
         } 
+        $anam = History::where('attention_id',$attention->id)->first();
+        $anam = $anam->anamnesis;
+        $all_instructions = json_decode($recipe->instructions);
+        $instructions = [];
+        foreach ($all_instructions as $key => $value) {
+            if($value->id == 0){
+                $name = " - ";
+            }else{
+                $name = Medicine::find($value->id)->name." : "; 
+            }
+            $instructions[]=$name.$value->instructions;
+        }
         $info =[
             'date'=> $date[0],
             'id'=>$attention->id,
@@ -394,6 +406,7 @@ class PatientController extends Controller
             'doctor'=>$doctor_name,
             'instructions'=>$instructions,
             'medicines'=>$medicines,
+            'anamnesis'=>$anam,
         ];
         require("phpToPDF.php");         
         $html = view('patients_options.pdf_attention_report',compact('attention','url_pdf','info'))->renderSections()['content'];
@@ -555,6 +568,67 @@ class PatientController extends Controller
             $genre = "M";
         }
         $age = $this->calculaedad($history->attention->patient->birth_at);
+        $recipe = Recipe::where('appointment_id',$history->attention->appointment->id)->first();
+        
+        if($recipe){
+            $prox_attention = $recipe->prox_attention;
+            $all_medicines = json_decode($recipe->medicines);
+            $medicines =[];
+            foreach ($all_medicines as $key => $value) {
+                $medicines[] = $value->quantity." : ".Medicine::find($value->id)->name;
+            }
+            $all_instructions = json_decode($recipe->instructions);
+            $instructions = [];
+            foreach ($all_instructions as $key => $value) {
+                if($value->id == 0){
+                    $name = " - ";
+                }else{
+                    $name = Medicine::find($value->id)->name." : "; 
+                }
+                $instructions[]=$name.$value->instructions;
+            }
+        }
+        $personal=[];
+        $all_personal = json_decode($history->personal_antecedents);
+        foreach ($all_personal as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                $subtitle = $key1." : ";
+                $enf = "";
+                if($key1 == "Vacunas"){
+                    $enf = $enf." - ".$value1;
+                }else{
+                    for ($i=0; $i < count($value1) ; $i++) { 
+                    $enf = $enf." - ".$value1[$i];
+                    }    
+                }                
+                $personal[] = $subtitle.$enf;
+            }
+            
+        }
+        $family = [];
+        $all_family = json_decode($history->family_antecedents);
+        foreach ($all_family as $key => $value) {
+             foreach ($value as $key1 => $value1) {
+                $subtitle = $key1." : ";
+                $enf = "";
+                if($key1 == "Padre" || $key1 == "Madre" ){
+                    for ($i=0; $i < count($value1) ; $i++) { 
+                    $enf = $enf." - ".$value1[$i];
+                    }
+                }else{
+                    $enf = $enf." - ".$value1[0];
+                    if($value1[1] != 0){
+                        foreach ( $value1[2] as $key2 => $value2) {
+                            $enf = $enf." ** ";
+                            foreach ($value2 as $key3 => $value3) {
+                                $enf = $enf."  ".$value3;       
+                            }
+                        }
+                    }
+                }
+                $family[] = $subtitle.$enf;
+             }
+        }
         $info=[
             'id'=>$history->id,
             'attention_code' => $history->attention->attention_code,
@@ -567,18 +641,34 @@ class PatientController extends Controller
             'patient-age'=>$age,
             'patient-genre'=>$genre,
 
+            'weight'=>$history->weight,
+            'height'=>$history->height,
             'cardiac_frequency'=>$history->cardiac_frequency,
             'breathing_frequency'=>$history->breathing_frequency,
             'temperature'=>$history->temperature,
             'arterial_pressure'=>$history->arterial_pressure,
+            'sato'=>$history->sato,
 
-            'personal_antecedents'=>$history->personal_antecedents,
-            'family_antecedents'=>$history->family_antecedents,
+            'personal_antecedents'=>$personal,
+            'family_antecedents'=>$family,
 
             'sub_0'=>$history->sub_0,
             'sub_1'=>$history->sub_1,
             'sub_2'=>$history->sub_2,
             'sub_3'=>$history->sub_3,
+            'sub_4'=>$history->sub_4,
+            'sub_5'=>$history->sub_5,
+            'sub_6'=>$history->sub_6,
+            'sub_7'=>$history->sub_7,
+            'sub_8'=>$history->sub_8,
+            'sub_9'=>$history->sub_9,
+
+            'aux_exams'=>$history->aux_exams,
+            'diagnosis_impresion'=>$history->diagnosis_impresion,
+
+            'instructions'=>$instructions,
+            'medicines'=>$medicines,
+            'prox_attention'=>$prox_attention,
 
             'pdf_status'=>$history->pdf_status,
         ];

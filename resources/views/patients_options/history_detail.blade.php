@@ -114,11 +114,19 @@
         </tr>
         <tr>
           <td class="col-md-3"><b>Personales: </b></td>
-          <td> {{$info['personal_antecedents']}} </td>
+          <td>  
+            @foreach ($info['personal_antecedents'] as $per)
+              {{$per}}      <br>
+            @endforeach
+          </td>
         </tr>
         <tr>
           <td class="col-md-3"><b>Familiares: </b></td>
-          <td> {{$info['family_antecedents']}} </td>
+          <td>  
+            @foreach ($info['family_antecedents'] as $per)
+              {{$per}}      <br>
+            @endforeach
+          </td>
         </tr>
       </table>
 
@@ -129,21 +137,34 @@
           <td COLSPAN="2"><b>FUNCIONES VITALES</b></td>
         </tr>
         <tr>
+          <td class="col-md-3"><b>Peso:</b></td>
+          <td> {{$info['weight']}} Kg</td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Talla:</b></td>
+          <td> {{$info['height']}} m</td>
+        </tr>
+        <tr>
           <td class="col-md-3"><b>Frecuencia Cardiaca:</b></td>
-          <td> {{$info['cardiac_frequency']}} </td>
+          <td> {{$info['cardiac_frequency']}} lpm</td>
         </tr>
         <tr>
           <td class="col-md-3"><b>Frecuencia Respiratoria:</b></td>
-          <td> {{$info['breathing_frequency']}} </td>
-        </tr>
-        <tr>
-          <td class="col-md-3"><b>Temperatura:</b></td>
-          <td> {{$info['temperature']}} </td>
+          <td> {{$info['breathing_frequency']}} rpm</td>
         </tr>
         <tr>
           <td class="col-md-3"><b>Presion Arterial: </b></td>
-          <td> {{$info['arterial_pressure']}} </td>
+          <td> {{$info['arterial_pressure']}} mmHg</td>
         </tr>
+        <tr>
+          <td class="col-md-3"><b>Saturación de Oxígeno: </b></td>
+          <td> {{$info['sato']}} % </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Temperatura:</b></td>
+          <td> {{$info['temperature']}} C° </td>
+        </tr>
+        
       </table> 
 
       <div class="space col-md-12">  </div>
@@ -191,6 +212,59 @@
         </tr>
         <tr>
           <td> {{$info['sub_3']}} </td>
+        </tr>
+        <tr>
+          <td> {{$info['sub_4']}} </td>
+        </tr>
+        <tr>
+          <td> {{$info['sub_5']}} </td>
+        </tr>
+        <tr>
+          <td> {{$info['sub_6']}} </td>
+        </tr>
+        <tr>
+          <td> {{$info['sub_7']}} </td>
+        </tr>
+        <tr>
+          <td> {{$info['sub_8']}} </td>
+        </tr>
+        <tr>
+          <td> {{$info['sub_9']}} </td>
+        </tr>
+      </table>
+      <div class="space col-md-12">  </div>
+
+      <table class="col-md-10 col-md-offset-1">
+        <tr class="bg-gray">
+          <td COLSPAN="2"><b>OTROS DATOS DE LA HISTORIA</b></td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Exámenes auxiliares:</b></td>
+          <td> {{$info['aux_exams']}} </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Impresión Diagnóstica:</b></td>
+          <td> {{$info['diagnosis_impresion']}} </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Tratamiento:</b></td>
+          <td>  
+            @foreach ($info['medicines'] as $med)
+              {{$med}}      <br>
+            @endforeach
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b>Indicaciones:</b></td>
+          <td>  
+            @foreach ($info['instructions'] as $in)
+              {{$in}}      <br>
+            @endforeach
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-3"><b> Próxima consulta:</b></td>
+          <td> {{$info['prox_attention']}} </td>
         </tr>
       </table>
       <div class="space col-md-12">  </div>
