@@ -59,7 +59,12 @@
 	                  @else
 	                  	@if($app['status']==2)
 	                  		<td> Atendido </td>
-	                  		<td> <a href="/patients/attention_report/{{$app['att_id']}}" title="Solicitar Reporte" > <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa   fa-file-text-o "></i></button></a> </td>
+	                  		<td> <a href="/patients/attention_report/{{$app['att_id']}}" title="Solicitar Reporte" > <button  type="button" class="btn btn-info btn-flat buttonSpace"><i class="fa   fa-file-text-o "></i></button></a>
+	                  		@if($app['recipe'])
+	                  		<a href="/patients/recipe_report/{{$app['att_id']}}" title="Solicitar Receta Medica" > <button  type="button" class="btn btn-success btn-flat buttonSpace"><i class="fa fa-medkit "></i></button></a>
+	                  		@endif
+	                  		 </td>
+	                  		 
 	                  	@else
 	                  		<td> Cancelado </td>
 	                  	@endif	

@@ -131,6 +131,7 @@ Route::post('/patients', 'PatientController@store');
 Route::get('/patients/remove/{id}', 'PatientController@delete')->where(['id' => '[0-9]+']);
 Route::get('/patients/edit/{id}', 'PatientController@update')->where(['id' => '[0-9]+']);
 Route::post('/patients/edit', 'PatientController@store_update');
+
 //future middleware for role patient
 Route::get('/patients/update_status_appointment/{app_id}/{new_status}', 'PatientController@update_status_appointment')->where(['app_id' => '[0-9]+'],['new_status' => '[0-3]']);
 Route::get('/patients/appointments/{app_status}', 'PatientController@appointments')->where(['app_status' => '[0-3]']);
@@ -153,6 +154,8 @@ Route::post('/patients/payment', 'PatientController@payment');
 Route::get('/patients/payment_app/{token}', 'PatientController@payment_app');
 Route::post('/patients/payment_app/', 'PatientController@post_payment_app');
 Route::get('/patients/my_d_services','PatientController@my_d_services');
+Route::get('/patients/recipe_report/{app_id}', 'PatientController@recipe_report')->where(['app_id' => '[0-9]+']);
+
 
 //Doctors_schedule
 Route::get('/doctors/schedule', 'DoctorController@index');

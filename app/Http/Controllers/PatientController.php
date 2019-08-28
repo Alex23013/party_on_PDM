@@ -310,10 +310,12 @@ class PatientController extends Controller
         $patient = $user->patient;
         $atts = Attention::where('patient_id', $patient->id)->
         where('type', 1)->get();
+
         $matched_apps=[];
         foreach ($atts as $att) {
             $app = Appointment::where('attention_id',$att->id)->first();
             if($app){
+              $recipe = Recipe::where('appointment_id',$app->id)->first();
               if($app->status == 2 || $app->status == 3){
                 $specialty = Specialty::find($app->specialty_id);
                 $specialty_name =$specialty->name; 
@@ -327,6 +329,7 @@ class PatientController extends Controller
                 'date' =>$intervals[0],
                 'time'=>$intervals[1],
                 'status'=> $app->status,
+                'recipe'=> $recipe,
                 ]; 
                 }  
             }
@@ -412,6 +415,62 @@ class PatientController extends Controller
         $html = view('patients_options.pdf_attention_report',compact('attention','url_pdf','info'))->renderSections()['content'];
         phptopdf_html($html,'', $url_pdf); 
         return view('patients_options.attention_report')->with(compact('attention','url_pdf','info'));
+    }
+
+    public function pdf_recipe($info, $attention_code){
+        require("phpToPDF.php"); 
+        $url_pdf = "images/exports/receta_medica".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
+        $html = view('patients_options.recipe_report',compact('info','url_pdf'))->renderSections()['content'];
+        phptopdf_html($html,'', $url_pdf);   
+        return $url_pdf;
+    }
+
+    public function recipe_report($app_id){
+        $recipe = Recipe::where('appointment_id', $app_id)->first();
+        $app = Appointment::find($app_id);
+        $attention = $app->attention;
+        if($recipe){
+            $prox_attention = $recipe->prox_attention;
+            $all_medicines = json_decode($recipe->medicines);
+            $medicines =[];
+            foreach ($all_medicines as $key => $value) {
+                $med = Medicine::find($value->id);
+                $medicines[] = $med->name." (".$med->brand.") ".$med->dosis." ".
+                $med->presentation." ".$med->quantity;
+            }
+            
+            $all_instructions = json_decode($recipe->instructions);
+            $instructions = [];
+            foreach ($all_instructions as $key => $value) {
+                if($value->id == 0){
+                    $name = " ";
+                }else{
+                    $name = Medicine::find($value->id)->name." : "; 
+                }
+                $instructions[]=$name.$value->instructions;
+            }
+
+        }
+        $hoy = getdate();
+        $date = explode(' ', $app->date_time);
+
+        $info=[
+            'id'=>$recipe->id,
+            'attention_code' => $attention->attention_code,
+            'doctor-name' => $app->doctor->user->name." ".$app->doctor->user->last_name,            
+            'patient-name'=>$attention->patient->user->name." ".$attention->patient->user->last_name,
+            'dni'=>$attention->patient->user->dni,
+            'instructions'=>$instructions,
+            'medicines'=>$medicines,
+            'prox_attention'=>$prox_attention,
+            'vigencia' => $hoy['month']." ".$hoy['year'],
+            'date'=>$date[0],
+        ];
+        $url_pdf = "#";
+        $att_code = rtrim($attention->attention_code);
+        $url_pdf = $this->pdf_recipe($info,  $att_code );
+        
+        return view('patients_options.recipe_report')->with(compact('info','url_pdf'));
     }
 
     public function services(){

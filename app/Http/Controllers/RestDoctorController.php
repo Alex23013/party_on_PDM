@@ -318,6 +318,7 @@ class RestDoctorController extends Controller
   public function create_history (Request $request){
     $data = $request->all();
     unset($data['token']);
+    
     $history = New History;
     foreach ($data as $key => $value) {
       if($key == 'last_family_antecedents'){
