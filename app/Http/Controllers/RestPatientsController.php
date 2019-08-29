@@ -52,6 +52,8 @@ class RestPatientsController extends Controller
             $patient = New Patient;
             $patient->user_id = $user->id;
             $patient->birth_at = $request->birth_at;
+            $patient->genre = $request->genre;
+            
             if($request->ec_name != ''){
                 $patient->ec_name = $request->ec_name;
             }
