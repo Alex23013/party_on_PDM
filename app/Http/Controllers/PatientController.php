@@ -338,7 +338,7 @@ class PatientController extends Controller
         return view('patients_options.appointments')->with(compact('matched_apps','app_status'));
     }
 
-    //TODO: buscar una libreria que respete los estilos y las imagenes
+    
     public function attention_report($att_id){
         
         $attention = Attention::find($att_id);
@@ -411,18 +411,88 @@ class PatientController extends Controller
             'medicines'=>$medicines,
             'anamnesis'=>$anam,
         ];
-        require("phpToPDF.php");         
-        $html = view('patients_options.pdf_attention_report',compact('attention','url_pdf','info'))->renderSections()['content'];
-        phptopdf_html($html,'', $url_pdf); 
+        
         return view('patients_options.attention_report')->with(compact('attention','url_pdf','info'));
     }
 
-    public function pdf_recipe($info, $attention_code){
-        require("phpToPDF.php"); 
-        $url_pdf = "images/exports/receta_medica".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
-        $html = view('patients_options.recipe_report',compact('info','url_pdf'))->renderSections()['content'];
-        phptopdf_html($html,'', $url_pdf);   
-        return $url_pdf;
+
+    public function aaaa($id){
+        $attention = Attention::find($id);
+        $hoy = getdate();
+        $app = $attention->appointment;
+        $patient = Patient::find($attention->patient_id);
+        $user = $patient->user;
+        $date=[];
+        $doctor_name = "";
+        $instructions = "";
+        $medicines = [];
+        if($app){
+            $date = explode(' ', $app->date_time);
+            $header_type = 1;
+            if($app->specialty_id > 2){
+                $type = "especialidad";    
+            }else{
+                $type = "atención común"; 
+            }
+           $doctor = Doctor::find($app->doctor_id)->user;
+           $doctor_name = "Dr. ".$doctor->name." ".$doctor->last_name;
+           $recipe = Recipe::where('appointment_id',$app->id)->first();
+           if($recipe){
+               $instructions = $recipe->instructions;
+               $all_medicines = json_decode($recipe->medicines);
+               foreach ($all_medicines as $key => $value) {
+                   $med = Medicine::find($value->id);
+                   $group = Gmedicine::find($med->medicine_group);
+                   $medicines[]=$group->group_name." - ".$med->name;
+               } 
+           }else{
+                $instructions = "No hubo receta médica";
+           }
+           
+        }else{
+            $header_type = 0;
+            $emer = $attention->emergency;
+            if($emer){
+                $type = "urgencia";
+            }else{
+                $type = "emergencia";
+            }
+        } 
+        $anam = History::where('attention_id',$attention->id)->first();
+        $anam = $anam->anamnesis;
+        $all_instructions = json_decode($recipe->instructions);
+        $instructions = [];
+        foreach ($all_instructions as $key => $value) {
+            if($value->id == 0){
+                $name = " - ";
+            }else{
+                $name = Medicine::find($value->id)->name." : "; 
+            }
+            $instructions[]=$name.$value->instructions;
+        }
+        $info =[
+            'date'=> $date[0],
+            'id'=>$attention->id,
+            'vigencia' => $hoy['month']." ".$hoy['year'],
+            'type' => $type,
+            'header_type'=> $header_type,
+            'pat_name'=>$user->name." ".$user->last_name,
+            'pat_age'=> 20,
+            'pat_dni'=>$user->dni,
+            'doctor'=>$doctor_name,
+            'instructions'=>$instructions,
+            'medicines'=>$medicines,
+            'anamnesis'=>$anam,
+        ];
+
+        $html = view('patients_options.pdf_attention_report',compact('attention','url_pdf','info'))->renderSections()['content'];
+        PDF::SetTitle('Reporte de atencion');
+        PDF::SetFont('helvetica', '', 11);
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        PDF::AddPage();
+        PDF::writeHTML($html, true, false, true, false, 'C');
+
+        PDF::Output('reporte_de_atencion_'.rtrim($attention->attention_code).'.pdf','D'); // I
     }
 
     public function recipe_report($app_id){
@@ -455,6 +525,7 @@ class PatientController extends Controller
         $date = explode(' ', $app->date_time);
 
         $info=[
+            'att_id'=>$app->id,
             'id'=>$recipe->id,
             'attention_code' => $attention->attention_code,
             'doctor-name' => $app->doctor->user->name." ".$app->doctor->user->last_name,            
@@ -466,12 +537,61 @@ class PatientController extends Controller
             'vigencia' => $hoy['month']." ".$hoy['year'],
             'date'=>$date[0],
         ];
-        $url_pdf = "#";
-        $att_code = rtrim($attention->attention_code);
-        $url_pdf = $this->pdf_recipe($info,  $att_code );
-        
         return view('patients_options.recipe_report')->with(compact('info','url_pdf'));
     }
+
+    public function pdf_recipe($app_id){
+        $recipe = Recipe::where('appointment_id', $app_id)->first();
+        $app = Appointment::find($app_id);
+        $attention = $app->attention;
+        if($recipe){
+            $prox_attention = $recipe->prox_attention;
+            $all_medicines = json_decode($recipe->medicines);
+            $medicines =[];
+            foreach ($all_medicines as $key => $value) {
+                $med = Medicine::find($value->id);
+                $medicines[] = $med->name." (".$med->brand.") ".$med->dosis." ".
+                $med->presentation." ".$med->quantity;
+            }
+            
+            $all_instructions = json_decode($recipe->instructions);
+            $instructions = [];
+            foreach ($all_instructions as $key => $value) {
+                if($value->id == 0){
+                    $name = " ";
+                }else{
+                    $name = Medicine::find($value->id)->name." : "; 
+                }
+                $instructions[]=$name.$value->instructions;
+            }
+
+        }
+        $hoy = getdate();
+        $date = explode(' ', $app->date_time);
+
+        $info=[
+            'att_id'=>$app->id,
+            'id'=>$recipe->id,
+            'attention_code' => $attention->attention_code,
+            'doctor-name' => $app->doctor->user->name." ".$app->doctor->user->last_name,            
+            'patient-name'=>$attention->patient->user->name." ".$attention->patient->user->last_name,
+            'dni'=>$attention->patient->user->dni,
+            'instructions'=>$instructions,
+            'medicines'=>$medicines,
+            'prox_attention'=>$prox_attention,
+            'vigencia' => $hoy['month']." ".$hoy['year'],
+            'date'=>$date[0],
+        ];
+        $html = view('patients_options.recipe_report')->with(compact('info','url_pdf'))->renderSections()['content'];
+        PDF::SetTitle('Reporte de Receta Medica');
+        PDF::SetFont('helvetica', '', 11);
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        PDF::AddPage();
+        PDF::writeHTML($html, true, false, true, false, 'L');
+
+        PDF::Output('reporte_de_Receta_Medica_'.rtrim($attention->attention_code).'.pdf','D'); // I
+    }
+
 
     public function services(){
         $all_services = Service::all();
@@ -578,25 +698,7 @@ class PatientController extends Controller
             }
         }  
         return view('patients_options.histories_by_patient')->with(compact('matched_histories'));
-    }
-
-    /*public function all_history($patient_id){
-        require("phpToPDF.php"); 
-        $url_pdf = "images/exports/historial_clinico/".Auth::user()->patient->user->dni.".pdf";
-        $info =[];
-        $html = view('patients_options.history_detail',compact('info','url_pdf'))->renderSections()['content'];
-        phptopdf_html($html,'', $url_pdf);   
-    }*/
- 
-    public function pdf_history($info, $attention_code){
-        require("phpToPDF.php"); 
-        $url_pdf = "images/exports/historia_clinica".Auth::user()->patient->user->dni."-".$attention_code.".pdf";
-        $html = view('patients_options.history_detail',compact('info','url_pdf'))->renderSections()['content'];
-        phptopdf_html($html,'', $url_pdf);   
-        return $url_pdf;
-    }
-
-    
+    }    
 
     public function app_detail($id){
         $attention = Attention::find($id);
@@ -617,8 +719,8 @@ class PatientController extends Controller
         $ano_diferencia--;
       return $ano_diferencia;
     }
-    public function patient_histories_detail($id)
-    {
+
+    public function history_info($id){
         $history = History::find($id);
         $date_parts =explode(' ', $history->attention->appointment->date_time);
         if($history->attention->patient->user->genre == 0){
@@ -731,12 +833,31 @@ class PatientController extends Controller
 
             'pdf_status'=>$history->pdf_status,
         ];
-        $url_pdf = "#";
+        return $info;
+    }
+    public function patient_histories_detail($id)
+    {
+        $history = History::find($id);
+        $info = $this->history_info($id);
         $att_code = rtrim($history->attention->attention_code);
-        if($history->pdf_status == 2){
-            $url_pdf = $this->pdf_history($info,  $att_code );
-        }
-        return view('patients_options.history_detail')->with(compact('info','url_pdf'));
+        
+        return view('patients_options.history_detail')->with(compact('info'));
+    }
+
+    public function pdf_history($id){
+        $history = History::find($id);
+        $info = $this->history_info($id);
+        $att_code = rtrim($history->attention->attention_code);
+
+        $html = view('patients_options.history_report')->with(compact('info'))->renderSections()['content'];
+
+        PDF::SetTitle('Reporte de Historia Clinica');
+        PDF::SetFont('helvetica', '', 11);
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        PDF::AddPage();
+        PDF::writeHTML($html, true, false, true, false, 'C');
+
+        PDF::Output('reporte_de_Historia_Clinica_'.rtrim($att_code).'.pdf','D'); // I
     }
 
     public function request_pdf($id){

@@ -43,7 +43,7 @@
 	      <div class="col-md-3" style="margin-top: 40px;">
 	        <a href="/patients/new_inbox_emergency">  
 	            <button class="callout callout-danger margin">
-	             <h2 ><i class="fa fa-plus"></i>  Emergencia</h2>
+	             <h3 ><i class="fa fa-plus"></i>  Emergencia</h3>
 	            </button>
 	          </a>
 	      </div>
@@ -62,7 +62,7 @@
 	      <div class="col-md-3" style="margin-top: 40px;">
 	        <a href="/patients/new_inbox_appointment"> 
 	             <button class="callout callout-info margin">
-	             <h2><i class="fa fa-plus"></i>  Cita Médica </h2>
+	             <h3><i class="fa fa-plus"></i>  Cita Médica </h3>
 	            </button>
 	          </a>
 	       </div>   

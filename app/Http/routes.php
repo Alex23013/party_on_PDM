@@ -124,6 +124,8 @@ Route::get('/partners/edit/{id}', 'PartnerController@update')->where(['id' => '[
 Route::post('/partners/edit', 'PartnerController@store_update');
 
 //Patients
+Route::get('/pdf_attention/report/{id}', 'PatientController@aaaa')->where(['id' => '[0-9]+']);
+Route::get('/pdf_recipe/{app_id}', 'PatientController@pdf_recipe')->where(['id' => '[0-9]+']);
 Route::get('/patients', 'PatientController@index');
 Route::get('/patients/detail/{id}', 'PatientController@detail')->where(['id' => '[0-9]+']);
 Route::get('/patients/add/{type}', 'PatientController@add')->where(['type' => '[0-1]']);
@@ -147,6 +149,7 @@ Route::post('/patients/add_dservices', 'PatientController@store_dservices');
 Route::get('/patients/clinic_history/', 'PatientController@patient_histories');
 Route::get('/patients/clinic_history/see/{id}', 'PatientController@patient_histories_detail')->where(['id' => '[0-9]+']);
 Route::get('/patients/clinic_history/request/{id}', 'PatientController@request_pdf')->where(['id' => '[0-9]+']);
+Route::get('/pdf_history/{id}', 'PatientController@pdf_history')->where(['id' => '[0-9]+']);
 
 Route::get('/patients/appointment_detail/{id}', 'PatientController@app_detail')->where(['id' => '[0-9]+']);
 Route::post('/patients/update_location_appointment', 'PatientController@update_location_appointment');

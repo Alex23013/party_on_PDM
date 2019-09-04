@@ -75,7 +75,7 @@
   				<table class="col-md-10 col-md-offset-1 bg-gray">
 					  <tr>
 					    <td><b> Reporte N°: </b> 00{{$info['id']}} – 2019 
-						    <a href="/{{$url_pdf}}" target= "_blank"> 
+						    <a href="/pdf_attention/report/{{$info['id']}}"> 
 									<i class="fa fa-file-pdf-o"></i>
 					  		</a>
 				  		</td>

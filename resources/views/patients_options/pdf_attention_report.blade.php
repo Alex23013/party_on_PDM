@@ -19,7 +19,7 @@
     }
     body {
       font-family: font_gothamBook, sans-serif;
-      font-size: 13px;
+      font-size: 10px;
       font-display: swap;
     }
     .mm-left{
@@ -28,7 +28,7 @@
 </style>
 <style type="text/css" media="all">
 	#header-title{
-		padding-left: 30%;
+		padding-left: 10%;
 		padding-top: 2%;
 	}
 	#header-text{
@@ -52,42 +52,31 @@
 	td {
 		border: 1px solid #000000;
 		padding: 5px;
-		padding-left: 5%;
-		padding-right: 5%;
 	}
 	.col-md-6{	
 		width: 50%;
 	}
-	.col-md-3{	
-		width: 25%;
-	}
+
 </style>
 <div class="row">
 	<div class="col-xs-12">
   	<div class="box"> 
-  		<div class="box-header col-md-10 col-md-offset-1 ">
-  			<!--<img src="/home/maria/Documentos/apselom/docdoor-web/public/images/logos/logo-main-side-bar.png" style="width: 50%;"> -->
-
-  			<div class="col-md-6" id = "header-title">
-  			  <h2>DocDoor - REPORTE DE ATENCIÓN</h2> 
-  			</div>
-  			<div class="col-md-3 " id = "header-text">
-  				<span>Codigo: FOR-DD-00{{$info['id']}} <br>
+  		<table class="col-md-10 col-md-offset-1">
+  			<tr>
+  				<td> <img src="/images/logos/logo-main-side-bar.png" style="width: 90px;height: 50px"> </td>
+  				<td id = "header-title" style="padding-top: 30px;"> <h3>REPORTE DE ATENCIÓN</h3> </td>
+  				<td> <span>Codigo: FOR-DD-00{{$info['id']}} <br>
 								Version: 00<br>
 								Vigencia: {{$info['vigencia']}}
-					</span>
-  			</div>  			
-  		</div>
-  		<div class="space col-md-12">  </div>
+					</span> </td>
+  			</tr>	
+  		</table>
   		<div class="box-body ">
-  				<table class="col-md-10 bg-gray">
+  				<table class="col-md-10 col-md-offset-1 bg-gray">
 					  <tr>
-					    <td style="padding-left: 5%;padding-right: 190px;"><b> Reporte N°: </b> 00{{$info['id']}} – 2019 
-						    <a href="/{{$url_pdf}}" target= "_blank"> 
-									<i class="fa fa-file-pdf-o"></i>
-					  		</a>
+					    <td><b> Reporte N°: </b> 00{{$info['id']}} – 2019 
 				  		</td>
-					    <td style="padding-left: 5%;padding-right: 180px;"><b>Fecha de Atencion:</b> {{$info['date']}} <!--27 de setiembre de 2018--></td>
+					    <td><b>Fecha de Atencion:</b> {{$info['date']}} <!--27 de setiembre de 2018--></td>
 					  </tr>
 					</table>
 					
@@ -95,7 +84,7 @@
 					
 					<table class="col-md-10 col-md-offset-1">
 					  <tr class="bg-gray">
-					    <td class="col-md-3 left-8" style="padding-right: 50px;"><b>ATENCION <br> LOCALIZADA </b></td>
+					    <td class="col-md-3 left-8"><b>ATENCION <br> LOCALIZADA </b></td>
 					    <td class="col-md-3 left-8"><b>TRASLADO EN <br>AMBULANCIA</b></td>
 					    <td class="col-md-3 left-8"><b>ATENCION EN <br>CONSULTORIO</b></td>
 					    <td class="col-md-3" style="padding-left: 10%;"><b>OTROS</b></td>
@@ -120,15 +109,16 @@
 					
 					<table class="col-md-10 col-md-offset-1">
 					  <tr>
-						  <td ROWSPAN="3" >TIPO DE <br> ATENCION</td>
+						  <td ROWSPAN="3" style="padding-left: 4%;" > <b> TIPO DE <br> ATENCION</b></td>
 						  <td><b>ATENCIÓN COMÚN</b></td>
-						  <td> 
+						  <td class = "col-md-1" style="padding-left: 4%;"> 
 							  @if($info['type'] == "atención común")
-							  <b> X </b>
+							  <b>  X </b>
 							  @endif
 						  </td>
-						  <td><b>PROCEDIMIENTO DE ENFERMERÍA</b></td>
-						  <td>  </td>
+						  <td >
+						  <b>PROCEDIMIENTO DE ENFERMERÍA</b></td>
+						  <td class = "col-md-1" style="padding-left: 4%;">  </td>
 					  </tr>
 					  <tr>
 						  
@@ -203,9 +193,9 @@
 
 					<table class="col-md-10 col-md-offset-1">
 					  <tr class="bg-gray">
-					    <td COLSPAN="2"><b>PERSONAL ASISTENTE</b></td>
+					    <td COLSPAN="2" style="padding-left: 15%;"><b>PERSONAL ASISTENTE</b></td>
 					    
-					    <td COLSPAN="2"><b>VEHICULO ASISTENTE  </b></td>
+					    <td COLSPAN="2" style="padding-left: 15%;"><b>VEHICULO ASISTENTE  </b></td>
 					   
 					  </tr>
 					  <tr class="bg-gray">
@@ -241,7 +231,7 @@
 										<?php endforeach ?>
 										</ul>	
 									</li>	
-									<li>Tratamiento: <br> 
+									<li>Tratamiento: <br>
 										@foreach ($info['instructions'] as $in)
 			              {{$in}}      <br>
 			            @endforeach
@@ -251,8 +241,10 @@
 					  </tr>
 					</table>
 					<div class="space col-md-12">  </div>
-					<table  class="col-md-3 col-md-offset-7">
-						<tr><td class="left-5"> <h2> FIRMA</h2></td></tr>
+					<table>
+						<tr>
+							<td> <h2> FIRMA</h2></td>
+						</tr>
 					</table>
 					<div class="space col-md-12">  </div>
 					<div class="col-md-10 col-md-offset-3"> * Este documento una vez impreso se considera no controlado.  </div>

@@ -65,21 +65,21 @@
 
       <table class="col-md-10 col-md-offset-1">
         <tr >
-	        <td ROWSPAN="2"><b> DocDoor </b> </td>
+	        <td ROWSPAN="2"><img src="/images/logos/logo-main-side-bar.png" style="width: 90px;height: 50px"> </td>
 	        <td COLSPAN="2" class="bg-gray"><b>RECETA MÉDICA DE ATENCIÓN MÉDICA</b>
-	        	<a href="/{{$url_pdf}}" target= "_blank"> <i class="fa fa-file-pdf-o"></i> </a>
+	        	<a href="/pdf_recipe/{{$info['att_id']}}"> <i class="fa fa-file-pdf-o"></i> </a>
 	        </td>
 	        <td>Código: FOR-DD-002</td>
         </tr>
         <tr>
-          <td>Receta N°: AA-000{{$info['id']}}</td>
-          <td>Fecha: {{$info['date']}}</td>
-          <td>Vigencia: {{$info['vigencia']}}</td>
+          <td>Receta N°:<br> AA-000{{$info['id']}}</td>
+          <td>Fecha:<br> {{$info['date']}}</td>
+          <td>Vigencia:<br> {{$info['vigencia']}}</td>
         </tr>
         <tr>
-        	<td COLSPAN="2">Paciente: {{$info['patient-name']}}</td>
-        	<td> DNI: {{$info['dni']}} </td>
-        	<td> Próximo Control: {{$info['prox_attention']}}</td>
+        	<td COLSPAN="2">Paciente:<br> {{$info['patient-name']}}</td>
+        	<td> DNI:<br> {{$info['dni']}} </td>
+        	<td> Próximo Control:<br> {{$info['prox_attention']}}</td>
         </tr>
         <tr>
         	<td COLSPAN="2"> Dx: </td>
@@ -92,9 +92,9 @@
               <li> {{$med}} </li> 
             @endforeach
             </ol>
-        		Médico tratante:<br>
+        		<b>Médico tratante:</b><br>
         		{{$info['doctor-name']}}<br>
-        		CMP:<br>
+        		<b>CMP:</b><br>
         		Numero de CMP<br>
         	</td>
         	<td COLSPAN="2"> <b> Indicaciones: </b> <br>
@@ -106,6 +106,8 @@
         	 </td>
         </tr>
       </table>
+      <div class="space col-md-12">  </div>
+          <div class="col-md-10 col-md-offset-3"> * Este documento una vez impreso se considera no controlado.  </div>
       	</div>
     </div>
 </div>  
