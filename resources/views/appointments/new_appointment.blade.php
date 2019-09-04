@@ -524,6 +524,6 @@
       }*/
     </script>
     <script async defer
-    src="https://maps.google.com/maps/api/js?key=AIzaSyA6Nem6HRVGgsqitMo1HKjNfdeMPl-eQa0&amp;libraries=places&amp;callback=initAutocomplete">
+    src="https://maps.google.com/maps/api/js?key=AIzaSyA6Nem6HRVGgsqitMo1HKjNfdeMPl-eQa0&amp;libraries=places&amp;callback=initAutocomplete"></script>
 
 @endsection

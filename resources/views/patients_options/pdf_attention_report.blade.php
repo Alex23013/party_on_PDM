@@ -66,7 +66,8 @@
 	<div class="col-xs-12">
   	<div class="box"> 
   		<div class="box-header col-md-10 col-md-offset-1 ">
-  			
+  			<!--<img src="/home/maria/Documentos/apselom/docdoor-web/public/images/logos/logo-main-side-bar.png" style="width: 50%;"> -->
+
   			<div class="col-md-6" id = "header-title">
   			  <h2>DocDoor - REPORTE DE ATENCIÓN</h2> 
   			</div>
