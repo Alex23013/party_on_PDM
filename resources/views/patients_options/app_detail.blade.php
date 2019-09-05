@@ -97,7 +97,6 @@
              <button type="button" id = "buttonUpdateLocation" class="btn bg-success margin" style="margin-left: 30%;">  <i class="fa fa-save"></i>  Guardar Nueva Dirección</button>
              <div id="responseUpdate" style="margin-left: 10%;" > </div>
           </div>
-
         </div>      
       </div>
         <!-- /.box-body -->
@@ -122,7 +121,7 @@
     console.log(parametros);
     $.ajax({
         data: parametros,
-        url: '/patients/update_location_appointment',
+        url: '/patients/update_location_d_service',
         type: 'post',
         beforeSend: function(){
                 $("#resUpdate").html("Procesando,espere..");
@@ -137,9 +136,8 @@
                 $("#responseUpdate").append(response)
             }
           }
-    });
-  }); 
-
+    }); 
+  });
   function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,

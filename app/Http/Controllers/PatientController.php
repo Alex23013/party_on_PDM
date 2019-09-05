@@ -217,6 +217,23 @@ class PatientController extends Controller
         return "No se puede editar la ubicacion de una cita con menos de 24 horas de anticipación a la hora de la cita";
         }
     }
+
+    public function update_location_d_service(Request $request){
+      $dservice = Dservice::find($_POST['ds_id']);
+      $then = $dservice->created_at;
+      $now = time();        
+      $thenTimestamp = strtotime($then);
+      $difference_seconds = $now-$thenTimestamp;
+      $gap_permited_in_seconds=86400; // 24hours in seconds
+      if($difference_seconds>$gap_permited_in_seconds){
+            $dservice ->att_latitude = $_POST['att_latitude'];
+            $dservice ->att_longitude = $_POST['att_longitude'];
+            $dservice ->save();           
+        return 1;          
+      }else{
+        return "No se puede editar la ubicacion de un servicio doc_door despues de 24 horas de la solicitud del servicio";
+        }
+    }
     public function update_status_appointment($app_id,$new_status){  
         $app = Appointment::find($app_id);
         if($app){

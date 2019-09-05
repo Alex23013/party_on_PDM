@@ -153,6 +153,8 @@ Route::get('/pdf_history/{id}', 'PatientController@pdf_history')->where(['id' =>
 
 Route::get('/patients/appointment_detail/{id}', 'PatientController@app_detail')->where(['id' => '[0-9]+']);
 Route::post('/patients/update_location_appointment', 'PatientController@update_location_appointment');
+Route::post('/patients/update_location_d_service', 'PatientController@update_location_d_service');
+
 Route::post('/patients/payment', 'PatientController@payment');
 Route::get('/patients/payment_app/{token}', 'PatientController@payment_app');
 Route::post('/patients/payment_app/', 'PatientController@post_payment_app');
