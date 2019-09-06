@@ -51,9 +51,9 @@ class DocDoor_serviceController extends Controller
         $all_dservices = Dservice::all();
         $services = [];
         foreach ($all_dservices as $key => $value) {
-            $patient_user = User::find($value->user_id);
-            $service = Service::find($value->service_id);
-            $partner = Partner::find($value->partner_id);
+            $patient_user = $value->user;
+            $service = $value->service;
+            $partner = $value->partner;
 
             $services[] = [
                 'id'=>$value->id,
@@ -149,9 +149,9 @@ class DocDoor_serviceController extends Controller
         $all_dservices = Dservice::all();
         $services = [];
         foreach ($all_dservices as $key => $value) {
-            $patient_user = User::find($value->user_id);
-            $service = Service::find($value->service_id);
-            $partner = Partner::find($value->partner_id);
+            $patient_user = $value->user;
+            $service = $value->service;
+            $partner = $value->partner;
 
             $services[] = [
                 'id'=>$value->id,
