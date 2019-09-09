@@ -282,12 +282,14 @@ class RestDoctorController extends Controller
           $month = date("m",strtotime($app_com->date_time));
           $year = date("y",strtotime($app_com->date_time));
           if( $month ==date('m') &&  $year == date('y')){
-            $matched_histories[]=$app_com->attention->history;
+            if($app_com->attention->history != null){
+              $matched_histories[]=$app_com->attention->history;  
+            }
           }
         }
       }
       dd($matched_histories);
-      if(count($matched_histories)< 1 || $matched_histories[0]== null ){
+      if(count($matched_histories)< 1){
         return response()
         ->json(['status' => '200', 
               'message' => 'Ok',
