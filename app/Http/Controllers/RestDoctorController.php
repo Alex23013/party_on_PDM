@@ -286,7 +286,7 @@ class RestDoctorController extends Controller
           }
         }
       }
-      //dd($matched_histories);
+      dd($matched_histories);
       if($matched_histories == []){
         return response()
         ->json(['status' => '200', 
