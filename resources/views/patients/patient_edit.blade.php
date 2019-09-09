@@ -85,7 +85,7 @@
                             </div>
                         </div>
                          <input id="id" type="hidden" name="id" value = 
-                         {{$user->id}}>
+                         {{$user->id}}> 
                          <button type="submit" class="btn  btn-flat btn-success m-left">  <i class="fa fa-save"></i>    Guardar cambios  </button>                                  
 			            </form>
 			            <br>
