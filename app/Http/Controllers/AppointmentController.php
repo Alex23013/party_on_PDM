@@ -447,7 +447,8 @@ class AppointmentController extends Controller
     }
 
     public function update_status($id,$new_status){
-        $app = Appointment::find($id);
+        $att = Attention::find($id);
+        $app = $att->appointment;
         $app->status = $new_status;
         $app->save();
          return redirect('/appointments/');
