@@ -363,13 +363,14 @@ class AppointmentController extends Controller
 
         $appointments = Attention::where('type', 1)->get();
         $info = [];        
+        $array=array(0=>"En espera",1=>"Confirmada",2=>"Atendida",3=>"Cancelada" );
         foreach ($appointments as $app ) {
             $info[] = [
                         'id'=>$app->id,
                         'attention_code'=>$app->attention_code,
                         'patient'=>$app->patient->user->name." ".$app->patient->user->last_name,
                         'patient_dni'=>$app->patient->user->dni,
-                        'status'=>$app->status,
+                        'status'=>$array[$app->appointment->status],
                         'app_id'=>$app->id,
                         ];
         }
