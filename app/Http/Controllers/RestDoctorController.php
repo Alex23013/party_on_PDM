@@ -459,9 +459,15 @@ class RestDoctorController extends Controller
       $doctor_id = $user->doctor->id;
       $last_kit = Doctorkit::where('doctor_id', $doctor_id)->where('active',true)->first();
       
+      if($last_kit){
+        $last_bag_obj =json_decode($last_kit->bag);
+        $last_bag_arr =json_decode($last_kit->bag,TRUE);  
+      }else{
+        return response()
+              ->json(['status' => '400', 
+                  'message' => 'el doctor no tiene un Doctorkit asignado']);
+      }
       
-      $last_bag_obj =json_decode($last_kit->bag);
-      $last_bag_arr =json_decode($last_kit->bag,TRUE);
          
       $medicine_list = $request->medicines; 
       if(count($medicine_list)>0){
