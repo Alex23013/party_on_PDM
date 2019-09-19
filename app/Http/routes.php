@@ -65,7 +65,7 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_get_data/{user_id}', 'RestDoctorController@get_data');
 	Route::post('/api/v2/doctor_get_schedule/', 'RestDoctorController@get_schedule');
 	Route::post('/api/v2/doctor_appointments', 'RestDoctorController@appointments');
-	////collection_extra:falta compartir
+	
 	Route::post('/api/v2/doctor_active/','RestDoctorController@active');
 	Route::post('/api/v2/doctor_deactive/','RestDoctorController@deactive');	
 	////collection_viernes
@@ -76,6 +76,9 @@ Route::group(['middleware' => ['token']], function () {
 	Route::post('/api/v2/doctor_get_recipe/','RestDoctorController@get_recipe');
 	Route::post('/api/v2/doctor_cancel_appointment/','RestDoctorController@cancel_appointment');
 	Route::post('/api/v2/get_medicines_groups/','RestDoctorController@get_medicines_groups');
+	//Notification collection
+	Route::post('/api/v2/register_notification/','RestNotificationController@register');
+	Route::post('/api/v2/delete_notification/','RestNotificationController@delete');
 	
 	});
 // -------- END_POINTS_V2

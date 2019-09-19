@@ -319,6 +319,40 @@ class AppointmentController extends Controller
         return view('appointments.new_appointment')->with(compact('patients', 'specialties'));  
     }
 
+    function sendMessage($email){
+        $not = Notification::where('user_email',$email)->first();
+
+        $content = array(
+            "en" => 'English Message'
+            );
+        
+        $fields = array(
+            'app_id' => "5eb5a37e-b458-11e3-ac11-000c2940e62c",
+            'include_player_ids' =>$not->playerid ,
+            'data' => array("foo" => "bar"),
+            'contents' => $content
+        );
+        
+        $fields = json_encode($fields);
+        //print("\nJSON sent:\n");
+        //print($fields);
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        
+        return $response;
+    }  
+    
+    
     public function store_real_time(Request $request){
         $rules1 = [
             'patient_user_id' => 'required',
