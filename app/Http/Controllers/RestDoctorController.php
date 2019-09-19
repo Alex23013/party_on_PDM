@@ -450,6 +450,13 @@ class RestDoctorController extends Controller
         ->json(['status' => '404', 
             'message' => 'Solo usuarios con rol doctor pueden registrar una receta médica']); 
     }else{
+      $app = Appointment::($request->appointment_id);
+      $recipe = $app->recipe;
+      if($recipe){
+        return response()
+        ->json(['status' => '403', 
+            'message' => 'Esta cita ya tiene una receta asignada']); 
+      }
       $data = $request->all();
       unset($data['token']);
       unset($data['user_id']);
