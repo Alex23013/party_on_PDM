@@ -86,7 +86,7 @@
         <div class="col-md-12 ">
           <div class="col-md-2 "></div>
           <div class="col-md-6 ">
-            <!--<button type="button" id = "buttonUpdateLocation" class="btn bg-success margin" style="margin-left: 30%;">  <i class="fa fa-save"></i>  Guardar Nueva Dirección</button> -->
+            <button type="button" id = "buttonUpdateLocation" class="btn bg-success margin" style="margin-left: 30%;">  <i class="fa fa-save"></i>  Guardar Nueva Dirección</button> 
              <div id="responseUpdate" style="margin-left: 10%;" ></div>
           </div>
         </div>            
@@ -118,14 +118,15 @@
     var lat = marker.getPosition().lat();
     var lng = marker.getPosition().lng()
     var parametros={
-            "ds_id":{{$data->id}},
-            "att_latitude":lat,
-            "att_longitude": lng,
+        "_token":"{{ csrf_token() }}",
+        "ds_id":{{$data->id}},
+        "att_latitude":lat,
+        "att_longitude": lng,
         };
     console.log(parametros);
     $.ajax({
         data: parametros,
-        url: '/patients/update_location_appointment',
+        url: '/patients/update_location_d_service',
         type: 'post',
         beforeSend: function(){
                 $("#resUpdate").html("Procesando,espere..");
@@ -152,7 +153,7 @@
           position: new google.maps.LatLng(<?php echo $data->address_to_latitude?>, <?php echo $data->address_to_longitude?>),
           map: map,
           title: "Dirección de llegada de la solicitud", 
-          draggable : false,          
+          draggable : true,          
         });
       }
 

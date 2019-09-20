@@ -320,27 +320,40 @@ class RestDoctorController extends Controller
   public function create_history (Request $request){
     $data = $request->all();
     unset($data['token']);
-    
-    $history = New History;
-    foreach ($data as $key => $value) {
-      if($key == 'last_family_antecedents'){
-        $history->family_antecedents=json_encode($data[$key]);
-      } else if($key == 'personal_antecedents'){
-        $history->personal_antecedents=json_encode($data[$key]);
-      }else if($key == "app_id"){
-        $app  = Appointment::find($data[$key]);
-        $history->attention_id = $app->attention->id;
-      } else{
-        $history->$key=$data[$key];     
-      }      
-    }
-    $history->save();
-    $history->personal_antecedents = json_decode($history->personal_antecedents);
-    $history->family_antecedents = json_decode($history->family_antecedents);
-    return response()
-      ->json(['status' => '201', 
-          'message' => 'Ok',
-          'content' => $history]);
+    $app = Appointment::find($request->app_id);
+    if($app){
+      $hist = History::where('attention_id',$app->attention->id)->first();
+      if($hist){
+        return response()
+        ->json(['status' => '403', 
+            'message' => 'Esta cita médica ya cuenta con historia']);
+      }else{
+        $history = New History;
+        foreach ($data as $key => $value) {
+          if($key == 'last_family_antecedents'){
+            $history->family_antecedents=json_encode($data[$key]);
+          } else if($key == 'personal_antecedents'){
+            $history->personal_antecedents=json_encode($data[$key]);
+          }else if($key == "app_id"){
+            $app  = Appointment::find($data[$key]);
+            $history->attention_id = $app->attention->id;
+          } else{
+            $history->$key=$data[$key];     
+          }      
+        }
+        $history->save();
+        $history->personal_antecedents = json_decode($history->personal_antecedents);
+        $history->family_antecedents = json_decode($history->family_antecedents);
+        return response()
+          ->json(['status' => '201', 
+              'message' => 'Ok',
+              'content' => $history]);
+      }
+    }else{
+      return response()
+        ->json(['status' => '404', 
+            'message' => 'no se encontro la información de esa cita, verifique el id de la cita']); 
+    } 
   }
 
   public function get_medicines_groups(Request $request){

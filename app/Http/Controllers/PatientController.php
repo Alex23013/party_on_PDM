@@ -26,7 +26,7 @@ use Culqi;
 class PatientController extends Controller
 {
 
-    public function __construct() { $this->middleware('auth',['except' => ['payment_app','post_payment_app']]); }
+    public function __construct() { $this->middleware('auth',['except' => ['payment_app','post_payment_app','update_location_d_service','update_location_appointment']]); }
 
     public function index()
  	{
@@ -219,15 +219,15 @@ class PatientController extends Controller
     }
 
     public function update_location_d_service(Request $request){
-      $dservice = Dservice::find($_POST['ds_id']);
+      $dservice = Dservice::find($request->ds_id);
       $then = $dservice->created_at;
       $now = time();        
       $thenTimestamp = strtotime($then);
       $difference_seconds = $now-$thenTimestamp;
       $gap_permited_in_seconds=86400; // 24hours in seconds
       if($difference_seconds>$gap_permited_in_seconds){
-            $dservice ->att_latitude = $_POST['att_latitude'];
-            $dservice ->att_longitude = $_POST['att_longitude'];
+            $dservice ->address_to_latitude = $request->att_latitude;
+            $dservice ->address_to_longitude = $request->att_longitude;
             $dservice ->save();           
         return 1;          
       }else{

@@ -114,30 +114,31 @@
     var lat = marker.getPosition().lat();
     var lng = marker.getPosition().lng()
     var parametros={
-            "attention_id":{{$attention->id}},
-            "att_latitude":lat,
-            "att_longitude": lng,
-        };
+      "_token":"{{ csrf_token() }}",
+      "attention_id":{{$attention->id}},
+      "att_latitude":lat,
+      "att_longitude": lng,
+    };
     console.log(parametros);
     $.ajax({
         data: parametros,
-        url: '/patients/update_location_d_service',
+        url: '/patients/update_location_appointment',
         type: 'post',
         beforeSend: function(){
-                $("#resUpdate").html("Procesando,espere..");
-            },
+          $("#resUpdate").html("Procesando,espere..");
+        },
         success: function(response){
           console.log("events_response",response);
           $("#resUpdate").empty();
           if(response == 1){
             $("#responseUpdate").append("<i class=\"fa fa-check\"></i> Ubicación de la cita actualizada con éxito")
             }else{
-                $("#responseUpdate").append("<i class=\"fa fa-times\"></i> ")
-                $("#responseUpdate").append(response)
+              $("#responseUpdate").append("<i class=\"fa fa-times\"></i> ")
+              $("#responseUpdate").append(response)
             }
-          }
-    }); 
-  });
+        }
+      }); 
+   });
   function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
