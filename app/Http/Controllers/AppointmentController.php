@@ -395,7 +395,7 @@ class AppointmentController extends Controller
         $appointment->date_time = $request->date." ".$request->time;
         $appointment->save();
 
-        $this->sendMessage($patient->user->email);
+        ///$this->sendMessage($patient->user->email);
 
         $appointments = Attention::where('type', 1)->get();
         $info = [];        
