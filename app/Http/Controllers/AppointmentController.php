@@ -327,7 +327,7 @@ class AppointmentController extends Controller
             );
         
         $fields = array(
-            'app_id' => "5eb5a37e-b458-11e3-ac11-000c2940e62c",
+            'app_id' => "f90046ef-3b41-4b6e-b73d-82cd2bac2c4c",
             'include_player_ids' =>$not->playerid ,
             'data' => array("foo" => "bar"),
             'contents' => $content
@@ -393,7 +393,9 @@ class AppointmentController extends Controller
         $doctor = User::find($request->doctor_user_id)->doctor;
         $appointment->doctor_id = $doctor->id;
         $appointment->date_time = $request->date." ".$request->time;
-        $appointment->save(); 
+        $appointment->save();
+
+        $this->sendMessage($patient->user->email);
 
         $appointments = Attention::where('type', 1)->get();
         $info = [];        
