@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServicesTable extends Migration
+class CreatePoolsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,13 @@ class CreateServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('pools', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('service_name');
+            $table->integer('party_id')->unsigned();
+            $table->string('song');
+            $table->integer('frequency')->unsigned();
             $table->timestamps();
+            $table->foreign('party_id')->references('id')->on('parties')->onDelete('cascade');
         });
     }
 
@@ -26,6 +29,6 @@ class CreateServicesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('services');
+        Schema::drop('pools');
     }
 }
