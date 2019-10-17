@@ -10,6 +10,9 @@ use App\Token;
 
 class RestUserController extends Controller
 {
+
+    public function __construct() { $this->middleware('auth',['except' => ['login','register','resetPass','createParty']]); }
+
     public function login(Request $request){
         $user = User::where('email', $request->email)
                ->first();
