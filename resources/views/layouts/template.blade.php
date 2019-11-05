@@ -98,23 +98,7 @@
 </style>
 <body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">     
-    <?php
-    use App\Tcall;
-    $all_tcalls = Tcall::all();
-    $notify_calls = 0;
-    $cites = 0;
-    $emergencies = 0;
-    foreach ($all_tcalls as $tc) {
-      if($tc->status == 0){
-        $notify_calls = $notify_calls+1;
-        if($tc->type == 1){
-          $cites = $cites +1;
-        }else{
-          $emergencies = $emergencies+1;
-        }
-      }
-    }
-    ?>
+    
     @include('layouts.header')
     @include('layouts.main-sidebar')
     <div class="content-wrapper">
@@ -150,31 +134,5 @@
         })
     })
 </script> 
-@if(Auth::user()->role == 2)
-  <script>
-  var socket = io('http://127.0.0.1:3030');
-
-  socket.on('connect',function(){
-    console.log("connected socket");
-    socket.on('recive',function(data){
-      //alert(data);
-      var numNotify = $("#numNotify").html();
-      $("#numNotify").html(parseInt(numNotify)+1);
-
-      var numNot = $("#numNot").html();
-      $("#numNot").html(parseInt(numNot)+1);
-
-      if(data == 1){
-        var numCites = $("#numCites").html();
-        $("#numCites").html(parseInt(numCites)+1);
-      }else{
-        var numEmergencies = $("#numEmergencies").html();
-        $("#numEmergencies").html(parseInt(numEmergencies)+1);
-      }
-      
-    });
-  });
-</script>
-@endif
 </body>
 </html>
