@@ -22,3 +22,6 @@ Route::post('/api/v1/user_register', 'RestUserController@register');
 Route::post('/api/v1/user_reset_password', 'RestUserController@resetPass');
 
 Route::post('/api/v1/create_party', 'RestUserController@createParty');
+Route::get('/api/v1/get_pool', 'RestUserController@getPool');
+
+Route::get('/playsong/{id}', 'RestUserController@play');

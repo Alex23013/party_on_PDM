@@ -8,11 +8,17 @@ use Hash;
 use App\Http\Requests;
 use App\Token;
 
+use App\Pool;
+
 class RestUserController extends Controller
 {
 
-    public function __construct() { $this->middleware('auth',['except' => ['login','register','resetPass','createParty']]); }
+    public function __construct() { $this->middleware('auth',['except' => ['login','register','resetPass','createParty','getPool','play']]); }
 
+    public function play($id){
+
+        return view('player.playsong')->with(compact('id')); 
+    }
     public function login(Request $request){
         $user = User::where('email', $request->email)
                ->first();
@@ -82,5 +88,13 @@ class RestUserController extends Controller
         $party->name = $request->name;
         $party->host_user_id = $request->host_user_id;
         $party->save();
+    }
+
+    public function getPool(){
+        $pools = Pool::all();
+        return response()
+                ->json(['status' => '200',
+                        'message' => 'Ok',
+                        'content'=> $pools]);
     }
 }
