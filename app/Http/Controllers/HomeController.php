@@ -18,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => ['index','player']]);
     }
 
     /**
@@ -73,6 +73,10 @@ class HomeController extends Controller
             return redirect('/logout');
         }
             
+    }
+
+    public function player($id){
+      return view('hello',['id'=>$id]);
     }
 
     public function pdf(){
