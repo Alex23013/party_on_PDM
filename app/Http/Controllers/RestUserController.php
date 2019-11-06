@@ -7,20 +7,19 @@ use App\User;
 use Hash;
 use App\Http\Requests;
 use App\Token;
+use App\Party;
 
 use App\Pool;
 
 class RestUserController extends Controller
 {
-
-    public function __construct() { $this->middleware('auth',['except' => ['login','register','resetPass','createParty','getPool','play']]); }
+    public function __construct() { $this->middleware('auth',['except' => ['login','register','resetPass','createParty','joinParty','getPool','play']]); }
 
     public function play($id){
-
         return view('player.playsong')->with(compact('id')); 
     }
     public function login(Request $request){
-        $user = User::where('email', $request->email)
+        $user = User::where('email',$request->email)
                ->first();
         if($user != null && Hash::check($request->password, $user->password)){
             $user_obj = User::find($user->id);
@@ -35,6 +34,7 @@ class RestUserController extends Controller
             return response()
                 ->json(['status' => '200',
                         'message' => 'Ok',
+                        'email' => $user['id'],
                         'token' => $token,
                         'user'=>$user_obj]); 
         }else{
@@ -87,7 +87,37 @@ class RestUserController extends Controller
         $party = new Party;
         $party->name = $request->name;
         $party->host_user_id = $request->host_user_id;
-        $party->save();
+        $party->latitude = $request->latitude;
+        $party->longitude = $request->longitude;
+        if($party->save())
+        {
+            $stat='200';
+        }else{
+            $stat='401';
+        }
+        return response()
+            ->json(['code' => $party->id,
+                    'status' => $stat,
+                    'name' => $party->name,
+                    'latitude' => $party->latitude,
+                    'longitude' => $party->longitude]);
+    }
+
+    public function joinParty(Request $request){
+        $party = Party::find($request->code);
+        if($party != null)
+        {
+            $stat = '200';
+        }
+        else
+        {
+            $stat = '404';
+        }
+        return response()
+            ->json(['status' => $stat,
+                    'name' => $party->name,
+                    'latitude' => $party->latitude,
+                    'longitude' => $party->longitude]);
     }
 
     public function getPool(){
@@ -97,4 +127,5 @@ class RestUserController extends Controller
                         'message' => 'Ok',
                         'content'=> $pools]);
     }
+
 }
