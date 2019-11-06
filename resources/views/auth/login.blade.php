@@ -9,7 +9,8 @@
                       
                       <div class="login-box-body" style="opacity:0.9;">
                         <div class="col-md-12">
-                            <img src="/images/logos/Logo DocDoor-01.png" style="width: 100%;">
+                            <!--<img src="/images/logos/Logo DocDoor-01.png" style="width: 100%;"> -->
+                            <h2>Party On !</h2>
                         </div>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}

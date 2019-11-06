@@ -6,7 +6,7 @@
      <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     
-    <title>DocDoor | Log in</title>
+    <title>PartyOn | Log in</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -33,7 +33,7 @@
     }
       body {
         background-color:  #006080;
-        background: url(/images/doc.jpg) no-repeat center center fixed;
+        background: url(/images/party_wall.jpg) no-repeat center center fixed;
         background-size: cover;
         -moz-background-size: cover;
         -webkit-background-size: cover;

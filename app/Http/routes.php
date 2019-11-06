@@ -11,7 +11,6 @@
 */
 
 Route::auth();
-
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/playsong/{id}','HomeController@player');
@@ -23,3 +22,5 @@ Route::post('/api/v1/user_reset_password', 'RestUserController@resetPass');
 
 Route::post('/api/v1/create_party', 'RestUserController@createParty');
 Route::post('/api/v1/join_party', 'RestUserController@joinParty');
+Route::get('/api/v1/get_pool', 'RestUserController@getPool');
+Route::get('/playsong/{id}', 'RestUserController@play');

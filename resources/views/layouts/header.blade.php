@@ -20,20 +20,20 @@
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning" id = "numNotify">{{$notify_calls}}</span>
+              <span class="label label-warning" id = "numNotify">5</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Tiene <span id = "numNot">{{$notify_calls}}</span> solicitudes sin atender</li>
+              <li class="header">Tiene <span id = "numNot">5</span> solicitudes sin atender</li>
               <li>
                 <ul class="menu">
                   <li>
                     <a href="/">
-                      <i class="fa fa-stethoscope text-aqua"></i> <span id = "numCites">{{$cites}}</span> solicitudes de citas médicas
+                      <i class="fa fa-stethoscope text-aqua"></i> <span id = "numCites">2</span> solicitudes de citas médicas
                     </a>
                   </li> 
                   <li>
                     <a href="/">
-                      <i class="fa fa-ambulance text-red"></i> <span id = "numEmergencies">{{$emergencies}}</span> solicitudes de emergencias
+                      <i class="fa fa-ambulance text-red"></i> <span id = "numEmergencies">3</span> solicitudes de emergencias
                     </a>
                   </li>               
                 </ul>

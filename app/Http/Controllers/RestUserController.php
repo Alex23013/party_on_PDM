@@ -9,11 +9,15 @@ use App\Http\Requests;
 use App\Token;
 use App\Party;
 
+use App\Pool;
+
 class RestUserController extends Controller
 {
+    public function __construct() { $this->middleware('auth',['except' => ['login','register','resetPass','createParty','joinParty','getPool','play']]); }
 
-    public function __construct() { $this->middleware('auth',['except' => ['login','register','resetPass','createParty','joinParty']]); }
-
+    public function play($id){
+        return view('player.playsong')->with(compact('id')); 
+    }
     public function login(Request $request){
         $user = User::where('email',$request->email)
                ->first();
@@ -114,6 +118,14 @@ class RestUserController extends Controller
                     'name' => $party->name,
                     'latitude' => $party->latitude,
                     'longitude' => $party->longitude]);
+    }
+
+    public function getPool(){
+        $pools = Pool::all();
+        return response()
+                ->json(['status' => '200',
+                        'message' => 'Ok',
+                        'content'=> $pools]);
     }
 
 }

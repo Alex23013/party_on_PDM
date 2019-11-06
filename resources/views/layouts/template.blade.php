@@ -30,8 +30,8 @@
     <!-- font 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
     
-    <!-- Incluyendo Culqi Checkout -->
-    <script src="https://checkout.culqi.com/js/v3"></script>
+    <!-- Incluyendo Culqi Checkout 
+    <script src="https://checkout.culqi.com/js/v3"></script>-->
 
     <!-- jQuery 3 js/jquery-1.8.3.min.js -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -98,23 +98,7 @@
 </style>
 <body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">     
-    <?php
-    use App\Tcall;
-    $all_tcalls = Tcall::all();
-    $notify_calls = 0;
-    $cites = 0;
-    $emergencies = 0;
-    foreach ($all_tcalls as $tc) {
-      if($tc->status == 0){
-        $notify_calls = $notify_calls+1;
-        if($tc->type == 1){
-          $cites = $cites +1;
-        }else{
-          $emergencies = $emergencies+1;
-        }
-      }
-    }
-    ?>
+    
     @include('layouts.header')
     @include('layouts.main-sidebar')
     <div class="content-wrapper">
@@ -129,63 +113,6 @@
 </div>
 
 @yield('specific scripts')  
-
-<script>
-  Culqi.publicKey = 'pk_test_4AOuYFleZVAvrn41';
-
-  var descp = "";
-  var cost = "";
-  var tokenPay = "";
-
-  $('.buyButton').on('click', function(e) {
-    descp = $(this).attr('data-description');
-    cost = $(this).attr('data-cost')*100;
-    tokenPay = $(this).attr('data-tokenPay');
-    console.log('push_dservice: '+tokenPay);
-
-    console.log("buyButton pushed");
-    Culqi.settings({
-        title: "DocDoor services",
-        currency: 'PEN',
-        description: descp ,
-        amount: cost,
-      });
-    Culqi.open();
-    e.preventDefault();
-    });
-
-  function culqi() {
-      if (Culqi.token) { // ¡Objeto Token creado exitosamente!
-          var token = Culqi.token.id;
-          var email = Culqi.token.email;
-          console.log('Se ha creado un token:' + token);
-          var data = {descp: descp , cost: cost, token_pay: token, email: email,tokenPay:tokenPay};
-          console.log('dservice tokenPay: '+tokenPay);
-          $.ajax({
-            data: data,
-            url: '/patients/payment',
-            type: 'post',
-            success: function(response){
-              console.log("response:");
-                console.log(response);
-                $("#alertsuccess").append('<div class="alert alert-success alert-dismissible pTop" role="alert">'+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+"<h3>Pago Realizado</h3><h4>"+response+" </h4>"+"</div>");         
-            },
-            error:function(er){
-              console.log("error:");
-                console.log(er);        
-            }
-
-       });
-          console.log("end_culqi");
-
-      } else { // ¡Hubo algún problema!
-          // Mostramos JSON de objeto error en consola
-          console.log(Culqi.error);
-          alert(Culqi.error.user_message);
-      }
-    };
-
-</script>
 
 <script>
     $(function () {
@@ -207,31 +134,5 @@
         })
     })
 </script> 
-@if(Auth::user()->role == 2)
-  <script>
-  var socket = io('http://127.0.0.1:3030');
-
-  socket.on('connect',function(){
-    console.log("connected socket");
-    socket.on('recive',function(data){
-      //alert(data);
-      var numNotify = $("#numNotify").html();
-      $("#numNotify").html(parseInt(numNotify)+1);
-
-      var numNot = $("#numNot").html();
-      $("#numNot").html(parseInt(numNot)+1);
-
-      if(data == 1){
-        var numCites = $("#numCites").html();
-        $("#numCites").html(parseInt(numCites)+1);
-      }else{
-        var numEmergencies = $("#numEmergencies").html();
-        $("#numEmergencies").html(parseInt(numEmergencies)+1);
-      }
-      
-    });
-  });
-</script>
-@endif
 </body>
 </html>
