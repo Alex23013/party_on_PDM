@@ -27,3 +27,4 @@ Route::post('/api/v1/evaluate_near_parties', 'RestPartyController@evaluateNearPa
 
 Route::get('/api/v1/get_pool', 'RestPoolController@getPool');
 Route::get('/api/v1/get_top_ten', 'RestPoolController@getTopTen');
+Route::post('/api/v1/add_pool', 'RestPoolController@addPool');
