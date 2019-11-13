@@ -7,7 +7,6 @@ use App\User;
 use Hash;
 use App\Http\Requests;
 use App\Token;
-use App\Party;
 
 use App\Pool;
 
@@ -81,43 +80,6 @@ class RestUserController extends Controller
                 ->json(['status' => '406',
                         'message' => 'No existe un usuario registrado para ese correo']);
         }   
-    }
-
-    public function createParty(Request $request){
-        $party = new Party;
-        $party->name = $request->name;
-        $party->host_user_id = $request->host_user_id;
-        $party->latitude = $request->latitude;
-        $party->longitude = $request->longitude;
-        if($party->save())
-        {
-            $stat='200';
-        }else{
-            $stat='401';
-        }
-        return response()
-            ->json(['code' => $party->id,
-                    'status' => $stat,
-                    'name' => $party->name,
-                    'latitude' => $party->latitude,
-                    'longitude' => $party->longitude]);
-    }
-
-    public function joinParty(Request $request){
-        $party = Party::find($request->code);
-        if($party != null)
-        {
-            $stat = '200';
-        }
-        else
-        {
-            $stat = '404';
-        }
-        return response()
-            ->json(['status' => $stat,
-                    'name' => $party->name,
-                    'latitude' => $party->latitude,
-                    'longitude' => $party->longitude]);
     }
 
     public function getPool(){
