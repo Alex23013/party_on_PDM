@@ -8,8 +8,6 @@ use Hash;
 use App\Http\Requests;
 use App\Token;
 
-use App\Pool;
-
 class RestUserController extends Controller
 {
     public function __construct() { $this->middleware('auth',['except' => ['login','register','resetPass','createParty','joinParty','getPool','play']]); }
@@ -80,14 +78,6 @@ class RestUserController extends Controller
                 ->json(['status' => '406',
                         'message' => 'No existe un usuario registrado para ese correo']);
         }   
-    }
-
-    public function getPool(){
-        $pools = Pool::all();
-        return response()
-                ->json(['status' => '200',
-                        'message' => 'Ok',
-                        'content'=> $pools]);
     }
 
 }

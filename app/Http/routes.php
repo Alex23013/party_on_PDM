@@ -14,6 +14,7 @@ Route::auth();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/playsong/{id}','HomeController@player');
+Route::get('/playsong/{id}', 'RestUserController@play');
 
 //End-points routes
 Route::post('/api/v1/user_login', 'RestUserController@login');
@@ -24,5 +25,5 @@ Route::post('/api/v1/create_party', 'RestPartyController@createParty');
 Route::post('/api/v1/join_party', 'RestPartyController@joinParty');
 Route::post('/api/v1/evaluate_near_parties', 'RestPartyController@evaluateNearParties');
 
-Route::get('/api/v1/get_pool', 'RestUserController@getPool');
-Route::get('/playsong/{id}', 'RestUserController@play');
+Route::get('/api/v1/get_pool', 'RestPoolController@getPool');
+Route::get('/api/v1/get_top_ten', 'RestPoolController@getTopTen');
