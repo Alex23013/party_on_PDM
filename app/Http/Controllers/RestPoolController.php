@@ -62,4 +62,20 @@ class RestPoolController extends Controller
     	}
     	
     }
+
+    public function vote(Request $request){
+    	$song = Song::find($request->song_id);
+    	if($song == null){
+    		return response()
+                ->json(['status' => '400',
+                        'message' => 'song not found']);	
+    	}
+    	$pool = Pool::where('song_id',$song->id)->first();
+    	$pool->frequency = $pool->frequency+1;
+    	$pool->save();
+    	return response()
+                ->json(['status' => '200',
+                        'message' => 'Ok',
+                    	'pool_affected'=> $pool]);
+    }
 }
