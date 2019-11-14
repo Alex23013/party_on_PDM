@@ -20,9 +20,24 @@ class RestPoolController extends Controller
                         'content'=> $pools]);
     }
 
-    public function getTopTen(){
+    public function getTop(){
+        $pool = DB::table('pools')
+                ->orderBy('frequency', 'desc')
+                ->take(1)
+                ->get();
+        return response()
+                ->json(['status' => '200',
+                        'message' => 'Ok',
+                        'party_id'=> $pool[0]->party_id,
+                        'song_id'=> $pool[0]->song_id,
+                        'frequency'=> $pool[0]->frequency,
+                        ]);
+    }
+
+    public function getTopTen($party_id){
     	$pools = DB::table('pools')
                 ->orderBy('frequency', 'desc')
+                ->take(10)
                 ->get();
         return response()
                 ->json(['status' => '200',
