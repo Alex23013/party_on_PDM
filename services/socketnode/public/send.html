@@ -1,0 +1,24 @@
+<html>
+<head>
+  <title>ver camara</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+</head>
+</head>
+<body>
+  <div id="logger"></div>
+
+  <script>
+    var socket = io('http://127.0.0.1:3030');
+
+    socket.on('connect',function(){
+      console.log("connected socket");
+      $json = {
+        "id": socket.id,
+        "data": "prueba"
+      }
+      socket.emit('send', $json);
+    });
+  </script>
+</body>
+</html>

@@ -263,6 +263,27 @@ class UserController extends Controller
     //store my profile user info
     public function store_update(Request $request)
     {
+        $rules = [
+                'name' => 'min:2|max:255',
+                'last_name' => 'min:2|max:255',
+                'email' => 'email|max:255|unique:users',
+                'password' => 'min:6'
+            ];
+        $messages = [
+                'name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Nombre".',
+                'name.max' => 'Campo "Nombre" es demasiado extenso.',
+
+                'last_name.min' => 'Ingrese como mínimo 2 caracteres en el campo "Apellido".',
+                'last_name.max' => 'Campo "Apellido" es demasiado extenso.',
+                
+                'email.email' => 'Ingrese un email válido.',
+                'email.max' => 'Campo "E-mail" es demasiado extenso.',
+                'email.unique' => 'Este email ya está en uso',
+                'password.min' => 'Ingrese como mínimo 6 caracteres en el campo "Contraseña".'
+            ];
+
+            $this->validate($request, $rules, $messages);
+
         $user = User::findOrFail(Auth:: user()->id);
         $data = $request->all();
         unset($data['_token']);

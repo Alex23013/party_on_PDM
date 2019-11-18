@@ -149,6 +149,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
+        Elibyy\TCPDF\ServiceProvider::class,
+        //Barryvdh\DomPDF\ServiceProvider::class,
+        //Kgcoder\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -191,6 +194,10 @@ return [
         'Hash' => Illuminate\Support\Facades\Hash::class,
         
         'Image' => Intervention\Image\Facades\Image::class,
+        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
+        //'PDF' => Barryvdh\DomPDF\Facade::class,
+        //'PDF' => Kgcoder\DomPDF\Facade::class,
+
 
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,

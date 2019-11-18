@@ -81,6 +81,14 @@
                 <span class="col-md-4"> Código del Paciente: </span>
                 <label  class="col-md-8">{{$s_user->patient_code}} </label>
               </div>
+              <div class="col-md-12" >
+                <span class="col-md-4"> Género: </span>
+                @if ($s_user->genre == 1)
+                  <label  class="col-md-8"> Masculino </label>
+                @else
+                  <label  class="col-md-8"> Femenino </label>
+                @endif
+              </div>
               @endif
               @if ($user['role']==1)
                 <div class="col-md-12" >

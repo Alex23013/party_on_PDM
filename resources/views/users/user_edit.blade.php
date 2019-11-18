@@ -29,6 +29,17 @@
             <!-- /.box-header -->
             <div class="box-body  mm-left">
             	<div class="row">
+            		<div class="col-md-5" style="margin-left: 15px;">
+            			@if (count($errors) > 0)
+                      <div class="alert alert-danger">
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                @endif	
+            		</div>
 	            	<div class="col-md-8">
 	            	  	@if (Auth::user()->id == $user['id'])
 	            		<form class="form-horizontal" role="form" method="POST" action="/users/profile/edit">

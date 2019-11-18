@@ -16,6 +16,32 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          @if(Auth::user()->role == 2)
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning" id = "numNotify">5</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">Tiene <span id = "numNot">5</span> solicitudes sin atender</li>
+              <li>
+                <ul class="menu">
+                  <li>
+                    <a href="/">
+                      <i class="fa fa-stethoscope text-aqua"></i> <span id = "numCites">2</span> solicitudes de citas médicas
+                    </a>
+                  </li> 
+                  <li>
+                    <a href="/">
+                      <i class="fa fa-ambulance text-red"></i> <span id = "numEmergencies">3</span> solicitudes de emergencias
+                    </a>
+                  </li>               
+                </ul>
+              </li>
+              <li class="footer"><a href="/">Ver todas</a></li>
+            </ul>
+          </li>
+          @endif
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{$url_image}}" class="img-circle" alt="User Image" width="20" height="20">

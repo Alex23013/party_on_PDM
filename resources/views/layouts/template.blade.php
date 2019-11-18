@@ -30,8 +30,8 @@
     <!-- font 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
     
-    <!-- Incluyendo Culqi Checkout -->
-    <script src="https://checkout.culqi.com/js/v3"></script>
+    <!-- Incluyendo Culqi Checkout 
+    <script src="https://checkout.culqi.com/js/v3"></script>-->
 
     <!-- jQuery 3 js/jquery-1.8.3.min.js -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -65,6 +65,7 @@
     <script src="{{ asset('js/thingsAppears.js') }}"></script>
     <!-- SlimScroll -->
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 </head>
 @if(Auth:: user()->avatar == "default.png")
    <?php  $url_image = "/images/".Auth:: user()->avatar?>
@@ -77,16 +78,19 @@
         padding-right: 3%;
       }
     @font-face {
-        font-family: "font_gotham";
-        /*src: url("fonts/GothamMedium.woff") format('woff');*/
-        src: url("fonts/GothamBook.woff") format('woff');
+        font-family: "font_gothamBook";
+        src: url("fonts/GothamMedium.woff") format('woff');
+        /*src: url("fonts/GothamBook.woff") format('woff');*/
         }
     .main-header .logo{
-      font-family: font_gotham;  
+      font-family: font_gothamBook, sans-serif;
+      font-display: swap;
+      font-size: 20px;
     }
     body {
-      font-family: font_gotham;
-      font-size: 12px;
+      font-family: font_gothamBook, sans-serif;
+      font-size: 13px;
+      font-display: swap;
     }
     .mm-left{
         margin-left: 2%;
@@ -95,12 +99,12 @@
 <body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">     
     
-    
     @include('layouts.header')
     @include('layouts.main-sidebar')
     <div class="content-wrapper">
       <section class="content">
         @yield('content')  
+        
       </section>
     </div>  
 
@@ -111,58 +115,17 @@
 @yield('specific scripts')  
 
 <script>
-  Culqi.publicKey = 'pk_test_4AOuYFleZVAvrn41';
-
-  var descp = "";
-  var cost = "";
-
-  $('#buyButton').on('click', function(e) {
-    descp = $(this).attr('data-description');
-    cost = $(this).attr('data-cost')*100;
-
-    Culqi.settings({
-        title: "DocDoor services",
-        currency: 'PEN',
-        description: descp ,
-        amount: cost,
-      });
-    Culqi.open();
-    e.preventDefault();
-    });
-
-  function culqi() {
-      if (Culqi.token) { // ¡Objeto Token creado exitosamente!
-          var token = Culqi.token.id;
-          var email = Culqi.token.email;
-          //alert('Se ha creado un token:' + token);
-          var data = {descp: descp , cost: cost, token: token, email: email};
-          var url = "/patients/payment";
-
-          $.post(url,data,function(res){
-            alert(res);
-          });
-
-      } else { // ¡Hubo algún problema!
-          // Mostramos JSON de objeto error en consola
-          console.log(Culqi.error);
-          alert(Culqi.error.user_message);
-      }
-    };
-
-</script>
-
-<script>
     $(function () {
         $('.DataTable').DataTable({
         'paging' : true,
         'lengthChange': false,
-        'searching' : true,
+        //'searching' : true,
         'ordering' : true,
         'info' : false,
         'autoWidth' : false,
         'responsive': true,
         "language": {
-            "search": "Buscar",
+            //"search": "Buscar",
             "paginate": {
             "previous": "Anterior",
             "next": "Siguiente",
@@ -171,6 +134,5 @@
         })
     })
 </script> 
-
 </body>
 </html>
